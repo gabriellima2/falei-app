@@ -1,9 +1,10 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
+import { Default } from "@/layouts";
 
 export const Introduction = () => {
 	return (
-		<View>
+		<Default>
 			<Text>Hello World</Text>
-		</View>
+		</Default>
 	);
 };
