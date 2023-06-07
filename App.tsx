@@ -1,8 +1,7 @@
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "styled-components/native";
+import { NavigationContainer } from "@react-navigation/native";
 import {
 	useFonts,
 	Roboto_400Regular,
@@ -11,6 +10,8 @@ import {
 } from "@expo-google-fonts/roboto";
 
 import { SplashScreen } from "@/components";
+import { PublicRoutes } from "@/routes";
+
 import { theme } from "@/styles/theme";
 
 export default function App() {
@@ -27,20 +28,9 @@ export default function App() {
 				<SplashScreen />
 			) : (
 				<NavigationContainer>
-					<View style={styles.container}>
-						<Text>Open up App.tsx to start working on your app!</Text>
-					</View>
+					<PublicRoutes />
 				</NavigationContainer>
 			)}
 		</ThemeProvider>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-});
