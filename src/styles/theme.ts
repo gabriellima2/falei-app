@@ -25,9 +25,8 @@ export const theme = {
 		},
 	},
 	fontSizes: {
-		display: "40px",
-		lg: "24px",
-		md: "20px",
+		display: "24px",
+		lg: "20px",
 		regular: "16px",
 		sm: "14px",
 		xs: "12px",
