@@ -10,6 +10,7 @@ import {
 	Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
+import { SplashScreen } from "@/components";
 import { theme } from "@/styles/theme";
 
 export default function App() {
@@ -23,7 +24,7 @@ export default function App() {
 		<ThemeProvider theme={theme}>
 			<StatusBar style="light" />
 			{!fontsLoaded ? (
-				<Text>Carrregando...</Text>
+				<SplashScreen />
 			) : (
 				<NavigationContainer>
 					<View style={styles.container}>
