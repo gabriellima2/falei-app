@@ -19,7 +19,7 @@ export const theme = {
 	},
 	fontsFamily: {
 		main: {
-			semibold: "Roboto_600SemiBold",
+			bold: "Roboto_700Bold",
 			medium: "Roboto_500Medium",
 			regular: "Roboto_400Regular",
 		},
