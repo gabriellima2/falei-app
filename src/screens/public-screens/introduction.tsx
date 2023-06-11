@@ -4,7 +4,7 @@ import { Typography } from "@/components";
 export const Introduction = () => {
 	return (
 		<Default>
-			<Typography.Title hasDisplaySize>Hello World</Typography.Title>
+			<Typography.Title isDisplaySize>Hello World</Typography.Title>
 		</Default>
 	);
 };

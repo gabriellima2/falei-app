@@ -17,7 +17,7 @@ export const theme = {
 			alert: "#E16161",
 		},
 	},
-	fontsFamily: {
+	fontFamily: {
 		main: {
 			bold: "Roboto_700Bold",
 			medium: "Roboto_500Medium",
