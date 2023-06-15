@@ -28,6 +28,7 @@ export const BaseButton = (props: BaseButtonProps) => {
 			onlyText={onlyText}
 			bordered={bordered}
 			alignAtStart={hasRightIcon || hasLeftIcon}
+			activeOpacity={0.8}
 		>
 			<Container>
 				{hasLeftIcon && (
