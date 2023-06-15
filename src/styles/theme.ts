@@ -12,6 +12,7 @@ export const theme = {
 		utils: {
 			blue: "#93C4FF",
 			purple: "#C64BFF",
+			white: "#F6F7F7",
 		},
 		feedbacks: {
 			alert: "#E16161",
@@ -41,6 +42,6 @@ export const theme = {
 	rounded: {
 		sm: "2px",
 		regular: "16px",
-		md: "32px",
+		md: "28px",
 	},
 };
