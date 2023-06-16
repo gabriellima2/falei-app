@@ -73,7 +73,7 @@ export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 export const Button = styled.TouchableOpacity<ButtonProps>`
 	${({ theme, alignAtStart, bordered, onlyText }) => css`
 		height: 100%;
-		max-height: 78px;
+		max-height: 70px;
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
