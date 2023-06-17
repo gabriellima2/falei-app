@@ -1,12 +1,16 @@
-import { screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 
 import { Indicator, type IndicatorProps } from "./indicator";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const DATA_AMOUNT = 3;
 const CURRENT_POSITION = 1;
+const HANDLE_PRESS = jest.fn();
 
-type Props = Omit<IndicatorProps, "dataAmount" | "currentPosition">;
+type Props = Omit<
+	IndicatorProps,
+	"dataAmount" | "currentPosition" | "handlePress"
+>;
 
 const renderComponent = (props: Props) =>
 	renderWithThemeProvider(
@@ -14,6 +18,7 @@ const renderComponent = (props: Props) =>
 			{...props}
 			currentPosition={CURRENT_POSITION}
 			dataAmount={DATA_AMOUNT}
+			handlePress={HANDLE_PRESS}
 		/>
 	);
 
@@ -44,6 +49,26 @@ describe("<Indicator />", () => {
 			expect(indicatorProps.accessibilityLabel).toBe(
 				`${CURRENT_POSITION} de ${DATA_AMOUNT}`
 			);
+		});
+	});
+	describe("Interactions", () => {
+		describe("Press", () => {
+			it("should not call handlePress if isActive is true and when pressed", () => {
+				renderComponent({ isActive: true });
+
+				const indicator = screen.getByRole("button");
+				fireEvent.press(indicator);
+
+				expect(HANDLE_PRESS).not.toBeCalled();
+			});
+			it("should call handlePress if isActive is false and when pressed", () => {
+				renderComponent({ isActive: false });
+
+				const indicator = screen.getByRole("button");
+				fireEvent.press(indicator);
+
+				expect(HANDLE_PRESS).toBeCalledWith(CURRENT_POSITION);
+			});
 		});
 	});
 });
