@@ -36,6 +36,7 @@ const Container = styled.View<ContainerProps>`
 		padding-top: ${STATUSBAR_HEIGHT}px;
 		padding-left: ${hasHorizontalSpacing ? theme.spaces[3] : 0};
 		padding-right: ${hasHorizontalSpacing ? theme.spaces[3] : 0};
+		padding-bottom: ${theme.spaces[3]};
 		background-color: ${theme.colors.main};
 	`}
 `;

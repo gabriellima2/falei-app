@@ -1,14 +1,14 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { Introduction } from "@/screens";
+import { Onboarding } from "@/screens";
 
 const Stack = createStackNavigator();
 
 export const PublicRoutes = () => (
 	<>
-		<Stack.Navigator initialRouteName="Introduction">
+		<Stack.Navigator initialRouteName="Onboarding">
 			<Stack.Screen
-				name="Introduction"
-				component={Introduction}
+				name="Onboarding"
+				component={Onboarding}
 				options={{ headerShown: false }}
 			/>
 		</Stack.Navigator>

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components/native";
-import { Typography } from "../../commons";
+import { Typography } from "../commons";
 
 export type OnboardingItemProps = {
 	title: string;
@@ -36,10 +36,10 @@ const Container = styled.View`
 `;
 
 const Image = styled.Image`
-	width: 100%;
-	max-width: 320px;
-	max-height: 250px;
-	height: 50%;
+	width: 320px;
+	min-width: auto;
+	height: 250px;
+	min-height: auto;
 `;
 
 const TextContainer = styled.View`
