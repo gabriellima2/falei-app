@@ -54,7 +54,7 @@ type DefaultProps = {
 export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 	bordered: (theme) => css`
 		border: 1.5px solid ${theme.colors.overlay};
-		background-color: transparent;
+		background-color: ${theme.colors.utils.darkGray};
 	`,
 	onlyText: () => css`
 		height: auto;
@@ -66,13 +66,15 @@ export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 	`,
 	hasContrast: (theme) => css`
 		border: 1px solid ${theme.colors.overlay};
-		background-color: ${theme.colors.utils.white}0d;
+		background-color: ${theme.colors.utils.darkGray};
 	`,
 };
 
 export const Button = styled.TouchableOpacity<ButtonProps>`
 	${({ theme, alignAtStart, bordered, onlyText }) => css`
-		height: 100%;
+		flex: 1;
+		width: 100%;
+		height: 70px;
 		max-height: 70px;
 		flex-direction: row;
 		align-items: center;

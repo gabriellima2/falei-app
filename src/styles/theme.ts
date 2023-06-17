@@ -13,6 +13,7 @@ export const theme = {
 			blue: "#93C4FF",
 			purple: "#C64BFF",
 			white: "#F6F7F7",
+			darkGray: "#1D1D1D",
 		},
 		feedbacks: {
 			alert: "#E16161",
