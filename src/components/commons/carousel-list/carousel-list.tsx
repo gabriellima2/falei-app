@@ -1,5 +1,5 @@
 import { FlatList } from "react-native";
-import { Indicator } from "./components/indicator";
+import { Indicator } from "./components";
 
 export type CarouselListProps<TData extends {}> = {
 	data: TData[];
