@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react-native";
 
-import { OnboardingItem, type OnboardingItemProps } from "./onboarding-item";
+import { OnboardingItem, type OnboardingItemProps } from "./OnboardingItem";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const ONBOARDING_ITEM_TITLE = "any_title";

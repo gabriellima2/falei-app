@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components/native";
-import { LoadingIndicator } from "./loading-indicator";
+import { LoadingIndicator } from "./LoadingIndicator";
 
 export const SplashScreen = () => {
 	return (

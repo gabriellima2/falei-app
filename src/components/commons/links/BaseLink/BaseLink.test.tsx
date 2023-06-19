@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
-import { BaseLink, type BaseLinkProps } from "./base-link";
+import { fireEvent, screen } from "@testing-library/react-native";
+import { BaseLink, type BaseLinkProps } from "./BaseLink";
 import { mockNavigate } from "jest-setup";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 

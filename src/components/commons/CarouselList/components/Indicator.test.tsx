@@ -1,6 +1,6 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
-import { Indicator, type IndicatorProps } from "./indicator";
+import { Indicator, type IndicatorProps } from "./Indicator";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const DATA_AMOUNT = 3;

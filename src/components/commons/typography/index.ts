@@ -1,5 +1,5 @@
-import { Title } from "./title";
-import { Paragraph } from "./paragraph";
-import { Small } from "./small";
+import { Title } from "./Title";
+import { Paragraph } from "./Paragraph";
+import { Small } from "./Small";
 
 export const Typography = { Title, Paragraph, Small };

@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
-import { CarouselList, type CarouselListProps } from "./carousel-list";
+import { CarouselList, type CarouselListProps } from "./CarouselList";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 type Data = { text: string };

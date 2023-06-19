@@ -1,1 +1,1 @@
-export * from "./public-screens";
+export * from "./PublicScreens";

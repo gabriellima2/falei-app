@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
-import { BaseButton, BaseButtonProps } from "./base-button";
+import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const BUTTON_TEXT = "any_text";

@@ -1,5 +1,5 @@
 import { useNavigation } from "@/hooks/use-navigate";
-import { BaseButton, BaseButtonProps } from "../../buttons";
+import { BaseButton, BaseButtonProps } from "../../Buttons";
 
 export type BaseLinkProps<StackParams> = BaseButtonProps & {
 	to: {

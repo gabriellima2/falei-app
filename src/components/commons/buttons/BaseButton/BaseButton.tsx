@@ -1,7 +1,7 @@
 import type { TouchableOpacityProps } from "react-native";
 import styled, { css, useTheme } from "styled-components/native";
 
-import { Typography } from "@/components/commons/typography";
+import { Typography } from "@/components/commons/Typography";
 import type { Modifiers } from "@/@types/modifiers";
 
 type IconProps = { color: string; size: number };
