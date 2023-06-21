@@ -3,6 +3,7 @@
     "name": "Falei",
     "slug": "falei",
     "version": "1.0.0",
+		"scheme": "myapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",

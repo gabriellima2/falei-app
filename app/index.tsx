@@ -1,15 +1,14 @@
 import styled, { css } from "styled-components/native";
 
 import { BaseButton, OnboardingItem } from "@/components";
-import { Default } from "@/layouts";
 
-export const Onboarding = () => {
+export default function Home() {
 	return (
-		<Default>
+		<>
 			<Container>
 				<OnboardingItem
 					img={{
-						src: require("../../../public/assets/onboarding/img1.png"),
+						src: require("../public/assets/onboarding/img1.png"),
 						alt: "Imagem 1",
 					}}
 					title="Melhore o controle de sua respiração"
@@ -20,9 +19,9 @@ export const Onboarding = () => {
 				<BaseButton bordered>Voltar</BaseButton>
 				<BaseButton>Próximo</BaseButton>
 			</Footer>
-		</Default>
+		</>
 	);
-};
+}
 
 const Container = styled.View`
 	flex: 1;
