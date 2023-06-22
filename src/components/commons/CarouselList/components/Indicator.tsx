@@ -38,7 +38,7 @@ const Button = styled.TouchableOpacity<ButtonProps>`
 		width: 12px;
 		height: 12px;
 		border-radius: 1000px;
-		background-color: ${theme.colors.utils.darkGray};
+		background-color: ${theme.colors.overlay};
 		${isActive && modifiers.isActive(theme)};
 	`}
 `;

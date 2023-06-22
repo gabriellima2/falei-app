@@ -2,7 +2,12 @@ import { useState } from "react";
 import styled, { css } from "styled-components/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { BaseButton, OnboardingItem, CarouselList } from "@/components";
+import {
+	BaseButton,
+	OnboardingItem,
+	CarouselList,
+	DefaultHorizontalSpacing,
+} from "@/components";
 
 interface Onboarding {
 	id: string;
@@ -35,7 +40,7 @@ const data: Onboarding[] = [
 ];
 
 export default function Home() {
-	const [currentItem, setCurrentItem] = useState(1);
+	const [currentItem, setCurrentItem] = useState(0);
 
 	return (
 		<>
@@ -65,7 +70,7 @@ const Container = styled.View`
 	justify-content: center;
 `;
 
-const Footer = styled.View`
+const Footer = styled(DefaultHorizontalSpacing)`
 	${({ theme }) => css`
 		flex-direction: row;
 		gap: ${theme.spaces[3]};

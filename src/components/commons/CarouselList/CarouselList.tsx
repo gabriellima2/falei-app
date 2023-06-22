@@ -1,4 +1,5 @@
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
+import styled, { css } from "styled-components/native";
 
 import { useCarouseList } from "./hooks";
 import { Indicator } from "./components";
@@ -22,7 +23,7 @@ export const CarouselList = <TData extends DefaultData>(
 	const dataAmount = data.length;
 
 	return (
-		<View>
+		<Container>
 			<FlatList<TData>
 				data={data}
 				testID="carousel"
@@ -37,7 +38,7 @@ export const CarouselList = <TData extends DefaultData>(
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => <Item {...item} />}
 			/>
-			<>
+			<Controls>
 				{[...new Array(dataAmount)].map((_, i) => (
 					<Indicator
 						key={i}
@@ -47,7 +48,22 @@ export const CarouselList = <TData extends DefaultData>(
 						handlePress={(item) => scrollToIndex(item)}
 					/>
 				))}
-			</>
-		</View>
+			</Controls>
+		</Container>
 	);
 };
+
+const Container = styled.View`
+	width: 100%;
+	flex: 1;
+	align-items: center;
+`;
+
+const Controls = styled.View`
+	${({ theme }) => css`
+		align-items: flex-start;
+		flex-direction: row;
+		gap: ${theme.spaces[3]};
+		margin-bottom: ${theme.spaces[3]};
+	`}
+`;

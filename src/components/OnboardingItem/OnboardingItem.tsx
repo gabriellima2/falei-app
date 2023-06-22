@@ -1,4 +1,6 @@
+import { Dimensions } from "react-native";
 import styled, { css } from "styled-components/native";
+
 import { Typography } from "../commons";
 
 export type OnboardingItemProps = {
@@ -30,8 +32,11 @@ export const OnboardingItem = (props: OnboardingItemProps) => {
 
 const Container = styled.View`
 	${({ theme }) => css`
+		width: ${Dimensions.get("window").width}px;
 		align-items: center;
+		justify-content: center;
 		gap: ${theme.spaces[4]};
+		padding: ${theme.spaces[3]};
 	`}
 `;
 
