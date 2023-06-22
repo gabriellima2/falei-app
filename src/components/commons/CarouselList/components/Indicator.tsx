@@ -10,15 +10,16 @@ export type IndicatorProps = {
 
 export const Indicator = (props: IndicatorProps) => {
 	const { dataAmount, currentPosition, isActive, handlePress } = props;
+	const formattedCurrentPosition = currentPosition + 1;
 	return (
 		<Button
 			isActive={isActive}
 			onPress={isActive ? undefined : () => handlePress(currentPosition)}
 			accessibilityState={{ selected: isActive, disabled: isActive }}
 			accessibilityRole="button"
-			accessibilityLabel={`${currentPosition + 1} de ${dataAmount}`}
+			accessibilityLabel={`${formattedCurrentPosition} de ${dataAmount}`}
 			accessibilityHint={
-				isActive ? undefined : `Mudar para o item ${currentPosition + 1}`
+				isActive ? undefined : `Mudar para o item ${formattedCurrentPosition}`
 			}
 		/>
 	);

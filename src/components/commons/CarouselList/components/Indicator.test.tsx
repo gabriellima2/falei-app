@@ -4,7 +4,8 @@ import { Indicator, type IndicatorProps } from "./Indicator";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const DATA_AMOUNT = 3;
-const CURRENT_POSITION = 1;
+const CURRENT_POSITION = 0;
+const FORMATTED_CURRENT_POSITION = CURRENT_POSITION + 1;
 const HANDLE_PRESS = jest.fn();
 
 type Props = Omit<
@@ -33,7 +34,7 @@ describe("<Indicator />", () => {
 			expect(indicatorProps.accessibilityState.selected).toBeTruthy();
 			expect(indicatorProps.accessibilityState.disabled).toBeTruthy();
 			expect(indicatorProps.accessibilityLabel).toBe(
-				`${CURRENT_POSITION} de ${DATA_AMOUNT}`
+				`${FORMATTED_CURRENT_POSITION} de ${DATA_AMOUNT}`
 			);
 		});
 		it("should render correctly if isActive is false", () => {
@@ -42,12 +43,12 @@ describe("<Indicator />", () => {
 			const indicatorProps = screen.getByRole("button").props;
 
 			expect(indicatorProps.accessibilityHint).toBe(
-				`Mudar para o item ${CURRENT_POSITION}`
+				`Mudar para o item ${FORMATTED_CURRENT_POSITION}`
 			);
 			expect(indicatorProps.accessibilityState.selected).toBeFalsy();
 			expect(indicatorProps.accessibilityState.disabled).toBeFalsy();
 			expect(indicatorProps.accessibilityLabel).toBe(
-				`${CURRENT_POSITION} de ${DATA_AMOUNT}`
+				`${FORMATTED_CURRENT_POSITION} de ${DATA_AMOUNT}`
 			);
 		});
 	});
