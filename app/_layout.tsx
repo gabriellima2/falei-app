@@ -38,10 +38,6 @@ export default function RootLayout() {
 	);
 }
 
-type ContainerProps = {
-	hasHorizontalSpacing?: boolean;
-};
-
 const STATUSBAR_HEIGHT =
 	Platform.OS === "ios" ? 16 : NativeModules.StatusBarManager.HEIGHT + 16;
 
@@ -52,12 +48,10 @@ const SafeContainer = styled.SafeAreaView`
 	`}
 `;
 
-const Container = styled.View<ContainerProps>`
-	${({ theme, hasHorizontalSpacing = true }) => css`
+const Container = styled.View`
+	${({ theme }) => css`
 		flex: 1;
 		padding-top: ${STATUSBAR_HEIGHT}px;
-		padding-left: ${hasHorizontalSpacing ? theme.spaces[3] : 0};
-		padding-right: ${hasHorizontalSpacing ? theme.spaces[3] : 0};
 		padding-bottom: ${theme.spaces[3]};
 		background-color: ${theme.colors.main};
 	`}
