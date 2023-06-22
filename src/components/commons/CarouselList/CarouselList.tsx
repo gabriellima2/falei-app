@@ -1,36 +1,53 @@
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
+
+import { useCarouseList } from "./hooks";
 import { Indicator } from "./components";
 
 export type CarouselListProps<TData extends {}> = {
 	data: TData[];
-	activeItem: number;
+	currentItem: number;
+	changeCurrentItem: (item: number) => void;
 	Item: (props: TData) => JSX.Element;
 };
 
-export const CarouselList = <TData extends object>(
+type DefaultData = { id: string };
+
+export const CarouselList = <TData extends DefaultData>(
 	props: CarouselListProps<TData>
 ) => {
-	const { activeItem, data, Item } = props;
+	const { currentItem, data, changeCurrentItem, Item } = props;
+	const { ref, handleViewableChange, scrollToIndex } = useCarouseList<TData>({
+		changeCurrentItem,
+	});
 	const dataAmount = data.length;
+
 	return (
-		<FlatList<TData>
-			data={data}
-			testID="carousel"
-			accessibilityValue={{ max: dataAmount, min: 1, now: activeItem }}
-			renderItem={({ item }) => <Item {...item} />}
-			ListFooterComponent={() => (
-				<>
-					{[...new Array(dataAmount)].map((_, index) => (
-						<Indicator
-							key={index}
-							currentPosition={index + 1}
-							dataAmount={dataAmount}
-							isActive={index + 1 === activeItem}
-							handlePress={(item) => console.log(item)}
-						/>
-					))}
-				</>
-			)}
-		/>
+		<View>
+			<FlatList<TData>
+				data={data}
+				testID="carousel"
+				pagingEnabled
+				ref={ref}
+				horizontal
+				accessibilityLiveRegion="polite"
+				showsHorizontalScrollIndicator={false}
+				onViewableItemsChanged={handleViewableChange.current}
+				viewabilityConfig={{ viewAreaCoveragePercentThreshold: 95 }}
+				accessibilityValue={{ max: dataAmount, min: 1, now: currentItem }}
+				keyExtractor={(item) => item.id}
+				renderItem={({ item }) => <Item {...item} />}
+			/>
+			<>
+				{[...new Array(dataAmount)].map((_, i) => (
+					<Indicator
+						key={i}
+						currentPosition={i}
+						dataAmount={dataAmount}
+						isActive={i === currentItem}
+						handlePress={(item) => scrollToIndex(item)}
+					/>
+				))}
+			</>
+		</View>
 	);
 };

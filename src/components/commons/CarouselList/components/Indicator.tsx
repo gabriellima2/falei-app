@@ -1,5 +1,5 @@
-import type { Modifiers } from "@/@types/modifiers";
 import styled, { css } from "styled-components/native";
+import type { Modifiers } from "@/@types/modifiers";
 
 export type IndicatorProps = {
 	currentPosition: number;
@@ -16,9 +16,9 @@ export const Indicator = (props: IndicatorProps) => {
 			onPress={isActive ? undefined : () => handlePress(currentPosition)}
 			accessibilityState={{ selected: isActive, disabled: isActive }}
 			accessibilityRole="button"
-			accessibilityLabel={`${currentPosition} de ${dataAmount}`}
+			accessibilityLabel={`${currentPosition + 1} de ${dataAmount}`}
 			accessibilityHint={
-				isActive ? undefined : `Mudar para o item ${currentPosition}`
+				isActive ? undefined : `Mudar para o item ${currentPosition + 1}`
 			}
 		/>
 	);
