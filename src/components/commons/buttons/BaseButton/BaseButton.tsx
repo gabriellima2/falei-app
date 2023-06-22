@@ -14,7 +14,15 @@ export type BaseButtonProps = TouchableOpacityProps & {
 };
 
 export const BaseButton = (props: BaseButtonProps) => {
-	const { children, rightIcon, leftIcon, bordered, onlyText, ...rest } = props;
+	const {
+		children,
+		rightIcon,
+		leftIcon,
+		bordered,
+		onlyText,
+		disabled,
+		...rest
+	} = props;
 	const { colors } = useTheme();
 
 	const hasRightIcon = !!rightIcon;
@@ -28,7 +36,8 @@ export const BaseButton = (props: BaseButtonProps) => {
 			onlyText={onlyText}
 			bordered={bordered}
 			alignAtStart={hasRightIcon || hasLeftIcon}
-			activeOpacity={0.8}
+			activeOpacity={disabled ? 0 : 0.8}
+			disabled={disabled}
 		>
 			<Container>
 				{hasLeftIcon && (
@@ -43,7 +52,10 @@ export const BaseButton = (props: BaseButtonProps) => {
 	);
 };
 
-type ButtonProps = Pick<BaseButtonProps, "bordered" | "onlyText"> & {
+type ButtonProps = Pick<
+	BaseButtonProps,
+	"bordered" | "onlyText" | "disabled"
+> & {
 	alignAtStart?: boolean;
 };
 
@@ -55,6 +67,9 @@ export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 	bordered: (theme) => css`
 		border: 1.5px solid ${theme.colors.overlay};
 		background-color: ${theme.colors.utils.darkGray};
+	`,
+	disabled: () => css`
+		opacity: 0.4;
 	`,
 	onlyText: () => css`
 		height: auto;
@@ -71,7 +86,7 @@ export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 };
 
 export const Button = styled.TouchableOpacity<ButtonProps>`
-	${({ theme, alignAtStart, bordered, onlyText }) => css`
+	${({ theme, alignAtStart, bordered, onlyText, disabled }) => css`
 		flex: 1;
 		width: 100%;
 		height: 70px;
@@ -85,6 +100,7 @@ export const Button = styled.TouchableOpacity<ButtonProps>`
 		${bordered && modifiers.bordered(theme)}
 		${alignAtStart && modifiers.alignAtStart(theme)}
 		${onlyText && modifiers.onlyText(theme)}
+		${disabled && modifiers.disabled(theme)}
 	`}
 `;
 
