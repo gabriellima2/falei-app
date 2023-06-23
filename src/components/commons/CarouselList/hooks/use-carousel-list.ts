@@ -11,6 +11,7 @@ type UseCarouseListReturn<TData extends {}> = {
 		(params: HandleViewableChangeParams) => void
 	>;
 	scrollToIndex: (indexItem: number) => void;
+	tryScrollingToIndexAgain: (indexItem: number) => void;
 };
 
 type HandleViewableChangeParams = {
@@ -35,9 +36,15 @@ export function useCarouseList<TData extends {}>(
 		ref.current.scrollToIndex({ animated: true, index: indexItem });
 	};
 
+	const tryScrollingToIndexAgain = (indexItem: number) => {
+		const wait = new Promise((resolve) => setTimeout(resolve, 500));
+		wait.then(() => scrollToIndex(indexItem));
+	};
+
 	return {
 		ref,
 		handleViewableChange,
 		scrollToIndex,
+		tryScrollingToIndexAgain,
 	};
 }

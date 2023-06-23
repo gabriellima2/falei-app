@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { FlatList } from "react-native";
 import styled, { css } from "styled-components/native";
 
@@ -17,10 +18,16 @@ export const CarouselList = <TData extends DefaultData>(
 	props: CarouselListProps<TData>
 ) => {
 	const { currentItem, data, changeCurrentItem, Item } = props;
-	const { ref, handleViewableChange, scrollToIndex } = useCarouseList<TData>({
-		changeCurrentItem,
-	});
+	const { ref, handleViewableChange, scrollToIndex, tryScrollingToIndexAgain } =
+		useCarouseList<TData>({
+			changeCurrentItem,
+		});
+
 	const dataAmount = data.length;
+	useEffect(() => {
+		if (currentItem < 0 || currentItem >= dataAmount) return;
+		scrollToIndex(currentItem);
+	}, [currentItem]);
 
 	return (
 		<Container>
@@ -30,6 +37,8 @@ export const CarouselList = <TData extends DefaultData>(
 				pagingEnabled
 				ref={ref}
 				horizontal
+				initialScrollIndex={currentItem}
+				onScrollToIndexFailed={({ index }) => tryScrollingToIndexAgain(index)}
 				accessibilityLiveRegion="polite"
 				showsHorizontalScrollIndicator={false}
 				onViewableItemsChanged={handleViewableChange.current}
@@ -45,7 +54,7 @@ export const CarouselList = <TData extends DefaultData>(
 						currentPosition={i}
 						dataAmount={dataAmount}
 						isActive={i === currentItem}
-						handlePress={(item) => scrollToIndex(item)}
+						handlePress={(item) => changeCurrentItem(item)}
 					/>
 				))}
 			</Controls>

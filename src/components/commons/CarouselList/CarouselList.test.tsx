@@ -1,40 +1,55 @@
-import { screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
-import { CarouselList, type CarouselListProps } from "./CarouselList";
+import { CarouselList } from "./CarouselList";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 type Data = { text: string; id: string };
-type Props = Omit<CarouselListProps<Data>, "Item" | "changeCurrentItem">;
 
-const renderComponent = (props: Props) =>
+const DATA: Data[] = [
+	{ id: "1", text: "any_item_0" },
+	{ id: "2", text: "any_item_1" },
+];
+const CURRENT_ITEM = 0;
+const changeCurrentItemMock = jest.fn();
+
+const renderComponent = () =>
 	renderWithThemeProvider(
 		<CarouselList<Data>
-			{...props}
+			data={DATA}
+			currentItem={CURRENT_ITEM}
 			Item={(props) => <Text>{props.text}</Text>}
-			changeCurrentItem={jest.fn()}
+			changeCurrentItem={changeCurrentItemMock}
 		/>
 	);
 
 describe("<CarouselList />", () => {
 	describe("Render", () => {
 		it("should render correctly", () => {
-			const data: Data[] = [
-				{ id: "1", text: "any_item_0" },
-				{ id: "2", text: "any_item_1" },
-			];
-			const dataAmount = data.length;
-			const ACTIVE_ITEM = 1;
-			renderComponent({ data, currentItem: ACTIVE_ITEM });
+			const dataAmount = DATA.length;
+			renderComponent();
 
 			const indicators = screen.getAllByRole("button");
 			const carouselProps = screen.getByTestId("carousel").props;
 
-			expect(carouselProps.accessibilityValue.max).toBe(data.length);
+			expect(carouselProps.accessibilityValue.max).toBe(dataAmount);
 			expect(carouselProps.accessibilityValue.min).toBe(1);
-			expect(carouselProps.accessibilityValue.now).toBe(ACTIVE_ITEM);
+			expect(carouselProps.accessibilityValue.now).toBe(CURRENT_ITEM);
 			expect(indicators).toHaveLength(dataAmount);
-			expect(screen.getByText(data[0].text)).toBeTruthy();
+			expect(screen.getByText(DATA[0].text)).toBeTruthy();
+		});
+	});
+	describe("Interactions", () => {
+		describe("Press", () => {
+			it("should change the current active item when click in indicator", () => {
+				renderComponent();
+				const item = CURRENT_ITEM + 1;
+
+				const indicator = screen.getAllByRole("button")[item];
+				fireEvent.press(indicator);
+
+				expect(changeCurrentItemMock).toHaveBeenCalledWith(item);
+			});
 		});
 	});
 });
