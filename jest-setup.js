@@ -1,6 +1,6 @@
 import '@testing-library/react-native';
 
-export const mockNavigate = jest.fn();
+export const mockPush = jest.fn();
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 jest.mock(
@@ -9,5 +9,5 @@ jest.mock(
     return () => "";
 	}
 );
-jest.mock("@react-navigation/native", () => (
-  { useNavigation: () => ({ navigate: mockNavigate }) }));
+jest.mock("expo-router", () => (
+  { useRouter: () => ({ push: mockPush }) }));
