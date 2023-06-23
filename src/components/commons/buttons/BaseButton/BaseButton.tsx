@@ -8,6 +8,7 @@ type IconProps = { color: string; size: number };
 
 export type BaseButtonProps = TouchableOpacityProps & {
 	bordered?: boolean;
+	secondary?: boolean;
 	onlyText?: boolean;
 	rightIcon?: (props: IconProps) => JSX.Element;
 	leftIcon?: (props: IconProps) => JSX.Element;
@@ -21,13 +22,14 @@ export const BaseButton = (props: BaseButtonProps) => {
 		bordered,
 		onlyText,
 		disabled,
+		secondary,
 		...rest
 	} = props;
 	const { colors } = useTheme();
 
 	const hasRightIcon = !!rightIcon;
 	const hasLeftIcon = !!leftIcon;
-	const withContrastStyles = bordered || onlyText;
+	const withContrastStyles = bordered || onlyText || secondary;
 	const iconColor = bordered || onlyText ? colors.font.primary : colors.main;
 
 	return (
@@ -35,6 +37,7 @@ export const BaseButton = (props: BaseButtonProps) => {
 			{...rest}
 			onlyText={onlyText}
 			bordered={bordered}
+			secondary={secondary}
 			alignAtStart={hasRightIcon || hasLeftIcon}
 			activeOpacity={disabled ? 0 : 0.8}
 			disabled={disabled}
@@ -54,7 +57,7 @@ export const BaseButton = (props: BaseButtonProps) => {
 
 type ButtonProps = Pick<
 	BaseButtonProps,
-	"bordered" | "onlyText" | "disabled"
+	"bordered" | "onlyText" | "disabled" | "secondary"
 > & {
 	alignAtStart?: boolean;
 };
@@ -65,6 +68,10 @@ type DefaultProps = {
 
 export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 	bordered: (theme) => css`
+		border: 1.5px solid ${theme.colors.overlay};
+		background-color: transparent;
+	`,
+	secondary: (theme) => css`
 		border: 1.5px solid ${theme.colors.overlay};
 		background-color: ${theme.colors.utils.darkGray};
 	`,
@@ -86,7 +93,7 @@ export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 };
 
 export const Button = styled.TouchableOpacity<ButtonProps>`
-	${({ theme, alignAtStart, bordered, onlyText, disabled }) => css`
+	${({ theme, alignAtStart, bordered, onlyText, disabled, secondary }) => css`
 		flex: 1;
 		width: 100%;
 		height: 70px;
@@ -101,6 +108,7 @@ export const Button = styled.TouchableOpacity<ButtonProps>`
 		${alignAtStart && modifiers.alignAtStart(theme)}
 		${onlyText && modifiers.onlyText(theme)}
 		${disabled && modifiers.disabled(theme)}
+				${secondary && modifiers.secondary(theme)}
 	`}
 `;
 

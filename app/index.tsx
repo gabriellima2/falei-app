@@ -53,7 +53,7 @@ export default function Home() {
 				/>
 			</Container>
 			<Footer>
-				<BaseButton bordered>Voltar</BaseButton>
+				<BaseButton secondary>Voltar</BaseButton>
 				<BaseButton
 					rightIcon={(props) => <Ionicons name="arrow-forward" {...props} />}
 				>
