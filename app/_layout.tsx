@@ -11,8 +11,7 @@ import {
 	Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
-import { SplashScreen } from "@/components";
-
+import { Splash } from "@/components";
 import { theme } from "@/styles/theme";
 
 export default function RootLayout() {
@@ -26,7 +25,7 @@ export default function RootLayout() {
 		<ThemeProvider theme={theme}>
 			<StatusBar style="light" />
 			{!fontsLoaded ? (
-				<SplashScreen />
+				<Splash />
 			) : (
 				<SafeContainer>
 					<Container>

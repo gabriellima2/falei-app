@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { ViewToken, FlatList } from "react-native";
+import { type ViewToken, FlatList } from "react-native";
 
 type UseCarouseListParams = {
 	changeCurrentItem: (item: number) => void;

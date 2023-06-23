@@ -1,1 +1,1 @@
-export * from "./Indicator";
+export * from "./CarouselIndicator";

@@ -2,7 +2,7 @@ import { FlatList } from "react-native";
 import styled, { css } from "styled-components/native";
 
 import { useCarouseList } from "./hooks";
-import { Indicator } from "./components";
+import { CarouselIndicator } from "./components";
 
 export type CarouselListProps<TData extends {}> = {
 	data: TData[];
@@ -40,7 +40,7 @@ export const CarouselList = <TData extends DefaultData>(
 			/>
 			<Controls>
 				{[...new Array(dataAmount)].map((_, i) => (
-					<Indicator
+					<CarouselIndicator
 						key={i}
 						currentPosition={i}
 						dataAmount={dataAmount}

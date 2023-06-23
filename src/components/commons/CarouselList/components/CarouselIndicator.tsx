@@ -1,14 +1,14 @@
 import styled, { css } from "styled-components/native";
 import type { Modifiers } from "@/@types/modifiers";
 
-export type IndicatorProps = {
+export type CarouselIndicatorProps = {
 	currentPosition: number;
 	dataAmount: number;
 	isActive?: boolean;
 	handlePress: (item: number) => void;
 };
 
-export const Indicator = (props: IndicatorProps) => {
+export const CarouselIndicator = (props: CarouselIndicatorProps) => {
 	const { dataAmount, currentPosition, isActive, handlePress } = props;
 	const formattedCurrentPosition = currentPosition + 1;
 	return (
@@ -25,7 +25,7 @@ export const Indicator = (props: IndicatorProps) => {
 	);
 };
 
-type ButtonProps = Pick<IndicatorProps, "isActive">;
+type ButtonProps = Pick<CarouselIndicatorProps, "isActive">;
 
 const modifiers: Modifiers<keyof ButtonProps> = {
 	isActive: (theme) => css`

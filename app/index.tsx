@@ -6,7 +6,7 @@ import {
 	BaseButton,
 	OnboardingItem,
 	CarouselList,
-	DefaultHorizontalSpacing,
+	ContainerWithHorizontalSpacing,
 } from "@/components";
 
 interface Onboarding {
@@ -70,7 +70,7 @@ const Container = styled.View`
 	justify-content: center;
 `;
 
-const Footer = styled(DefaultHorizontalSpacing)`
+const Footer = styled(ContainerWithHorizontalSpacing)`
 	${({ theme }) => css`
 		flex-direction: row;
 		gap: ${theme.spaces[3]};

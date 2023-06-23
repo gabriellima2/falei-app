@@ -1,6 +1,9 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
-import { Indicator, type IndicatorProps } from "./Indicator";
+import {
+	CarouselIndicator,
+	type CarouselIndicatorProps,
+} from "./CarouselIndicator";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const DATA_AMOUNT = 3;
@@ -9,13 +12,13 @@ const FORMATTED_CURRENT_POSITION = CURRENT_POSITION + 1;
 const HANDLE_PRESS = jest.fn();
 
 type Props = Omit<
-	IndicatorProps,
+	CarouselIndicatorProps,
 	"dataAmount" | "currentPosition" | "handlePress"
 >;
 
 const renderComponent = (props: Props) =>
 	renderWithThemeProvider(
-		<Indicator
+		<CarouselIndicator
 			{...props}
 			currentPosition={CURRENT_POSITION}
 			dataAmount={DATA_AMOUNT}
