@@ -7,7 +7,7 @@ import {
 	BaseButton,
 	OnboardingItem,
 	CarouselList,
-	ContainerWithHorizontalSpacing,
+	ContainerWithDefaultSpaces,
 } from "@/components";
 
 import { onboardingItems } from "./assets";
@@ -26,7 +26,7 @@ export const Onboarding = () => {
 					Item={(props) => <OnboardingItem {...props} img={props.image} />}
 				/>
 			</Container>
-			<Footer>
+			<Footer horizontalSpacing>
 				<BaseButton
 					accessibilityLabel="Voltar"
 					accessibilityHint="Move para o item anterior"
@@ -63,7 +63,7 @@ const Container = styled.View`
 	justify-content: center;
 `;
 
-const Footer = styled(ContainerWithHorizontalSpacing)`
+const Footer = styled(ContainerWithDefaultSpaces)`
 	${({ theme }) => css`
 		flex-direction: row;
 		gap: ${theme.spaces[3]};

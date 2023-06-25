@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Platform, NativeModules } from "react-native";
 import styled, { css } from "styled-components/native";
 import { ThemeProvider } from "styled-components/native";
 import {
@@ -11,7 +10,7 @@ import {
 	Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
-import { Splash } from "@/components";
+import { ContainerWithDefaultSpaces, Splash } from "@/components";
 import { theme } from "@/styles/theme";
 
 export default function RootLayout() {
@@ -28,17 +27,23 @@ export default function RootLayout() {
 				<Splash />
 			) : (
 				<SafeContainer>
-					<Container>
-						<Slot />
+					<Container bottomSpacing>
+						<Stack
+							screenOptions={{
+								headerShadowVisible: false,
+								headerTitleStyle: { color: theme.colors.font.primary },
+								headerStyle: {
+									backgroundColor: theme.colors.main,
+								},
+								contentStyle: { backgroundColor: theme.colors.main },
+							}}
+						/>
 					</Container>
 				</SafeContainer>
 			)}
 		</ThemeProvider>
 	);
 }
-
-const STATUSBAR_HEIGHT =
-	Platform.OS === "ios" ? 16 : NativeModules.StatusBarManager.HEIGHT + 16;
 
 const SafeContainer = styled.SafeAreaView`
 	${({ theme }) => css`
@@ -47,11 +52,9 @@ const SafeContainer = styled.SafeAreaView`
 	`}
 `;
 
-const Container = styled.View`
+const Container = styled(ContainerWithDefaultSpaces)`
 	${({ theme }) => css`
 		flex: 1;
-		padding-top: ${STATUSBAR_HEIGHT}px;
-		padding-bottom: ${theme.spaces[3]};
 		background-color: ${theme.colors.main};
 	`}
 `;
