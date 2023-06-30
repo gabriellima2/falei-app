@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components/native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 import { useOnboarding } from "./hooks";
 
@@ -46,7 +46,7 @@ export const Onboarding = () => {
 					onPress={next}
 					rightIcon={
 						isLast
-							? (props) => <Ionicons name="arrow-forward" {...props} />
+							? (props) => <AntDesign name="arrowright" {...props} />
 							: undefined
 					}
 				>

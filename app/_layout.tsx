@@ -10,7 +10,7 @@ import {
 	Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
-import { ContainerWithDefaultSpaces, Splash } from "@/components";
+import { BackButton, ContainerWithDefaultSpaces, Splash } from "@/components";
 import { theme } from "@/styles/theme";
 
 export default function RootLayout() {
@@ -36,6 +36,7 @@ export default function RootLayout() {
 									backgroundColor: theme.colors.main,
 								},
 								contentStyle: { backgroundColor: theme.colors.main },
+								headerLeft: ({ canGoBack }) => canGoBack && <BackButton />,
 							}}
 						/>
 					</Container>
