@@ -7,6 +7,7 @@ import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider"
 const INPUT_TESTID = "input";
 const INPUT_LEFT_ICON = "any_left_icon";
 const INPUT_RIGHT_ICON = "any_right_icon";
+const INPUT_INVALID_ICON_LABEL = "Campo inválido";
 const renderComponent = (props?: InputProps) =>
 	renderWithThemeProvider(<Input {...props} />);
 
@@ -41,6 +42,24 @@ describe("<Input />", () => {
 
 			expect(screen.getByTestId(INPUT_TESTID)).toBeTruthy();
 			expect(screen.getByText(INPUT_LEFT_ICON)).toBeTruthy();
+			expect(screen.getByText(INPUT_RIGHT_ICON)).toBeTruthy();
+		});
+		it("should render alert icon when it is invalid", () => {
+			renderComponent({
+				isInvalid: true,
+				rightIcon: () => <Text>{INPUT_RIGHT_ICON}</Text>,
+			});
+
+			expect(screen.getByLabelText(INPUT_INVALID_ICON_LABEL)).toBeTruthy();
+			expect(screen.queryByText(INPUT_RIGHT_ICON)).toBeFalsy();
+		});
+		it("should not render alert icon when it is invalid", () => {
+			renderComponent({
+				isInvalid: false,
+				rightIcon: () => <Text>{INPUT_RIGHT_ICON}</Text>,
+			});
+
+			expect(screen.queryByLabelText(INPUT_INVALID_ICON_LABEL)).toBeFalsy();
 			expect(screen.getByText(INPUT_RIGHT_ICON)).toBeTruthy();
 		});
 	});
