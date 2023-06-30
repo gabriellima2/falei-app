@@ -5,3 +5,6 @@ export * from "./Typography";
 export * from "./Buttons";
 export * from "./Links";
 export * from "./ContainerWithDefaultSpaces";
+export * from "./ScreenContent";
+export * from "./Input";
+export * from "./Label";
