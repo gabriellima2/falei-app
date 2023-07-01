@@ -1,5 +1,4 @@
 import { fireEvent, screen } from "@testing-library/react-native";
-
 import { Field, type FieldProps } from "./Field";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 

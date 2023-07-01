@@ -16,7 +16,6 @@ const renderComponent = <TParams extends {}>(props: BaseLinkProps<TParams>) =>
 	renderWithThemeProvider(<BaseLink {...props}>{TEXT}</BaseLink>);
 
 describe("<BaseLink />", () => {
-	const getLinkEl = () => screen.getByText(TEXT);
 	describe("Render", () => {
 		renderComponent({ href: { pathname: PATHNAME } });
 
@@ -28,7 +27,7 @@ describe("<BaseLink />", () => {
 				const href: Href = { pathname: PATHNAME };
 				renderComponent({ href });
 
-				const link = getLinkEl();
+				const link = screen.getByText(TEXT);
 				fireEvent.press(link);
 
 				expect(mockPush).toHaveBeenCalledWith(href);
@@ -38,7 +37,7 @@ describe("<BaseLink />", () => {
 				const href: Href<Id> = { pathname: PATHNAME, params: { id: "any_id" } };
 				renderComponent<Id>({ href });
 
-				const link = getLinkEl();
+				const link = screen.getByText(TEXT);
 				fireEvent.press(link);
 
 				expect(mockPush).toHaveBeenCalledWith(href);

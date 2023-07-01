@@ -27,31 +27,30 @@ const renderComponent = (props: Props) =>
 	);
 
 describe("<Indicator />", () => {
-	const getIndicatorEl = () => screen.getByRole("button");
 	describe("Render", () => {
 		it("should render correctly if isActive true", () => {
 			renderComponent({ isActive: true });
 
-			const indicatorElProps = getIndicatorEl().props;
+			const indicatorProps = screen.getByRole("button").props;
 
-			expect(indicatorElProps.accessibilityHint).toBeUndefined();
-			expect(indicatorElProps.accessibilityState.selected).toBeTruthy();
-			expect(indicatorElProps.accessibilityState.disabled).toBeTruthy();
-			expect(indicatorElProps.accessibilityLabel).toBe(
+			expect(indicatorProps.accessibilityHint).toBeUndefined();
+			expect(indicatorProps.accessibilityState.selected).toBeTruthy();
+			expect(indicatorProps.accessibilityState.disabled).toBeTruthy();
+			expect(indicatorProps.accessibilityLabel).toBe(
 				`${FORMATTED_CURRENT_POSITION} de ${DATA_AMOUNT}`
 			);
 		});
 		it("should render correctly if isActive is false", () => {
 			renderComponent({ isActive: false });
 
-			const indicatorElProps = getIndicatorEl().props;
+			const indicatorProps = screen.getByRole("button").props;
 
-			expect(indicatorElProps.accessibilityHint).toBe(
+			expect(indicatorProps.accessibilityHint).toBe(
 				`Mudar para o item ${FORMATTED_CURRENT_POSITION}`
 			);
-			expect(indicatorElProps.accessibilityState.selected).toBeFalsy();
-			expect(indicatorElProps.accessibilityState.disabled).toBeFalsy();
-			expect(indicatorElProps.accessibilityLabel).toBe(
+			expect(indicatorProps.accessibilityState.selected).toBeFalsy();
+			expect(indicatorProps.accessibilityState.disabled).toBeFalsy();
+			expect(indicatorProps.accessibilityLabel).toBe(
 				`${FORMATTED_CURRENT_POSITION} de ${DATA_AMOUNT}`
 			);
 		});
@@ -61,16 +60,16 @@ describe("<Indicator />", () => {
 			it("should not call handlePress if isActive is true and when pressed", () => {
 				renderComponent({ isActive: true });
 
-				const indicatorEl = getIndicatorEl();
-				fireEvent.press(indicatorEl);
+				const indicator = screen.getByRole("button");
+				fireEvent.press(indicator);
 
 				expect(HANDLE_PRESS).not.toBeCalled();
 			});
 			it("should call handlePress if isActive is false and when pressed", () => {
 				renderComponent({ isActive: false });
 
-				const indicatorEl = getIndicatorEl();
-				fireEvent.press(indicatorEl);
+				const indicator = screen.getByRole("button");
+				fireEvent.press(indicator);
 
 				expect(HANDLE_PRESS).toBeCalledWith(CURRENT_POSITION);
 			});
