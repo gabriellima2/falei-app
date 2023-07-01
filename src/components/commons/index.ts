@@ -8,3 +8,4 @@ export * from "./ContainerWithDefaultSpaces";
 export * from "./ScreenContent";
 export * from "./Input";
 export * from "./Label";
+export * from "./Errors";
