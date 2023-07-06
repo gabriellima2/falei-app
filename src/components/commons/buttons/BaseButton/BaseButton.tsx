@@ -79,9 +79,12 @@ export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 		opacity: 0.4;
 	`,
 	onlyText: () => css`
-		height: auto;
+		height: 44px;
+		min-height: auto;
+		max-height: auto;
 		background-color: transparent;
 		border: 0px;
+		padding: 0px;
 	`,
 	alignAtStart: () => css`
 		justify-content: space-between;
