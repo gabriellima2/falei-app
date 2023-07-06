@@ -10,3 +10,4 @@ export * from "./Input";
 export * from "./Label";
 export * from "./Errors";
 export * from "./Field";
+export * from "./Form";
