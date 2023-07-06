@@ -97,6 +97,7 @@ export const Button = styled.TouchableOpacity<ButtonProps>`
 		flex: 1;
 		width: 100%;
 		height: 70px;
+		min-height: 70px;
 		max-height: 70px;
 		flex-direction: row;
 		align-items: center;
@@ -108,7 +109,7 @@ export const Button = styled.TouchableOpacity<ButtonProps>`
 		${alignAtStart && modifiers.alignAtStart(theme)}
 		${onlyText && modifiers.onlyText(theme)}
 		${disabled && modifiers.disabled(theme)}
-				${secondary && modifiers.secondary(theme)}
+		${secondary && modifiers.secondary(theme)}
 	`}
 `;
 
