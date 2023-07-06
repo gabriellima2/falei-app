@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import styled, { css } from "styled-components/native";
 
 import { Input, InputProps } from "../Input";
 import { TextError } from "../Errors";
@@ -17,7 +17,7 @@ export const Field = (props: FieldProps) => {
 	const { labelId, labelText, errorMessage, ...rest } = props;
 	const hasError = !!errorMessage;
 	return (
-		<View>
+		<Container>
 			<Label id={labelId}>{labelText}</Label>
 			<Input
 				{...rest}
@@ -25,9 +25,17 @@ export const Field = (props: FieldProps) => {
 				aria-labelledby={labelId}
 				accessibilityLabelledBy={labelId}
 			/>
-			<View accessibilityLiveRegion="polite" aria-live="polite">
+			<Error accessibilityLiveRegion="polite" aria-live="polite">
 				{hasError && <TextError>{errorMessage}</TextError>}
-			</View>
-		</View>
+			</Error>
+		</Container>
 	);
 };
+
+const Container = styled.View`
+	${({ theme }) => css`
+		gap: ${theme.spaces[3]};
+	`}
+`;
+
+const Error = styled.View``;
