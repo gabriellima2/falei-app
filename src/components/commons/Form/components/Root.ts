@@ -1,5 +1,3 @@
 import styled from "styled-components/native";
 
-export const Root = styled.ScrollView`
-	flex: 1;
-`;
+export const Root = styled.View``;
