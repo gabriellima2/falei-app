@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	useForm,
@@ -9,14 +9,21 @@ import {
 
 import { userAuthSchema } from "@/validations/user-auth-validation";
 import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth-dto";
+import type { AuthFormProps } from "../AuthForm";
+
+type UseAuthFormParams = Pick<AuthFormProps, "onSubmit">;
 
 type UseAuthFormReturn = {
+	isAuthenticating: boolean;
+	errors: FieldErrors<UserAuthRequestDTO>;
 	setValue: UseFormSetValue<UserAuthRequestDTO>;
 	handleSubmit: UseFormHandleSubmit<UserAuthRequestDTO>;
-	errors: FieldErrors<UserAuthRequestDTO>;
+	handleUserAuthentication: (credentials: UserAuthRequestDTO) => Promise<void>;
 };
 
-export function useAuthForm(): UseAuthFormReturn {
+export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
+	const { onSubmit } = params;
+	const [isAuthenticating, setIsAuthenticating] = useState(false);
 	const {
 		register,
 		setValue,
@@ -31,9 +38,22 @@ export function useAuthForm(): UseAuthFormReturn {
 		register("password");
 	}, []);
 
+	const handleUserAuthentication = async (credentials: UserAuthRequestDTO) => {
+		setIsAuthenticating(true);
+		try {
+			await onSubmit(credentials);
+		} catch (err) {
+			console.error(err);
+		} finally {
+			setIsAuthenticating(false);
+		}
+	};
+
 	return {
+		errors,
+		isAuthenticating,
 		setValue,
 		handleSubmit,
-		errors,
+		handleUserAuthentication,
 	};
 }

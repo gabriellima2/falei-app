@@ -4,8 +4,8 @@ import { type TouchableOpacityProps, TextInput } from "react-native";
 import { useAuthForm } from "./hooks/use-auth-form";
 import { Field, Form } from "@/components/commons";
 
-import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth-dto";
 import { focusNextField } from "@/helpers/focus-next-field";
+import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth-dto";
 
 type ButtonProps = Pick<
 	TouchableOpacityProps,
@@ -15,7 +15,7 @@ type ButtonProps = Pick<
 export type AuthFormProps = {
 	title: string;
 	button: ButtonProps;
-	onSubmit: (params: UserAuthRequestDTO) => void;
+	onSubmit: (params: UserAuthRequestDTO) => Promise<void> | void;
 };
 
 export const AuthForm = (props: AuthFormProps) => {
@@ -24,7 +24,13 @@ export const AuthForm = (props: AuthFormProps) => {
 		button: { text, ...buttonRest },
 		onSubmit,
 	} = props;
-	const { errors, setValue, handleSubmit } = useAuthForm();
+	const {
+		errors,
+		isAuthenticating,
+		setValue,
+		handleSubmit,
+		handleUserAuthentication,
+	} = useAuthForm({ onSubmit });
 	const passwordFieldRef = useRef<null | TextInput>(null);
 
 	return (
@@ -49,7 +55,7 @@ export const AuthForm = (props: AuthFormProps) => {
 					placeholder="8+ Caracteres"
 					errorMessage={errors.password?.message?.toString()}
 					onChangeText={(text) => setValue("password", text)}
-					onSubmitEditing={handleSubmit(onSubmit)}
+					onSubmitEditing={handleSubmit(handleUserAuthentication)}
 					returnKeyType="send"
 					autoCapitalize="none"
 					secureTextEntry
@@ -57,7 +63,8 @@ export const AuthForm = (props: AuthFormProps) => {
 			</Form.Fieldset>
 			<Form.Button
 				{...buttonRest}
-				onPress={handleSubmit((data) => onSubmit(data))}
+				isSubmitting={isAuthenticating}
+				onPress={handleSubmit(handleUserAuthentication)}
 			>
 				{text}
 			</Form.Button>

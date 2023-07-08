@@ -13,7 +13,9 @@ const VALID_PASSWORD = "any_password";
 const defaultProps: AuthFormProps = {
 	title: "any_title",
 	button: { text: "any_button_text" },
-	onSubmit: jest.fn(),
+	onSubmit: jest.fn().mockImplementation(() => {
+		return new Promise((resolve) => resolve);
+	}),
 };
 
 const renderComponent = () =>
@@ -204,6 +206,7 @@ describe("<AuthForm />", () => {
 					expect(screen.queryAllByRole("alert")[1]).toBeFalsy();
 					expect(onSubmit).toHaveBeenCalledTimes(1);
 					expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining(user));
+					expect(screen.getByLabelText("Carregando...")).toBeTruthy();
 				});
 			});
 		});
