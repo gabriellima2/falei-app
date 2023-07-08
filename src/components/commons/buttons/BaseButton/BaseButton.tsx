@@ -80,8 +80,8 @@ export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 	`,
 	onlyText: () => css`
 		height: 44px;
-		min-height: auto;
-		max-height: auto;
+		min-height: 44px;
+		max-height: 44px;
 		background-color: transparent;
 		border: 0px;
 		padding: 0px;
