@@ -107,6 +107,60 @@ describe("<AuthForm />", () => {
 					});
 				});
 			});
+			describe("Both", () => {
+				it("should show error messages when submitting with empty fields", async () => {
+					renderComponent();
+					const { button, onSubmit } = defaultProps;
+
+					const emailField = screen.getByPlaceholderText(
+						FORM_EMAIL_PLACEHOLDER
+					);
+					const passwordField = screen.getByPlaceholderText(
+						FORM_PASSWORD_PLACEHOLDER
+					);
+					const submitButton = screen.getByText(button.text);
+					act(() => {
+						fireEvent.changeText(emailField, "");
+						fireEvent.changeText(passwordField, "");
+						fireEvent.press(submitButton);
+					});
+
+					await waitFor(() => {
+						const emailError = screen.getAllByRole("alert")[0];
+						const passwordError = screen.getAllByRole("alert")[1];
+						expect(emailError.props.children).toContain("obrigatório");
+						expect(passwordError.props.children).toContain("obrigatório");
+						expect(onSubmit).not.toHaveBeenCalled();
+					});
+				});
+				it("should show error messages when submitting with invalid fields", async () => {
+					renderComponent();
+					const { button, onSubmit } = defaultProps;
+
+					const emailField = screen.getByPlaceholderText(
+						FORM_EMAIL_PLACEHOLDER
+					);
+					const passwordField = screen.getByPlaceholderText(
+						FORM_PASSWORD_PLACEHOLDER
+					);
+					const submitButton = screen.getByText(button.text);
+					act(() => {
+						fireEvent.changeText(emailField, "invalid_email.com");
+						fireEvent.changeText(passwordField, "1234567");
+						fireEvent.press(submitButton);
+					});
+
+					await waitFor(() => {
+						const emailError = screen.getAllByRole("alert")[0];
+						const passwordError = screen.getAllByRole("alert")[1];
+						expect(emailError.props.children).toContain("inválido");
+						expect(passwordError.props.children).toContain(
+							"8 ou mais caracteres"
+						);
+						expect(onSubmit).not.toHaveBeenCalled();
+					});
+				});
+			});
 		});
 	});
 });
