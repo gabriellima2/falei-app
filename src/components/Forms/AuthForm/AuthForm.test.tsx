@@ -33,7 +33,7 @@ describe("<AuthForm />", () => {
 	});
 	describe("Validations", () => {
 		describe("Email", () => {
-			it("should show a error message when submitting with empty email", async () => {
+			it("should show an error message when submitting with empty email", async () => {
 				renderComponent();
 				const { button, onSubmit } = defaultProps;
 
@@ -45,12 +45,12 @@ describe("<AuthForm />", () => {
 				});
 
 				await waitFor(() => {
-					const error = screen.getByRole("alert");
+					const error = screen.getAllByRole("alert")[0];
 					expect(error.props.children).toContain("obrigatório");
 					expect(onSubmit).not.toHaveBeenCalled();
 				});
 			});
-			it("should show a error message when submitting with invalid", async () => {
+			it("should show an error message when submitting with invalid email", async () => {
 				renderComponent();
 				const { button, onSubmit } = defaultProps;
 
@@ -62,9 +62,49 @@ describe("<AuthForm />", () => {
 				});
 
 				await waitFor(() => {
-					const error = screen.getByRole("alert");
+					const error = screen.getAllByRole("alert")[0];
 					expect(error.props.children).toContain("inválido");
 					expect(onSubmit).not.toHaveBeenCalled();
+				});
+			});
+			describe("Password", () => {
+				it("should show an error message when submitting with empty password", async () => {
+					renderComponent();
+					const { button, onSubmit } = defaultProps;
+
+					const passwordField = screen.getByPlaceholderText(
+						FORM_PASSWORD_PLACEHOLDER
+					);
+					const submitButton = screen.getByText(button.text);
+					act(() => {
+						fireEvent.changeText(passwordField, "");
+						fireEvent.press(submitButton);
+					});
+
+					await waitFor(() => {
+						const error = screen.getAllByRole("alert")[1];
+						expect(error.props.children).toContain("obrigatório");
+						expect(onSubmit).not.toHaveBeenCalled();
+					});
+				});
+				it("should show an error message when submitting with password less than 8 chars", async () => {
+					renderComponent();
+					const { button, onSubmit } = defaultProps;
+
+					const passwordField = screen.getByPlaceholderText(
+						FORM_PASSWORD_PLACEHOLDER
+					);
+					const submitButton = screen.getByText(button.text);
+					act(() => {
+						fireEvent.changeText(passwordField, "1234567");
+						fireEvent.press(submitButton);
+					});
+
+					await waitFor(() => {
+						const error = screen.getAllByRole("alert")[1];
+						expect(error.props.children).toContain("8 ou mais caracteres");
+						expect(onSubmit).not.toHaveBeenCalled();
+					});
 				});
 			});
 		});

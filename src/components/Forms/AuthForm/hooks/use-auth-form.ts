@@ -28,6 +28,7 @@ export function useAuthForm(): UseAuthFormReturn {
 
 	useEffect(() => {
 		register("email");
+		register("password");
 	}, []);
 
 	return {

@@ -39,6 +39,8 @@ export const AuthForm = (props: AuthFormProps) => {
 					labelText="Senha"
 					labelId="password"
 					placeholder="8+ Caracteres"
+					errorMessage={errors.password?.message?.toString()}
+					onChangeText={(text) => setValue("password", text)}
 				/>
 			</Form.Fieldset>
 			<Form.Button {...buttonRest} onPress={handleSubmit(onSubmit)}>
