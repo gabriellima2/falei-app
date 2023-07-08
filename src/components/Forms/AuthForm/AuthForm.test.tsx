@@ -7,6 +7,8 @@ const FORM_EMAIL_LABEL = "Email";
 const FORM_PASSWORD_LABEL = "Senha";
 const FORM_EMAIL_PLACEHOLDER = "Ex: seuemail@gmail.com";
 const FORM_PASSWORD_PLACEHOLDER = "8+ Caracteres";
+const VALID_EMAIL = "any@email.com";
+const VALID_PASSWORD = "any_password";
 
 const defaultProps: AuthFormProps = {
 	title: "any_title",
@@ -80,86 +82,128 @@ describe("<AuthForm />", () => {
 					expect(onSubmit).not.toHaveBeenCalled();
 				});
 			});
-			describe("Password", () => {
-				it("should show an error message when submitting with empty password", async () => {
-					renderComponent();
-					const { onSubmit } = defaultProps;
+			it("should not show errors when submitting with valid email", async () => {
+				renderComponent();
 
-					act(() => {
-						fireEvent.changeText(getPasswordFieldEl(), "");
-						fireEvent.press(getSubmitButtonEl());
-					});
-
-					await waitFor(() => {
-						const error = getErrorEls()[1];
-						expect(error.props.children).toContain(
-							DEFAULT_WORD_FOR_REQUIRED_FIELD
-						);
-						expect(onSubmit).not.toHaveBeenCalled();
-					});
+				act(() => {
+					fireEvent.changeText(getEmailFieldEl(), VALID_EMAIL);
+					fireEvent.press(getSubmitButtonEl());
 				});
-				it("should show an error message when submitting with password less than 8 chars", async () => {
-					renderComponent();
-					const { onSubmit } = defaultProps;
 
-					act(() => {
-						fireEvent.changeText(getPasswordFieldEl(), INVALID_PASSWORD);
-						fireEvent.press(getSubmitButtonEl());
-					});
-
-					await waitFor(() => {
-						const error = getErrorEls()[1];
-						expect(error.props.children).toContain(
-							DEFAULT_WORD_FOR_INVALID_PASSWORD
-						);
-						expect(onSubmit).not.toHaveBeenCalled();
-					});
+				await waitFor(() => {
+					expect(screen.queryAllByRole("alert")[0]).toBeFalsy();
 				});
 			});
-			describe("Both", () => {
-				it("should show error messages when submitting with empty fields", async () => {
-					renderComponent();
-					const { onSubmit } = defaultProps;
+		});
+		describe("Password", () => {
+			it("should show an error message when submitting with empty password", async () => {
+				renderComponent();
+				const { onSubmit } = defaultProps;
 
-					act(() => {
-						fireEvent.changeText(getEmailFieldEl(), "");
-						fireEvent.changeText(getPasswordFieldEl(), "");
-						fireEvent.press(getSubmitButtonEl());
-					});
-
-					await waitFor(() => {
-						const emailError = getErrorEls()[0];
-						const passwordError = getErrorEls()[1];
-						expect(emailError.props.children).toContain(
-							DEFAULT_WORD_FOR_REQUIRED_FIELD
-						);
-						expect(passwordError.props.children).toContain(
-							DEFAULT_WORD_FOR_REQUIRED_FIELD
-						);
-						expect(onSubmit).not.toHaveBeenCalled();
-					});
+				act(() => {
+					fireEvent.changeText(getPasswordFieldEl(), "");
+					fireEvent.press(getSubmitButtonEl());
 				});
-				it("should show error messages when submitting with invalid fields", async () => {
-					renderComponent();
-					const { onSubmit } = defaultProps;
 
-					act(() => {
-						fireEvent.changeText(getEmailFieldEl(), INVALID_EMAIL);
-						fireEvent.changeText(getPasswordFieldEl(), INVALID_PASSWORD);
-						fireEvent.press(getSubmitButtonEl());
-					});
+				await waitFor(() => {
+					const error = getErrorEls()[1];
+					expect(error.props.children).toContain(
+						DEFAULT_WORD_FOR_REQUIRED_FIELD
+					);
+					expect(onSubmit).not.toHaveBeenCalled();
+				});
+			});
+			it("should show an error message when submitting with password less than 8 chars", async () => {
+				renderComponent();
+				const { onSubmit } = defaultProps;
 
-					await waitFor(() => {
-						const emailError = getErrorEls()[0];
-						const passwordError = getErrorEls()[1];
-						expect(emailError.props.children).toContain(
-							DEFAULT_WORD_FOR_INVALID_EMAIL
-						);
-						expect(passwordError.props.children).toContain(
-							DEFAULT_WORD_FOR_INVALID_PASSWORD
-						);
-						expect(onSubmit).not.toHaveBeenCalled();
-					});
+				act(() => {
+					fireEvent.changeText(getPasswordFieldEl(), INVALID_PASSWORD);
+					fireEvent.press(getSubmitButtonEl());
+				});
+
+				await waitFor(() => {
+					const error = getErrorEls()[1];
+					expect(error.props.children).toContain(
+						DEFAULT_WORD_FOR_INVALID_PASSWORD
+					);
+					expect(onSubmit).not.toHaveBeenCalled();
+				});
+			});
+			it("should not show errors when submitting with valid password", async () => {
+				renderComponent();
+
+				act(() => {
+					fireEvent.changeText(getPasswordFieldEl(), VALID_PASSWORD);
+					fireEvent.press(getSubmitButtonEl());
+				});
+
+				await waitFor(() => {
+					expect(screen.queryAllByRole("alert")[1]).toBeFalsy();
+				});
+			});
+		});
+		describe("Both", () => {
+			it("should show error messages when submitting with empty fields", async () => {
+				renderComponent();
+				const { onSubmit } = defaultProps;
+
+				act(() => {
+					fireEvent.changeText(getEmailFieldEl(), "");
+					fireEvent.changeText(getPasswordFieldEl(), "");
+					fireEvent.press(getSubmitButtonEl());
+				});
+
+				await waitFor(() => {
+					const emailError = getErrorEls()[0];
+					const passwordError = getErrorEls()[1];
+					expect(emailError.props.children).toContain(
+						DEFAULT_WORD_FOR_REQUIRED_FIELD
+					);
+					expect(passwordError.props.children).toContain(
+						DEFAULT_WORD_FOR_REQUIRED_FIELD
+					);
+					expect(onSubmit).not.toHaveBeenCalled();
+				});
+			});
+			it("should show error messages when submitting with invalid fields", async () => {
+				renderComponent();
+				const { onSubmit } = defaultProps;
+
+				act(() => {
+					fireEvent.changeText(getEmailFieldEl(), INVALID_EMAIL);
+					fireEvent.changeText(getPasswordFieldEl(), INVALID_PASSWORD);
+					fireEvent.press(getSubmitButtonEl());
+				});
+
+				await waitFor(() => {
+					const emailError = getErrorEls()[0];
+					const passwordError = getErrorEls()[1];
+					expect(emailError.props.children).toContain(
+						DEFAULT_WORD_FOR_INVALID_EMAIL
+					);
+					expect(passwordError.props.children).toContain(
+						DEFAULT_WORD_FOR_INVALID_PASSWORD
+					);
+					expect(onSubmit).not.toHaveBeenCalled();
+				});
+			});
+			it("should not show error messages when submitting with valid fields", async () => {
+				renderComponent();
+				const { onSubmit } = defaultProps;
+
+				act(() => {
+					fireEvent.changeText(getEmailFieldEl(), VALID_EMAIL);
+					fireEvent.changeText(getPasswordFieldEl(), VALID_PASSWORD);
+					fireEvent.press(getSubmitButtonEl());
+				});
+
+				await waitFor(() => {
+					const user = { email: VALID_EMAIL, password: VALID_PASSWORD };
+					expect(screen.queryAllByRole("alert")[0]).toBeFalsy();
+					expect(screen.queryAllByRole("alert")[1]).toBeFalsy();
+					expect(onSubmit).toHaveBeenCalledTimes(1);
+					expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining(user));
 				});
 			});
 		});

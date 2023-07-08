@@ -43,7 +43,10 @@ export const AuthForm = (props: AuthFormProps) => {
 					onChangeText={(text) => setValue("password", text)}
 				/>
 			</Form.Fieldset>
-			<Form.Button {...buttonRest} onPress={handleSubmit(onSubmit)}>
+			<Form.Button
+				{...buttonRest}
+				onPress={handleSubmit((data) => onSubmit(data))}
+			>
 				{text}
 			</Form.Button>
 		</Form.Root>
