@@ -12,7 +12,7 @@ import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth-dto";
 
 type UseAuthFormReturn = {
 	setValue: UseFormSetValue<UserAuthRequestDTO>;
-	handleSubmit: UseFormHandleSubmit<UserAuthRequestDTO, undefined>;
+	handleSubmit: UseFormHandleSubmit<UserAuthRequestDTO>;
 	errors: FieldErrors<UserAuthRequestDTO>;
 };
 

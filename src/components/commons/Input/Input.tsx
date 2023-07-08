@@ -1,10 +1,13 @@
+import { forwardRef } from "react";
 import styled, { css, useTheme } from "styled-components/native";
-import { type TextInputProps } from "react-native";
+import { type TextInputProps, TextInput } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { Modifiers } from "@/@types/modifiers";
 
 type IconDefaultProps = { color: string; size: number };
+
+export type InputRef = TextInput;
 
 export type InputProps = Omit<TextInputProps, "placeholderTextColor"> & {
 	leftIcon?: (props: IconDefaultProps) => JSX.Element;
@@ -12,16 +15,19 @@ export type InputProps = Omit<TextInputProps, "placeholderTextColor"> & {
 	isInvalid?: boolean;
 };
 
-export const Input = (props: InputProps) => {
+export const Input = forwardRef<InputRef, InputProps>((props, ref) => {
 	const { leftIcon, rightIcon, isInvalid, ...rest } = props;
 	const { colors } = useTheme();
 	return (
 		<Container isInvalid={isInvalid}>
 			{!!leftIcon && leftIcon({ color: colors.font.secondary, size: 24 })}
-			<TextInput
+			<InputEl
+				ref={ref}
 				testID="input"
 				isInvalid={isInvalid}
 				placeholderTextColor={colors.font.secondary}
+				selectionColor={colors.brand}
+				cursorColor={colors.brand}
 				{...rest}
 			/>
 			{isInvalid && (
@@ -37,7 +43,9 @@ export const Input = (props: InputProps) => {
 				rightIcon({ color: colors.font.secondary, size: 24 })}
 		</Container>
 	);
-};
+});
+
+Input.displayName = "Input";
 
 type DefaultProps = Pick<InputProps, "isInvalid">;
 
@@ -63,7 +71,7 @@ const Container = styled.View<DefaultProps>`
 	`}
 `;
 
-const TextInput = styled.TextInput<DefaultProps>`
+const InputEl = styled.TextInput<DefaultProps>`
 	${({ theme, isInvalid }) => css`
 		flex: 1;
 		height: 100%;
