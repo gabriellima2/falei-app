@@ -1,13 +1,11 @@
 import { Stack } from "expo-router";
-import { Typography } from "@/components";
+import { CreateAccount } from "@/screens";
 
-export default function CreateAccount() {
+export default function Page() {
 	return (
 		<>
 			<Stack.Screen options={{ title: "" }} />
-			<Typography.Title>
-				Bem-vindo! Crie uma conta para continuar
-			</Typography.Title>
+			<CreateAccount />
 		</>
 	);
 }
