@@ -25,6 +25,7 @@ export function CreateAccount() {
 const Container = styled(ContainerWithDefaultSpaces)`
 	${({ theme }) => css`
 		flex: 1;
+		gap: ${theme.spaces[3]};
 		justify-content: space-between;
 		padding-bottom: ${theme.spaces[4]};
 	`}
