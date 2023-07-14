@@ -30,6 +30,7 @@ export default function RootLayout() {
 					<Container bottomSpacing>
 						<Stack
 							screenOptions={{
+								animation: "fade",
 								headerShadowVisible: false,
 								headerTitleStyle: { color: theme.colors.font.primary },
 								headerStyle: {
