@@ -1,3 +1,5 @@
+import { useLogin } from "./hooks/use-login";
+
 import {
 	ContainerWithDefaultSpaces,
 	KeyboardAvoidingWrapper,
@@ -5,13 +7,14 @@ import {
 } from "@/components";
 
 export function Login() {
+	const { handleSignIn } = useLogin();
 	return (
 		<KeyboardAvoidingWrapper>
 			<ContainerWithDefaultSpaces horizontalSpacing verticalSpacing>
 				<AuthForm
 					title="Olá, novamente! Entre para continuar"
 					button={{ text: "Entrar" }}
-					onSubmit={(data) => console.log(data)}
+					onSubmit={handleSignIn}
 				/>
 			</ContainerWithDefaultSpaces>
 		</KeyboardAvoidingWrapper>
