@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FirebaseError } from "firebase/app";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	useForm,
@@ -7,6 +8,8 @@ import {
 	FieldErrors,
 } from "react-hook-form";
 
+import { refineFirebaseErrorCode } from "@/helpers/refine-firebase-error-code";
+import { FIREBASE_ERROR_MESSAGES, UNEXPECTED_ERROR } from "@/errors";
 import { userAuthSchema } from "@/validations/user-auth-validation";
 import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth-dto";
 import type { AuthFormProps } from "../AuthForm";
@@ -15,6 +18,7 @@ type UseAuthFormParams = Pick<AuthFormProps, "onSubmit">;
 
 type UseAuthFormReturn = {
 	isAuthenticating: boolean;
+	authErrorMessage: string | null;
 	errors: FieldErrors<UserAuthRequestDTO>;
 	setValue: UseFormSetValue<UserAuthRequestDTO>;
 	handleSubmit: UseFormHandleSubmit<UserAuthRequestDTO>;
@@ -24,6 +28,7 @@ type UseAuthFormReturn = {
 export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 	const { onSubmit } = params;
 	const [isAuthenticating, setIsAuthenticating] = useState(false);
+	const [authErrorMessage, setAuthErrorMessage] = useState<string | null>(null);
 	const {
 		register,
 		setValue,
@@ -43,7 +48,13 @@ export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 		try {
 			await onSubmit(credentials);
 		} catch (err) {
-			console.error(err);
+			if (err instanceof FirebaseError) {
+				const firebaseError = err as FirebaseError;
+				const { cause } = refineFirebaseErrorCode(firebaseError.code);
+				const errorMessage = FIREBASE_ERROR_MESSAGES[cause];
+				if (errorMessage) return setAuthErrorMessage(errorMessage);
+			}
+			setAuthErrorMessage((err as Error).message ?? UNEXPECTED_ERROR);
 		} finally {
 			setIsAuthenticating(false);
 		}
@@ -51,6 +62,7 @@ export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 
 	return {
 		errors,
+		authErrorMessage,
 		isAuthenticating,
 		setValue,
 		handleSubmit,
