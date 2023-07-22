@@ -2,7 +2,6 @@ import "react-native-gesture-handler";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import styled, { css } from "styled-components/native";
-import { ThemeProvider } from "styled-components/native";
 import {
 	useFonts,
 	Roboto_400Regular,
@@ -11,6 +10,7 @@ import {
 } from "@expo-google-fonts/roboto";
 
 import { BackButton, ContainerWithDefaultSpaces, Splash } from "@/components";
+import { Providers } from "@/contexts/Providers";
 import { theme } from "@/styles/theme";
 
 export default function RootLayout() {
@@ -21,7 +21,7 @@ export default function RootLayout() {
 	});
 
 	return (
-		<ThemeProvider theme={theme}>
+		<Providers>
 			<StatusBar style="light" />
 			{!fontsLoaded ? (
 				<Splash />
@@ -43,7 +43,7 @@ export default function RootLayout() {
 					</Container>
 				</SafeContainer>
 			)}
-		</ThemeProvider>
+		</Providers>
 	);
 }
 
