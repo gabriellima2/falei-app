@@ -17,6 +17,8 @@ export const theme = {
 		},
 		feedbacks: {
 			alert: "#E16161",
+			warning: "#f78e00",
+			success: "#16af00",
 		},
 	},
 	fontFamily: {
