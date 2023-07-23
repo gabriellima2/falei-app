@@ -5,15 +5,9 @@ import { Typography } from "../Typography";
 import { useToastContext, type ToastTypes } from "@/contexts/ToastContext";
 
 const icons: Record<ToastTypes, (() => JSX.Element) | null> = {
-	warning: () => (
-		<AntDesign name="warning" accessibilityLabel="Icone de aviso" />
-	),
-	alert: () => (
-		<AntDesign name="warning" accessibilityLabel="Icone de alerta" />
-	),
-	success: () => (
-		<AntDesign name="check" accessibilityLabel="Icone de sucesso" />
-	),
+	warning: () => <AntDesign name="warning" accessibilityLabel="Warning Icon" />,
+	alert: () => <AntDesign name="warning" accessibilityLabel="Alert Icon" />,
+	success: () => <AntDesign name="check" accessibilityLabel="Success Icon" />,
 	default: null,
 };
 
