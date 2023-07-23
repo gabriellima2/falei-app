@@ -8,7 +8,6 @@ import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider"
 
 const DATA_AMOUNT = 3;
 const CURRENT_POSITION = 0;
-const FORMATTED_CURRENT_POSITION = CURRENT_POSITION + 1;
 const HANDLE_PRESS = jest.fn();
 
 type Props = Omit<
@@ -26,9 +25,12 @@ const renderComponent = (props: Props) =>
 		/>
 	);
 
+const getIndicatorEl = () => screen.getByRole("button");
+
 describe("<Indicator />", () => {
-	const getIndicatorEl = () => screen.getByRole("button");
 	describe("Render", () => {
+		const FORMATTED_CURRENT_POSITION = CURRENT_POSITION + 1;
+
 		it("should render correctly if isActive true", () => {
 			renderComponent({ isActive: true });
 
@@ -58,19 +60,22 @@ describe("<Indicator />", () => {
 	});
 	describe("Interactions", () => {
 		describe("Press", () => {
+			function pressIndicator() {
+				const indicatorEl = getIndicatorEl();
+				fireEvent.press(indicatorEl);
+			}
+
 			it("should not call handlePress if isActive is true and when pressed", () => {
 				renderComponent({ isActive: true });
 
-				const indicatorEl = getIndicatorEl();
-				fireEvent.press(indicatorEl);
+				pressIndicator();
 
 				expect(HANDLE_PRESS).not.toBeCalled();
 			});
 			it("should call handlePress if isActive is false and when pressed", () => {
 				renderComponent({ isActive: false });
 
-				const indicatorEl = getIndicatorEl();
-				fireEvent.press(indicatorEl);
+				pressIndicator();
 
 				expect(HANDLE_PRESS).toBeCalledWith(CURRENT_POSITION);
 			});

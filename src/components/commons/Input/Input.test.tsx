@@ -1,66 +1,76 @@
 import { screen } from "@testing-library/react-native";
-import { Text } from "react-native";
 
 import { Input, InputProps } from "./Input";
+
+import { hasTextElement } from "@/__mocks__/has-text-element";
+import { FakeIconComponent } from "@/__mocks__/fake-icon-component";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
-const INPUT_TESTID = "input";
-const INPUT_LEFT_ICON = "any_left_icon";
-const INPUT_RIGHT_ICON = "any_right_icon";
-const INPUT_INVALID_ICON_LABEL = "Campo inválido";
 const renderComponent = (props?: InputProps) =>
 	renderWithThemeProvider(<Input {...props} />);
 
 describe("<Input />", () => {
 	describe("Render", () => {
+		const LEFT_ICON = "any_left_icon";
+		const RIGHT_ICON = "any_right_icon";
+		const INVALID_ICON_LABEL = "Campo inválido";
+
+		function expectInputToBePresent() {
+			expect(screen.getByTestId("input")).toBeTruthy();
+		}
+
 		it("should render correctly without icons", () => {
 			renderComponent();
 
-			expect(screen.getByTestId(INPUT_TESTID)).toBeTruthy();
-			expect(screen.queryByText(INPUT_LEFT_ICON)).toBeFalsy();
-			expect(screen.queryByText(INPUT_RIGHT_ICON)).toBeFalsy();
+			expectInputToBePresent();
+			expect(hasTextElement(LEFT_ICON)).toBeFalsy();
+			expect(hasTextElement(RIGHT_ICON)).toBeFalsy();
 		});
 		it("should render correctly with left icon", () => {
-			renderComponent({ leftIcon: () => <Text>{INPUT_LEFT_ICON}</Text> });
+			renderComponent({
+				leftIcon: () => <FakeIconComponent icon={LEFT_ICON} />,
+			});
 
-			expect(screen.getByTestId(INPUT_TESTID)).toBeTruthy();
-			expect(screen.getByText(INPUT_LEFT_ICON)).toBeTruthy();
-			expect(screen.queryByText(INPUT_RIGHT_ICON)).toBeFalsy();
+			expectInputToBePresent();
+			expect(hasTextElement(LEFT_ICON)).toBeTruthy();
+			expect(hasTextElement(RIGHT_ICON)).toBeFalsy();
 		});
 		it("should render correctly with right icon", () => {
-			renderComponent({ rightIcon: () => <Text>{INPUT_RIGHT_ICON}</Text> });
+			renderComponent({
+				rightIcon: () => <FakeIconComponent icon={RIGHT_ICON} />,
+			});
 
-			expect(screen.getByTestId(INPUT_TESTID)).toBeTruthy();
-			expect(screen.queryByText(INPUT_LEFT_ICON)).toBeFalsy();
-			expect(screen.getByText(INPUT_RIGHT_ICON)).toBeTruthy();
+			expectInputToBePresent();
+			expect(hasTextElement(LEFT_ICON)).toBeFalsy();
+			expect(hasTextElement(RIGHT_ICON)).toBeTruthy();
 		});
 		it("should render correctly with icons", () => {
 			renderComponent({
-				leftIcon: () => <Text>{INPUT_LEFT_ICON}</Text>,
-				rightIcon: () => <Text>{INPUT_RIGHT_ICON}</Text>,
+				leftIcon: () => <FakeIconComponent icon={LEFT_ICON} />,
+				rightIcon: () => <FakeIconComponent icon={RIGHT_ICON} />,
 			});
 
-			expect(screen.getByTestId(INPUT_TESTID)).toBeTruthy();
-			expect(screen.getByText(INPUT_LEFT_ICON)).toBeTruthy();
-			expect(screen.getByText(INPUT_RIGHT_ICON)).toBeTruthy();
+			expectInputToBePresent();
+			expect(hasTextElement(LEFT_ICON)).toBeTruthy();
+			expect(hasTextElement(RIGHT_ICON)).toBeTruthy();
 		});
 		it("should render alert icon when it is invalid", () => {
 			renderComponent({
 				isInvalid: true,
-				rightIcon: () => <Text>{INPUT_RIGHT_ICON}</Text>,
+				rightIcon: () => <FakeIconComponent icon={RIGHT_ICON} />,
 			});
 
-			expect(screen.getByLabelText(INPUT_INVALID_ICON_LABEL)).toBeTruthy();
-			expect(screen.queryByText(INPUT_RIGHT_ICON)).toBeFalsy();
+			expect(screen.getByLabelText(INVALID_ICON_LABEL)).toBeTruthy();
+			expect(hasTextElement(RIGHT_ICON)).toBeFalsy();
 		});
 		it("should not render alert icon when it is invalid", () => {
 			renderComponent({
 				isInvalid: false,
-				rightIcon: () => <Text>{INPUT_RIGHT_ICON}</Text>,
+				rightIcon: () => <FakeIconComponent icon={RIGHT_ICON} />,
 			});
 
-			expect(screen.queryByLabelText(INPUT_INVALID_ICON_LABEL)).toBeFalsy();
-			expect(screen.getByText(INPUT_RIGHT_ICON)).toBeTruthy();
+			expect(screen.queryByLabelText(INVALID_ICON_LABEL)).toBeFalsy();
+			expect(hasTextElement(RIGHT_ICON)).toBeTruthy();
 		});
 	});
 });

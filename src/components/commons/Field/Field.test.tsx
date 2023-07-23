@@ -3,51 +3,50 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { Field, type FieldProps } from "./Field";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
-const FIELD_LABEL_ID = "any_id";
-const FIELD_LABEL_TEXT = "any_text";
-const FIELD_INPUT_PLACEHOLDER = "any_placeholder";
-const FIELD_ERROR_MESSAGE = "any_message";
-
-const defaultProps: FieldProps = {
-	labelText: FIELD_LABEL_TEXT,
-	labelId: FIELD_LABEL_ID,
+const LABEL_ID = "any_id";
+const LABEL_TEXT = "any_text";
+const INPUT_PLACEHOLDER = "any_placeholder";
+const ERROR_MESSAGE = "any_message";
+const DEFAULT_PROPS: FieldProps = {
+	labelText: LABEL_TEXT,
+	labelId: LABEL_ID,
 };
-const renderComponent = (props: FieldProps = defaultProps) =>
-	renderWithThemeProvider(
-		<Field placeholder={FIELD_INPUT_PLACEHOLDER} {...props} />
-	);
+
+const renderComponent = (props: FieldProps = DEFAULT_PROPS) =>
+	renderWithThemeProvider(<Field placeholder={INPUT_PLACEHOLDER} {...props} />);
+
+const getInputEl = () => screen.getByPlaceholderText(INPUT_PLACEHOLDER);
+
+const hasErrorEls = () => {
+	const isInvalid = getInputEl().props.isInvalid;
+	const hasErrorMessage = screen.queryByText(ERROR_MESSAGE);
+	return isInvalid && hasErrorMessage;
+};
 
 describe("<Field />", () => {
-	const getLabelEl = () => screen.getByText(FIELD_LABEL_TEXT);
-	const getInputEl = () => screen.getByPlaceholderText(FIELD_INPUT_PLACEHOLDER);
 	describe("Render", () => {
+		function expectFieldToBePresent() {
+			const labelEl = screen.getByText(LABEL_TEXT);
+			const inputEl = getInputEl();
+
+			expect(labelEl).toBeTruthy();
+			expect(labelEl.props.nativeID).toBe(LABEL_ID);
+			expect(inputEl).toBeTruthy();
+			expect(inputEl.props.accessibilityLabelledBy).toBe(LABEL_ID);
+			expect(inputEl.props["aria-labelledby"]).toBe(LABEL_ID);
+		}
+
 		it("should render correctly", () => {
 			renderComponent();
 
-			const labelEl = getLabelEl();
-			const inputEl = getInputEl();
-
-			expect(labelEl).toBeTruthy();
-			expect(labelEl.props.nativeID).toBe(FIELD_LABEL_ID);
-			expect(inputEl).toBeTruthy();
-			expect(inputEl.props.accessibilityLabelledBy).toBe(FIELD_LABEL_ID);
-			expect(inputEl.props["aria-labelledby"]).toBe(FIELD_LABEL_ID);
-			expect(inputEl.props.isInvalid).toBeFalsy();
-			expect(screen.queryByText(FIELD_ERROR_MESSAGE)).toBeFalsy();
+			expectFieldToBePresent();
+			expect(hasErrorEls()).toBeFalsy();
 		});
 		it("should render correctly when has error message", () => {
-			renderComponent({ ...defaultProps, errorMessage: FIELD_ERROR_MESSAGE });
+			renderComponent({ ...DEFAULT_PROPS, errorMessage: ERROR_MESSAGE });
 
-			const labelEl = getLabelEl();
-			const inputEl = getInputEl();
-
-			expect(labelEl).toBeTruthy();
-			expect(labelEl.props.nativeID).toBe(FIELD_LABEL_ID);
-			expect(inputEl).toBeTruthy();
-			expect(inputEl.props.accessibilityLabelledBy).toBe(FIELD_LABEL_ID);
-			expect(inputEl.props["aria-labelledby"]).toBe(FIELD_LABEL_ID);
-			expect(inputEl.props.isInvalid).toBeTruthy();
-			expect(screen.getByText(FIELD_ERROR_MESSAGE)).toBeTruthy();
+			expectFieldToBePresent();
+			expect(hasErrorEls()).toBeTruthy();
 		});
 	});
 	describe("Interactions", () => {
@@ -55,10 +54,9 @@ describe("<Field />", () => {
 			it("should pass the typed value to the onChangeText function", () => {
 				const typedValue = "any_value";
 				const onChangeText = jest.fn();
-				renderComponent({ ...defaultProps, onChangeText });
+				renderComponent({ ...DEFAULT_PROPS, onChangeText });
 
-				const inputEl = getInputEl();
-				fireEvent.changeText(inputEl, typedValue);
+				fireEvent.changeText(getInputEl(), typedValue);
 
 				expect(onChangeText).toHaveBeenCalledWith(typedValue);
 			});
