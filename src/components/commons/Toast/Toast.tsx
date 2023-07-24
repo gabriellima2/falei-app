@@ -2,7 +2,9 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import styled, { css } from "styled-components/native";
 
 import { Typography } from "../Typography";
-import { useToastContext, type ToastTypes } from "@/contexts/ToastContext";
+import { useToastContext } from "@/contexts/ToastContext/hooks/use-toast-context";
+
+import type { ToastTypes } from "@/contexts/ToastContext/@types/toast-types";
 
 const icons: Record<ToastTypes, (() => JSX.Element) | null> = {
 	warning: () => <AntDesign name="warning" accessibilityLabel="Warning Icon" />,
