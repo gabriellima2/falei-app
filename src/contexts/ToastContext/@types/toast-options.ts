@@ -1,7 +1,8 @@
-import { ToastTypes } from "./toast-types";
+import type { IconStyles } from "@/@types/icon-styles";
+import type { ToastTypes } from "./toast-types";
 
 export type ToastOptions = {
 	type?: ToastTypes;
 	time?: number;
-	Icon?: () => JSX.Element;
+	Icon?: (props?: IconStyles) => JSX.Element;
 };
