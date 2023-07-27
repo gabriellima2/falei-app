@@ -43,9 +43,12 @@ describe("<Toast />", () => {
 		jest.clearAllTimers();
 	});
 
-	function expectToastIsPresentWithColor(color: string) {
+	type ExpectToastToBePresentParams = { indicatorColor: string };
+
+	function expectToastToBePresent(params: ExpectToastToBePresentParams) {
+		const { indicatorColor } = params;
 		const indicatorStyle = screen.getByTestId("toast-indicator").props.style[0];
-		expect(indicatorStyle.backgroundColor).toBe(color);
+		expect(indicatorStyle.backgroundColor).toBe(indicatorColor);
 		expect(screen.getByText(TOAST_MESSAGE)).toBeTruthy();
 	}
 
@@ -66,24 +69,24 @@ describe("<Toast />", () => {
 		test.each(TOAST_TYPES)(
 			"should render correctly with %s type and default options",
 			(type) => {
-				const color = getIndicatorColorByType(type);
+				const indicatorColor = getIndicatorColorByType(type);
 				renderComponent({ ...DEFAULT_PROPS, options: { type } });
 
 				showToast();
 
-				expectToastIsPresentWithColor(color);
+				expectToastToBePresent({ indicatorColor });
 				if (type !== "default") {
 					const typeFormmated = capitalizeFirstLetter(type);
 					expect(screen.getByLabelText(`${typeFormmated} Icon`)).toBeTruthy();
 				}
 				advanceTimer(DEFAULT_TIME);
-				expect(screen.queryByText(TOAST_MESSAGE)).toBeFalsy();
+				expectToastIsNotPresent();
 			}
 		);
 		test.each(TOAST_TYPES)(
 			"should render correctly with %s type and custom options",
 			(type) => {
-				const color = getIndicatorColorByType(type);
+				const indicatorColor = getIndicatorColorByType(type);
 				renderComponent({
 					...DEFAULT_PROPS,
 					options: {
@@ -95,7 +98,7 @@ describe("<Toast />", () => {
 
 				showToast();
 
-				expectToastIsPresentWithColor(color);
+				expectToastToBePresent({ indicatorColor });
 				expect(screen.getByText(FAKE_ICON)).toBeTruthy();
 				advanceTimer(CUSTOM_TIME);
 				expectToastIsNotPresent();
