@@ -13,12 +13,12 @@ import { FIREBASE_ERROR_MESSAGES, UNEXPECTED_ERROR } from "@/errors";
 import { userAuthSchema } from "@/validations/user-auth-validation";
 import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth-dto";
 import type { AuthFormProps } from "../AuthForm";
+import { useToastContext } from "@/contexts/ToastContext";
 
 type UseAuthFormParams = Pick<AuthFormProps, "onSubmit">;
 
 type UseAuthFormReturn = {
 	isAuthenticating: boolean;
-	authErrorMessage: string | null;
 	errors: FieldErrors<UserAuthRequestDTO>;
 	setValue: UseFormSetValue<UserAuthRequestDTO>;
 	handleSubmit: UseFormHandleSubmit<UserAuthRequestDTO>;
@@ -27,8 +27,8 @@ type UseAuthFormReturn = {
 
 export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 	const { onSubmit } = params;
+	const { notify } = useToastContext();
 	const [isAuthenticating, setIsAuthenticating] = useState(false);
-	const [authErrorMessage, setAuthErrorMessage] = useState<string | null>(null);
 	const {
 		register,
 		setValue,
@@ -52,9 +52,9 @@ export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 				const firebaseError = err as FirebaseError;
 				const { cause } = refineFirebaseErrorCode(firebaseError.code);
 				const errorMessage = FIREBASE_ERROR_MESSAGES[cause];
-				if (errorMessage) return setAuthErrorMessage(errorMessage);
+				if (errorMessage) return notify(errorMessage, { type: "alert" });
 			}
-			setAuthErrorMessage((err as Error).message ?? UNEXPECTED_ERROR);
+			notify((err as Error).message ?? UNEXPECTED_ERROR, { type: "alert" });
 		} finally {
 			setIsAuthenticating(false);
 		}
@@ -62,7 +62,6 @@ export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 
 	return {
 		errors,
-		authErrorMessage,
 		isAuthenticating,
 		setValue,
 		handleSubmit,

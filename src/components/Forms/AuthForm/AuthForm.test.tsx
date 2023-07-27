@@ -1,9 +1,11 @@
 import { screen, waitFor } from "@testing-library/react-native";
 
 import { AuthForm, type AuthFormProps } from "./AuthForm";
+import { ToastProvider } from "@/contexts/ToastContext";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import { simulateFormSubmit } from "@/__mocks__/simulate-form-submit";
+import { asyncFunctions } from "@/__mocks__/async-functions";
 
 type Fields = { email: string; password: string };
 
@@ -23,13 +25,15 @@ const validValues: Fields = {
 const defaultProps: AuthFormProps = {
 	title: "any_title",
 	button: { text: "any_button_text" },
-	onSubmit: jest.fn().mockImplementation(() => {
-		return new Promise((resolve) => resolve);
-	}),
+	onSubmit: asyncFunctions.resolved,
 };
 
-const renderComponent = () =>
-	renderWithThemeProvider(<AuthForm {...defaultProps} />);
+const renderComponent = (props: AuthFormProps = defaultProps) =>
+	renderWithThemeProvider(
+		<ToastProvider>
+			<AuthForm {...props} />
+		</ToastProvider>
+	);
 
 const getErrorEls = () => screen.queryAllByRole("alert");
 const getButtonEl = () => screen.getByText(defaultProps.button.text);
@@ -145,14 +149,12 @@ describe("<AuthForm />", () => {
 		);
 	});
 	describe("Submit", () => {
-		it("should call the onSubmit function when submitting", async () => {
-			const user = {
-				email: validValues.email,
-				password: validValues.password,
-			};
-			renderComponent();
-			const { onSubmit } = defaultProps;
+		const user = {
+			email: validValues.email,
+			password: validValues.password,
+		};
 
+		function submitCorrectly() {
 			simulateFormSubmit({
 				fields: [
 					{
@@ -166,6 +168,13 @@ describe("<AuthForm />", () => {
 				],
 				buttonEl: getButtonEl(),
 			});
+		}
+
+		it("should call the onSubmit function correctly when submitting", async () => {
+			renderComponent();
+			const { onSubmit } = defaultProps;
+
+			submitCorrectly();
 
 			await waitFor(() => {
 				expect(getErrorEls()[0]).toBeFalsy();
@@ -173,6 +182,19 @@ describe("<AuthForm />", () => {
 				expect(onSubmit).toHaveBeenCalledTimes(1);
 				expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining(user));
 				expect(screen.getByLabelText("Carregando...")).toBeTruthy();
+			});
+		});
+		it("should show an error toast when onSubmit function throw an error", async () => {
+			const ERROR_MESSAGE = "any_error";
+			renderComponent({
+				...defaultProps,
+				onSubmit: asyncFunctions.rejected(ERROR_MESSAGE),
+			});
+
+			submitCorrectly();
+
+			await waitFor(() => {
+				expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
 			});
 		});
 	});
