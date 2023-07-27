@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 
-import { Toast } from "@/components";
+import { Toast } from "@/components/commons/Toast";
 import { ToastContext } from "./ToastContext";
 
 import type { ToastOptions } from "./@types/toast-options";

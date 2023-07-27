@@ -6,15 +6,17 @@ import {
 	BaseButton,
 	AuthForm,
 } from "@/components";
+import { useCreateAccount } from "./hooks/use-create-account";
 
 export function CreateAccount() {
+	const { handleSignUp } = useCreateAccount();
 	return (
 		<KeyboardAvoidingWrapper>
 			<Container horizontalSpacing verticalSpacing>
 				<AuthForm
 					title="Bem-vindo! Crie uma conta para continuar"
 					button={{ text: "Criar conta" }}
-					onSubmit={(data) => console.log(data)}
+					onSubmit={handleSignUp}
 				/>
 				<BaseButton onlyText>Continuar sem conta</BaseButton>
 			</Container>

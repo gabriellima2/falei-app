@@ -10,7 +10,7 @@ import { asyncFunctions } from "@/__mocks__/async-functions";
 type Fields = { email: string; password: string };
 
 const fields: (keyof Fields)[] = ["email", "password"];
-const placeholders: Fields = {
+export const placeholders: Fields = {
 	email: "Ex: seuemail@gmail.com",
 	password: "8+ Caracteres",
 };
@@ -37,7 +37,7 @@ const renderComponent = (props: AuthFormProps = defaultProps) =>
 
 const getErrorEls = () => screen.queryAllByRole("alert");
 const getButtonEl = () => screen.getByText(defaultProps.button.text);
-const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
+export const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
 
 describe("<AuthForm />", () => {
 	describe("Render", () => {
