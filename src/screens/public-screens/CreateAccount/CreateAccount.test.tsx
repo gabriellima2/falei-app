@@ -1,19 +1,22 @@
 import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 
-import { CreateAccount } from "./CreateAccount";
+import { CreateAccount, type CreateAccountProps } from "./CreateAccount";
+import { ToastProvider } from "@/contexts/ToastContext";
+
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { mockFirebaseAuth } from "jest-setup";
 import {
 	getFieldEl,
 	placeholders,
 } from "@/components/Forms/AuthForm/AuthForm.test";
-import { ToastProvider } from "@/contexts/ToastContext";
+
+const defaultProps: CreateAccountProps<null> = {
+	authentication: jest.fn(),
+};
 
 const renderComponent = () =>
 	renderWithThemeProvider(
 		<ToastProvider>
-			<CreateAccount />
+			<CreateAccount {...defaultProps} />
 		</ToastProvider>
 	);
 
@@ -47,12 +50,11 @@ describe("<CreateAccount />", () => {
 					fireEvent.press(getButtonEl());
 				});
 
-				await waitFor(() => {
-					expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
-						mockFirebaseAuth,
-						emailValue,
-						passwordValue
-					);
+				await waitFor(async () => {
+					expect(defaultProps.authentication).toHaveBeenCalledWith({
+						email: emailValue,
+						password: passwordValue,
+					});
 					expect(screen.getByText("Conta criada com sucesso")).toBeTruthy();
 				});
 			});

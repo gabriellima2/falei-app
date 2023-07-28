@@ -6,10 +6,17 @@ import {
 	BaseButton,
 	AuthForm,
 } from "@/components";
-import { useCreateAccount } from "./hooks/use-create-account";
+import {
+	useCreateAccount,
+	type UseCreateAccountParams,
+} from "./hooks/use-create-account";
 
-export function CreateAccount() {
-	const { handleSignUp } = useCreateAccount();
+export type CreateAccountProps<T> = UseCreateAccountParams<T>;
+
+export function CreateAccount<T>(props: CreateAccountProps<T>) {
+	const { authentication } = props;
+	const { handleSignUp } = useCreateAccount<T>({ authentication });
+
 	return (
 		<KeyboardAvoidingWrapper>
 			<Container horizontalSpacing verticalSpacing>
