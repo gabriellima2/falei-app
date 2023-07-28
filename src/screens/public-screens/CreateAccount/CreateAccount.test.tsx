@@ -50,7 +50,7 @@ describe("<CreateAccount />", () => {
 					fireEvent.press(getButtonEl());
 				});
 
-				await waitFor(async () => {
+				await waitFor(() => {
 					expect(defaultProps.authentication).toHaveBeenCalledWith({
 						email: emailValue,
 						password: passwordValue,
