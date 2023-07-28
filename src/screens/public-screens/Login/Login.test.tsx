@@ -1,20 +1,26 @@
 import "expo-router";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { screen, fireEvent, waitFor, act } from "@testing-library/react-native";
 
-import { Login } from "./Login";
+import { Login, type LoginProps } from "./Login";
 
-import { mockFirebaseAuth, mockReplace } from "jest-setup";
+import { mockReplace } from "jest-setup";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import {
+	getFieldEl,
+	placeholders,
+} from "@/components/Forms/AuthForm/AuthForm.test";
 
-const getEmailFieldEl = () =>
-	screen.getByPlaceholderText("Ex: seuemail@gmail.com");
-const getPasswordFieldEl = () => screen.getByPlaceholderText("8+ Caracteres");
+const defaultProps: LoginProps<null> = {
+	authentication: jest.fn(),
+};
+
+const renderComponent = () =>
+	renderWithThemeProvider(<Login {...defaultProps} />);
+
 const getButtonEl = () => screen.getByText("Entrar");
-const renderComponent = () => renderWithThemeProvider(<Login />);
 
 describe("<Login />", () => {
-	afterEach(() => {
+	afterAll(() => {
 		jest.clearAllMocks();
 	});
 
@@ -36,17 +42,19 @@ describe("<Login />", () => {
 				renderComponent();
 
 				act(() => {
-					fireEvent.changeText(getEmailFieldEl(), emailValue);
-					fireEvent.changeText(getPasswordFieldEl(), passwordValue);
+					fireEvent.changeText(getFieldEl(placeholders.email), emailValue);
+					fireEvent.changeText(
+						getFieldEl(placeholders.password),
+						passwordValue
+					);
 					fireEvent.press(getButtonEl());
 				});
 
 				await waitFor(() => {
-					expect(signInWithEmailAndPassword).toHaveBeenCalledWith(
-						mockFirebaseAuth,
-						emailValue,
-						passwordValue
-					);
+					expect(defaultProps.authentication).toHaveBeenCalledWith({
+						email: emailValue,
+						password: passwordValue,
+					});
 					expect(mockReplace).toHaveBeenCalledWith("(tabs)/");
 				});
 			});

@@ -1,13 +1,16 @@
-import { useLogin } from "./hooks/use-login";
-
 import {
 	ContainerWithDefaultSpaces,
 	KeyboardAvoidingWrapper,
 	AuthForm,
 } from "@/components";
+import { useLogin, type UseLoginParams } from "./hooks/use-login";
 
-export function Login() {
-	const { handleSignIn } = useLogin();
+export type LoginProps<T> = UseLoginParams<T>;
+
+export function Login<T>(props: LoginProps<T>) {
+	const { authentication } = props;
+	const { handleSignIn } = useLogin({ authentication });
+
 	return (
 		<KeyboardAvoidingWrapper>
 			<ContainerWithDefaultSpaces horizontalSpacing verticalSpacing>

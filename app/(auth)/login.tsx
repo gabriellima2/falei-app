@@ -3,6 +3,8 @@ import { Stack } from "expo-router";
 import { Login } from "@/screens";
 import { AuthLink } from "@/components";
 
+import { firebaseSignIn } from "@/services/firebase";
+
 export default function Page() {
 	return (
 		<>
@@ -17,7 +19,7 @@ export default function Page() {
 					),
 				}}
 			/>
-			<Login />
+			<Login authentication={firebaseSignIn} />
 		</>
 	);
 }
