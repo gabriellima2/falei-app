@@ -1,12 +1,14 @@
 import { useToastContext } from "@/contexts/ToastContext";
+
 import type { UserAuthRequestDTO } from "@/dtos";
+import type { Authentication } from "@/@types/authentication";
 
 export type UseCreateAccountParams<T> = {
-	authentication: (credentials: UserAuthRequestDTO) => Promise<T>;
+	authentication: Authentication<T>;
 };
 
 type UseCreateAccountReturn = {
-	handleSignUp: (credentials: UserAuthRequestDTO) => Promise<void>;
+	handleSignUp: Authentication<void>;
 };
 
 export function useCreateAccount<T>(

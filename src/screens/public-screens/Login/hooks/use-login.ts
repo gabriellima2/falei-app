@@ -1,12 +1,14 @@
 import { useRouter } from "expo-router";
+
 import type { UserAuthRequestDTO } from "@/dtos";
+import type { Authentication } from "@/@types/authentication";
 
 export type UseLoginParams<T> = {
-	authentication: (credentials: UserAuthRequestDTO) => Promise<T>;
+	authentication: Authentication<T>;
 };
 
 type UseLoginReturn = {
-	handleSignIn: (credentials: UserAuthRequestDTO) => Promise<void>;
+	handleSignIn: Authentication<void>;
 };
 
 export function useLogin<T>(params: UseLoginParams<T>): UseLoginReturn {
