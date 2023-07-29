@@ -2,9 +2,10 @@ import { Stack } from "expo-router";
 import styled from "styled-components/native";
 
 import { ContainerWithDefaultSpaces } from "@/components";
+import { ProtectScreen } from "@/hocs";
 import { Onboarding } from "@/screens";
 
-export default function Page() {
+function Page() {
 	return (
 		<Container topSpacing>
 			<Stack.Screen options={{ headerShown: false }} />
@@ -12,6 +13,8 @@ export default function Page() {
 		</Container>
 	);
 }
+
+export default ProtectScreen(Page);
 
 const Container = styled(ContainerWithDefaultSpaces)`
 	flex: 1;

@@ -1,5 +1,8 @@
 import { Typography } from "@/components";
+import { ProtectScreen } from "@/hocs";
 
-export default function Page() {
+function Page() {
 	return <Typography.Title>Private Home</Typography.Title>;
 }
+
+export default ProtectScreen(Page);
