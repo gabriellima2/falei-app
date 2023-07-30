@@ -11,9 +11,12 @@ import {
 
 import { BackButton, ContainerWithDefaultSpaces, Splash } from "@/components";
 import { Providers } from "@/contexts/Providers";
+import { useAuthStore } from "@/store/auth-store";
+
 import { theme } from "@/styles/theme";
 
 export default function RootLayout() {
+	const { authHasBeenChecked } = useAuthStore();
 	const [fontsLoaded] = useFonts({
 		Roboto_400Regular,
 		Roboto_500Medium,
@@ -23,14 +26,15 @@ export default function RootLayout() {
 	return (
 		<ThemeProvider theme={theme}>
 			<StatusBar style="light" />
-			{!fontsLoaded ? (
+			{!fontsLoaded && !authHasBeenChecked ? (
 				<Splash />
 			) : (
 				<Providers>
 					<SafeContainer>
-						<Container bottomSpacing>
+						<Container bottomSpacing={authHasBeenChecked}>
 							<Stack
 								screenOptions={{
+									headerShown: false,
 									animation: "fade",
 									headerShadowVisible: false,
 									headerTitleStyle: { color: theme.colors.font.primary },

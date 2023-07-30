@@ -8,7 +8,7 @@ import { Onboarding } from "@/screens";
 function Page() {
 	return (
 		<Container topSpacing>
-			<Stack.Screen options={{ headerShown: false }} />
+			<Stack.Screen />
 			<Onboarding />
 		</Container>
 	);

@@ -11,6 +11,7 @@ export default function Page() {
 			<Stack.Screen
 				options={{
 					title: "",
+					headerShown: true,
 					animation: "default",
 					headerRight: () => (
 						<AuthLink href={{ pathname: "create-account" }}>

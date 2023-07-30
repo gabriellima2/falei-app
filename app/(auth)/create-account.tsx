@@ -11,6 +11,7 @@ export default function Page() {
 			<Stack.Screen
 				options={{
 					title: "",
+					headerShown: true,
 					animation: "slide_from_right",
 					headerRight: () => (
 						<AuthLink href={{ pathname: "login" }}>Entrar</AuthLink>
