@@ -43,7 +43,7 @@ export function ProtectScreen<P extends {}>(Component: ComponentType<P>) {
 		useEffect(() => {
 			if (!navigationState) return;
 			handleRedirect();
-		}, [user, router, navigationState]);
+		}, [authHasBeenChecked]);
 
 		if (!authHasBeenChecked) return <Splash />;
 		return <Component {...props} />;
