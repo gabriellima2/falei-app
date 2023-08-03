@@ -8,5 +8,6 @@ export type ToastConfig = {
 
 export interface ToastContextProperties {
 	config: ToastConfig;
+	clear: () => void;
 	notify: (message: ToastMessage, options?: ToastOptions) => void;
 }
