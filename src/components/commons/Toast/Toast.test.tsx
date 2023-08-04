@@ -2,7 +2,6 @@ import { act, fireEvent, screen } from "@testing-library/react-native";
 
 import {
 	ToastProvider,
-	DEFAULT_TOAST_TIME,
 	type ToastConfig,
 	type ToastTypes,
 } from "@/contexts/ToastContext";
@@ -10,7 +9,7 @@ import {
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import { FakeIconComponent } from "@/__mocks__/fake-icon-component";
 import { ShowToastButton } from "./_mocks_/mock-components";
-import { advanceTimer } from "@/__mocks__/advance-timer";
+import { runTimers } from "@/__mocks__/run-timers";
 
 import { capitalizeFirstLetter } from "@/helpers/capitalize-first-letter";
 
@@ -32,11 +31,8 @@ const showToast = () => {
 };
 
 describe("<Toast />", () => {
-	beforeEach(() => {
+	beforeAll(() => {
 		jest.useFakeTimers();
-	});
-	afterEach(() => {
-		jest.clearAllTimers();
 	});
 
 	type ExpectDefaultIconToBePresentParams = { type: ToastTypes };
@@ -60,7 +56,7 @@ describe("<Toast />", () => {
 	}
 
 	describe("Render", () => {
-		const CUSTOM_TIME = 3000;
+		const CUSTOM_TIME = 1500;
 		const TOAST_TYPES: ToastTypes[] = [
 			"default",
 			"alert",
@@ -77,7 +73,7 @@ describe("<Toast />", () => {
 
 				expectToastToBePresent();
 				expectDefaultIconToBePresent({ type });
-				advanceTimer(DEFAULT_TOAST_TIME);
+				runTimers();
 				expectToastIsNotPresent();
 			}
 		);
@@ -97,7 +93,7 @@ describe("<Toast />", () => {
 
 				expectToastToBePresent();
 				expect(screen.getByText(FAKE_ICON)).toBeTruthy();
-				advanceTimer(CUSTOM_TIME);
+				runTimers();
 				expectToastIsNotPresent();
 			}
 		);
