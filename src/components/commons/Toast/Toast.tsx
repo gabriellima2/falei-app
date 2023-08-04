@@ -1,6 +1,6 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import styled, { css, useTheme } from "styled-components/native";
-import { Dimensions } from "react-native";
+import { Dimensions, Animated } from "react-native";
 
 import { Typography } from "../Typography";
 import { CloseButton } from "../Buttons";
@@ -30,7 +30,8 @@ const icons: Record<ToastTypes, ((props?: IconStyles) => JSX.Element) | null> =
 
 export const Toast = () => {
 	const {
-		clear,
+		currentPosition,
+		instantHide,
 		config: { message, options },
 	} = useToastContext();
 	const { colors } = useTheme();
@@ -44,23 +45,29 @@ export const Toast = () => {
 				: colors.font.primary,
 		size: 20,
 	};
+
 	return (
 		<>
-			{message && (
-				<Container role="alert">
-					{Icon && (
-						<Indicator type={options?.type} testID="toast-indicator">
-							{Icon(iconStyles)}
-						</Indicator>
-					)}
+			<Container
+				testID="toast"
+				role="alert"
+				style={{ transform: [{ translateX: currentPosition }] }}
+			>
+				{Icon && (
+					<Indicator type={options?.type} testID="toast-indicator">
+						{Icon(iconStyles)}
+					</Indicator>
+				)}
 
-					<Content onlyText={!Icon}>
-						<Message numberOfLines={3}>{message}</Message>
-					</Content>
+				<Content onlyText={!Icon}>
+					<Message numberOfLines={3}>{message}</Message>
+				</Content>
 
-					<CloseButton accessibilityHint="Fecha a mensagem" onPress={clear} />
-				</Container>
-			)}
+				<CloseButton
+					accessibilityHint="Fecha a mensagem"
+					onPress={instantHide}
+				/>
+			</Container>
 		</>
 	);
 };
@@ -70,7 +77,7 @@ type ContentProps = { onlyText?: boolean };
 
 const screenWidth = Dimensions.get("screen").width;
 
-const Container = styled.View`
+const Container = styled(Animated.View)`
 	${({ theme }) => css`
 		width: ${Math.abs(screenWidth) - 16}px;
 		align-items: center;

@@ -1,3 +1,4 @@
+import { Animated } from "react-native";
 import { ToastMessage } from "./toast-message";
 import { ToastOptions } from "./toast-options";
 
@@ -7,7 +8,8 @@ export type ToastConfig = {
 };
 
 export interface ToastContextProperties {
+	currentPosition: Animated.Value | number;
 	config: ToastConfig;
-	clear: () => void;
+	instantHide: () => void;
 	notify: (message: ToastMessage, options?: ToastOptions) => void;
 }
