@@ -7,7 +7,7 @@ import { Onboarding } from "@/screens";
 
 function Page() {
 	return (
-		<Container topSpacing>
+		<Container topSpacing bottomSpacing>
 			<Stack.Screen />
 			<Onboarding />
 		</Container>

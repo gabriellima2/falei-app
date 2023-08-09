@@ -31,7 +31,7 @@ export default function RootLayout() {
 			) : (
 				<Providers>
 					<SafeContainer>
-						<Container bottomSpacing={authHasBeenChecked}>
+						<Container>
 							<Stack
 								screenOptions={{
 									headerShown: false,

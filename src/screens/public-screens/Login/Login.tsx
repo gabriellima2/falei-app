@@ -13,7 +13,11 @@ export function Login<T>(props: LoginProps<T>) {
 
 	return (
 		<KeyboardAvoidingWrapper>
-			<ContainerWithDefaultSpaces horizontalSpacing verticalSpacing>
+			<ContainerWithDefaultSpaces
+				bottomSpacing
+				horizontalSpacing
+				verticalSpacing
+			>
 				<AuthForm
 					title="Olá, novamente! Entre para continuar"
 					button={{ text: "Entrar" }}

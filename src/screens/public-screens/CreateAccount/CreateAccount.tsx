@@ -19,7 +19,7 @@ export function CreateAccount<T>(props: CreateAccountProps<T>) {
 
 	return (
 		<KeyboardAvoidingWrapper>
-			<Container horizontalSpacing verticalSpacing>
+			<Container bottomSpacing horizontalSpacing verticalSpacing>
 				<AuthForm
 					title="Bem-vindo! Crie uma conta para continuar"
 					button={{ text: "Criar conta" }}
