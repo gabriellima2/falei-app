@@ -1,10 +1,20 @@
-import { Slot, Stack } from "expo-router";
+import { Tabs } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+import { TabBarElements } from "@/components";
 
 export default function Layout() {
 	return (
-		<>
-			<Stack.Screen options={{ headerShown: false }} />
-			<Slot />
-		</>
+		<Tabs>
+			<Tabs.Screen
+				name="index"
+				options={{
+					...TabBarElements({
+						label: "início",
+						Icon: (props) => <Ionicons name="home" {...props} />,
+					}),
+				}}
+			/>
+		</Tabs>
 	);
 }
