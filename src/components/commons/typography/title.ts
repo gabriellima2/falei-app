@@ -15,7 +15,7 @@ const modifiers: Modifiers<TitleVariants> = {
 
 export const Title = styled.Text<TitleProps>`
 	${({ theme, isDisplaySize }) => css`
-		font-family: ${theme.fontFamily.main.bold};
+		font-family: ${theme.fontFamily.main.medium};
 		font-size: ${theme.fontSizes.lg};
 		color: ${theme.colors.font.primary};
 		${isDisplaySize && modifiers.isDisplaySize(theme)}

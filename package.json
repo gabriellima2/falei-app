@@ -33,7 +33,8 @@
     "react-native-screens": "~3.20.0",
     "styled-components": "^5.3.11",
     "zod": "^3.21.4",
-    "zustand": "^4.3.9"
+    "zustand": "^4.3.9",
+    "expo-linear-gradient": "~12.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
