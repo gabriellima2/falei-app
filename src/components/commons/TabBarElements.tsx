@@ -1,6 +1,6 @@
 import styled, { css, useTheme } from "styled-components/native";
 
-import { Typography } from "@/components";
+import { Typography } from "@/components/commons/Typography";
 
 import { capitalizeFirstLetter } from "@/helpers/capitalize-first-letter";
 import type { IconStyles } from "@/@types/icon-styles";
