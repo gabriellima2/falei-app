@@ -5,9 +5,9 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "styled-components/native";
 
-type TabBarProps = BottomTabBarProps;
+type BottomTabProps = BottomTabBarProps;
 
-export const TabBar = (props: TabBarProps) => {
+export const BottomTab = (props: BottomTabProps) => {
 	const { colors } = useTheme();
 	return (
 		<LinearGradient

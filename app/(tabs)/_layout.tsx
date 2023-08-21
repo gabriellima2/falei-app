@@ -1,13 +1,13 @@
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { TabBarElements, TabBar } from "@/components";
+import { BottomTab, BottomTabElements } from "@/components";
 import { theme } from "@/styles/theme";
 
 export default function Layout() {
 	return (
 		<Tabs
-			tabBar={(props) => <TabBar {...props} />}
+			tabBar={(props) => <BottomTab {...props} />}
 			sceneContainerStyle={{ backgroundColor: "transparent" }}
 			screenOptions={{
 				headerShadowVisible: false,
@@ -33,8 +33,9 @@ export default function Layout() {
 			<Tabs.Screen
 				name="index"
 				options={{
-					...TabBarElements({
+					...BottomTabElements({
 						label: "início",
+						title: "2 Exercícios para completar a meta diária",
 						Icon: (props) => <Ionicons name="home" {...props} />,
 					}),
 				}}

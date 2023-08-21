@@ -5,7 +5,7 @@ import { Typography } from "@/components/commons/Typography";
 import { capitalizeFirstLetter } from "@/helpers/capitalize-first-letter";
 import type { IconStyles } from "@/@types/icon-styles";
 
-type TabBarElementsProps = {
+type BottomTabElementsProps = {
 	label: string;
 	title?: string;
 	Icon: (props: IconStyles) => JSX.Element;
@@ -13,7 +13,7 @@ type TabBarElementsProps = {
 
 type ElementProps = { focused: boolean };
 
-export function TabBarElements(params: TabBarElementsProps) {
+export function BottomTabElements(params: BottomTabElementsProps) {
 	const { label, title, Icon } = params;
 	const { colors } = useTheme();
 	return {
