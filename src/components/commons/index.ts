@@ -13,4 +13,4 @@ export * from "./Field";
 export * from "./Form";
 export * from "./KeyboardAvoidingWrapper";
 export * from "./Toast";
-export * from "../BottomTab/BottomTab";
+export * from "./Indicator";

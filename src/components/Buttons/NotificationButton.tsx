@@ -1,7 +1,7 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { SmallButton } from "../commons";
 import styled from "styled-components/native";
-import { Indicator } from "../commons/Indicator";
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+import { SmallButton, Indicator } from "../commons";
 
 export type NotificationButtonProps = {
 	hasNewNotifications?: boolean;
@@ -12,7 +12,7 @@ export const NotificationButton = (props: NotificationButtonProps) => {
 	return (
 		<Container>
 			{hasNewNotifications && (
-				<Indicator accessibilityLabel="Indicador de novas notificações" />
+				<NewNotificationsIndicator accessibilityLabel="Indicador de novas notificações" />
 			)}
 			<Button
 				secondary
@@ -25,7 +25,16 @@ export const NotificationButton = (props: NotificationButtonProps) => {
 	);
 };
 
-const Container = styled.View``;
+const Container = styled.View`
+	position: relative;
+`;
+
+const NewNotificationsIndicator = styled(Indicator)`
+	position: absolute;
+	right: 2px;
+	top: 2px;
+	z-index: 100;
+`;
 
 const Button = styled(SmallButton)`
 	flex: none;

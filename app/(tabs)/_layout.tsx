@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { BottomTab, BottomTabElements } from "@/components";
+import { BottomTab, BottomTabElements, NotificationButton } from "@/components";
 import { theme } from "@/styles/theme";
 
 export default function Layout() {
@@ -16,6 +16,12 @@ export default function Layout() {
 					justifyContent: "center",
 					alignItems: "center",
 					paddingVertical: 12,
+				},
+				headerRightContainerStyle: {
+					paddingRight: 16,
+				},
+				headerTitleContainerStyle: {
+					paddingLeft: 0,
 				},
 				headerStyle: {
 					backgroundColor: "transparent",
@@ -38,6 +44,7 @@ export default function Layout() {
 						title: "2 Exercícios para completar a meta diária",
 						Icon: (props) => <Ionicons name="home" {...props} />,
 					}),
+					headerRight: () => <NotificationButton hasNewNotifications />,
 				}}
 			/>
 		</Tabs>
