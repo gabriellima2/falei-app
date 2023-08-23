@@ -2,22 +2,27 @@ import styled, { css } from "styled-components/native";
 import type { Modifiers } from "@/@types/modifiers";
 
 type TitleProps = {
-	isDisplaySize?: boolean;
+	display?: boolean;
+	subtitle?: boolean;
 };
 
-type TitleVariants = keyof Pick<TitleProps, "isDisplaySize">;
+type TitleVariants = keyof Pick<TitleProps, "display" | "subtitle">;
 
 const modifiers: Modifiers<TitleVariants> = {
-	isDisplaySize: (theme) => css`
+	display: (theme) => css`
 		font-size: ${theme.fontSizes.display};
+	`,
+	subtitle: (theme) => css`
+		font-size: ${theme.fontSizes.medium};
 	`,
 };
 
 export const Title = styled.Text<TitleProps>`
-	${({ theme, isDisplaySize }) => css`
+	${({ theme, display, subtitle }) => css`
 		font-family: ${theme.fontFamily.main.medium};
 		font-size: ${theme.fontSizes.lg};
 		color: ${theme.colors.font.primary};
-		${isDisplaySize && modifiers.isDisplaySize(theme)}
+		${display && modifiers.display(theme)};
+		${subtitle && modifiers.subtitle(theme)}
 	`}
 `;
