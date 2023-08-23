@@ -40,8 +40,9 @@ export const theme = {
 		1: "8px",
 		2: "12px",
 		3: "16px",
-		4: "32px",
-		5: "64px",
+		4: "20px",
+		5: "32px",
+		6: "64px",
 	},
 	rounded: {
 		sm: "2px",
