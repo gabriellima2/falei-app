@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
 import { Typography } from "../Typography";
-import { BaseLink } from "../Links";
+import { TextLink } from "../Links";
 
 export type GroupProps = {
 	title: string;
@@ -15,11 +15,11 @@ export const Group = (props: GroupProps) => {
 	return (
 		<Container>
 			<Header>
-				<Title>{title}</Title>
-				{rightLink && (
-					<Link href={{ pathname: rightLink.href }} onlyText>
+				<Title subtitle>{title}</Title>
+				{!!rightLink && (
+					<TextLink href={{ pathname: rightLink.href }}>
 						{rightLink.text}
-					</Link>
+					</TextLink>
 				)}
 			</Header>
 			{children}
@@ -27,10 +27,19 @@ export const Group = (props: GroupProps) => {
 	);
 };
 
-const Container = styled.View``;
+const Container = styled.View`
+	${({ theme }) => css`
+		gap: ${theme.spaces[3]};
+	`}
+`;
 
-const Header = styled.View``;
+const Header = styled.View`
+	${({ theme }) => css`
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		gap: ${theme.spaces[3]};
+	`}
+`;
 
 const Title = styled(Typography.Title)``;
-
-const Link = styled(BaseLink)``;
