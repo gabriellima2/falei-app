@@ -8,7 +8,11 @@ export default function Layout() {
 	return (
 		<Tabs
 			tabBar={(props) => <BottomTab {...props} />}
-			sceneContainerStyle={{ backgroundColor: "transparent" }}
+			sceneContainerStyle={{
+				backgroundColor: "transparent",
+				paddingHorizontal: 16,
+				gap: 32,
+			}}
 			screenOptions={{
 				headerShadowVisible: false,
 				headerTitleStyle: { color: theme.colors.font.primary },
@@ -17,11 +21,9 @@ export default function Layout() {
 					alignItems: "center",
 					paddingVertical: 12,
 				},
-				headerRightContainerStyle: {
-					paddingRight: 16,
-				},
 				headerTitleContainerStyle: {
-					paddingLeft: 0,
+					width: "100%",
+					left: -16,
 				},
 				headerStyle: {
 					backgroundColor: "transparent",
