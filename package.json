@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.3",
+    "@gorhom/bottom-sheet": "^4.4.7",
     "@hookform/resolvers": "^3.1.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
@@ -19,6 +20,7 @@
     "expo": "^48.0.19",
     "expo-constants": "~14.2.1",
     "expo-font": "~11.1.1",
+    "expo-linear-gradient": "~12.1.2",
     "expo-linking": "~4.0.1",
     "expo-router": "^1.5.3",
     "expo-status-bar": "~1.4.4",
@@ -34,7 +36,7 @@
     "styled-components": "^5.3.11",
     "zod": "^3.21.4",
     "zustand": "^4.3.9",
-    "expo-linear-gradient": "~12.1.2"
+    "react-native-reanimated": "~2.14.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
