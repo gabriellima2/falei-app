@@ -16,3 +16,4 @@ export * from "./Toast";
 export * from "./Indicator";
 export * from "./Group";
 export * from "./BottomSheet";
+export * from "./Menu";

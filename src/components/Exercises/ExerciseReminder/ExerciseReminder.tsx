@@ -3,6 +3,7 @@ import styled, { css } from "styled-components/native";
 
 import { AdditionalExerciseInfo } from "../AdditionalExerciseInfo";
 import { Typography } from "@/components/commons";
+import { ExerciseReminderMenu } from "./components/ExerciseReminderMenu";
 
 export type ExerciseReminderProps = {
 	title: string;
@@ -39,7 +40,7 @@ export const ExerciseReminder = (props: ExerciseReminderProps) => {
 		>
 			<Header>
 				<Title subtitle>{title}</Title>
-				<Ionicons name="ellipsis-vertical" size={20} />
+				<ExerciseReminderMenu />
 			</Header>
 			<Description>
 				<OtherInfo>
