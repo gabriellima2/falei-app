@@ -6,11 +6,9 @@ import { useMenuContext } from "@/contexts/MenuContext";
 export const ExerciseReminderMenu = () => {
 	const { handleToggle } = useMenuContext();
 	return (
-		<>
-			<Button onPress={() => handleToggle([{ name: "any" }])}>
-				<Ionicons name="ellipsis-vertical" size={24} color="#000" />
-			</Button>
-		</>
+		<Button onPress={() => handleToggle([{ name: "any" }])}>
+			<Ionicons name="ellipsis-vertical" size={24} color="#000" />
+		</Button>
 	);
 };
 
