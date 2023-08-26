@@ -7,15 +7,15 @@ import {
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const EXERCISE_TITLE = "any_title";
-const SCHEDULED_AT = { day: "Ter", hour: "17:00" };
-const ROUNDS = 1;
-const DURATION_TIME = 18;
+const SCHEDULED_AT = "Ter - 17:00h";
+const REPETITIONS = 1;
+const DURATION_IN_MIN = 18;
 
 const defaultProps: ExerciseReminderProps = {
 	title: EXERCISE_TITLE,
 	scheduledAt: SCHEDULED_AT,
-	rounds: ROUNDS,
-	durationTime: DURATION_TIME,
+	repetitions: REPETITIONS,
+	durationInMin: DURATION_IN_MIN,
 };
 const renderComponent = (props: ExerciseReminderProps = defaultProps) =>
 	renderWithThemeProvider(<ExerciseReminder {...props} />);
@@ -29,11 +29,9 @@ describe("<ExerciseReminder />", () => {
 	describe("Render", () => {
 		function expectExerciseReminderToBePresent() {
 			expect(screen.getByText(EXERCISE_TITLE)).toBeTruthy();
-			expect(
-				screen.getByText(`${SCHEDULED_AT.day} - ${SCHEDULED_AT.hour}h`)
-			).toBeTruthy();
-			expect(screen.getByText(`${ROUNDS} Rounds`)).toBeTruthy();
-			expect(screen.getByText(`${DURATION_TIME} Min.`)).toBeTruthy();
+			expect(screen.getByText(SCHEDULED_AT)).toBeTruthy();
+			expect(screen.getByText(`${REPETITIONS} Rounds`)).toBeTruthy();
+			expect(screen.getByText(`${DURATION_IN_MIN} Min.`)).toBeTruthy();
 		}
 
 		it("should render correctly when not on scheduled date", () => {
@@ -43,7 +41,7 @@ describe("<ExerciseReminder />", () => {
 			expect(screen.getByLabelText("Próximo lembrete")).toBeTruthy();
 		});
 		it("should render correctly when it's on the scheduled date", () => {
-			renderComponent({ ...defaultProps, isOnTheScheduledDate: true });
+			renderComponent({ ...defaultProps, isOnScheduledDate: true });
 
 			expectExerciseReminderToBePresent();
 			expect(screen.getByLabelText("Fazer exercício")).toBeTruthy();
@@ -67,7 +65,7 @@ describe("<ExerciseReminder />", () => {
 					renderComponent({
 						...defaultProps,
 						onPress: mockOnPress,
-						isOnTheScheduledDate: true,
+						isOnScheduledDate: true,
 					});
 
 					const el = getExerciseReminderEl();

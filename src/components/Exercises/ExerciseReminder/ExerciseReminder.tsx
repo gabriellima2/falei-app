@@ -1,16 +1,15 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import styled, { css } from "styled-components/native";
 
 import { AdditionalExerciseInfo } from "../AdditionalExerciseInfo";
+import { ExerciseReminderMenu } from "./components";
 import { Typography } from "@/components/commons";
-import { ExerciseReminderMenu } from "./components/ExerciseReminderMenu";
 
 export type ExerciseReminderProps = {
 	title: string;
-	scheduledAt: { day: string; hour: string };
-	rounds: number;
-	durationTime: number;
-	isOnTheScheduledDate?: boolean;
+	scheduledAt: string;
+	repetitions: number;
+	durationInMin: number;
+	isOnScheduledDate?: boolean;
 	onPress?: () => void | Promise<void>;
 };
 
@@ -18,36 +17,36 @@ export const ExerciseReminder = (props: ExerciseReminderProps) => {
 	const {
 		title,
 		scheduledAt,
-		rounds,
-		durationTime,
-		isOnTheScheduledDate,
+		repetitions,
+		durationInMin,
+		isOnScheduledDate,
 		onPress,
 	} = props;
+
+	const labelText = isOnScheduledDate ? "Fazer exercício" : "Próximo lembrete";
+	const hintText = isOnScheduledDate
+		? "Navegará para a tela de realização do exercício"
+		: undefined;
+	const activeOpacity = isOnScheduledDate ? 0.8 : 1;
+	const handlePress = () =>
+		isOnScheduledDate && onPress ? onPress() : undefined;
 
 	return (
 		<Container
 			testID="exercise-reminder"
-			accessibilityLabel={
-				isOnTheScheduledDate ? "Fazer exercício" : "Próximo lembrete"
-			}
-			accessibilityHint={
-				isOnTheScheduledDate
-					? "Navegará para a tela de realização do exercício"
-					: undefined
-			}
-			activeOpacity={isOnTheScheduledDate ? 0.8 : 1}
-			onPress={() => (isOnTheScheduledDate && onPress ? onPress() : undefined)}
+			accessibilityLabel={labelText}
+			accessibilityHint={hintText}
+			activeOpacity={activeOpacity}
+			onPress={handlePress}
 		>
 			<Header>
 				<Title subtitle>{title}</Title>
 				<ExerciseReminderMenu />
 			</Header>
 			<Description>
-				<OtherInfo>
-					{scheduledAt.day} - {scheduledAt.hour}h
-				</OtherInfo>
-				<OtherInfo>{rounds} Rounds</OtherInfo>
-				<OtherInfo>{durationTime} Min.</OtherInfo>
+				<OtherInfo>{scheduledAt}</OtherInfo>
+				<OtherInfo>{repetitions} Rounds</OtherInfo>
+				<OtherInfo>{durationInMin} Min.</OtherInfo>
 			</Description>
 		</Container>
 	);
