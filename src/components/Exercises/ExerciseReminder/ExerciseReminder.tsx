@@ -43,11 +43,17 @@ export const ExerciseReminder = (props: ExerciseReminderProps) => {
 				<Title subtitle>{title}</Title>
 				<ExerciseReminderMenu />
 			</Header>
-			<Description>
-				<OtherInfo>{scheduledAt}</OtherInfo>
-				<OtherInfo>{repetitions} Rounds</OtherInfo>
-				<OtherInfo>{durationInMin} Min.</OtherInfo>
-			</Description>
+			<Content>
+				<Description>
+					<OtherInfo>{scheduledAt}</OtherInfo>
+					<OtherInfo>{repetitions} Rounds</OtherInfo>
+					<OtherInfo>{durationInMin} Min.</OtherInfo>
+				</Description>
+				<CharacterImage
+					source={require("../../../../public/assets/exercise-bg.png")}
+					resizeMode="contain"
+				/>
+			</Content>
 		</Container>
 	);
 };
@@ -58,6 +64,8 @@ const Container = styled.TouchableOpacity`
 		border-radius: ${theme.rounded.md};
 		gap: ${theme.spaces[4]};
 		background-color: ${theme.colors.brand};
+		position: relative;
+		overflow: hidden;
 	`}
 `;
 
@@ -71,10 +79,23 @@ const Header = styled.View`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	z-index: 100;
+`;
+
+const Content = styled.View`
+	flex-direction: row;
+`;
+
+const CharacterImage = styled.Image`
+	height: 188px;
+	position: absolute;
+	right: -60px;
+	top: -40px;
 `;
 
 const Description = styled.View`
 	${({ theme }) => css`
+		flex: 1;
 		gap: ${theme.spaces[1]};
 	`}
 `;
