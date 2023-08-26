@@ -1,9 +1,9 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 
-import { Menu } from "@/components";
+import { Menu } from "@/components/commons/Menu";
 import { MenuContext } from "./MenuContext";
 
-import type { BottomSheetEl } from "../../@types/bottom-sheet-el";
+import type { BottomSheetEl } from "@/@types/bottom-sheet-el";
 import type { MenuOption } from "./@types/menu-option";
 
 type MenuProviderProps = {

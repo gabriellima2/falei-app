@@ -1,7 +1,7 @@
 import { BottomSheet } from "./BottomSheet";
 import { Typography } from "./Typography";
 
-import { useMenuContext } from "@/contexts/MenuContext";
+import { useMenuContext } from "@/contexts/MenuContext/hooks/use-menu-context";
 
 export const Menu = () => {
 	const { ref, menuOptions, handleClose } = useMenuContext();
