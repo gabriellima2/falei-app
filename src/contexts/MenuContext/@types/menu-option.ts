@@ -1,3 +1,7 @@
+import { IconStyles } from "@/@types/icon-styles";
+
 export interface MenuOption {
-	name: string;
+	text: string;
+	onPress?: () => void;
+	icon?: (props: IconStyles) => JSX.Element;
 }

@@ -1,5 +1,5 @@
-import { BottomSheet } from "./BottomSheet";
-import { Typography } from "./Typography";
+import { MenuOption } from "./components";
+import { BottomSheet } from "../BottomSheet";
 
 import { useMenuContext } from "@/contexts/MenuContext/hooks/use-menu-context";
 
@@ -13,7 +13,7 @@ export const Menu = () => {
 			}}
 		>
 			{menuOptions.map((option) => (
-				<Typography.Title key={option.name}>{option.name}</Typography.Title>
+				<MenuOption {...option} key={option.text} />
 			))}
 		</BottomSheet>
 	);
