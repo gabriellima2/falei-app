@@ -34,7 +34,7 @@ describe("<MenuOption />", () => {
 	});
 	describe("Interactions", () => {
 		describe("Press", () => {
-			it("should call the onPress function when is pressed", () => {
+			it("should call onPress function when pressed", () => {
 				const mockOnPress = jest.fn();
 				renderComponent({ ...defaultProps, onPress: mockOnPress });
 
