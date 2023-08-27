@@ -24,6 +24,13 @@ jest.mock("@gorhom/bottom-sheet", () => {
 		default: View,
 		BottomSheet: View,
 		BottomSheetProvider: View,
+		BottomSheetScrollView: View,
+		useBottomSheetDynamicSnapPoints: jest.fn().mockReturnValue({
+      animatedHandleHeight: 10,
+      animatedSnapPoints: [100, 200],
+      animatedContentHeight: 300,
+      handleContentLayout: jest.fn()
+		})
 	};
 });
 

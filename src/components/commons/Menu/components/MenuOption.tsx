@@ -20,7 +20,7 @@ const Container = styled.TouchableOpacity`
 		flex-direction: row;
 		align-items: center;
 		gap: ${theme.spaces[3]};
-		margin-bottom: ${theme.spaces[2]};
+		padding: ${theme.spaces[1]} 0px;
 	`}
 `;
 
