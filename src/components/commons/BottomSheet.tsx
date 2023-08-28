@@ -14,10 +14,7 @@ export const BottomSheet = forwardRef<BottomSheetLib, BottomSheetProps>(
 	(props, ref) => {
 		const { snapPoints, children, ...rest } = props;
 		const { colors } = useTheme();
-		const defaultSnapPoints = useMemo(
-			() => ["25%", "50%", "CONTENT_HEIGHT"],
-			[]
-		);
+		const defaultSnapPoints = useMemo(() => [1, "50%", "CONTENT_HEIGHT"], []);
 		const {
 			animatedHandleHeight,
 			animatedSnapPoints,
