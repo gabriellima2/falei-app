@@ -17,3 +17,4 @@ export * from "./Indicator";
 export * from "./Group";
 export * from "./BottomSheet";
 export * from "./Menu";
+export * from "./Progress";
