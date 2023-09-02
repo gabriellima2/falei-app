@@ -1,3 +1,4 @@
+import { Text } from "react-native";
 import { fireEvent, screen } from "@testing-library/react-native";
 import { mockPush } from "jest-setup";
 
@@ -13,14 +14,21 @@ const TEXT = "any_text";
 const PATHNAME = "any_pathname";
 
 const renderComponent = <TParams extends {}>(props: BaseLinkProps<TParams>) =>
-	renderWithThemeProvider(<BaseLink {...props}>{TEXT}</BaseLink>);
+	renderWithThemeProvider(
+		<BaseLink {...props}>
+			<Text>{TEXT}</Text>
+		</BaseLink>
+	);
+
+const getLinkEl = () => screen.getByText(TEXT);
 
 describe("<BaseLink />", () => {
-	const getLinkEl = () => screen.getByText(TEXT);
 	describe("Render", () => {
-		renderComponent({ href: { pathname: PATHNAME } });
+		it("should render correctly", () => {
+			renderComponent({ href: { pathname: PATHNAME } });
 
-		expect(screen.getByText(TEXT)).toBeTruthy();
+			expect(getLinkEl()).toBeTruthy();
+		});
 	});
 	describe("Interactions", () => {
 		describe("Press", () => {

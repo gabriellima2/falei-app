@@ -1,7 +1,10 @@
 import { useRouter } from "expo-router";
-import { BaseButton, type BaseButtonProps } from "../../Buttons";
+import { TouchableOpacity, type TouchableOpacityProps } from "react-native";
 
-export type BaseLinkProps<TParams extends object> = BaseButtonProps & {
+export type BaseLinkProps<TParams extends object> = Omit<
+	TouchableOpacityProps,
+	"onPress" | "accessibilityRole"
+> & {
 	href: {
 		pathname: string;
 		params?: TParams;
@@ -14,10 +17,11 @@ export const BaseLink = <StackParams extends object>(
 	const { href, ...rest } = props;
 	const router = useRouter();
 	return (
-		<BaseButton
+		<TouchableOpacity
 			{...rest}
 			onPress={() => router.push(href)}
 			accessibilityRole="link"
+			activeOpacity={0.8}
 		/>
 	);
 };

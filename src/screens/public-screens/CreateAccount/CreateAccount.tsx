@@ -3,8 +3,8 @@ import styled, { css } from "styled-components/native";
 import {
 	ContainerWithDefaultSpaces,
 	KeyboardAvoidingWrapper,
-	BaseButton,
 	AuthForm,
+	TextLink,
 } from "@/components";
 import {
 	useCreateAccount,
@@ -25,7 +25,9 @@ export function CreateAccount<T>(props: CreateAccountProps<T>) {
 					button={{ text: "Criar conta" }}
 					onSubmit={handleSignUp}
 				/>
-				<BaseButton onlyText>Continuar sem conta</BaseButton>
+				<ContinueWithoutAccountLink href={{ pathname: "/" }}>
+					Continuar sem conta
+				</ContinueWithoutAccountLink>
 			</Container>
 		</KeyboardAvoidingWrapper>
 	);
@@ -34,8 +36,11 @@ export function CreateAccount<T>(props: CreateAccountProps<T>) {
 const Container = styled(ContainerWithDefaultSpaces)`
 	${({ theme }) => css`
 		flex: 1;
-		gap: ${theme.spaces[3]};
-		justify-content: space-between;
+		gap: 100px;
 		padding-bottom: ${theme.spaces[4]};
 	`}
+`;
+
+const ContinueWithoutAccountLink = styled(TextLink)`
+	align-self: center;
 `;
