@@ -16,7 +16,7 @@ const modifiers: Modifiers<SmallVariants> = {
 export const Small = styled.Text<SmallProps>`
 	${({ theme, isAccent }) => css`
 		color: ${theme.colors.font.secondary};
-		font-size: ${theme.fontSizes.xs};
+		font-size: ${theme.fontSizes.sm};
 		font-family: ${theme.fontFamily.main.regular};
 		${isAccent && modifiers.isAccent(theme)}
 	`}
