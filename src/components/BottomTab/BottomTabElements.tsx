@@ -21,7 +21,11 @@ export function BottomTabElements(params: BottomTabElementsProps) {
 			<Typography.Title numberOfLines={2}>{title}</Typography.Title>
 		),
 		tabBarIcon: ({ focused }: ElementProps) => (
-			<Icon size={24} color={focused ? colors.brand : colors.font.primary} />
+			<Icon
+				size={24}
+				color={focused ? colors.brand : colors.font.primary}
+				fill={focused ? colors.brand : colors.font.primary}
+			/>
 		),
 		tabBarLabel: ({ focused }: ElementProps) => (
 			<Label focused={focused}>{capitalizeFirstLetter(label)}</Label>

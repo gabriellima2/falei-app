@@ -1,7 +1,8 @@
 import styled from "styled-components/native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Bell } from "lucide-react-native";
 
 import { SmallButton, Indicator } from "../commons";
+import { theme } from "@/styles/theme";
 
 export type NotificationButtonProps = {
 	hasNewNotifications?: boolean;
@@ -19,7 +20,7 @@ export const NotificationButton = (props: NotificationButtonProps) => {
 				accessibilityLabel="Notificações"
 				accessibilityHint="Mostrará todas as notificações"
 			>
-				<Ionicons name="notifications-outline" size={20} />
+				<Bell color={theme.colors.font.primary} size={20} />
 			</Button>
 		</Container>
 	);

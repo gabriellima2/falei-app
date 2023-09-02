@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { LayoutGrid } from "lucide-react-native";
 
 import { BottomTab, BottomTabElements, NotificationButton } from "@/components";
 import { theme } from "@/styles/theme";
@@ -44,7 +44,7 @@ export default function Layout() {
 					...BottomTabElements({
 						label: "início",
 						title: "2 Exercícios para completar a meta diária",
-						Icon: (props) => <Ionicons name="home" {...props} />,
+						Icon: (props) => <LayoutGrid {...props} />,
 					}),
 					headerRight: () => <NotificationButton hasNewNotifications />,
 				}}
