@@ -5,7 +5,7 @@ import { ExerciseReminderMenu } from "./components";
 import { Typography } from "@/components/commons";
 
 export type ExerciseReminderProps = {
-	title: string;
+	name: string;
 	scheduledAt: string;
 	repetitions: number;
 	durationInMin: number;
@@ -15,7 +15,7 @@ export type ExerciseReminderProps = {
 
 export const ExerciseReminder = (props: ExerciseReminderProps) => {
 	const {
-		title,
+		name,
 		scheduledAt,
 		repetitions,
 		durationInMin,
@@ -38,9 +38,10 @@ export const ExerciseReminder = (props: ExerciseReminderProps) => {
 			accessibilityHint={hintText}
 			activeOpacity={activeOpacity}
 			onPress={handlePress}
+			accessibilityRole="link"
 		>
 			<Header>
-				<Title subtitle>{title}</Title>
+				<Title subtitle>{name}</Title>
 				<ExerciseReminderMenu />
 			</Header>
 			<Content>
