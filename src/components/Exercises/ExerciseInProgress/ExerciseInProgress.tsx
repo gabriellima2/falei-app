@@ -15,8 +15,8 @@ export type ExerciseInProgressProps<TParams extends object> = Pick<
 	currentProgress: number;
 };
 
-export const ExerciseInProgress = <StackParams extends object>(
-	props: ExerciseInProgressProps<StackParams>
+export const ExerciseInProgress = <TParams extends object>(
+	props: ExerciseInProgressProps<TParams>
 ) => {
 	const { name, currentProgress, href } = props;
 	return (

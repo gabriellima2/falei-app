@@ -5,8 +5,8 @@ import { BaseLink, type BaseLinkProps } from "./BaseLink";
 
 export type TextLinkProps<TParams extends object> = BaseLinkProps<TParams>;
 
-export const TextLink = <StackParams extends object>(
-	props: TextLinkProps<StackParams>
+export const TextLink = <TParams extends object>(
+	props: TextLinkProps<TParams>
 ) => {
 	return (
 		<Container {...props}>

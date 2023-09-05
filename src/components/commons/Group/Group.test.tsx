@@ -26,7 +26,7 @@ describe("<Group />", () => {
 		it("should render correctly with all props passed", () => {
 			renderComponent({
 				...defaultProps,
-				rightLink: { text: RIGHT_LINK_TEXT, href: "any_href" },
+				rightLink: { text: RIGHT_LINK_TEXT, pathname: "any_path" },
 			});
 
 			expectMainElsToBePresent();

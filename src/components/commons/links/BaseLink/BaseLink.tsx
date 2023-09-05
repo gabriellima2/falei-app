@@ -11,8 +11,8 @@ export type BaseLinkProps<TParams extends object> = Omit<
 	};
 };
 
-export const BaseLink = <StackParams extends object>(
-	props: BaseLinkProps<StackParams>
+export const BaseLink = <TParams extends object>(
+	props: BaseLinkProps<TParams>
 ) => {
 	const { href, ...rest } = props;
 	const router = useRouter();

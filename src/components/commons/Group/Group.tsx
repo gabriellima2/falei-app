@@ -6,7 +6,7 @@ import { TextLink } from "../Links";
 
 export type GroupProps = {
 	title: string;
-	rightLink?: { text: string; href: string };
+	rightLink?: { text: string; pathname: string };
 	children: ReactNode;
 };
 
@@ -17,7 +17,7 @@ export const Group = (props: GroupProps) => {
 			<Header>
 				<Title subtitle>{title}</Title>
 				{!!rightLink && (
-					<TextLink href={{ pathname: rightLink.href }}>
+					<TextLink href={{ pathname: rightLink.pathname }}>
 						{rightLink.text}
 					</TextLink>
 				)}
