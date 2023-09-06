@@ -46,9 +46,15 @@ export const ExerciseReminder = (props: ExerciseReminderProps) => {
 			</Header>
 			<Content>
 				<Description>
-					<OtherInfo>{scheduledAt}</OtherInfo>
-					<OtherInfo>{repetitions} Rounds</OtherInfo>
-					<OtherInfo>{durationInMin} Min.</OtherInfo>
+					<AdditionalExerciseInfo hasDarkColors>
+						{scheduledAt}
+					</AdditionalExerciseInfo>
+					<AdditionalExerciseInfo hasDarkColors>
+						{repetitions} Rounds
+					</AdditionalExerciseInfo>
+					<AdditionalExerciseInfo hasDarkColors>
+						{durationInMin} Min.
+					</AdditionalExerciseInfo>
 				</Description>
 				<CharacterImage
 					source={require("../../../../public/assets/exercise-bg.png")}
@@ -98,11 +104,5 @@ const Description = styled.View`
 	${({ theme }) => css`
 		flex: 1;
 		gap: ${theme.spaces[1]};
-	`}
-`;
-
-const OtherInfo = styled(AdditionalExerciseInfo)`
-	${({ theme }) => css`
-		color: ${theme.colors.main};
 	`}
 `;
