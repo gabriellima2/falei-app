@@ -55,4 +55,8 @@ const Header = styled.View`
 
 const Name = styled(Typography.Title)``;
 
-const Description = styled(Typography.Small)``;
+const Description = styled(Typography.Small)`
+	${({ theme }) => css`
+		font-family: ${theme.fontFamily.main.medium};
+	`}
+`;

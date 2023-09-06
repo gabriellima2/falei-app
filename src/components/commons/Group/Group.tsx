@@ -17,7 +17,7 @@ export const Group = (props: GroupProps) => {
 			<Header>
 				<Title subtitle>{title}</Title>
 				{!!rightLink && (
-					<TextLink href={{ pathname: rightLink.pathname }}>
+					<TextLink href={{ pathname: rightLink.pathname }} secondary small>
 						{rightLink.text}
 					</TextLink>
 				)}
