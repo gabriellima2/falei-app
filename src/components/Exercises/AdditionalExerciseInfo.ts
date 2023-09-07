@@ -17,14 +17,14 @@ export const AdditionalExerciseInfo = styled(
 	Typography.Paragraph
 )<AdditionalExerciseInfoProps>`
 	${({ theme, hasDarkColors }) => css`
-		width: 115px;
-		max-width: 115px;
+		width: 100px;
+		max-width: 100px;
 		text-align: center;
 		border-radius: ${theme.rounded.regular};
 		padding: ${theme.spaces[1]};
 		color: ${theme.colors.font.primary};
 		font-family: ${theme.fontFamily.main.medium};
-		font-size: ${theme.fontSizes.sm};
+		font-size: ${theme.fontSizes.xs};
 		background-color: ${theme.colors.utils.white}0a;
 		${hasDarkColors && modifiers.hasDarkColors(theme)};
 	`}

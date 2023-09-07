@@ -26,7 +26,7 @@ export const ExerciseInProgress = <TParams extends object>(
 			accessibilityHint="Te levará à outra tela para continuar esse exercício"
 		>
 			<Header>
-				<Name subtitle>{name}</Name>
+				<Name>{name}</Name>
 				<Description>Continuar</Description>
 			</Header>
 			<Progress value={currentProgress} />
@@ -53,10 +53,15 @@ const Header = styled.View`
 	`}
 `;
 
-const Name = styled(Typography.Title)``;
+const Name = styled(Typography.Title)`
+	${({ theme }) => css`
+		font-size: ${theme.fontSizes.regular};
+	`}
+`;
 
 const Description = styled(Typography.Small)`
 	${({ theme }) => css`
+		font-size: ${theme.fontSizes.xs};
 		font-family: ${theme.fontFamily.main.medium};
 	`}
 `;

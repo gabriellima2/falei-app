@@ -23,9 +23,7 @@ export const BaseExercise = <TParams extends object>(
 		<Container href={href}>
 			<Icon>{icon({ color: theme.colors.utils.white, size: 24 })}</Icon>
 			<Content>
-				<Title subtitle numberOfLines={5}>
-					{title}
-				</Title>
+				<Title numberOfLines={5}>{title}</Title>
 				{children}
 			</Content>
 		</Container>
@@ -61,4 +59,8 @@ const Content = styled.View`
 	gap: 16px;
 `;
 
-const Title = styled(Typography.Title)``;
+const Title = styled(Typography.Title)`
+	${({ theme }) => css`
+		font-size: ${theme.fontSizes.regular};
+	`}
+`;

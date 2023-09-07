@@ -31,7 +31,7 @@ const modifiers: Modifiers<keyof TextProps> = {
 		color: ${theme.colors.font.secondary};
 	`,
 	small: (theme) => css`
-		font-size: ${theme.fontSizes.sm};
+		font-size: ${theme.fontSizes.xs};
 	`,
 };
 

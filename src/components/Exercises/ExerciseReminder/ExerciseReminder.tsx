@@ -41,7 +41,7 @@ export const ExerciseReminder = (props: ExerciseReminderProps) => {
 			accessibilityRole="link"
 		>
 			<Header>
-				<Title subtitle>{name}</Title>
+				<Title>{name}</Title>
 				<ExerciseReminderMenu />
 			</Header>
 			<Content>
@@ -78,6 +78,7 @@ const Container = styled.TouchableOpacity`
 
 const Title = styled(Typography.Title)`
 	${({ theme }) => css`
+		font-size: ${theme.fontSizes.regular};
 		color: ${theme.colors.main};
 	`}
 `;
