@@ -18,3 +18,5 @@ export * from "./Group";
 export * from "./BottomSheet";
 export * from "./Menu";
 export * from "./Progress";
+export * from "./Header";
+export * from "./ScrollContainer";

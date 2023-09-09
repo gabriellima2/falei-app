@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { LayoutGrid } from "lucide-react-native";
 
-import { BottomTab, BottomTabElements, NotificationButton } from "@/components";
+import { BottomTab, BottomTabElements } from "@/components";
 import { theme } from "@/styles/theme";
 
 export default function Layout() {
@@ -10,8 +10,6 @@ export default function Layout() {
 			tabBar={(props) => <BottomTab {...props} />}
 			sceneContainerStyle={{
 				backgroundColor: "transparent",
-				paddingHorizontal: 16,
-				gap: 32,
 			}}
 			screenOptions={{
 				headerShadowVisible: false,
@@ -41,12 +39,11 @@ export default function Layout() {
 			<Tabs.Screen
 				name="index"
 				options={{
+					headerShown: false,
 					...BottomTabElements({
 						label: "início",
-						title: "2 Exercícios para completar a meta diária",
 						Icon: (props) => <LayoutGrid {...props} />,
 					}),
-					headerRight: () => <NotificationButton hasNewNotifications />,
 				}}
 			/>
 		</Tabs>
