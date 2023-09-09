@@ -7,6 +7,8 @@ import { useTheme } from "styled-components/native";
 
 type BottomTabProps = BottomTabBarProps;
 
+export const BOTTOM_TAB_HEIGHT = 76;
+
 export const BottomTab = (props: BottomTabProps) => {
 	const { colors } = useTheme();
 	return (
@@ -17,7 +19,7 @@ export const BottomTab = (props: BottomTabProps) => {
 				left: 0,
 				right: 0,
 				bottom: 0,
-				height: 76,
+				height: BOTTOM_TAB_HEIGHT,
 				borderTopLeftRadius: 32,
 				borderTopRightRadius: 32,
 				borderColor: colors.overlay,
