@@ -1,23 +1,12 @@
 import { Stack } from "expo-router";
 
 import { CreateAccount } from "@/screens";
-import { AuthLink } from "@/components";
-
 import { firebaseSignUp } from "@/services/firebase";
 
 export default function Page() {
 	return (
 		<>
-			<Stack.Screen
-				options={{
-					title: "",
-					headerShown: true,
-					animation: "slide_from_right",
-					headerRight: () => (
-						<AuthLink href={{ pathname: "login" }}>Entrar</AuthLink>
-					),
-				}}
-			/>
+			<Stack.Screen options={{ animation: "slide_from_right" }} />
 			<CreateAccount authentication={firebaseSignUp} />
 		</>
 	);

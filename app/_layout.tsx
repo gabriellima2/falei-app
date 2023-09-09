@@ -9,7 +9,7 @@ import {
 	Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
-import { BackButton, ContainerWithDefaultSpaces, Splash } from "@/components";
+import { ContainerWithDefaultSpaces, Splash } from "@/components";
 import { Providers } from "@/contexts/Providers";
 import { useAuthStore } from "@/store/auth-store";
 
@@ -36,13 +36,7 @@ export default function RootLayout() {
 								screenOptions={{
 									headerShown: false,
 									animation: "fade",
-									headerShadowVisible: false,
-									headerTitleStyle: { color: theme.colors.font.primary },
-									headerStyle: {
-										backgroundColor: theme.colors.main,
-									},
 									contentStyle: { backgroundColor: theme.colors.main },
-									headerLeft: ({ canGoBack }) => canGoBack && <BackButton />,
 								}}
 							/>
 						</Container>

@@ -2,6 +2,8 @@ import {
 	ContainerWithDefaultSpaces,
 	KeyboardAvoidingWrapper,
 	AuthForm,
+	Header,
+	AuthLink,
 } from "@/components";
 import { useLogin, type UseLoginParams } from "./hooks/use-login";
 
@@ -12,18 +14,25 @@ export function Login<T>(props: LoginProps<T>) {
 	const { handleSignIn } = useLogin({ authentication });
 
 	return (
-		<KeyboardAvoidingWrapper>
-			<ContainerWithDefaultSpaces
-				bottomSpacing
-				horizontalSpacing
-				verticalSpacing
-			>
-				<AuthForm
-					title="Olá, novamente! Entre para continuar"
-					button={{ text: "Entrar" }}
-					onSubmit={handleSignIn}
-				/>
-			</ContainerWithDefaultSpaces>
-		</KeyboardAvoidingWrapper>
+		<>
+			<Header
+				headerRight={() => (
+					<AuthLink href={{ pathname: "create-account" }}>Criar Conta</AuthLink>
+				)}
+			/>
+			<KeyboardAvoidingWrapper>
+				<ContainerWithDefaultSpaces
+					bottomSpacing
+					horizontalSpacing
+					verticalSpacing
+				>
+					<AuthForm
+						title="Olá, novamente! Entre para continuar"
+						button={{ text: "Entrar" }}
+						onSubmit={handleSignIn}
+					/>
+				</ContainerWithDefaultSpaces>
+			</KeyboardAvoidingWrapper>
+		</>
 	);
 }

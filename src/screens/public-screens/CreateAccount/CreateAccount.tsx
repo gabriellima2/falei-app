@@ -5,6 +5,8 @@ import {
 	KeyboardAvoidingWrapper,
 	AuthForm,
 	TextLink,
+	Header,
+	AuthLink,
 } from "@/components";
 import {
 	useCreateAccount,
@@ -18,18 +20,26 @@ export function CreateAccount<T>(props: CreateAccountProps<T>) {
 	const { handleSignUp } = useCreateAccount<T>({ authentication });
 
 	return (
-		<KeyboardAvoidingWrapper>
-			<Container bottomSpacing horizontalSpacing verticalSpacing>
-				<AuthForm
-					title="Bem-vindo! Crie uma conta para continuar"
-					button={{ text: "Criar conta" }}
-					onSubmit={handleSignUp}
-				/>
-				<ContinueWithoutAccountLink href={{ pathname: "/" }}>
-					Continuar sem conta
-				</ContinueWithoutAccountLink>
-			</Container>
-		</KeyboardAvoidingWrapper>
+		<>
+			<Header
+				headerRight={() => (
+					<AuthLink href={{ pathname: "login" }}>Entrar</AuthLink>
+				)}
+			/>
+
+			<KeyboardAvoidingWrapper>
+				<Container bottomSpacing horizontalSpacing verticalSpacing>
+					<AuthForm
+						title="Bem-vindo! Crie uma conta para continuar"
+						button={{ text: "Criar conta" }}
+						onSubmit={handleSignUp}
+					/>
+					<ContinueWithoutAccountLink href={{ pathname: "/" }}>
+						Continuar sem conta
+					</ContinueWithoutAccountLink>
+				</Container>
+			</KeyboardAvoidingWrapper>
+		</>
 	);
 }
 
