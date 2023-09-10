@@ -3,10 +3,10 @@ import { useNavigation } from "expo-router";
 import Constants from "expo-constants";
 import styled, { css } from "styled-components/native";
 
-import { BackButton } from "./Buttons";
-import { Typography } from "./Typography";
+import { BackButton } from "../Buttons";
+import { Typography } from "../Typography";
 
-type HeaderProps = {
+export type HeaderProps = {
 	title?: string;
 	headerRight?: () => JSX.Element;
 };
@@ -26,7 +26,6 @@ export const Header = (props: HeaderProps) => {
 				{canGoBack && <BackButton />}
 				<Typography.Title>{title}</Typography.Title>
 			</LeftContent>
-
 			{headerRight && headerRight()}
 		</Container>
 	);
