@@ -34,6 +34,7 @@ describe("<ProtectScreen />", () => {
 				user,
 				checkAuthState: jest.fn(),
 				authHasBeenChecked: true,
+				signOut: jest.fn(),
 			})
 		);
 		renderHighOrderComponent();
@@ -48,6 +49,7 @@ describe("<ProtectScreen />", () => {
 				user: null,
 				checkAuthState: jest.fn(),
 				authHasBeenChecked: true,
+				signOut: jest.fn(),
 			})
 		);
 		renderHighOrderComponent();
