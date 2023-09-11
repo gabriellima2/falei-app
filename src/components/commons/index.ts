@@ -20,3 +20,4 @@ export * from "./Menu";
 export * from "./Progress";
 export * from "./Header";
 export * from "./ScrollContainer";
+export * from "./HorizontalList";
