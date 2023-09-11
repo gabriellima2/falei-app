@@ -32,8 +32,10 @@ export const BaseExercise = <TParams extends object>(
 
 const Container = styled(BaseLink)`
 	${({ theme }) => css`
-		width: 50%;
-		max-width: 190px;
+		flex: 1;
+		min-width: auto;
+		width: 190px;
+		max-width: auto;
 		max-height: 266px;
 		gap: ${theme.spaces[4]};
 		padding: ${theme.spaces[4]} ${theme.spaces[3]};
@@ -62,5 +64,6 @@ const Content = styled.View`
 const Title = styled(Typography.Title)`
 	${({ theme }) => css`
 		font-size: ${theme.fontSizes.regular};
+		min-height: 40px;
 	`}
 `;
