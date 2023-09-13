@@ -1,14 +1,13 @@
 import styled, { css } from "styled-components/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-import { useOnboarding } from "./hooks";
-
 import {
 	BaseButton,
 	OnboardingItem,
 	CarouselList,
 	ContainerWithDefaultSpaces,
 } from "@/components";
+import { useOnboarding } from "./hooks/use-onboarding";
 
 import { onboardingItems } from "./assets";
 
