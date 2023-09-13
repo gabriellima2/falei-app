@@ -6,21 +6,19 @@ import { BaseLink, BaseLinkProps, Typography } from "@/components/commons";
 import { theme } from "@/styles/theme";
 import type { IconStyles } from "@/@types/icon-styles";
 
-export type BaseExerciseProps<TParams extends object> = Pick<
-	BaseLinkProps<TParams>,
-	"href"
-> & {
-	title: string;
-	children?: ReactNode;
-	icon: (props: IconStyles) => JSX.Element;
-};
+export type BaseExerciseProps<TParams extends object> =
+	BaseLinkProps<TParams> & {
+		title: string;
+		children?: ReactNode;
+		icon: (props: IconStyles) => JSX.Element;
+	};
 
 export const BaseExercise = <TParams extends object>(
 	props: BaseExerciseProps<TParams>
 ) => {
-	const { title, href, icon, children } = props;
+	const { title, icon, children, ...rest } = props;
 	return (
-		<Container href={href}>
+		<Container {...rest}>
 			<Icon>{icon({ color: theme.colors.utils.white, size: 24 })}</Icon>
 			<Content>
 				<Title numberOfLines={5}>{title}</Title>
