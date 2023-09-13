@@ -7,12 +7,14 @@ import type { BreathingExerciseEntity } from "@/entities";
 
 export const PATHNAME_START_EXERCISE = "/";
 
-export type BreathingExerciseProps = BreathingExerciseEntity;
+export type BreathingExerciseProps = BreathingExerciseEntity &
+	Pick<Parameters<typeof BaseExercise>[0], "testID">;
 
 export const BreathingExercise = (props: BreathingExerciseProps) => {
-	const { id, title, duration_in_minutes, repetitions } = props;
+	const { id, title, duration_in_minutes, repetitions, ...rest } = props;
 	return (
 		<BaseExercise
+			{...rest}
 			title={title}
 			icon={(props) => <Shell {...props} />}
 			href={{ pathname: PATHNAME_START_EXERCISE, params: { id } }}
