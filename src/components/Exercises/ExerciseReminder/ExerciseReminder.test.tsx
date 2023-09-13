@@ -6,16 +6,16 @@ import {
 } from "./ExerciseReminder";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
-const EXERCISE_NAME = "any_name";
+const EXERCISE_TITLE = "any_title";
 const SCHEDULED_AT = "Ter - 17:00h";
 const REPETITIONS = 1;
 const DURATION_IN_MIN = 18;
 
 const defaultProps: ExerciseReminderProps = {
-	name: EXERCISE_NAME,
-	scheduledAt: SCHEDULED_AT,
+	title: EXERCISE_TITLE,
+	scheduled_at: SCHEDULED_AT,
 	repetitions: REPETITIONS,
-	durationInMin: DURATION_IN_MIN,
+	duration_in_minutes: DURATION_IN_MIN,
 };
 const renderComponent = (props: ExerciseReminderProps = defaultProps) =>
 	renderWithThemeProvider(<ExerciseReminder {...props} />);
@@ -28,7 +28,7 @@ describe("<ExerciseReminder />", () => {
 	});
 	describe("Render", () => {
 		function expectExerciseReminderToBePresent() {
-			expect(screen.getByText(EXERCISE_NAME)).toBeTruthy();
+			expect(screen.getByText(EXERCISE_TITLE)).toBeTruthy();
 			expect(screen.getByText(SCHEDULED_AT)).toBeTruthy();
 			expect(screen.getByText(`${REPETITIONS} Rounds`)).toBeTruthy();
 			expect(screen.getByText(`${DURATION_IN_MIN} Min.`)).toBeTruthy();

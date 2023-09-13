@@ -44,10 +44,10 @@ export function Home() {
 			<Container horizontalSpacing>
 				<Group title="Próximo lembrete">
 					<ExerciseReminder
-						name="Respiração Rápida"
-						durationInMin={18}
+						title="Respiração Rápida"
+						scheduled_at="Ter - 18:30"
+						duration_in_minutes={18}
 						repetitions={4}
-						scheduledAt="Ter - 18:30"
 					/>
 				</Group>
 				<Group title="Em progresso">

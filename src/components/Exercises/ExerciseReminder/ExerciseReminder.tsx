@@ -4,21 +4,19 @@ import { AdditionalExerciseInfo } from "../AdditionalExerciseInfo";
 import { ExerciseReminderMenu } from "./components";
 import { Typography } from "@/components/commons";
 
-export type ExerciseReminderProps = {
-	name: string;
-	scheduledAt: string;
-	repetitions: number;
-	durationInMin: number;
+import type { ExerciseReminderEntity } from "@/entities";
+
+export type ExerciseReminderProps = Omit<ExerciseReminderEntity, "id"> & {
 	isOnScheduledDate?: boolean;
 	onPress?: () => void | Promise<void>;
 };
 
 export const ExerciseReminder = (props: ExerciseReminderProps) => {
 	const {
-		name,
-		scheduledAt,
+		title,
+		duration_in_minutes,
+		scheduled_at,
 		repetitions,
-		durationInMin,
 		isOnScheduledDate,
 		onPress,
 	} = props;
@@ -41,19 +39,19 @@ export const ExerciseReminder = (props: ExerciseReminderProps) => {
 			accessibilityRole="link"
 		>
 			<Header>
-				<Title>{name}</Title>
+				<Title>{title}</Title>
 				<ExerciseReminderMenu />
 			</Header>
 			<Content>
 				<Description>
 					<AdditionalExerciseInfo hasDarkColors>
-						{scheduledAt}
+						{scheduled_at}
 					</AdditionalExerciseInfo>
 					<AdditionalExerciseInfo hasDarkColors>
 						{repetitions} Rounds
 					</AdditionalExerciseInfo>
 					<AdditionalExerciseInfo hasDarkColors>
-						{durationInMin} Min.
+						{duration_in_minutes} Min.
 					</AdditionalExerciseInfo>
 				</Description>
 				<CharacterImage
