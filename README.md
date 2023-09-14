@@ -61,6 +61,12 @@ Veja um pouco do que foi feito no desenvolvimento do aplicativo!
   <img src="./public/docs/flowchart.png" alt="Fluxograma" >
 </div>
 
+<h3>Style Guide</h3>
+
+<div align="center">
+  <img src="./public/docs/guide.png" alt="Guia de estilos" >
+</div>
+
 <h3>Design</h3>
 
 <div align="center">
