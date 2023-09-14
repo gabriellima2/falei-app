@@ -1,6 +1,7 @@
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { Home } from "./Home";
 import { screen } from "@testing-library/react-native";
+
+import { Home } from "./Home";
+import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const renderComponent = () => renderWithThemeProvider(<Home />);
 
