@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import styled, { css } from "styled-components/native";
 import { useNavigation } from "expo-router";
 import Constants from "expo-constants";
-import styled, { css } from "styled-components/native";
 
 import { BackButton } from "../Buttons";
 import { Typography } from "../Typography";
@@ -24,7 +24,7 @@ export const Header = (props: HeaderProps) => {
 		<Container>
 			<LeftContent>
 				{canGoBack && <BackButton />}
-				<Typography.Title>{title}</Typography.Title>
+				<Title numberOfLines={2}>{title}</Title>
 			</LeftContent>
 			{headerRight && headerRight()}
 		</Container>
@@ -51,4 +51,8 @@ const LeftContent = styled.View`
 		align-items: center;
 		gap: ${theme.spaces[3]};
 	`}
+`;
+
+const Title = styled(Typography.Title)`
+	max-width: 88%;
 `;
