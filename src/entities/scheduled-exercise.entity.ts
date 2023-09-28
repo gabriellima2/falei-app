@@ -1,4 +1,4 @@
-import { BreathingExerciseEntity, Rounds } from "./breathing-exercise-entity";
+import { BreathingExerciseEntity, Rounds } from "./breathing-exercise.entity";
 import { UserEntity } from "./user-entity";
 
 export interface ScheduledAt {

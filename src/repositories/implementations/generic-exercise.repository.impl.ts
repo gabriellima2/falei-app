@@ -31,20 +31,32 @@ const DOCUMENT_ID = Constants.manifest?.extra?.exercisesDocumentId;
 export class GenericExerciseRepositoryImpl<T extends GenericExerciseEntity>
 	implements GenericExerciseRepository<T>
 {
-	constructor(private readonly documentName: string) {}
+	constructor(private readonly subCollectionName: string) {}
 	async delete(id: DeleteExerciseInputDTO): DeleteExerciseOutputDTO {
-		const docRef = doc(db, COLLECTION_NAME, DOCUMENT_ID, this.documentName, id);
+		const docRef = doc(
+			db,
+			COLLECTION_NAME,
+			DOCUMENT_ID,
+			this.subCollectionName,
+			id
+		);
 		await deleteDoc(docRef);
 	}
 	async getById(id: GetExerciseByIdInputDTO): GetExerciseByIdOutputDTO<T> {
-		const docRef = doc(db, COLLECTION_NAME, DOCUMENT_ID, this.documentName, id);
+		const docRef = doc(
+			db,
+			COLLECTION_NAME,
+			DOCUMENT_ID,
+			this.subCollectionName,
+			id
+		);
 		const docSnap = await getDoc(docRef);
 		if (!docSnap.exists()) return;
 		return docSnap.data() as unknown as T;
 	}
 	async getAll(): GetAllExercisesOutputDTO<T> {
 		const docRef = doc(db, COLLECTION_NAME, DOCUMENT_ID);
-		const subCollectionRef = collection(docRef, this.documentName);
+		const subCollectionRef = collection(docRef, this.subCollectionName);
 		const subCollectionSnap = await getDocs(subCollectionRef);
 		let data: T[] = [];
 		subCollectionSnap.forEach((doc) => {
@@ -57,14 +69,14 @@ export class GenericExerciseRepositoryImpl<T extends GenericExerciseEntity>
 			db,
 			COLLECTION_NAME,
 			DOCUMENT_ID,
-			this.documentName,
+			this.subCollectionName,
 			params.id
 		);
 		await updateDoc(docRef, params);
 	}
 	async create(params: CreateExerciseInputDTO<T>): CreateExerciseOutputDTO<T> {
 		const docRef = doc(db, COLLECTION_NAME, DOCUMENT_ID);
-		const subCollectionRef = collection(docRef, this.documentName);
+		const subCollectionRef = collection(docRef, this.subCollectionName);
 		const createdExercise = await addDoc(subCollectionRef, params);
 		return {
 			...createdExercise,
