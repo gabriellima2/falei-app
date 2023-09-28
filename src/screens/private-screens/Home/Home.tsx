@@ -17,20 +17,29 @@ const data: BreathingExerciseEntity[] = [
 	{
 		id: "1",
 		title: "Respiração Constante",
-		duration_in_minutes: 18,
-		repetitions: 4,
+		rounds: {
+			duration_per_round_in_min: 18,
+			rounds_completed: 0,
+			rounds_total: 4,
+		},
 	},
 	{
 		id: "2",
 		title: "Respiração Lenta",
-		duration_in_minutes: 20,
-		repetitions: 3,
+		rounds: {
+			duration_per_round_in_min: 20,
+			rounds_completed: 0,
+			rounds_total: 3,
+		},
 	},
 	{
 		id: "3",
 		title: "Respiração Normal",
-		duration_in_minutes: 15,
-		repetitions: 5,
+		rounds: {
+			duration_per_round_in_min: 15,
+			rounds_completed: 0,
+			rounds_total: 5,
+		},
 	},
 ];
 

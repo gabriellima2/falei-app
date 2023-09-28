@@ -12,8 +12,11 @@ import { mockPush } from "jest-setup";
 const defaultProps: BreathingExerciseProps = {
 	id: "1",
 	title: "any_title",
-	duration_in_minutes: 20,
-	repetitions: 4,
+	rounds: {
+		duration_per_round_in_min: 20,
+		rounds_completed: 0,
+		rounds_total: 4,
+	},
 };
 
 const renderComponent = (props: BreathingExerciseProps = defaultProps) =>
@@ -24,8 +27,8 @@ describe("<BreathingExercise />", () => {
 		it("should render correctly", () => {
 			renderComponent();
 
-			const repetitionsPhrase = `${defaultProps.repetitions} Rounds`;
-			const durationPhrase = `${defaultProps.duration_in_minutes} Min.`;
+			const repetitionsPhrase = `${defaultProps.rounds.rounds_total} Rounds`;
+			const durationPhrase = `${defaultProps.rounds.duration_per_round_in_min} Min.`;
 
 			expect(screen.getByText(defaultProps.title)).toBeTruthy();
 			expect(screen.getByText(repetitionsPhrase)).toBeTruthy();

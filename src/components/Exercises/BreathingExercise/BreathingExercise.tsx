@@ -11,7 +11,7 @@ export type BreathingExerciseProps = BreathingExerciseEntity &
 	Pick<Parameters<typeof BaseExercise>[0], "testID">;
 
 export const BreathingExercise = (props: BreathingExerciseProps) => {
-	const { id, title, duration_in_minutes, repetitions, ...rest } = props;
+	const { id, title, rounds, ...rest } = props;
 	return (
 		<BaseExercise
 			{...rest}
@@ -21,9 +21,11 @@ export const BreathingExercise = (props: BreathingExerciseProps) => {
 			accessibilityLabel={title}
 			accessibilityHint={`Começará o exercício ${title}`}
 		>
-			<AdditionalExerciseInfo>{repetitions} Rounds</AdditionalExerciseInfo>
 			<AdditionalExerciseInfo>
-				{duration_in_minutes} Min.
+				{rounds.rounds_total} Rounds
+			</AdditionalExerciseInfo>
+			<AdditionalExerciseInfo>
+				{rounds.duration_per_round_in_min} Min.
 			</AdditionalExerciseInfo>
 		</BaseExercise>
 	);
