@@ -4,22 +4,18 @@ import { AdditionalExerciseInfo } from "../AdditionalExerciseInfo";
 import { ExerciseReminderMenu } from "./components";
 import { Typography } from "@/components/commons";
 
-import type { ExerciseReminderEntity } from "@/entities";
+import type { ScheduledExerciseEntity } from "@/entities";
 
-export type ExerciseReminderProps = Omit<ExerciseReminderEntity, "id"> & {
+export type ExerciseReminderProps = Omit<
+	ScheduledExerciseEntity,
+	"id" | "exercise_id" | "user_id"
+> & {
 	isOnScheduledDate?: boolean;
 	onPress?: () => void | Promise<void>;
 };
 
 export const ExerciseReminder = (props: ExerciseReminderProps) => {
-	const {
-		title,
-		duration_in_minutes,
-		scheduled_at,
-		repetitions,
-		isOnScheduledDate,
-		onPress,
-	} = props;
+	const { title, rounds, scheduled_at, isOnScheduledDate, onPress } = props;
 
 	const labelText = isOnScheduledDate ? "Fazer exercício" : "Próximo lembrete";
 	const hintText = isOnScheduledDate
@@ -45,13 +41,13 @@ export const ExerciseReminder = (props: ExerciseReminderProps) => {
 			<Content>
 				<Description>
 					<AdditionalExerciseInfo hasDarkColors>
-						{scheduled_at}
+						{scheduled_at.days[0]} - {scheduled_at.hour}
 					</AdditionalExerciseInfo>
 					<AdditionalExerciseInfo hasDarkColors>
-						{repetitions} Rounds
+						{rounds.rounds_total} Rounds
 					</AdditionalExerciseInfo>
 					<AdditionalExerciseInfo hasDarkColors>
-						{duration_in_minutes} Min.
+						{rounds.duration_per_round_in_min} Min.
 					</AdditionalExerciseInfo>
 				</Description>
 				<CharacterImage

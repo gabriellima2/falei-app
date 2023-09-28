@@ -5,17 +5,20 @@ import {
 	type ExerciseReminderProps,
 } from "./ExerciseReminder";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { Rounds, ScheduledAt } from "@/entities";
 
 const EXERCISE_TITLE = "any_title";
-const SCHEDULED_AT = "Ter - 17:00h";
-const REPETITIONS = 1;
-const DURATION_IN_MIN = 18;
+const SCHEDULED_AT: ScheduledAt = { days: ["Terça"], hour: "17:00" };
+const ROUNDS: Rounds = {
+	duration_per_round_in_min: 10,
+	rounds_completed: 0,
+	rounds_total: 3,
+};
 
 const defaultProps: ExerciseReminderProps = {
 	title: EXERCISE_TITLE,
 	scheduled_at: SCHEDULED_AT,
-	repetitions: REPETITIONS,
-	duration_in_minutes: DURATION_IN_MIN,
+	rounds: ROUNDS,
 };
 const renderComponent = (props: ExerciseReminderProps = defaultProps) =>
 	renderWithThemeProvider(<ExerciseReminder {...props} />);
@@ -29,9 +32,13 @@ describe("<ExerciseReminder />", () => {
 	describe("Render", () => {
 		function expectExerciseReminderToBePresent() {
 			expect(screen.getByText(EXERCISE_TITLE)).toBeTruthy();
-			expect(screen.getByText(SCHEDULED_AT)).toBeTruthy();
-			expect(screen.getByText(`${REPETITIONS} Rounds`)).toBeTruthy();
-			expect(screen.getByText(`${DURATION_IN_MIN} Min.`)).toBeTruthy();
+			expect(
+				screen.getByText(`${SCHEDULED_AT.days[0]} - ${SCHEDULED_AT.hour}`)
+			).toBeTruthy();
+			expect(screen.getByText(`${ROUNDS.rounds_total} Rounds`)).toBeTruthy();
+			expect(
+				screen.getByText(`${ROUNDS.duration_per_round_in_min} Min.`)
+			).toBeTruthy();
 		}
 
 		it("should render correctly when not on scheduled date", () => {
