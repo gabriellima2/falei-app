@@ -15,8 +15,16 @@ describe("<BreathingExercisePreviewList />", () => {
 	describe("Render", () => {
 		it("should render correctly with filled list", () => {
 			const FILLED_LIST: BreathingExerciseEntity[] = [
-				{ id: "0", title: "any_title" } as BreathingExerciseEntity,
-				{ id: "1", title: "any_another_title" } as BreathingExerciseEntity,
+				{
+					id: "0",
+					title: "any_title",
+					rounds: { duration_per_round_in_min: 10, rounds_total: 10 },
+				} as BreathingExerciseEntity,
+				{
+					id: "1",
+					title: "any_another_title",
+					rounds: { duration_per_round_in_min: 10, rounds_total: 10 },
+				} as BreathingExerciseEntity,
 			];
 			renderComponent({ items: FILLED_LIST });
 

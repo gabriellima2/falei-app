@@ -1,7 +1,7 @@
 import { GenericExerciseEntity } from "./generic-exercise.entity";
 import { UserEntity } from "./user-entity";
 
-interface Rounds {
+export interface Rounds {
 	rounds_total: number;
 	rounds_completed: number;
 	duration_per_round_in_min: number;

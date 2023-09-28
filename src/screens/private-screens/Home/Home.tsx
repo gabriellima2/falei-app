@@ -54,9 +54,12 @@ export function Home() {
 				<Group title="Próximo lembrete">
 					<ExerciseReminder
 						title="Respiração Rápida"
-						scheduled_at="Ter - 18:30"
-						duration_in_minutes={18}
-						repetitions={4}
+						scheduled_at={{ days: ["Terça"], hour: "17:00" }}
+						rounds={{
+							duration_per_round_in_min: 18,
+							rounds_total: 4,
+							rounds_completed: 0,
+						}}
 					/>
 				</Group>
 				<Group title="Em progresso">
