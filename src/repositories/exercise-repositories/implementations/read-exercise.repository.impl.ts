@@ -1,4 +1,4 @@
-import { BaseExerciseRepositoryImpl } from ".";
+import { BaseExerciseRepositoryImpl } from "./base-exercise.repository.impl";
 import type { ReadExerciseEntity } from "@/entities";
 
 export class ReadExerciseRepositoryImpl extends BaseExerciseRepositoryImpl<ReadExerciseEntity> {
