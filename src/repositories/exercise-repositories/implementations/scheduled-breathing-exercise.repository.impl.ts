@@ -1,8 +1,16 @@
+import { makeBreathingExerciseRepositoryImpl } from "@/factories/repositories/make-breathing-exercise-repository-impl";
 import { BaseScheduledExerciseRepositoryImpl } from "./base-scheduled-exercise.repository.impl";
-import type { ScheduledBreathingExerciseEntity } from "@/entities";
 
-export class ScheduledBreathingExerciseRepositoryImpl extends BaseScheduledExerciseRepositoryImpl<ScheduledBreathingExerciseEntity> {
+import type {
+	BreathingExerciseEntity,
+	ScheduledBreathingExerciseEntity,
+} from "@/entities";
+
+export class ScheduledBreathingExerciseRepositoryImpl extends BaseScheduledExerciseRepositoryImpl<
+	ScheduledBreathingExerciseEntity,
+	BreathingExerciseEntity
+> {
 	constructor() {
-		super("breathing_exercises");
+		super(makeBreathingExerciseRepositoryImpl(), "breathing_exercises");
 	}
 }
