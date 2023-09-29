@@ -37,7 +37,8 @@ export default {
       firebaseMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
 			firebaseAppId: process.env.FIREBASE_APP_ID,
 
-			exercisesDocumentId: process.env.EXERCISES_DOCUMENT_ID
+			exercisesDocumentId: process.env.EXERCISES_DOCUMENT_ID,
+			schedulesDocumentId: process.env.SCHEDULES_DOCUMENT_ID
 		}
   }
 }
