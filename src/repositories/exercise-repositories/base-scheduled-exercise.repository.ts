@@ -6,7 +6,7 @@ import type {
 	GetAllExercisesOutputDTO,
 	UpdateExerciseInputDTO,
 	UpdateExerciseOutputDTO,
-} from "@/dtos/exercise-dtos";
+} from "@/dtos";
 import type { BaseExerciseEntity } from "@/entities";
 
 export interface BaseScheduledExerciseRepository<T extends BaseExerciseEntity> {

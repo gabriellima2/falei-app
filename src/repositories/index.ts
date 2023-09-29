@@ -1,1 +1,1 @@
-export * from "./implementations";
+export * from "./exercise-repositories";

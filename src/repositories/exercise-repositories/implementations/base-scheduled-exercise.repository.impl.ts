@@ -19,7 +19,7 @@ import type {
 	DeleteExerciseOutputDTO,
 	GetAllExercisesOutputDTO,
 	DeleteExerciseInputDTO,
-} from "@/dtos/exercise-dtos";
+} from "@/dtos";
 import type { BaseExerciseEntity } from "@/entities";
 
 const COLLECTION_NAME = "scheduled_exercises";

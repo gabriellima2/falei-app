@@ -22,7 +22,7 @@ import type {
 	CreateExerciseOutputDTO,
 	UpdateExerciseInputDTO,
 	UpdateExerciseOutputDTO,
-} from "@/dtos/exercise-dtos";
+} from "@/dtos";
 import type { BaseExerciseEntity } from "@/entities";
 
 const COLLECTION_NAME = "exercises";

@@ -1,4 +1,4 @@
-import { BaseScheduledExerciseRepositoryImpl } from "./base-scheduled-exercise.repository.impl";
+import { BaseScheduledExerciseRepositoryImpl } from ".";
 import type { ScheduledBreathingExerciseEntity } from "@/entities";
 
 export class ScheduledBreathingExerciseRepositoryImpl extends BaseScheduledExerciseRepositoryImpl<ScheduledBreathingExerciseEntity> {
