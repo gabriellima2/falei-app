@@ -1,5 +1,4 @@
 import { BaseExerciseEntity } from "./base-exercise.entity";
-import type { UserEntity } from "./user-entity";
 
 export interface BreathingExerciseRounds {
 	rounds_total: number;
@@ -10,7 +9,7 @@ export interface BreathingExerciseRounds {
 export class BreathingExerciseEntity extends BaseExerciseEntity {
 	constructor(
 		id: string,
-		user_id: Pick<UserEntity, "id">,
+		user_id: string,
 		public readonly title: string,
 		public readonly rounds: BreathingExerciseRounds
 	) {

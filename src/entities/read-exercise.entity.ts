@@ -1,5 +1,4 @@
 import { BaseExerciseEntity } from "./base-exercise.entity";
-import type { UserEntity } from "./user-entity";
 
 interface ReadExerciseCredits {
 	author: string;
@@ -9,7 +8,7 @@ interface ReadExerciseCredits {
 export class ReadExerciseEntity extends BaseExerciseEntity {
 	constructor(
 		id: string,
-		user_id: Pick<UserEntity, "id">,
+		user_id: string,
 		public readonly content: string,
 		public readonly credits: ReadExerciseCredits
 	) {

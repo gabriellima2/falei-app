@@ -1,5 +1,4 @@
 import { BaseExerciseEntity } from "./base-exercise.entity";
-import type { UserEntity } from "./user-entity";
 
 export interface ScheduledAt {
 	days: string[];
@@ -9,7 +8,7 @@ export interface ScheduledAt {
 export class BaseScheduledExerciseEntity extends BaseExerciseEntity {
 	constructor(
 		id: string,
-		user_id: Pick<UserEntity, "id">,
+		user_id: string,
 		public readonly exercise_id: string,
 		public readonly scheduled_at: ScheduledAt
 	) {
