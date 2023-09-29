@@ -3,4 +3,4 @@ import { BreathingExerciseEntity } from "./breathing-exercise.entity";
 
 export interface ScheduledBreathingExerciseEntity
 	extends BaseScheduledExerciseEntity,
-		BreathingExerciseEntity {}
+		Omit<BreathingExerciseEntity, "user_id"> {}

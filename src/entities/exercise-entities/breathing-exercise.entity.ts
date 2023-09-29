@@ -6,13 +6,7 @@ export interface BreathingExerciseRounds {
 	duration_per_round_in_min: number;
 }
 
-export class BreathingExerciseEntity extends BaseExerciseEntity {
-	constructor(
-		id: string,
-		user_id: string,
-		public readonly title: string,
-		public readonly rounds: BreathingExerciseRounds
-	) {
-		super(id, user_id);
-	}
+export interface BreathingExerciseEntity extends BaseExerciseEntity {
+	readonly title: string;
+	readonly rounds: BreathingExerciseRounds;
 }

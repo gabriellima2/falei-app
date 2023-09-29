@@ -5,13 +5,8 @@ export interface ScheduledAt {
 	hour: string;
 }
 
-export class BaseScheduledExerciseEntity extends BaseExerciseEntity {
-	constructor(
-		id: string,
-		user_id: string,
-		public readonly exercise_id: string,
-		public readonly scheduled_at: ScheduledAt
-	) {
-		super(id, user_id);
-	}
+export interface BaseScheduledExerciseEntity
+	extends Required<BaseExerciseEntity> {
+	readonly exercise_id: string;
+	readonly scheduled_at: ScheduledAt;
 }
