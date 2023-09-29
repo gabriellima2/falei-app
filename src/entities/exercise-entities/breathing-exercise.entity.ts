@@ -9,4 +9,5 @@ export interface BreathingExerciseRounds {
 export interface BreathingExerciseEntity extends BaseExerciseEntity {
 	readonly title: string;
 	readonly rounds: BreathingExerciseRounds;
+	readonly last_progress_at: { nanoseconds: number; seconds: number };
 }

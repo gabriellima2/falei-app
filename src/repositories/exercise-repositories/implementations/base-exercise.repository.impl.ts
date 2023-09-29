@@ -5,6 +5,8 @@ import {
 	doc,
 	getDoc,
 	getDocs,
+	orderBy,
+	query,
 	updateDoc,
 } from "firebase/firestore";
 import Constants from "expo-constants";
@@ -57,9 +59,10 @@ export class BaseExerciseRepositoryImpl<T extends BaseExerciseEntity>
 	async getAll(): GetAllExercisesOutputDTO<T> {
 		const docRef = doc(db, COLLECTION_NAME, DOCUMENT_ID);
 		const subCollectionRef = collection(docRef, this.subCollectionName);
-		const subCollectionSnap = await getDocs(subCollectionRef);
+		const q = query(subCollectionRef, orderBy("last_progress_at", "desc"));
+		const querySnapshot = await getDocs(q);
 		let data: T[] = [];
-		subCollectionSnap.forEach((doc) => {
+		querySnapshot.forEach((doc) => {
 			data = [...data, { ...(doc.data() as T), id: doc.id }];
 		});
 		return data;

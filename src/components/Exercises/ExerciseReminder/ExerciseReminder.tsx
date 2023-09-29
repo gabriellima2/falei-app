@@ -8,7 +8,7 @@ import type { ScheduledBreathingExerciseEntity } from "@/entities";
 
 export type ExerciseReminderProps = Omit<
 	ScheduledBreathingExerciseEntity,
-	"id" | "exercise_id" | "user_id"
+	"id" | "exercise_id" | "user_id" | "last_progress_at"
 > & {
 	isOnScheduledDate?: boolean;
 	onPress?: () => void | Promise<void>;
