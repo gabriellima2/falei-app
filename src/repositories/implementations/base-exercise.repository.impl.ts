@@ -22,14 +22,14 @@ import {
 	UpdateExerciseInputDTO,
 	UpdateExerciseOutputDTO,
 } from "@/dtos/exercise-dtos";
-import { GenericExerciseRepository } from "../generic-exercise.repository";
-import { GenericExerciseEntity } from "@/entities";
+import { BaseExerciseRepository } from "../base-exercise.repository";
+import { BaseExerciseEntity } from "@/entities";
 
 const COLLECTION_NAME = "exercises";
 const DOCUMENT_ID = Constants.manifest?.extra?.exercisesDocumentId;
 
-export class GenericExerciseRepositoryImpl<T extends GenericExerciseEntity>
-	implements GenericExerciseRepository<T>
+export class BaseExerciseRepositoryImpl<T extends BaseExerciseEntity>
+	implements BaseExerciseRepository<T>
 {
 	constructor(private readonly subCollectionName: string) {}
 	async delete(id: DeleteExerciseInputDTO): DeleteExerciseOutputDTO {

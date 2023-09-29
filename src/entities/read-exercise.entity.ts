@@ -1,4 +1,4 @@
-import { GenericExerciseEntity } from "./generic-exercise.entity";
+import { BaseExerciseEntity } from "./base-exercise.entity";
 import { UserEntity } from "./user-entity";
 
 interface Credits {
@@ -6,7 +6,7 @@ interface Credits {
 	work_name: string;
 }
 
-export class ReadExerciseEntity extends GenericExerciseEntity {
+export class ReadExerciseEntity extends BaseExerciseEntity {
 	constructor(
 		id: string,
 		user_id: Pick<UserEntity, "id">,

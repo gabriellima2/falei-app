@@ -1,4 +1,4 @@
-import { GenericExerciseEntity } from "./generic-exercise.entity";
+import { BaseExerciseEntity } from "./base-exercise.entity";
 import { UserEntity } from "./user-entity";
 
 export interface Rounds {
@@ -7,7 +7,7 @@ export interface Rounds {
 	duration_per_round_in_min: number;
 }
 
-export class BreathingExerciseEntity extends GenericExerciseEntity {
+export class BreathingExerciseEntity extends BaseExerciseEntity {
 	constructor(
 		id: string,
 		user_id: Pick<UserEntity, "id">,

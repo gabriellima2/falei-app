@@ -9,9 +9,9 @@ import {
 	UpdateExerciseInputDTO,
 	UpdateExerciseOutputDTO,
 } from "@/dtos/exercise-dtos";
-import { GenericExerciseEntity } from "@/entities";
+import { BaseExerciseEntity } from "@/entities";
 
-export interface GenericExerciseRepository<T extends GenericExerciseEntity> {
+export interface BaseExerciseRepository<T extends BaseExerciseEntity> {
 	create(params: CreateExerciseInputDTO<T>): CreateExerciseOutputDTO<T>;
 	update(params: UpdateExerciseInputDTO<T>): UpdateExerciseOutputDTO;
 	delete(id: DeleteExerciseInputDTO): DeleteExerciseOutputDTO;
