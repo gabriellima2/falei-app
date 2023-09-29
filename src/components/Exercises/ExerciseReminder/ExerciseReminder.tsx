@@ -4,10 +4,10 @@ import { AdditionalExerciseInfo } from "../AdditionalExerciseInfo";
 import { ExerciseReminderMenu } from "./components";
 import { Typography } from "@/components/commons";
 
-import type { ScheduledExerciseEntity } from "@/entities";
+import type { ScheduledBreathingExerciseEntity } from "@/entities";
 
 export type ExerciseReminderProps = Omit<
-	ScheduledExerciseEntity,
+	ScheduledBreathingExerciseEntity,
 	"id" | "exercise_id" | "user_id"
 > & {
 	isOnScheduledDate?: boolean;
