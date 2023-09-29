@@ -54,10 +54,7 @@ export class BaseScheduledExerciseRepositoryImpl<
 		const subCollectionSnap = await getDocs(subCollectionRef);
 		let schedules: Entity[] = [];
 		subCollectionSnap.forEach((doc) => {
-			schedules = [
-				...schedules,
-				{ ...(doc.data() as unknown as Entity), id: doc.id },
-			];
+			schedules = [...schedules, { ...(doc.data() as Entity), id: doc.id }];
 		});
 		const promises = schedules.map(async (schedule) => {
 			const exercise = await this.repository.getById(schedule.exercise_id);
