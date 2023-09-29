@@ -52,7 +52,7 @@ export class BaseExerciseRepositoryImpl<T extends BaseExerciseEntity>
 		);
 		const docSnap = await getDoc(docRef);
 		if (!docSnap.exists()) return;
-		return docSnap.data() as unknown as T;
+		return { ...(docSnap.data() as unknown as T), id: docSnap.id };
 	}
 	async getAll(): GetAllExercisesOutputDTO<T> {
 		const docRef = doc(db, COLLECTION_NAME, DOCUMENT_ID);
@@ -60,7 +60,7 @@ export class BaseExerciseRepositoryImpl<T extends BaseExerciseEntity>
 		const subCollectionSnap = await getDocs(subCollectionRef);
 		let data: T[] = [];
 		subCollectionSnap.forEach((doc) => {
-			data = [...data, doc.data() as unknown as T];
+			data = [...data, { ...(doc.data() as unknown as T), id: doc.id }];
 		});
 		return data;
 	}
