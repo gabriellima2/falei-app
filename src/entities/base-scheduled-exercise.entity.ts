@@ -1,5 +1,5 @@
 import { BaseExerciseEntity } from "./base-exercise.entity";
-import { UserEntity } from "./user-entity";
+import type { UserEntity } from "./user-entity";
 
 export interface ScheduledAt {
 	days: string[];

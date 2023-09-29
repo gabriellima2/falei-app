@@ -1,7 +1,7 @@
 import { BaseExerciseEntity } from "./base-exercise.entity";
-import { UserEntity } from "./user-entity";
+import type { UserEntity } from "./user-entity";
 
-interface Credits {
+interface ReadExerciseCredits {
 	author: string;
 	work_name: string;
 }
@@ -11,7 +11,7 @@ export class ReadExerciseEntity extends BaseExerciseEntity {
 		id: string,
 		user_id: Pick<UserEntity, "id">,
 		public readonly content: string,
-		public readonly credits: Credits
+		public readonly credits: ReadExerciseCredits
 	) {
 		super(id, user_id);
 	}

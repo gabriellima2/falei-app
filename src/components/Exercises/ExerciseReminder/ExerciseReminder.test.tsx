@@ -4,12 +4,13 @@ import {
 	ExerciseReminder,
 	type ExerciseReminderProps,
 } from "./ExerciseReminder";
+
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { Rounds, ScheduledAt } from "@/entities";
+import type { BreathingExerciseRounds, ScheduledAt } from "@/entities";
 
 const EXERCISE_TITLE = "any_title";
 const SCHEDULED_AT: ScheduledAt = { days: ["Terça"], hour: "17:00" };
-const ROUNDS: Rounds = {
+const ROUNDS: BreathingExerciseRounds = {
 	duration_per_round_in_min: 10,
 	rounds_completed: 0,
 	rounds_total: 3,

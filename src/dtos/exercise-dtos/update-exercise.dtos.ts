@@ -1,6 +1,6 @@
-import { GenericExerciseEntity } from "@/entities";
+import type { BaseExerciseEntity } from "@/entities";
 
-export type UpdateExerciseInputDTO<T extends GenericExerciseEntity> = Pick<
+export type UpdateExerciseInputDTO<T extends BaseExerciseEntity> = Pick<
 	T,
 	"id"
 > &

@@ -1,4 +1,4 @@
-import {
+import type {
 	GetExerciseByIdInputDTO,
 	GetExerciseByIdOutputDTO,
 	GetAllExercisesOutputDTO,
@@ -9,7 +9,7 @@ import {
 	UpdateExerciseInputDTO,
 	UpdateExerciseOutputDTO,
 } from "@/dtos/exercise-dtos";
-import { BaseExerciseEntity } from "@/entities";
+import type { BaseExerciseEntity } from "@/entities";
 
 export interface BaseExerciseRepository<T extends BaseExerciseEntity> {
 	create(params: CreateExerciseInputDTO<T>): CreateExerciseOutputDTO<T>;

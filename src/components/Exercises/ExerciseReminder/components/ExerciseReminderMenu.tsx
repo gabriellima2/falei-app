@@ -3,8 +3,8 @@ import { MoreVertical, Clock, BellOff, Trash2 } from "lucide-react-native";
 
 import { useMenuContext } from "@/contexts/MenuContext";
 
-import type { MenuOption } from "@/contexts/MenuContext/@types/menu-option";
 import { theme } from "@/styles/theme";
+import type { MenuOption } from "@/contexts/MenuContext/@types/menu-option";
 
 const menuOptions: MenuOption[] = [
 	{

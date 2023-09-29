@@ -10,8 +10,9 @@ import {
 import Constants from "expo-constants";
 
 import { db } from "@/config/firebase";
+import { BaseExerciseRepository } from "../base-exercise.repository";
 
-import {
+import type {
 	GetExerciseByIdInputDTO,
 	GetExerciseByIdOutputDTO,
 	GetAllExercisesOutputDTO,
@@ -22,8 +23,7 @@ import {
 	UpdateExerciseInputDTO,
 	UpdateExerciseOutputDTO,
 } from "@/dtos/exercise-dtos";
-import { BaseExerciseRepository } from "../base-exercise.repository";
-import { BaseExerciseEntity } from "@/entities";
+import type { BaseExerciseEntity } from "@/entities";
 
 const COLLECTION_NAME = "exercises";
 const DOCUMENT_ID = Constants.manifest?.extra?.exercisesDocumentId;

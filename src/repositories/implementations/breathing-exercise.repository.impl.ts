@@ -1,5 +1,5 @@
 import { BaseExerciseRepositoryImpl } from ".";
-import { BreathingExerciseEntity } from "@/entities";
+import type { BreathingExerciseEntity } from "@/entities";
 
 export class BreathingExerciseRepositoryImpl extends BaseExerciseRepositoryImpl<BreathingExerciseEntity> {
 	constructor() {
