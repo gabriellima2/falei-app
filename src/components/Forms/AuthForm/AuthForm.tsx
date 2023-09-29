@@ -5,7 +5,7 @@ import { useAuthForm } from "./hooks/use-auth-form";
 import { Field, Form } from "@/components/commons";
 
 import { focusNextField } from "@/helpers/focus-next-field";
-import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth-dto";
+import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth.dtos";
 
 type ButtonProps = Pick<
 	TouchableOpacityProps,

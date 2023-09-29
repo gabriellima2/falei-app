@@ -1,16 +1,10 @@
-import { Unsubscribe, User, onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { create } from "zustand";
 
 import { firebaseAuth } from "@/helpers/firebase-auth";
+import type { AuthStoreState } from "./@types/auth-store-state";
 
-type UseAuthStore = {
-	user: User | null;
-	authHasBeenChecked: boolean;
-	signOut: () => Promise<void>;
-	checkAuthState: () => Unsubscribe;
-};
-
-export const useAuthStore = create<UseAuthStore>((set) => ({
+export const useAuthStore = create<AuthStoreState>((set) => ({
 	user: null,
 	authHasBeenChecked: false,
 	signOut: async () => {

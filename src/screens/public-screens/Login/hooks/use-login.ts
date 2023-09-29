@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 
-import type { UserAuthRequestDTO } from "@/dtos";
+import type { UserAuthInputDTO } from "@/dtos";
 import type { Authentication } from "@/@types/authentication";
 
 export type UseLoginParams<T> = {
@@ -15,7 +15,7 @@ export function useLogin<T>(params: UseLoginParams<T>): UseLoginReturn {
 	const { authentication } = params;
 	const router = useRouter();
 
-	const handleSignIn = async (credentials: UserAuthRequestDTO) => {
+	const handleSignIn = async (credentials: UserAuthInputDTO) => {
 		await authentication(credentials);
 		router.replace("(tabs)/");
 	};

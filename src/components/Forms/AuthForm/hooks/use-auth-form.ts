@@ -11,7 +11,7 @@ import {
 import { refineFirebaseErrorCode } from "@/helpers/refine-firebase-error-code";
 import { FIREBASE_ERROR_MESSAGES, UNEXPECTED_ERROR } from "@/errors";
 import { userAuthSchema } from "@/validations/user-auth-validation";
-import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth-dto";
+import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth.dtos";
 import type { AuthFormProps } from "../AuthForm";
 import { useToastContext } from "@/contexts/ToastContext";
 
