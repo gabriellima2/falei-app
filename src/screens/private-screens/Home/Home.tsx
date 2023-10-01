@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { useQuery } from "react-query";
 
 import {
 	BreathingExercisePreviewList,
@@ -9,41 +10,32 @@ import {
 	ScrollContainer,
 	Group,
 	Header,
+	LoadingIndicator,
+	TextError,
+	Typography,
 } from "@/components";
+import {
+	makeBreathingExerciseRepositoryImpl,
+	makeScheduledBreathingExerciseRepositoryImpl,
+} from "@/factories/repositories";
 
-import type { BreathingExerciseEntity } from "@/entities";
-
-const data: BreathingExerciseEntity[] = [
-	{
-		id: "1",
-		title: "Respiração Constante",
-		rounds: {
-			duration_per_round_in_min: 18,
-			rounds_completed: 0,
-			rounds_total: 4,
-		},
-	},
-	{
-		id: "2",
-		title: "Respiração Lenta",
-		rounds: {
-			duration_per_round_in_min: 20,
-			rounds_completed: 0,
-			rounds_total: 3,
-		},
-	},
-	{
-		id: "3",
-		title: "Respiração Normal",
-		rounds: {
-			duration_per_round_in_min: 15,
-			rounds_completed: 0,
-			rounds_total: 5,
-		},
-	},
-];
+async function getData() {
+	return {
+		schedules: await makeScheduledBreathingExerciseRepositoryImpl().getAll(),
+		exercises: await makeBreathingExerciseRepositoryImpl().getAll(),
+	};
+}
 
 export function Home() {
+	const { data, error, isLoading } = useQuery("overview-data", getData);
+	if (isLoading) return <LoadingIndicator />;
+	if (error) return <TextError>{(error as Error).message}</TextError>;
+	if ((!error || !isLoading) && !data)
+		return <TextError>Erro inesperado</TextError>;
+
+	const { exercises, schedules } = data;
+	const appointment = schedules[0];
+
 	return (
 		<ScrollContainer isBottomTabRendered>
 			<Header
@@ -51,21 +43,25 @@ export function Home() {
 				headerRight={() => <NotificationButton hasNewNotifications />}
 			/>
 			<Container horizontalSpacing>
-				<Group title="Próximo lembrete">
-					<ExerciseReminder
-						title="Respiração Rápida"
-						scheduled_at={{ days: ["Terça"], hour: "17:00" }}
-						rounds={{
-							duration_per_round_in_min: 18,
-							rounds_total: 4,
-							rounds_completed: 0,
-						}}
-					/>
-				</Group>
+				{appointment ? (
+					<Group title="Próximo lembrete">
+						<ExerciseReminder
+							title={appointment.title}
+							scheduled_at={appointment.scheduled_at}
+							rounds={appointment.rounds}
+						/>
+					</Group>
+				) : (
+					<Typography.Title>Não há lembretes para essa semana</Typography.Title>
+				)}
 				<Group title="Em progresso">
 					<ExerciseInProgress
-						name="Respiração Normal"
-						currentProgress={5}
+						name={exercises[0].title}
+						currentProgress={Math.trunc(
+							(exercises[0].rounds.rounds_completed /
+								exercises[0].rounds.rounds_total) *
+								100
+						)}
 						href={{ pathname: "/" }}
 					/>
 				</Group>
@@ -73,7 +69,7 @@ export function Home() {
 					title="Exercícios"
 					rightLink={{ pathname: "/", text: "Ver Mais" }}
 				>
-					<BreathingExercisePreviewList items={data} />
+					<BreathingExercisePreviewList items={exercises} />
 				</Group>
 			</Container>
 		</ScrollContainer>
