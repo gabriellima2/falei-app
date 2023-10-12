@@ -10,18 +10,18 @@ import * as useFilteredAppointments from "@/hooks/use-filtered-appointments";
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import type {
 	BreathingExerciseEntity,
-	ScheduledBreathingExerciseEntity,
+	BreathingExerciseAppointmentEntity,
 } from "@/entities";
 
 const mockData = {
-	schedules: [
+	appointments: [
 		{
 			id: "1",
 			title: "any_title_schedule_1",
 			scheduled_at: { days: [DAYS_OF_THE_WEEK[2]], hour: "18:00" },
 			rounds: {},
 		},
-	] as ScheduledBreathingExerciseEntity[],
+	] as BreathingExerciseAppointmentEntity[],
 	exercises: [
 		{
 			id: "1",
@@ -69,7 +69,7 @@ describe("<Home />", () => {
 
 		it("should render correctly with appointment exercise", () => {
 			const appointment = mockData
-				.schedules[0] as ScheduledBreathingExerciseEntity;
+				.appointments[0] as BreathingExerciseAppointmentEntity;
 			useFilteredAppointmentsSpyOn.mockReturnValue([appointment]);
 			renderComponent();
 

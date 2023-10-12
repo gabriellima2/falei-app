@@ -5,8 +5,7 @@ export interface ScheduledAt {
 	hour: string;
 }
 
-export interface BaseScheduledExerciseEntity
-	extends Required<BaseExerciseEntity> {
+export interface BaseAppointmentEntity extends Required<BaseExerciseEntity> {
 	readonly exercise_id: string;
 	readonly scheduled_at: ScheduledAt;
 }

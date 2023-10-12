@@ -9,7 +9,7 @@ import {
 import Constants from "expo-constants";
 
 import { db } from "@/config/firebase";
-import { BaseScheduledExerciseRepository } from "../base-scheduled-exercise.repository";
+import { BaseAppointmentRepository } from "../base-appointment.repository";
 import { BaseExerciseRepository } from "../base-exercise.repository";
 
 import type {
@@ -21,18 +21,15 @@ import type {
 	GetAllExercisesOutputDTO,
 	DeleteExerciseInputDTO,
 } from "@/dtos";
-import type {
-	BaseExerciseEntity,
-	BaseScheduledExerciseEntity,
-} from "@/entities";
+import type { BaseAppointmentEntity, BaseExerciseEntity } from "@/entities";
 
-const COLLECTION_NAME = "scheduled_exercises";
-const DOCUMENT_ID = Constants.manifest?.extra?.schedulesDocumentId;
+const COLLECTION_NAME = "appointments";
+const DOCUMENT_ID = Constants.manifest?.extra?.appointmentsDocumentId;
 
-export class BaseScheduledExerciseRepositoryImpl<
-	Entity extends BaseScheduledExerciseEntity,
+export class BaseAppointmentRepositoryImpl<
+	Entity extends BaseAppointmentEntity,
 	RepositoryEntity extends BaseExerciseEntity
-> implements BaseScheduledExerciseRepository<Entity>
+> implements BaseAppointmentRepository<Entity>
 {
 	constructor(
 		private readonly repository: BaseExerciseRepository<RepositoryEntity>,
@@ -52,13 +49,16 @@ export class BaseScheduledExerciseRepositoryImpl<
 		const docRef = doc(db, COLLECTION_NAME, DOCUMENT_ID);
 		const subCollectionRef = collection(docRef, this.subCollectionName);
 		const subCollectionSnap = await getDocs(subCollectionRef);
-		let schedules: Entity[] = [];
+		let appointments: Entity[] = [];
 		subCollectionSnap.forEach((doc) => {
-			schedules = [...schedules, { ...(doc.data() as Entity), id: doc.id }];
+			appointments = [
+				...appointments,
+				{ ...(doc.data() as Entity), id: doc.id },
+			];
 		});
-		const promises = schedules.map(async (schedule) => {
-			const exercise = await this.repository.getById(schedule.exercise_id);
-			return { ...exercise, ...schedule };
+		const promises = appointments.map(async (appointment) => {
+			const exercise = await this.repository.getById(appointment.exercise_id);
+			return { ...exercise, ...appointment };
 		});
 		return await Promise.all(promises);
 	}

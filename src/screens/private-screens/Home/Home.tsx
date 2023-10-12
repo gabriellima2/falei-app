@@ -16,33 +16,34 @@ import { WithQuery, WithQueryInjectProps } from "@/hocs/WithQuery";
 import { useFilteredAppointments } from "@/hooks";
 import {
 	makeBreathingExerciseRepositoryImpl,
-	makeScheduledBreathingExerciseRepositoryImpl,
+	makeBreathingExerciseAppointmentRepositoryImpl,
 } from "@/factories/repositories";
 
 import type {
 	BreathingExerciseEntity,
-	ScheduledBreathingExerciseEntity,
+	BreathingExerciseAppointmentEntity,
 } from "@/entities";
 
 async function getData() {
 	return {
-		schedules: await makeScheduledBreathingExerciseRepositoryImpl().getAll(),
+		appointments:
+			await makeBreathingExerciseAppointmentRepositoryImpl().getAll(),
 		exercises: await makeBreathingExerciseRepositoryImpl().getAll(),
 	};
 }
 
 type HomeProps = WithQueryInjectProps<{
-	schedules: ScheduledBreathingExerciseEntity[];
+	appointments: BreathingExerciseAppointmentEntity[];
 	exercises: BreathingExerciseEntity[];
 }>;
 
 export const Home = WithQuery(
 	(props: HomeProps) => {
 		const {
-			data: { exercises, schedules },
+			data: { exercises, appointments },
 		} = props;
 
-		const filteredAppointments = useFilteredAppointments(schedules);
+		const filteredAppointments = useFilteredAppointments(appointments);
 		const appointment = filteredAppointments[0];
 
 		return (

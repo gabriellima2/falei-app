@@ -9,7 +9,7 @@ import type {
 } from "@/dtos";
 import type { BaseExerciseEntity } from "@/entities";
 
-export interface BaseScheduledExerciseRepository<T extends BaseExerciseEntity> {
+export interface BaseAppointmentRepository<T extends BaseExerciseEntity> {
 	create(params: CreateExerciseInputDTO<T>): CreateExerciseOutputDTO<T>;
 	update(params: UpdateExerciseInputDTO<T>): UpdateExerciseOutputDTO;
 	delete(id: DeleteExerciseInputDTO): DeleteExerciseOutputDTO;

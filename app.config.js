@@ -38,7 +38,7 @@ export default {
 			firebaseAppId: process.env.FIREBASE_APP_ID,
 
 			exercisesDocumentId: process.env.EXERCISES_DOCUMENT_ID,
-			schedulesDocumentId: process.env.SCHEDULES_DOCUMENT_ID
+			appointmentsDocumentId: process.env.APPOINTMENTS_DOCUMENT_ID
 		}
   }
 }
