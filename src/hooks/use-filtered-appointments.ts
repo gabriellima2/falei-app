@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { getDayOfTheWeek } from "@/helpers/get-day-of-the-week";
+import { hasAppointmentToday } from "@/helpers/has-appointment-today";
 import { getCurrentTime } from "@/helpers/get-current-time";
 import { formatHour } from "@/helpers/format-hour";
 
@@ -18,16 +18,11 @@ export function useFilteredAppointments<T extends BaseAppointmentEntity>(
 		return currentHour <= appointmentHour;
 	};
 
-	const hasAppointmentToday = (scheduledDays: string[], currentDay: string) => {
-		return scheduledDays.some((day) => day === currentDay);
-	};
-
 	const getTodayAppointment = (appointment: T, appointmentDay: number) => {
-		const currentDay = getDayOfTheWeek(appointmentDay);
 		const currentHour = getCurrentTime();
 		const { scheduled_at: scheduleDetails } = appointment;
 		if (
-			hasAppointmentToday(scheduleDetails.days, currentDay) &&
+			hasAppointmentToday(scheduleDetails.days, appointmentDay) &&
 			isTimeForAppointment(currentHour, scheduleDetails.hour)
 		) {
 			return appointment;
@@ -38,8 +33,7 @@ export function useFilteredAppointments<T extends BaseAppointmentEntity>(
 		const { scheduled_at: scheduleDetails } = appointment;
 		let nextDay = appointmentDay;
 		while (nextDay <= 6) {
-			const currentDay = getDayOfTheWeek(nextDay);
-			if (hasAppointmentToday(scheduleDetails.days, currentDay)) {
+			if (hasAppointmentToday(scheduleDetails.days, nextDay)) {
 				return appointment;
 			}
 			nextDay++;
