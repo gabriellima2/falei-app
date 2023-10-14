@@ -5,7 +5,7 @@ import { useAuthForm } from "./hooks/use-auth-form";
 import { Field, Form } from "@/components/commons";
 
 import { focusNextField } from "@/helpers/focus-next-field";
-import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth.dtos";
+import type { UserAuthInputDTO } from "@/dtos/user-dtos";
 
 type ButtonProps = Pick<
 	TouchableOpacityProps,
@@ -15,7 +15,7 @@ type ButtonProps = Pick<
 export type AuthFormProps = {
 	title: string;
 	button: ButtonProps;
-	onSubmit: (params: UserAuthRequestDTO) => Promise<void> | void;
+	onSubmit: (params: UserAuthInputDTO) => Promise<void> | void;
 };
 
 export const AuthForm = (props: AuthFormProps) => {

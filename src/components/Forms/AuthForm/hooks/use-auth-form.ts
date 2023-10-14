@@ -11,7 +11,7 @@ import {
 import { refineFirebaseErrorCode } from "@/helpers/refine-firebase-error-code";
 import { FIREBASE_ERROR_MESSAGES, UNEXPECTED_ERROR } from "@/errors";
 import { userAuthSchema } from "@/validations/user-auth-validation";
-import type { UserAuthRequestDTO } from "@/dtos/user-dtos/user-auth.dtos";
+import type { UserAuthInputDTO } from "@/dtos/user-dtos";
 import type { AuthFormProps } from "../AuthForm";
 import { useToastContext } from "@/contexts/ToastContext";
 
@@ -19,10 +19,10 @@ type UseAuthFormParams = Pick<AuthFormProps, "onSubmit">;
 
 type UseAuthFormReturn = {
 	isAuthenticating: boolean;
-	errors: FieldErrors<UserAuthRequestDTO>;
-	setValue: UseFormSetValue<UserAuthRequestDTO>;
-	handleSubmit: UseFormHandleSubmit<UserAuthRequestDTO>;
-	handleUserAuthentication: (credentials: UserAuthRequestDTO) => Promise<void>;
+	errors: FieldErrors<UserAuthInputDTO>;
+	setValue: UseFormSetValue<UserAuthInputDTO>;
+	handleSubmit: UseFormHandleSubmit<UserAuthInputDTO>;
+	handleUserAuthentication: (credentials: UserAuthInputDTO) => Promise<void>;
 };
 
 export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
@@ -34,7 +34,7 @@ export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 		setValue,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<UserAuthRequestDTO>({
+	} = useForm<UserAuthInputDTO>({
 		resolver: zodResolver(userAuthSchema),
 	});
 
@@ -43,7 +43,7 @@ export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 		register("password");
 	}, []);
 
-	const handleUserAuthentication = async (credentials: UserAuthRequestDTO) => {
+	const handleUserAuthentication = async (credentials: UserAuthInputDTO) => {
 		setIsAuthenticating(true);
 		try {
 			await onSubmit(credentials);
