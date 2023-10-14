@@ -4,11 +4,11 @@ import { getDayOfTheWeek } from "@/helpers/get-day-of-the-week";
 import { getCurrentTime } from "@/helpers/get-current-time";
 import { formatHour } from "@/helpers/format-hour";
 
-import type { BaseScheduledExerciseEntity } from "@/entities";
+import type { BaseAppointmentEntity } from "@/entities";
 
 const date = new Date();
 
-export function useFilteredAppointments<T extends BaseScheduledExerciseEntity>(
+export function useFilteredAppointments<T extends BaseAppointmentEntity>(
 	appointments: T[]
 ) {
 	const isTimeForAppointment = (currentHour: number, scheduledHour: string) => {

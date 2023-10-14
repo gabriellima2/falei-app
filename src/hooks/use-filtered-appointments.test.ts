@@ -3,7 +3,7 @@ import { renderHook } from "@testing-library/react-hooks";
 import { useFilteredAppointments } from "./use-filtered-appointments";
 
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
-import type { ScheduledBreathingExerciseEntity } from "@/entities";
+import type { BreathingExerciseAppointmentEntity } from "@/entities";
 
 const date = new Date();
 const time = {
@@ -40,13 +40,13 @@ const defaultParams = [
 		title: "any_title_schedule_4",
 		scheduled_at: { days: [DAYS_OF_THE_WEEK[5]], hour: "10:00" },
 	},
-] as ScheduledBreathingExerciseEntity[];
+] as BreathingExerciseAppointmentEntity[];
 
 const executeHook = (
-	params: ScheduledBreathingExerciseEntity[] = defaultParams
+	params: BreathingExerciseAppointmentEntity[] = defaultParams
 ) =>
 	renderHook(() =>
-		useFilteredAppointments<ScheduledBreathingExerciseEntity>(params)
+		useFilteredAppointments<BreathingExerciseAppointmentEntity>(params)
 	);
 
 describe("useFilteredAppointments", () => {
