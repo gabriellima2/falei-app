@@ -14,7 +14,7 @@ export type UseHomeParams = {
 	appointments: BreathingExerciseAppointmentEntity[];
 };
 
-type UseHomeReturn = {
+export type UseHomeReturn = {
 	title: string;
 	appointment: BreathingExerciseAppointmentEntity;
 	incomplete: {

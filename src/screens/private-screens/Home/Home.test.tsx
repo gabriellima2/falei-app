@@ -5,85 +5,74 @@ import { Home } from "./Home";
 
 import { WithQueryClientProvider } from "@/__mocks__/with-query-client-provider";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import * as useFilteredAppointments from "@/hooks/use-filtered-appointments";
+import { mock } from "./hooks/use-home.test";
+import * as useHome from "./hooks/use-home";
 
-import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
-import type {
-	BreathingExerciseEntity,
-	BreathingExerciseAppointmentEntity,
-} from "@/entities";
+import type { BreathingExerciseAppointmentEntity } from "@/entities";
+import type { TestingLibraryEl } from "@/@types/testing-library-el";
 
-const mockData = {
-	appointments: [
-		{
-			id: "1",
-			title: "any_title_schedule_1",
-			scheduled_at: { days: [DAYS_OF_THE_WEEK[2]], hour: "18:00" },
-			rounds: {},
-		},
-	] as BreathingExerciseAppointmentEntity[],
-	exercises: [
-		{
-			id: "1",
-			title: "any_title_exercise",
-			rounds: {
-				rounds_completed: 1,
-				rounds_total: 3,
-				duration_per_round_in_min: 10,
-			},
-		},
-	] as BreathingExerciseEntity[],
-};
-
+const useHomeSpyOn = jest.spyOn(useHome, "useHome");
 jest
 	.spyOn(ReactQuery, "useQuery")
 	.mockImplementation(
-		jest.fn().mockReturnValue({ isLoading: false, error: null, data: mockData })
+		jest.fn().mockReturnValue({ isLoading: false, error: null, data: mock })
 	);
+
+const defaultReturn: useHome.UseHomeReturn = {
+	title: "any_title",
+	appointment: mock.appointments[0],
+	incomplete: mock,
+};
 
 const renderComponent = () =>
 	renderWithThemeProvider(
 		<WithQueryClientProvider>
-			<Home data={mockData} />
+			<Home data={mock} />
 		</WithQueryClientProvider>
 	);
-const getExerciseList = () => screen.queryAllByTestId("list__item");
 
 describe("<Home />", () => {
+	const getExerciseList = () => screen.queryAllByTestId("list__item");
+
 	describe("Render", () => {
-		const useFilteredAppointmentsSpyOn = jest.spyOn(
-			useFilteredAppointments,
-			"useFilteredAppointments"
-		);
-
-		function expectExerciseInProgressToBePresent() {
-			const progressEl = screen.getByTestId("current-progress");
-			const exercise = mockData.exercises[0];
-
-			expect(screen.getAllByText(exercise.title)[0]).toBeTruthy();
-			expect(progressEl.props.width).toBe("33%");
+		function expectMessageToBePresent(message: string) {
+			expect(screen.getByText(message)).toBeTruthy();
+		}
+		function expectExerciseToBePresent(el: TestingLibraryEl) {
+			expect(el).toBeTruthy();
 		}
 		function expectExerciseListToBePresent() {
-			expect(getExerciseList()).toHaveLength(mockData.exercises.length);
+			expect(getExerciseList()).toHaveLength(mock.exercises.length);
 		}
 
-		it("should render correctly with appointment exercise", () => {
-			const appointment = mockData
-				.appointments[0] as BreathingExerciseAppointmentEntity;
-			useFilteredAppointmentsSpyOn.mockReturnValue([appointment]);
+		it("should render correctly with all exercises filled", () => {
+			useHomeSpyOn.mockReturnValue(defaultReturn);
 			renderComponent();
 
-			expect(screen.getByText(appointment.title)).toBeTruthy();
-			expectExerciseInProgressToBePresent();
+			const appointmentEls = screen.getAllByText(
+				defaultReturn.appointment.title
+			);
+			const reminder = appointmentEls[0];
+			const progress = appointmentEls[1];
+
+			expectMessageToBePresent(defaultReturn.title);
+			expectExerciseToBePresent(reminder);
+			expectExerciseToBePresent(progress);
 			expectExerciseListToBePresent();
 		});
-		it("should render correctly without appointment exercise", () => {
-			const emptySchedulesMessage = "Não há lembretes para essa semana";
-			useFilteredAppointmentsSpyOn.mockReturnValue([]);
+		it("should render correctly with empty messages", () => {
+			const emptyAppointmetsMessage = "Não há lembretes para essa semana";
+			const emptyProgressMessage = "Nenhum exercício em progresso";
+			useHomeSpyOn.mockReturnValue({
+				...defaultReturn,
+				appointment: undefined as unknown as BreathingExerciseAppointmentEntity,
+				incomplete: { appointments: undefined, exercises: undefined },
+			});
 			renderComponent();
 
-			expect(screen.getByText(emptySchedulesMessage)).toBeTruthy();
-			expectExerciseInProgressToBePresent();
+			expectMessageToBePresent(defaultReturn.title);
+			expectMessageToBePresent(emptyAppointmetsMessage);
+			expectMessageToBePresent(emptyProgressMessage);
 			expectExerciseListToBePresent();
 		});
 	});
