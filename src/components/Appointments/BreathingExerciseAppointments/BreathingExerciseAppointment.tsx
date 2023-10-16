@@ -19,7 +19,7 @@ export const BreathingExerciseAppointment = (
 	const { title, rounds, scheduled_at, onPress } = props;
 	return (
 		<Container
-			testID="exercise-reminder"
+			testID="breathing-exercise-appointment"
 			accessibilityLabel="Fazer exercício"
 			accessibilityHint="Navegará para a tela de realização do exercício"
 			activeOpacity={0.8}
@@ -53,6 +53,7 @@ export const BreathingExerciseAppointment = (
 
 const Container = styled.TouchableOpacity`
 	${({ theme }) => css`
+		width: 100%;
 		padding: ${theme.spaces[4]} ${theme.spaces[3]};
 		border-radius: ${theme.rounded.md};
 		gap: ${theme.spaces[4]};

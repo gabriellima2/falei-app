@@ -5,16 +5,10 @@ import {
 	type BreathingExerciseAppointmentProps,
 } from "./BreathingExerciseAppointment";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { mockAppointment } from "./__mocks__/mock-appointment";
 
-const defaultProps: BreathingExerciseAppointmentProps = {
-	title: "any_title",
-	scheduled_at: { days: ["Terça"], hour: "17:00" },
-	rounds: {
-		duration_per_round_in_min: 10,
-		rounds_completed: 0,
-		rounds_total: 3,
-	},
-};
+const defaultProps: BreathingExerciseAppointmentProps = mockAppointment;
+
 const renderComponent = (
 	props: BreathingExerciseAppointmentProps = defaultProps
 ) => renderWithThemeProvider(<BreathingExerciseAppointment {...props} />);
@@ -47,7 +41,7 @@ describe("<BreathingExerciseAppointment />", () => {
 					onPress: mockOnPress,
 				});
 
-				const el = screen.getByTestId("exercise-reminder");
+				const el = screen.getByTestId("breathing-exercise-appointment");
 				fireEvent.press(el);
 
 				expect(mockOnPress).toHaveBeenCalled();
