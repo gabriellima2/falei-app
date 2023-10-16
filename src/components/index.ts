@@ -5,3 +5,4 @@ export * from "./Links";
 export * from "./BottomTab";
 export * from "./Buttons";
 export * from "./Exercises";
+export * from "./Appointments";

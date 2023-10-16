@@ -8,7 +8,6 @@ import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider"
 import { mock } from "./hooks/use-home.test";
 import * as useHome from "./hooks/use-home";
 
-import type { BreathingExerciseAppointmentEntity } from "@/entities";
 import type { TestingLibraryEl } from "@/@types/testing-library-el";
 
 const useHomeSpyOn = jest.spyOn(useHome, "useHome");
@@ -20,7 +19,7 @@ jest
 
 const defaultReturn: useHome.UseHomeReturn = {
 	title: "any_title",
-	appointment: mock.appointments[0],
+	filteredAppointments: mock.appointments,
 	incomplete: mock,
 };
 
@@ -50,7 +49,7 @@ describe("<Home />", () => {
 			renderComponent();
 
 			const appointmentEls = screen.getAllByText(
-				defaultReturn.appointment.title
+				defaultReturn.filteredAppointments[0].title
 			);
 			const reminder = appointmentEls[0];
 			const progress = appointmentEls[1];
@@ -61,17 +60,14 @@ describe("<Home />", () => {
 			expectExerciseListToBePresent();
 		});
 		it("should render correctly with empty messages", () => {
-			const emptyAppointmetsMessage = "Não há lembretes para essa semana";
 			const emptyProgressMessage = "Nenhum exercício em progresso";
 			useHomeSpyOn.mockReturnValue({
 				...defaultReturn,
-				appointment: undefined as unknown as BreathingExerciseAppointmentEntity,
 				incomplete: { appointments: undefined, exercises: undefined },
 			});
 			renderComponent();
 
 			expectMessageToBePresent(defaultReturn.title);
-			expectMessageToBePresent(emptyAppointmetsMessage);
 			expectMessageToBePresent(emptyProgressMessage);
 			expectExerciseListToBePresent();
 		});

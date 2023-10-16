@@ -52,8 +52,10 @@ describe("UseHome", () => {
 		const { result } = executeHook();
 
 		expect(result.current.title).toBeTruthy();
-		expect(result.current.appointment).toMatchObject(mock.appointments[0]);
 		expect(result.current.incomplete).toMatchObject(mock);
+		expect(result.current.filteredAppointments).toMatchObject(
+			mock.appointments
+		);
 	});
 	it("should return correctly when hooks return undefined", () => {
 		useFilteredAppointmentsSpyOn.mockReturnValue([]);
@@ -63,7 +65,7 @@ describe("UseHome", () => {
 		const { result } = executeHook();
 
 		expect(result.current.title).toBe("Torne um exercício parte de sua rotina");
-		expect(result.current.appointment).toBeUndefined();
+		expect(result.current.filteredAppointments).toMatchObject([]);
 		expect(result.current.incomplete).toMatchObject({
 			appointments: undefined,
 			exercises: undefined,

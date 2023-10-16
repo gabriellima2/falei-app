@@ -16,7 +16,7 @@ export type UseHomeParams = {
 
 export type UseHomeReturn = {
 	title: string;
-	appointment: BreathingExerciseAppointmentEntity;
+	filteredAppointments: BreathingExerciseAppointmentEntity[];
 	incomplete: {
 		exercises: BreathingExerciseEntity[] | undefined;
 		appointments: BreathingExerciseAppointmentEntity[] | undefined;
@@ -32,7 +32,6 @@ export function useHome(params: UseHomeParams): UseHomeReturn {
 		(appointment) => hasAppointmentToday(appointment.scheduled_at.days)
 	);
 
-	const [appointment] = filteredAppointments;
 	const incompleteAppointmentsTotal = incompleteAppointments?.length;
 	const title = incompleteAppointmentsTotal
 		? `Você tem ${incompleteAppointmentsTotal} exercícios em seus lembretes pendentes`
@@ -40,7 +39,7 @@ export function useHome(params: UseHomeParams): UseHomeReturn {
 
 	return {
 		title,
-		appointment,
+		filteredAppointments,
 		incomplete: {
 			exercises: incompleteExercises,
 			appointments: incompleteAppointments,

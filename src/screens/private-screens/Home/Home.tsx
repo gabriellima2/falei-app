@@ -6,7 +6,7 @@ import {
 	ContainerWithDefaultSpaces,
 	ExerciseInProgress,
 	NotificationButton,
-	ExerciseReminder,
+	BreathingExerciseAppointments,
 	ScrollContainer,
 	Group,
 	Header,
@@ -42,7 +42,7 @@ export const Home = WithQuery(
 		const {
 			data: { exercises, appointments },
 		} = props;
-		const { title, appointment, incomplete } = useHome({
+		const { title, filteredAppointments, incomplete } = useHome({
 			exercises,
 			appointments,
 		});
@@ -56,19 +56,12 @@ export const Home = WithQuery(
 					headerRight={() => <NotificationButton hasNewNotifications />}
 				/>
 				<Container horizontalSpacing>
-					{appointment ? (
-						<Group title="Próximo lembrete">
-							<ExerciseReminder
-								title={appointment.title}
-								scheduled_at={appointment.scheduled_at}
-								rounds={appointment.rounds}
-							/>
-						</Group>
-					) : (
-						<Typography.Title>
-							Não há lembretes para essa semana
-						</Typography.Title>
-					)}
+					<Group title="Lembretes da semana">
+						<BreathingExerciseAppointments
+							appointments={filteredAppointments}
+						/>
+					</Group>
+
 					{incompleteExercises ? (
 						<Group title="Em progresso">
 							<ExerciseInProgress
