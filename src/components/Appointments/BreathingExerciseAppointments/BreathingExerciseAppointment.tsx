@@ -1,42 +1,34 @@
 import styled, { css } from "styled-components/native";
 
-import { AdditionalExerciseInfo } from "../AdditionalExerciseInfo";
-import { ExerciseReminderMenu } from "./components";
+import { AdditionalExerciseInfo } from "@/components/Exercises";
+import { BreathingExerciseAppointmentMenu } from "./components";
 import { Typography } from "@/components/commons";
 
-import type { ScheduledBreathingExerciseEntity } from "@/entities";
+import type { BreathingExerciseAppointmentEntity } from "@/entities";
 
-export type ExerciseReminderProps = Omit<
-	ScheduledBreathingExerciseEntity,
+export type BreathingExerciseAppointmentProps = Omit<
+	BreathingExerciseAppointmentEntity,
 	"id" | "exercise_id" | "user_id" | "last_progress_at"
 > & {
-	isOnScheduledDate?: boolean;
 	onPress?: () => void | Promise<void>;
 };
 
-export const ExerciseReminder = (props: ExerciseReminderProps) => {
-	const { title, rounds, scheduled_at, isOnScheduledDate, onPress } = props;
-
-	const labelText = isOnScheduledDate ? "Fazer exercício" : "Próximo lembrete";
-	const hintText = isOnScheduledDate
-		? "Navegará para a tela de realização do exercício"
-		: undefined;
-	const activeOpacity = isOnScheduledDate ? 0.8 : 1;
-	const handlePress = () =>
-		isOnScheduledDate && onPress ? onPress() : undefined;
-
+export const BreathingExerciseAppointment = (
+	props: BreathingExerciseAppointmentProps
+) => {
+	const { title, rounds, scheduled_at, onPress } = props;
 	return (
 		<Container
 			testID="exercise-reminder"
-			accessibilityLabel={labelText}
-			accessibilityHint={hintText}
-			activeOpacity={activeOpacity}
-			onPress={handlePress}
+			accessibilityLabel="Fazer exercício"
+			accessibilityHint="Navegará para a tela de realização do exercício"
+			activeOpacity={0.8}
+			onPress={onPress}
 			accessibilityRole="link"
 		>
 			<Header>
 				<Title>{title}</Title>
-				<ExerciseReminderMenu />
+				<BreathingExerciseAppointmentMenu />
 			</Header>
 			<Content>
 				<Description>

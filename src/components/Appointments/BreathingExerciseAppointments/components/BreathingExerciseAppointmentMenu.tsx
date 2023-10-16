@@ -24,7 +24,7 @@ const menuOptions: MenuOption[] = [
 	},
 ];
 
-export const ExerciseReminderMenu = () => {
+export const BreathingExerciseAppointmentMenu = () => {
 	const { handleToggle } = useMenuContext();
 	return (
 		<Button onPress={() => handleToggle(menuOptions)}>
