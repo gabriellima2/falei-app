@@ -1,2 +1,2 @@
 export * from "./BreathingExerciseAppointments";
-export * from "./BreathingExerciseAppointment";
+export * from "./components/Appointment";

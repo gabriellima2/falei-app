@@ -1,5 +1,4 @@
-import { BreathingExerciseAppointment } from "./BreathingExerciseAppointment";
-import { EmptyBreathingExerciseAppointments } from "./components";
+import { EmptyAppointments, Appointment } from "./components";
 import { HorizontalList } from "@/components/commons";
 
 import type { BreathingExerciseAppointmentEntity } from "@/entities";
@@ -18,14 +17,14 @@ export const BreathingExerciseAppointments = (
 			data={appointments}
 			keyExtractor={(item) => item.id}
 			renderItem={({ item }) => (
-				<BreathingExerciseAppointment
+				<Appointment
 					autoSize={doesItOnlyHaveOneEl}
 					title={item.title}
 					rounds={item.rounds}
 					scheduled_at={item.scheduled_at}
 				/>
 			)}
-			ListEmptyComponent={EmptyBreathingExerciseAppointments}
+			ListEmptyComponent={EmptyAppointments}
 		/>
 	);
 };

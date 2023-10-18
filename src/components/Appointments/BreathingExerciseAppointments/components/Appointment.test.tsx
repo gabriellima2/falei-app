@@ -1,19 +1,16 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
-import {
-	BreathingExerciseAppointment,
-	type BreathingExerciseAppointmentProps,
-} from "./BreathingExerciseAppointment";
+import { Appointment, type AppointmentProps } from "./Appointment";
+
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { mockAppointment } from "./__mocks__/mock-appointment";
+import { mockAppointment } from "../__mocks__/mock-appointment";
 
-const defaultProps: BreathingExerciseAppointmentProps = mockAppointment;
+const defaultProps: AppointmentProps = mockAppointment;
 
-const renderComponent = (
-	props: BreathingExerciseAppointmentProps = defaultProps
-) => renderWithThemeProvider(<BreathingExerciseAppointment {...props} />);
+const renderComponent = (props: AppointmentProps = defaultProps) =>
+	renderWithThemeProvider(<Appointment {...props} />);
 
-describe("<BreathingExerciseAppointment />", () => {
+describe("<Appointment />", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
