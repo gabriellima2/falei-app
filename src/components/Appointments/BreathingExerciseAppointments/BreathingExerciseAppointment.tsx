@@ -4,19 +4,23 @@ import { AdditionalExerciseInfo } from "@/components/Exercises";
 import { BreathingExerciseAppointmentMenu } from "./components";
 import { Typography } from "@/components/commons";
 
+import { dimensions } from "@/constants/dimensions";
+
 import type { BreathingExerciseAppointmentEntity } from "@/entities";
+import type { Modifiers } from "@/@types/modifiers";
 
 export type BreathingExerciseAppointmentProps = Omit<
 	BreathingExerciseAppointmentEntity,
 	"id" | "exercise_id" | "user_id" | "last_progress_at"
-> & {
-	onPress?: () => void | Promise<void>;
-};
+> &
+	ContainerProps & {
+		onPress?: () => void | Promise<void>;
+	};
 
 export const BreathingExerciseAppointment = (
 	props: BreathingExerciseAppointmentProps
 ) => {
-	const { title, rounds, scheduled_at, onPress } = props;
+	const { title, rounds, scheduled_at, autoSize, onPress } = props;
 	return (
 		<Container
 			testID="breathing-exercise-appointment"
@@ -25,6 +29,7 @@ export const BreathingExerciseAppointment = (
 			activeOpacity={0.8}
 			onPress={onPress}
 			accessibilityRole="link"
+			autoSize={autoSize}
 		>
 			<Header>
 				<Title>{title}</Title>
@@ -51,15 +56,27 @@ export const BreathingExerciseAppointment = (
 	);
 };
 
-const Container = styled.TouchableOpacity`
-	${({ theme }) => css`
-		width: 100%;
+type ContainerProps = { autoSize?: boolean };
+
+const modifiers: Modifiers<keyof ContainerProps> = {
+	autoSize: () => css`
+		max-width: auto;
+		width: ${dimensions.screen.width - 32}px;
+		min-width: auto;
+	`,
+};
+
+const Container = styled.TouchableOpacity<ContainerProps>`
+	${({ theme, autoSize }) => css`
+		max-width: 350px;
+		width: 328px;
 		padding: ${theme.spaces[4]} ${theme.spaces[3]};
 		border-radius: ${theme.rounded.md};
 		gap: ${theme.spaces[4]};
 		background-color: ${theme.colors.brand};
 		position: relative;
 		overflow: hidden;
+		${autoSize && modifiers.autoSize(theme)};
 	`}
 `;
 
