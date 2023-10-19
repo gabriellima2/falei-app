@@ -2,6 +2,7 @@ import "expo-router";
 import { screen, fireEvent, waitFor, act } from "@testing-library/react-native";
 
 import { Login, type LoginProps } from "./Login";
+import * as useClearNavigation from "@/hooks/use-clear-navigation";
 
 import { mockReplace } from "jest-setup";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
@@ -10,6 +11,12 @@ import {
 	placeholders,
 } from "@/components/Forms/AuthForm/AuthForm.test";
 
+const useClearNavigationSpyOn = jest.spyOn(
+	useClearNavigation,
+	"useClearNavigation"
+);
+
+const mockClearNavigation = jest.fn();
 const defaultProps: LoginProps<null> = {
 	authentication: jest.fn(),
 };
@@ -20,6 +27,10 @@ const renderComponent = () =>
 const getButtonEl = () => screen.getByText("Entrar");
 
 describe("<Login />", () => {
+	beforeAll(() => {
+		useClearNavigationSpyOn.mockReturnValue(mockClearNavigation);
+	});
+
 	afterAll(() => {
 		jest.clearAllMocks();
 	});
@@ -56,6 +67,7 @@ describe("<Login />", () => {
 						password: passwordValue,
 					});
 					expect(mockReplace).toHaveBeenCalledWith("(tabs)/");
+					expect(mockClearNavigation).toHaveBeenCalled();
 				});
 			});
 		});
