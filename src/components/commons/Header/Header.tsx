@@ -8,16 +8,17 @@ import { Typography } from "../Typography";
 
 export type HeaderProps = {
 	title?: string;
+	withBack?: boolean;
 	headerRight?: () => JSX.Element;
 };
 
 export const Header = (props: HeaderProps) => {
-	const { title, headerRight } = props;
+	const { title, withBack, headerRight } = props;
 	const [canGoBack, setCanGoBack] = useState(false);
 	const navigation = useNavigation();
 
 	useEffect(() => {
-		setCanGoBack(navigation.canGoBack());
+		setCanGoBack(!!withBack && navigation.canGoBack());
 	}, []);
 
 	return (
