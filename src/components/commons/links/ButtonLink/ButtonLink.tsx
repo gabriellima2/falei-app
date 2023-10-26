@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 
-import { BaseButton, type BaseButtonProps } from "../Buttons";
-import { type BaseLinkProps } from "./BaseLink";
+import { BaseButton, type BaseButtonProps } from "../../Buttons";
+import { type BaseLinkProps } from "../BaseLink";
 
 export type ButtonLinkProps<TParams extends object> = BaseButtonProps &
 	BaseLinkProps<TParams>;
