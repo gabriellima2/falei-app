@@ -1,9 +1,9 @@
-import { ViewProps } from "react-native";
+import { ScrollViewProps } from "react-native";
 import styled from "styled-components/native";
 
 import { BOTTOM_TAB_HEIGHT } from "../BottomTab";
 
-type ScrollContainerProps = ViewProps & {
+type ScrollContainerProps = ScrollViewProps & {
 	isBottomTabRendered?: boolean;
 };
 

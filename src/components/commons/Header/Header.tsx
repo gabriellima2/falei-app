@@ -48,6 +48,7 @@ const Container = styled.View`
 
 const LeftContent = styled.View`
 	${({ theme }) => css`
+		flex: 1;
 		flex-direction: row;
 		align-items: center;
 		gap: ${theme.spaces[3]};
