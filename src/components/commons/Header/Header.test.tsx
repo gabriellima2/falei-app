@@ -6,7 +6,6 @@ import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider"
 import { FakeIconComponent } from "@/__mocks__/fake-icon-component";
 import { mockNavigation } from "jest-setup";
 
-const BACK_BUTTON_LABEL = "Voltar para a tela anterior";
 const ICON_TEXT = "any_icon";
 const defaultProps: Pick<Required<HeaderProps>, "title"> &
 	Omit<HeaderProps, "title"> = {
@@ -16,9 +15,10 @@ const defaultProps: Pick<Required<HeaderProps>, "title"> &
 const renderComponent = (props = defaultProps) =>
 	renderWithThemeProvider(<Header {...props} />);
 
+const getBackButtonEl = () =>
+	screen.queryByLabelText("Voltar para a tela anterior");
 const getTitleEl = () => screen.queryByText(defaultProps.title);
-const getBackButtonEl = () => screen.queryByLabelText(BACK_BUTTON_LABEL);
-const getIconEl = () => screen.queryByText(ICON_TEXT);
+const getIconEl = () => screen.queryByText("any_icon");
 
 describe("<Header />", () => {
 	describe("Render", () => {
@@ -32,16 +32,17 @@ describe("<Header />", () => {
 		it("should render correctly with title text and icon", () => {
 			renderComponent({
 				...defaultProps,
+				withBack: true,
 				headerRight: () => <FakeIconComponent icon={ICON_TEXT} />,
 			});
 
 			expect(getTitleEl()).toBeTruthy();
 			expect(getBackButtonEl()).toBeFalsy();
-			expect(screen.getByText(ICON_TEXT)).toBeTruthy();
+			expect(getIconEl()).toBeTruthy();
 		});
 		it("should render correctly with title text and back-button", () => {
 			mockNavigation.canGoBack.mockReturnValue(true);
-			renderComponent();
+			renderComponent({ ...defaultProps, withBack: true });
 
 			expect(getTitleEl()).toBeTruthy();
 			expect(getBackButtonEl()).toBeTruthy();
@@ -52,6 +53,7 @@ describe("<Header />", () => {
 			renderComponent({
 				title: "",
 				headerRight: () => <FakeIconComponent icon={ICON_TEXT} />,
+				withBack: true,
 			});
 
 			expect(getTitleEl()).toBeFalsy();
