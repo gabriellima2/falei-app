@@ -3,11 +3,11 @@ import * as ReactQuery from "react-query";
 
 import { Home } from "./Home";
 
-import { WithQueryClientProvider } from "@/__mocks__/with-query-client-provider";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import { mock } from "./hooks/use-home.test";
 import * as useHome from "./hooks/use-home";
 
+import { WithQueryClientProvider } from "@/__mocks__/with-query-client-provider";
+import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import type { TestingLibraryEl } from "@/@types/testing-library-el";
 
 const useHomeSpyOn = jest.spyOn(useHome, "useHome");
@@ -44,7 +44,7 @@ describe("<Home />", () => {
 			expect(getExerciseList()).toHaveLength(mock.exercises.length);
 		}
 
-		it("should render correctly with all exercises filled", () => {
+		it("should render correctly with all exercises", () => {
 			useHomeSpyOn.mockReturnValue(defaultReturn);
 			renderComponent();
 
@@ -57,18 +57,6 @@ describe("<Home />", () => {
 			expectMessageToBePresent(defaultReturn.title);
 			expectExerciseToBePresent(reminder);
 			expectExerciseToBePresent(progress);
-			expectExerciseListToBePresent();
-		});
-		it("should render correctly with empty messages", () => {
-			const emptyProgressMessage = "Nenhum exercício em progresso";
-			useHomeSpyOn.mockReturnValue({
-				...defaultReturn,
-				incomplete: { appointments: undefined, exercises: undefined },
-			});
-			renderComponent();
-
-			expectMessageToBePresent(defaultReturn.title);
-			expectMessageToBePresent(emptyProgressMessage);
 			expectExerciseListToBePresent();
 		});
 	});

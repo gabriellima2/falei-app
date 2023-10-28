@@ -4,15 +4,13 @@ import { useHome } from "./hooks/use-home";
 import {
 	BreathingExercisePreviewList,
 	ContainerWithDefaultSpaces,
-	ExerciseInProgress,
 	NotificationButton,
 	BreathingExerciseAppointments,
 	ScrollContainer,
 	Group,
 	Header,
-	Typography,
 } from "@/components";
-import { WithQuery, WithQueryInjectProps } from "@/hocs/WithQuery";
+import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 
 import {
 	makeBreathingExerciseRepositoryImpl,
@@ -23,6 +21,7 @@ import type {
 	BreathingExerciseEntity,
 	BreathingExerciseAppointmentEntity,
 } from "@/entities";
+import { IncompleteBreathingExercises } from "@/components/Exercises/IncompleteBreathingExercises/IncompleteBreathingExercises";
 
 async function getData() {
 	return {
@@ -48,6 +47,8 @@ export const Home = WithQuery(
 		});
 
 		const incompleteExercises = incomplete.appointments || incomplete.exercises;
+		const hasMoreThanOneIncompleteExercise =
+			incompleteExercises && incompleteExercises.length > 1;
 
 		return (
 			<ScrollContainer isBottomTabRendered>
@@ -61,23 +62,19 @@ export const Home = WithQuery(
 							appointments={filteredAppointments}
 						/>
 					</Group>
-
-					{incompleteExercises ? (
-						<Group title="Em progresso">
-							<ExerciseInProgress
-								key={incompleteExercises[0].id}
-								name={incompleteExercises[0].title}
-								currentProgress={Math.trunc(
-									(incompleteExercises[0].rounds.rounds_completed /
-										incompleteExercises[0].rounds.rounds_total) *
-										100
-								)}
-								href={{ pathname: "/" }}
-							/>
-						</Group>
-					) : (
-						<Typography.Title>Nenhum exercício em progresso</Typography.Title>
-					)}
+					<Group
+						title="Em progresso"
+						rightLink={
+							hasMoreThanOneIncompleteExercise
+								? { pathname: "/", text: "Ver Mais" }
+								: undefined
+						}
+					>
+						<IncompleteBreathingExercises
+							exercises={incompleteExercises ? [incompleteExercises[0]] : []}
+							href={{ pathname: "/" }}
+						/>
+					</Group>
 					<Group
 						title="Exercícios"
 						rightLink={{ pathname: "/", text: "Ver Mais" }}
