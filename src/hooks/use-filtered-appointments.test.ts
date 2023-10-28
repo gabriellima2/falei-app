@@ -47,10 +47,10 @@ const executeHook = (
 	);
 
 describe("useFilteredAppointments", () => {
-	const isSaturday = time.day === 5; // to check if the week is over;
-	const validResult = isSaturday
-		? [defaultParams[1]]
-		: [defaultParams[1], defaultParams[3]];
+	const itIsNotSaturday = time.day < 5;
+	const validResult = itIsNotSaturday
+		? [defaultParams[1], defaultParams[3]]
+		: [defaultParams[1]];
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
