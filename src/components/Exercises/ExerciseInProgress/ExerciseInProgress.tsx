@@ -1,35 +1,38 @@
+import { useMemo } from "react";
 import styled, { css } from "styled-components/native";
 
-import {
-	BaseLink,
-	type BaseLinkProps,
-	Progress,
-	Typography,
-} from "@/components/commons";
+import { BaseLink, Progress, Typography } from "@/components/commons";
 
-export type ExerciseInProgressProps<TParams extends object> = Pick<
-	BaseLinkProps<TParams>,
-	"href"
-> & {
-	name: string;
-	currentProgress: number;
+export type ExerciseInProgressProps = {
+	id: string;
+	title: string;
+	href: { pathname: string };
+	rounds: { completed: number; total: number };
 };
 
-export const ExerciseInProgress = <TParams extends object>(
-	props: ExerciseInProgressProps<TParams>
-) => {
-	const { name, currentProgress, href } = props;
+export const ExerciseInProgress = (props: ExerciseInProgressProps) => {
+	const {
+		id,
+		title,
+		rounds: { completed, total },
+		href,
+	} = props;
+
+	const progress = useMemo(() => {
+		return Math.trunc((completed / total) * 100);
+	}, [completed, total]);
+
 	return (
 		<Container
-			href={href}
+			href={{ pathname: href.pathname, params: { id } }}
 			accessibilityLabel="Continuar exercício"
 			accessibilityHint="Te levará à outra tela para continuar esse exercício"
 		>
 			<Header>
-				<Name>{name}</Name>
+				<Name>{title}</Name>
 				<Description>Continuar</Description>
 			</Header>
-			<Progress value={currentProgress} />
+			<Progress value={progress} />
 		</Container>
 	);
 };
