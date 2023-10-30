@@ -4,6 +4,8 @@ import styled, { css } from "styled-components/native";
 import { BaseLink, Progress, Typography } from "@/components/commons";
 
 import { dimensions } from "@/constants/dimensions";
+import { margin } from "@/constants/margin";
+
 import type { Modifiers } from "@/@types/modifiers";
 
 export type ExerciseProps = ContainerProps & {
@@ -44,19 +46,17 @@ export const Exercise = (props: ExerciseProps) => {
 
 type ContainerProps = { withPreviewForNextItem?: boolean };
 
+const { withMargin } = dimensions.screen;
 const modifiers: Modifiers<keyof ContainerProps> = {
 	withPreviewForNextItem: () => css`
-		width: ${width - (sideMarginSum + sideMarginSum)}px;
+		width: ${withMargin.width + margin.vertical.total}px;
 		min-width: 320px;
 	`,
 };
 
-const { width } = dimensions.screen;
-const sideMarginSum = 32;
-
 const Container = styled(BaseLink)<ContainerProps>`
 	${({ theme, withPreviewForNextItem }) => css`
-		width: ${width - sideMarginSum}px;
+		width: ${withMargin.width}px;
 		max-width: 390px;
 		min-width: 330px;
 		padding: ${theme.spaces[3]} ${theme.spaces[4]};

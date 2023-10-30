@@ -11,14 +11,14 @@ export const BreathingExerciseAppointments = (
 	props: BreathingExerciseAppointmentsProps
 ) => {
 	const { appointments } = props;
-	const doesItOnlyHaveOneEl = appointments?.length === 1;
+	const hasOneItem = appointments && appointments.length === 1;
 	return (
 		<HorizontalList<BreathingExerciseAppointmentEntity>
 			data={appointments}
 			keyExtractor={(item) => item.id}
 			renderItem={({ item }) => (
 				<Appointment
-					autoSize={doesItOnlyHaveOneEl}
+					autoSize={hasOneItem}
 					title={item.title}
 					rounds={item.rounds}
 					scheduled_at={item.scheduled_at}

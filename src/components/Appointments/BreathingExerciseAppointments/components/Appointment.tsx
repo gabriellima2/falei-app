@@ -56,10 +56,11 @@ export const Appointment = (props: AppointmentProps) => {
 
 type ContainerProps = { autoSize?: boolean };
 
+const { withMargin } = dimensions.screen;
 const modifiers: Modifiers<keyof ContainerProps> = {
 	autoSize: () => css`
 		max-width: auto;
-		width: ${dimensions.screen.width - 32}px;
+		width: ${withMargin.width}px;
 		min-width: auto;
 	`,
 };

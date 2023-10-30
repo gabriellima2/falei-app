@@ -1,3 +1,5 @@
+import { margin } from "@/constants/margin";
+
 export type Theme = typeof theme;
 
 export const theme = {
@@ -39,7 +41,7 @@ export const theme = {
 	spaces: {
 		1: "8px",
 		2: "12px",
-		3: "16px",
+		3: `${margin.vertical.value}px`,
 		4: "20px",
 		5: "32px",
 		6: "64px",
