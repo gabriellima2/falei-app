@@ -1,14 +1,14 @@
 import { screen } from "@testing-library/react-native";
 
 import {
-	IncompleteBreathingExercises,
-	type IncompleteBreathingExercisesProps,
-} from "./IncompleteBreathingExercises";
+	IncompleteExercises,
+	type IncompleteExercisesProps,
+} from "./IncompleteExercises";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import type { BreathingExerciseEntity } from "@/entities";
 
-const defaultProps: IncompleteBreathingExercisesProps = {
+const defaultProps: IncompleteExercisesProps<BreathingExerciseEntity> = {
 	exercises: [
 		{
 			id: "any_id",
@@ -20,13 +20,13 @@ const defaultProps: IncompleteBreathingExercisesProps = {
 };
 
 const renderComponent = (props = defaultProps) =>
-	renderWithThemeProvider(<IncompleteBreathingExercises {...props} />);
+	renderWithThemeProvider(<IncompleteExercises {...props} />);
 
 const getMessage = () =>
 	screen.queryByLabelText(/Não há exercícios em progresso/);
 const getAllExercises = () => screen.queryAllByLabelText(/Continuar exercício/);
 
-describe("<IncompleteBreathingExercises", () => {
+describe("<IncompleteExercises", () => {
 	describe("Render", () => {
 		it("should render exercise list", () => {
 			renderComponent();

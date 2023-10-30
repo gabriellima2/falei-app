@@ -1,5 +1,4 @@
-export * from "./ExerciseInProgress";
-export * from "./AdditionalExerciseInfo";
 export * from "./BaseExercise";
+export * from "./AdditionalExerciseInfo";
 export * from "./BreathingExercise";
-export * from "./IncompleteBreathingExercises";
+export * from "./IncompleteExercises";

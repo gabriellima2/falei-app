@@ -1,20 +1,18 @@
-import {
-	ExerciseInProgress,
-	type ExerciseInProgressProps,
-} from "../ExerciseInProgress";
+import { Exercise, type ExerciseProps } from "./components/Exercise";
 import { HorizontalList, Typography } from "@/components/commons";
 
 import type { BreathingExerciseEntity } from "@/entities";
 
-export type IncompleteBreathingExercisesProps = Pick<
-	ExerciseInProgressProps,
+type Params = Pick<BreathingExerciseEntity, "id" | "rounds" | "title">;
+export type IncompleteExercisesProps<T extends Params> = Pick<
+	ExerciseProps,
 	"href"
 > & {
-	exercises: BreathingExerciseEntity[];
+	exercises: T[];
 };
 
-export const IncompleteBreathingExercises = (
-	props: IncompleteBreathingExercisesProps
+export const IncompleteExercises = <T extends Params>(
+	props: IncompleteExercisesProps<T>
 ) => {
 	const { exercises, href } = props;
 	return (
@@ -22,7 +20,7 @@ export const IncompleteBreathingExercises = (
 			data={exercises}
 			keyExtractor={({ id }) => id}
 			renderItem={({ item }) => (
-				<ExerciseInProgress
+				<Exercise
 					id={item.id}
 					title={item.title}
 					rounds={{

@@ -6,6 +6,7 @@ import {
 	ContainerWithDefaultSpaces,
 	NotificationButton,
 	BreathingExerciseAppointments,
+	IncompleteExercises,
 	ScrollContainer,
 	Group,
 	Header,
@@ -21,7 +22,6 @@ import type {
 	BreathingExerciseEntity,
 	BreathingExerciseAppointmentEntity,
 } from "@/entities";
-import { IncompleteBreathingExercises } from "@/components/Exercises/IncompleteBreathingExercises/IncompleteBreathingExercises";
 
 async function getData() {
 	return {
@@ -70,7 +70,7 @@ export const Home = WithQuery(
 								: undefined
 						}
 					>
-						<IncompleteBreathingExercises
+						<IncompleteExercises<BreathingExerciseEntity>
 							exercises={incompleteExercises ? [incompleteExercises[0]] : []}
 							href={{ pathname: "/" }}
 						/>

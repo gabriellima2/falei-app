@@ -1,21 +1,18 @@
 import { screen } from "@testing-library/react-native";
 
-import {
-	ExerciseInProgress,
-	type ExerciseInProgressProps,
-} from "./ExerciseInProgress";
+import { Exercise, type ExerciseProps } from "./Exercise";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
-const defaultProps: ExerciseInProgressProps = {
+const defaultProps: ExerciseProps = {
 	id: "any_id",
 	title: "any_title",
 	rounds: { completed: 3, total: 6 },
 	href: { pathname: "any_path" },
 };
-const renderComponent = (props: ExerciseInProgressProps = defaultProps) =>
-	renderWithThemeProvider(<ExerciseInProgress {...props} />);
+const renderComponent = (props: ExerciseProps = defaultProps) =>
+	renderWithThemeProvider(<Exercise {...props} />);
 
-describe("<ExerciseInProgress />", () => {
+describe("<Exercise />", () => {
 	describe("Render", () => {
 		it("should render correctly", () => {
 			renderComponent();

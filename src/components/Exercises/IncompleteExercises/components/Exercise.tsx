@@ -3,14 +3,14 @@ import styled, { css } from "styled-components/native";
 
 import { BaseLink, Progress, Typography } from "@/components/commons";
 
-export type ExerciseInProgressProps = {
+export type ExerciseProps = {
 	id: string;
 	title: string;
 	href: { pathname: string };
 	rounds: { completed: number; total: number };
 };
 
-export const ExerciseInProgress = (props: ExerciseInProgressProps) => {
+export const Exercise = (props: ExerciseProps) => {
 	const {
 		id,
 		title,
