@@ -18,7 +18,7 @@ export type AppointmentProps = Omit<
 	};
 
 export const Appointment = (props: AppointmentProps) => {
-	const { title, rounds, scheduled_at, autoSize, onPress } = props;
+	const { title, rounds, scheduled_at, autoSize, color, onPress } = props;
 	return (
 		<Container
 			testID="breathing-exercise-appointment"
@@ -28,6 +28,7 @@ export const Appointment = (props: AppointmentProps) => {
 			onPress={onPress}
 			accessibilityRole="link"
 			autoSize={autoSize}
+			color={color}
 		>
 			<Header>
 				<Title>{title}</Title>
@@ -54,10 +55,10 @@ export const Appointment = (props: AppointmentProps) => {
 	);
 };
 
-type ContainerProps = { autoSize?: boolean };
+type ContainerProps = { autoSize?: boolean; color?: string };
 
 const { withMargin } = dimensions.screen;
-const modifiers: Modifiers<keyof ContainerProps> = {
+const modifiers: Modifiers<keyof Pick<ContainerProps, "autoSize">> = {
 	autoSize: () => css`
 		max-width: auto;
 		width: ${withMargin.width}px;
@@ -66,13 +67,13 @@ const modifiers: Modifiers<keyof ContainerProps> = {
 };
 
 const Container = styled.TouchableOpacity<ContainerProps>`
-	${({ theme, autoSize }) => css`
+	${({ theme, autoSize, color = theme.colors.brand }) => css`
 		max-width: 350px;
 		width: 328px;
 		padding: ${theme.spaces[4]} ${theme.spaces[3]};
 		border-radius: ${theme.rounded.md};
 		gap: ${theme.spaces[4]};
-		background-color: ${theme.colors.brand};
+		background-color: ${color};
 		position: relative;
 		overflow: hidden;
 		${autoSize && modifiers.autoSize(theme)};
