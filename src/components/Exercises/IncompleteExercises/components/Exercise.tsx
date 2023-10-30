@@ -3,7 +3,10 @@ import styled, { css } from "styled-components/native";
 
 import { BaseLink, Progress, Typography } from "@/components/commons";
 
-export type ExerciseProps = {
+import { dimensions } from "@/constants/dimensions";
+import type { Modifiers } from "@/@types/modifiers";
+
+export type ExerciseProps = ContainerProps & {
 	id: string;
 	title: string;
 	href: { pathname: string };
@@ -16,6 +19,7 @@ export const Exercise = (props: ExerciseProps) => {
 		title,
 		rounds: { completed, total },
 		href,
+		withPreviewForNextItem,
 	} = props;
 
 	const progress = useMemo(() => {
@@ -27,6 +31,7 @@ export const Exercise = (props: ExerciseProps) => {
 			href={{ pathname: href.pathname, params: { id } }}
 			accessibilityLabel="Continuar exercício"
 			accessibilityHint="Te levará à outra tela para continuar esse exercício"
+			withPreviewForNextItem={withPreviewForNextItem}
 		>
 			<Header>
 				<Name>{title}</Name>
@@ -37,12 +42,28 @@ export const Exercise = (props: ExerciseProps) => {
 	);
 };
 
-const Container = styled(BaseLink)`
-	${({ theme }) => css`
+type ContainerProps = { withPreviewForNextItem?: boolean };
+
+const modifiers: Modifiers<keyof ContainerProps> = {
+	withPreviewForNextItem: () => css`
+		width: ${width - (sideMarginSum + sideMarginSum)}px;
+		min-width: 320px;
+	`,
+};
+
+const { width } = dimensions.screen;
+const sideMarginSum = 32;
+
+const Container = styled(BaseLink)<ContainerProps>`
+	${({ theme, withPreviewForNextItem }) => css`
+		width: ${width - sideMarginSum}px;
+		max-width: 390px;
+		min-width: 330px;
 		padding: ${theme.spaces[3]} ${theme.spaces[4]};
 		border: 1px solid ${theme.colors.overlay};
 		border-radius: ${theme.rounded.md};
 		gap: ${theme.spaces[3]};
+		${withPreviewForNextItem && modifiers.withPreviewForNextItem(theme)};
 	`}
 `;
 

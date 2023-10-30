@@ -15,6 +15,7 @@ export const IncompleteExercises = <T extends Params>(
 	props: IncompleteExercisesProps<T>
 ) => {
 	const { exercises, href } = props;
+	const hasMoreThanOneItem = !!exercises && exercises.length > 1;
 	return (
 		<HorizontalList
 			data={exercises}
@@ -28,6 +29,7 @@ export const IncompleteExercises = <T extends Params>(
 						total: item.rounds.rounds_total,
 					}}
 					href={href}
+					withPreviewForNextItem={hasMoreThanOneItem}
 				/>
 			)}
 			ListEmptyComponent={() => (
