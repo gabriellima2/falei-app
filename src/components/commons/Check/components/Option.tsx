@@ -12,7 +12,14 @@ export type OptionProps = ButtonProps & {
 export const Option = (props: OptionProps) => {
 	const { name, value, isActive, onPress } = props;
 	return (
-		<Button onPress={onPress && (() => onPress(value))} isActive={isActive}>
+		<Button
+			onPress={onPress && (() => onPress(value))}
+			isActive={isActive}
+			accessibilityLabel={name}
+			accessibilityHint={`Selecionará a opção com o valor ${name}`}
+			accessibilityRole="checkbox"
+			accessibilityState={{ checked: isActive }}
+		>
 			<Text>{name}</Text>
 		</Button>
 	);
