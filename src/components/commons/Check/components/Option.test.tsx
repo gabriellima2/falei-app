@@ -12,7 +12,7 @@ const getEl = () => screen.getByTestId("check-option");
 describe("<Option />", () => {
 	describe("Render", () => {
 		it("should render correctly when checked", () => {
-			renderComponent({ ...defaultProps, isActive: true });
+			renderComponent({ ...defaultProps, isChecked: true });
 
 			const props = screen.getByTestId("check-option").props;
 

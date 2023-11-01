@@ -20,7 +20,7 @@ export const Check = (props: CheckProps) => {
 				<Option
 					{...item}
 					key={item.name}
-					isActive={isChecked(item.value)}
+					isChecked={isChecked(item.value)}
 					onPress={handlePress}
 				/>
 			))}

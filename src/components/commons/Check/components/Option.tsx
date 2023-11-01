@@ -10,15 +10,15 @@ export type OptionProps = ButtonProps & {
 };
 
 export const Option = (props: OptionProps) => {
-	const { name, value, isActive, onPress } = props;
+	const { name, value, isChecked, onPress } = props;
 	return (
 		<Button
 			onPress={onPress && (() => onPress(value))}
-			isActive={isActive}
+			isChecked={isChecked}
 			accessibilityLabel={name}
 			accessibilityHint={`Selecionará a opção com o valor ${name}`}
 			accessibilityRole="checkbox"
-			accessibilityState={{ checked: isActive }}
+			accessibilityState={{ checked: isChecked }}
 			testID="check-option"
 		>
 			<Text>{name}</Text>
@@ -26,16 +26,16 @@ export const Option = (props: OptionProps) => {
 	);
 };
 
-type ButtonProps = { isActive?: boolean };
+type ButtonProps = { isChecked?: boolean };
 const modifiers: Modifiers<keyof ButtonProps> = {
-	isActive: (theme) => css`
+	isChecked: (theme) => css`
 		background-color: ${theme.colors.utils.white};
 	`,
 };
 
 const Button = styled.TouchableOpacity<ButtonProps>`
-	${({ theme, isActive }) => css`
-		${isActive && modifiers.isActive(theme)};
+	${({ theme, isChecked }) => css`
+		${isChecked && modifiers.isChecked(theme)};
 	`}
 `;
 
