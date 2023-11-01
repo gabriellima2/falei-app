@@ -7,6 +7,7 @@ export type UseCheckParams = {
 };
 
 type UseCheckReturn = {
+	values: string[];
 	handlePress: (newValue: string) => void;
 	isChecked: (value: string) => boolean;
 };
@@ -39,6 +40,7 @@ export function useCheck(params: UseCheckParams): UseCheckReturn {
 	}, [currentValues]);
 
 	return {
+		values: currentValues,
 		handlePress: updateCheckedValues,
 		isChecked: isAlreadyCheckedValue,
 	};
