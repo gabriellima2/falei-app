@@ -8,15 +8,19 @@ type CheckProps = UseCheckParams & {
 };
 
 export const Check = (props: CheckProps) => {
-	const { items, value, onChange } = props;
-	const { currentValue, handlePress } = useCheck({ value, onChange });
+	const { items, initialValue, multipleValues, onChange } = props;
+	const { handlePress, isChecked } = useCheck({
+		initialValue,
+		multipleValues,
+		onChange,
+	});
 	return (
 		<Container>
 			{items.map((item) => (
 				<Option
 					{...item}
 					key={item.name}
-					isActive={item.value === currentValue}
+					isActive={isChecked(item.value)}
 					onPress={handlePress}
 				/>
 			))}
