@@ -11,23 +11,25 @@ const getEl = () => screen.getByTestId("check-option");
 
 describe("<Option />", () => {
 	describe("Render", () => {
-		it("should render correctly when checked", () => {
-			renderComponent({ ...defaultProps, isChecked: true });
-
-			const props = screen.getByTestId("check-option").props;
-
-			expect(screen.getByText(defaultProps.name)).toBeTruthy();
-			expect(screen.getByLabelText(defaultProps.name)).toBeTruthy();
-			expect(props.accessibilityState.checked).toBeTruthy();
-		});
-		it("should render correctly when not checked", () => {
-			renderComponent();
+		const cases = [
+			{ isChecked: true, description: "should render correctly when checked" },
+			{
+				isChecked: false,
+				description: "should render correctly when not checked",
+			},
+		];
+		test.each(cases)("%s", ({ isChecked }) => {
+			renderComponent({ ...defaultProps, isChecked });
 
 			const props = getEl().props;
 
 			expect(screen.getByText(defaultProps.name)).toBeTruthy();
 			expect(screen.getByLabelText(defaultProps.name)).toBeTruthy();
-			expect(props.accessibilityState.checked).toBeFalsy();
+			if (isChecked) {
+				expect(props.accessibilityState.checked).toBeTruthy();
+			} else {
+				expect(props.accessibilityState.checked).toBeFalsy();
+			}
 		});
 	});
 	describe("Interactions", () => {
