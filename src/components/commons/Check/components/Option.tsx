@@ -19,6 +19,7 @@ export const Option = (props: OptionProps) => {
 			accessibilityHint={`Selecionará a opção com o valor ${name}`}
 			accessibilityRole="checkbox"
 			accessibilityState={{ checked: isActive }}
+			testID="check-option"
 		>
 			<Text>{name}</Text>
 		</Button>
