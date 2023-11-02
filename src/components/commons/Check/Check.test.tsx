@@ -20,6 +20,8 @@ const defaultProps: CheckProps = {
 const renderComponent = (props = defaultProps) =>
 	renderWithThemeProvider(<Check {...props} />);
 
+const getCheckOptions = () => screen.getAllByTestId("check-option");
+
 describe("<Check />", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -30,34 +32,36 @@ describe("<Check />", () => {
 
 			const itemsLength = defaultProps.items.length;
 
-			expect(screen.getAllByTestId("check-option")).toHaveLength(itemsLength);
+			expect(getCheckOptions()).toHaveLength(itemsLength);
 		});
 	});
 	describe("Interactions", () => {
 		describe("Press", () => {
-			it("should call the onChange function when pressed", () => {
-				renderComponent();
+			const { items } = defaultProps;
+			const cases = [
+				{
+					props: defaultProps,
+					elIndex: 0,
+					expected: [items[0].value],
+				},
+				{
+					props: { ...defaultProps, multipleValues: true },
+					elIndex: 1,
+					expected: [items[0].value, items[1].value],
+				},
+			];
+			test.each(cases)(
+				"should call the onChange function when pressed",
+				({ props, elIndex, expected }) => {
+					renderComponent(props);
 
-				const el = screen.getAllByTestId("check-option")[0];
-				fireEvent.press(el);
+					const el = getCheckOptions()[elIndex];
+					fireEvent.press(el);
 
-				expect(defaultProps.onChange).toHaveBeenCalled();
-				expect(defaultProps.onChange).toHaveBeenCalledWith([
-					defaultProps.items[0].value,
-				]);
-			});
-			it("should call the onChange function when pressed", () => {
-				renderComponent({ ...defaultProps, multipleValues: true });
-
-				const el = screen.getAllByTestId("check-option")[1];
-				fireEvent.press(el);
-
-				expect(defaultProps.onChange).toHaveBeenCalled();
-				expect(defaultProps.onChange).toHaveBeenCalledWith([
-					defaultProps.items[0].value,
-					defaultProps.items[1].value,
-				]);
-			});
+					expect(defaultProps.onChange).toHaveBeenCalled();
+					expect(defaultProps.onChange).toHaveBeenCalledWith(expected);
+				}
+			);
 		});
 	});
 });
