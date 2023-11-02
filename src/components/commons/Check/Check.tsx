@@ -3,8 +3,8 @@ import styled from "styled-components/native";
 import { Option, type OptionProps } from "./components";
 import { useCheck, type UseCheckParams } from "./hooks/use-check";
 
-type CheckProps = UseCheckParams & {
-	items: OptionProps[];
+export type CheckProps = UseCheckParams & {
+	items: Pick<OptionProps, "name" | "value">[];
 };
 
 export const Check = (props: CheckProps) => {
