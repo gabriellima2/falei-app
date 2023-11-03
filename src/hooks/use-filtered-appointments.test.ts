@@ -47,14 +47,15 @@ const executeHook = (
 	);
 
 describe("useFilteredAppointments", () => {
-	const itIsNotSaturday = time.day < 5;
-	const validResult = itIsNotSaturday
+	const weekIsNotOver = time.day <= 5; // 5 === Saturday
+	const validResult = weekIsNotOver
 		? [defaultParams[1], defaultParams[3]]
 		: [defaultParams[1]];
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
 	it("should return today's appointment when you are at the scheduled time", () => {
+		console.log(time.day);
 		const { result } = executeHook();
 		expect(result.current[0]).toMatchObject(validResult[0]);
 	});
