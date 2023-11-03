@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { Check, CheckProps } from "@/components/commons";
 
-type FilterByExerciseProps = {
+export type FilterByExerciseProps = {
 	exercises: Pick<CheckProps, "items">["items"];
 	onChange: (type: string) => Promise<void> | void;
 };
