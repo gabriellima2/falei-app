@@ -9,7 +9,7 @@ import {
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import { mockPush } from "jest-setup";
 
-const defaultProps: BreathingExerciseProps = {
+const defaultProps = {
 	id: "1",
 	title: "any_title",
 	rounds: {
@@ -17,9 +17,9 @@ const defaultProps: BreathingExerciseProps = {
 		rounds_completed: 0,
 		rounds_total: 4,
 	},
-};
+} as BreathingExerciseProps;
 
-const renderComponent = (props: BreathingExerciseProps = defaultProps) =>
+const renderComponent = (props = defaultProps) =>
 	renderWithThemeProvider(<BreathingExercise {...props} />);
 
 describe("<BreathingExercise />", () => {
