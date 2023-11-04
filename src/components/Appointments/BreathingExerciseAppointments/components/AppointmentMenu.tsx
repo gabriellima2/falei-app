@@ -1,12 +1,11 @@
-import styled from "styled-components/native";
-import { MoreVertical, Clock, BellOff, Trash2 } from "lucide-react-native";
+import { Clock, BellOff, Trash2 } from "lucide-react-native";
 
+import { MenuButton } from "@/components/commons";
 import { useMenuContext } from "@/contexts/MenuContext";
 
-import { theme } from "@/styles/theme";
 import type { MenuOption } from "@/contexts/MenuContext/@types/menu-option";
 
-const menuOptions: MenuOption[] = [
+const options: MenuOption[] = [
 	{
 		text: "Editar lembrete",
 		onPress: () => console.log("Editando..."),
@@ -26,11 +25,5 @@ const menuOptions: MenuOption[] = [
 
 export const AppointmentMenu = () => {
 	const { handleToggle } = useMenuContext();
-	return (
-		<Button onPress={() => handleToggle(menuOptions)}>
-			<MoreVertical color={theme.colors.main} />
-		</Button>
-	);
+	return <MenuButton onPress={() => handleToggle(options)} />;
 };
-
-const Button = styled.TouchableOpacity``;
