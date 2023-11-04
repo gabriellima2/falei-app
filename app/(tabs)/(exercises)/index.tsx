@@ -1,11 +1,18 @@
 import { View } from "react-native";
-import { Header, Typography } from "@/components";
+import { FilterByExercise, Header } from "@/components";
 
 export default function Page() {
 	return (
 		<View>
 			<Header title="Exercícios" />
-			<Typography.Title>Exercises</Typography.Title>
+			<FilterByExercise
+				onChange={(v) => console.log(v)}
+				exercises={[
+					{ name: "Respiração", value: "breathing" },
+					{ name: "Trava-línguas", value: "read" },
+					{ name: "Poemas", value: "poems" },
+				]}
+			/>
 		</View>
 	);
 }
