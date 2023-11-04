@@ -9,11 +9,16 @@ export type FilterByExerciseProps = {
 export const FilterByExercise = (props: FilterByExerciseProps) => {
 	const { exercises, onChange } = props;
 	return (
-		<Container horizontal showsHorizontalScrollIndicator={false}>
+		<Container
+			horizontal
+			showsHorizontalScrollIndicator={false}
+			contentContainerStyle={{ paddingHorizontal: 16, gap: 16 }}
+		>
 			<Check
 				initialValue="breathing"
 				onChange={(values) => onChange(values[0])}
 				items={exercises}
+				optionStyle={{ minWidth: 134 }}
 			/>
 		</Container>
 	);

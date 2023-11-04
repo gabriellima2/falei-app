@@ -1,13 +1,13 @@
 import { Option, type OptionProps } from "./components";
 import { useCheck, type UseCheckParams } from "./hooks/use-check";
 
-export type CheckProps = UseCheckParams &
-	Pick<OptionProps, "style"> & {
-		items: Pick<OptionProps, "name" | "value">[];
-	};
+export type CheckProps = UseCheckParams & {
+	items: Pick<OptionProps, "name" | "value">[];
+	optionStyle: Pick<OptionProps, "style">["style"];
+};
 
 export const Check = (props: CheckProps) => {
-	const { items, initialValue, multipleValues, onChange, ...rest } = props;
+	const { items, initialValue, multipleValues, onChange, optionStyle } = props;
 	const { handlePress, isChecked } = useCheck({
 		initialValue,
 		multipleValues,
@@ -18,7 +18,7 @@ export const Check = (props: CheckProps) => {
 			{items.map((item) => (
 				<Option
 					{...item}
-					{...rest}
+					style={optionStyle}
 					key={item.name}
 					isChecked={isChecked(item.value)}
 					onPress={handlePress}
