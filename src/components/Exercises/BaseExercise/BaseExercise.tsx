@@ -2,12 +2,16 @@ import { type ReactNode } from "react";
 import styled, { css } from "styled-components/native";
 
 import { BaseLink, BaseLinkProps, Typography } from "@/components/commons";
+import {
+	useBaseExercise,
+	type UseBaseExerciseParams,
+} from "./hooks/use-base-exercise";
 
 import { theme } from "@/styles/theme";
 import type { IconStyles } from "@/@types/icon-styles";
 
-export type BaseExerciseProps<TParams extends object> =
-	BaseLinkProps<TParams> & {
+export type BaseExerciseProps<TParams extends object> = BaseLinkProps<TParams> &
+	UseBaseExerciseParams & {
 		title: string;
 		children?: ReactNode;
 		icon: (props: IconStyles) => JSX.Element;
@@ -16,9 +20,10 @@ export type BaseExerciseProps<TParams extends object> =
 export const BaseExercise = <TParams extends object>(
 	props: BaseExerciseProps<TParams>
 ) => {
-	const { title, icon, children, ...rest } = props;
+	const { title, icon, children, id, withCustomOptions, ...rest } = props;
+	const { handleLongPress } = useBaseExercise({ id, withCustomOptions });
 	return (
-		<Container {...rest}>
+		<Container {...rest} onLongPress={handleLongPress}>
 			<Icon>{icon({ color: theme.colors.utils.white, size: 24 })}</Icon>
 			<Content>
 				<Title numberOfLines={5}>{title}</Title>

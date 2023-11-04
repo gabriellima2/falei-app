@@ -10,6 +10,7 @@ const ICON_TEXT = "any_icon";
 const CHILDREN_CONTENT = "any_content";
 
 const defaultProps: BaseExerciseProps<{}> = {
+	id: "any_id",
 	title: "any_title",
 	href: { pathname: "any" },
 	icon: () => <FakeIconComponent icon={ICON_TEXT} />,

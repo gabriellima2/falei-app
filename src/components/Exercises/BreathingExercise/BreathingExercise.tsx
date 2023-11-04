@@ -15,6 +15,7 @@ export const BreathingExercise = (props: BreathingExerciseProps) => {
 	return (
 		<BaseExercise
 			{...rest}
+			id={id}
 			title={title}
 			icon={(props) => <Shell {...props} />}
 			href={{ pathname: PATHNAME_START_EXERCISE, params: { id } }}
