@@ -13,26 +13,27 @@ import {
 } from "@/components";
 import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 
-import {
-	makeBreathingExerciseRepositoryImpl,
-	makeBreathingExerciseAppointmentRepositoryImpl,
-} from "@/factories/repositories";
+import { makeExerciseRepositoryImpl } from "@/factories/repositories/make-exercise-repository-impl";
 
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import type {
 	BreathingExerciseEntity,
-	BreathingExerciseAppointmentEntity,
-} from "@/entities";
+	BreathingAppointmentEntity,
+} from "@/entities/breathing-entities";
 
 async function getData() {
 	return {
 		appointments:
 			await makeBreathingExerciseAppointmentRepositoryImpl().getAll(),
-		exercises: await makeBreathingExerciseRepositoryImpl().getAll(),
+		exercises:
+			await makeExerciseRepositoryImpl().getAll<BreathingExerciseEntity>({
+				category: ExerciseCategoryEntity.Breathing,
+			}),
 	};
 }
 
 type HomeProps = WithQueryInjectProps<{
-	appointments: BreathingExerciseAppointmentEntity[];
+	appointments: BreathingAppointmentEntity[];
 	exercises: BreathingExerciseEntity[];
 }>;
 
@@ -70,8 +71,8 @@ export const Home = WithQuery(
 								: undefined
 						}
 					>
-						<IncompleteExercises<BreathingExerciseEntity>
-							exercises={incompleteExercises ? [incompleteExercises[0]] : []}
+						<IncompleteExercises
+							exercises={incompleteExercises ? incompleteExercises : []}
 							href={{ pathname: "/" }}
 						/>
 					</Group>
