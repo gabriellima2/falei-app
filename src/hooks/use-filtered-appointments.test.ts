@@ -5,7 +5,7 @@ import { useFilteredAppointments } from "./use-filtered-appointments";
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import { time } from "@/helpers/time";
 
-import type { BreathingExerciseAppointmentEntity } from "@/entities";
+import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 
 const defaultParams = [
 	{
@@ -37,14 +37,10 @@ const defaultParams = [
 		title: "any_title_schedule_4",
 		scheduled_at: { days: [DAYS_OF_THE_WEEK[time.nextDay]], hour: "10:00" },
 	},
-] as BreathingExerciseAppointmentEntity[];
+] as BreathingAppointmentEntity[];
 
-const executeHook = (
-	params: BreathingExerciseAppointmentEntity[] = defaultParams
-) =>
-	renderHook(() =>
-		useFilteredAppointments<BreathingExerciseAppointmentEntity>(params)
-	);
+const executeHook = (params: BreathingAppointmentEntity[] = defaultParams) =>
+	renderHook(() => useFilteredAppointments<BreathingAppointmentEntity>(params));
 
 describe("useFilteredAppointments", () => {
 	const weekIsNotOver = time.day <= 5; // 5 === Saturday

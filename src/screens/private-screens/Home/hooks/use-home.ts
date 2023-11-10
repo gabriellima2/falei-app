@@ -3,21 +3,24 @@ import {
 	useIncompleteBreathingExercises,
 } from "@/hooks";
 
-import type { BreathingExerciseAppointmentEntity } from "@/entities";
 import { hasAppointmentToday } from "@/helpers/has-appointment-today";
-import { BreathingExerciseEntity } from "@/entities/breathing-entities/breathing-exercise.entity";
+
+import type {
+	BreathingExerciseEntity,
+	BreathingAppointmentEntity,
+} from "@/entities/breathing-entities";
 
 export type UseHomeParams = {
 	exercises: BreathingExerciseEntity[];
-	appointments: BreathingExerciseAppointmentEntity[];
+	appointments: BreathingAppointmentEntity[];
 };
 
 export type UseHomeReturn = {
 	title: string;
-	filteredAppointments: BreathingExerciseAppointmentEntity[];
+	filteredAppointments: BreathingAppointmentEntity[];
 	incomplete: {
 		exercises: BreathingExerciseEntity[] | undefined;
-		appointments: BreathingExerciseAppointmentEntity[] | undefined;
+		appointments: BreathingAppointmentEntity[] | undefined;
 	};
 };
 

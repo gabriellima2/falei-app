@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import type { BreathingExerciseEntity } from "@/entities";
+import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 export function useIncompleteBreathingExercises<
 	T extends BreathingExerciseEntity

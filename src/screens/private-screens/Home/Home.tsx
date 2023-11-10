@@ -20,11 +20,14 @@ import type {
 	BreathingExerciseEntity,
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
+import { makeAppointmentRepositoryImpl } from "@/factories/repositories/make-appointment-repository-impl";
 
 async function getData() {
 	return {
 		appointments:
-			await makeBreathingExerciseAppointmentRepositoryImpl().getAll(),
+			await makeAppointmentRepositoryImpl<BreathingAppointmentEntity>().getAll({
+				category: ExerciseCategoryEntity.Breathing,
+			}),
 		exercises:
 			await makeExerciseRepositoryImpl().getAll<BreathingExerciseEntity>({
 				category: ExerciseCategoryEntity.Breathing,

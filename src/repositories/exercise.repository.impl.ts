@@ -62,7 +62,6 @@ export class ExerciseRepositoryImpl implements ExerciseRepository {
 		params: DTO.GetAllExercisesInputDTO
 	): DTO.GetAllExercisesOutputDTO<T> {
 		const { category } = params;
-		console.log(params);
 		const docRef = doc(db, this.collection, this.document);
 		const subCollectionRef = collection(docRef, category);
 		const q = query(subCollectionRef, orderBy("last_progress_at", "desc"));

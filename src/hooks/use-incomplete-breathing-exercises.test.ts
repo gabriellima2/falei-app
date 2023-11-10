@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react-hooks";
 
 import { useIncompleteBreathingExercises } from "./use-incomplete-breathing-exercises";
-import type { BreathingExerciseEntity } from "@/entities";
+import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 const executeHook = (
 	exercises: BreathingExerciseEntity[],

@@ -4,9 +4,11 @@ import { useHome } from "./use-home";
 import * as useFilteredAppointments from "@/hooks/use-filtered-appointments";
 import * as useIncompleteBreathingExercises from "@/hooks/use-incomplete-breathing-exercises";
 
-import type { BreathingExerciseAppointmentEntity } from "@/entities";
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
-import { BreathingExerciseEntity } from "@/entities/breathing-entities/breathing-exercise.entity";
+import {
+	BreathingAppointmentEntity,
+	BreathingExerciseEntity,
+} from "@/entities/breathing-entities";
 
 const useFilteredAppointmentsSpyOn = jest.spyOn(
 	useFilteredAppointments,
@@ -25,7 +27,7 @@ export const mock = {
 			scheduled_at: { days: [DAYS_OF_THE_WEEK[2]], hour: "18:00" },
 			rounds: {},
 		},
-	] as BreathingExerciseAppointmentEntity[],
+	] as BreathingAppointmentEntity[],
 	exercises: [
 		{
 			id: "1",
