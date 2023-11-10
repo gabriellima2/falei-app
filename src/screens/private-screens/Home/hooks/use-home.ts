@@ -3,11 +3,9 @@ import {
 	useIncompleteBreathingExercises,
 } from "@/hooks";
 
-import type {
-	BreathingExerciseAppointmentEntity,
-	BreathingExerciseEntity,
-} from "@/entities";
+import type { BreathingExerciseAppointmentEntity } from "@/entities";
 import { hasAppointmentToday } from "@/helpers/has-appointment-today";
+import { BreathingExerciseEntity } from "@/entities/breathing-entities/breathing-exercise.entity";
 
 export type UseHomeParams = {
 	exercises: BreathingExerciseEntity[];

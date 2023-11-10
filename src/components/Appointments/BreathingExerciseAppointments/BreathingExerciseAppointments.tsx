@@ -3,10 +3,10 @@ import { useTheme } from "styled-components/native";
 import { EmptyAppointments, Appointment } from "./components";
 import { HorizontalList } from "@/components/commons";
 
-import type { BreathingExerciseAppointmentEntity } from "@/entities";
+import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 
 export type BreathingExerciseAppointmentsProps = {
-	appointments: BreathingExerciseAppointmentEntity[];
+	appointments: BreathingAppointmentEntity[];
 };
 
 export const BreathingExerciseAppointments = (
@@ -16,7 +16,7 @@ export const BreathingExerciseAppointments = (
 	const { colors } = useTheme();
 	const hasOneItem = appointments && appointments.length === 1;
 	return (
-		<HorizontalList<BreathingExerciseAppointmentEntity>
+		<HorizontalList<BreathingAppointmentEntity>
 			data={appointments}
 			keyExtractor={(item) => item.id}
 			renderItem={({ item, index }) => (

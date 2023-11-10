@@ -6,12 +6,12 @@ import { Typography } from "@/components/commons";
 
 import { dimensions } from "@/constants/dimensions";
 
-import type { BreathingExerciseAppointmentEntity } from "@/entities";
+import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 import type { Modifiers } from "@/@types/modifiers";
 
 export type AppointmentProps = Omit<
-	BreathingExerciseAppointmentEntity,
-	"id" | "exercise_id" | "user_id" | "last_progress_at"
+	BreathingAppointmentEntity,
+	"id" | "exercise_id" | "user_id" | "last_progress_at" | "category"
 > &
 	ContainerProps & {
 		onPress?: () => void | Promise<void>;

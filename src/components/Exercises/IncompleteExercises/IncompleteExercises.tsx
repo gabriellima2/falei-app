@@ -1,9 +1,14 @@
 import { Exercise, type ExerciseProps } from "./components/Exercise";
 import { HorizontalList, Typography } from "@/components/commons";
 
-import type { BreathingExerciseEntity } from "@/entities";
+import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
-type Params = Pick<BreathingExerciseEntity, "id" | "rounds" | "title">;
+type Exercise = Pick<
+	BreathingExerciseEntity,
+	"id" | "rounds" | "title" | "category"
+>;
+type Params = Exercise;
+
 export type IncompleteExercisesProps<T extends Params> = Pick<
 	ExerciseProps,
 	"href"

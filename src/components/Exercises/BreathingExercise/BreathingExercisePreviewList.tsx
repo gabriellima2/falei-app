@@ -1,7 +1,7 @@
 import { HorizontalList } from "@/components/commons";
 import { BreathingExercise } from "./BreathingExercise";
 
-import type { BreathingExerciseEntity } from "@/entities";
+import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 export type BreathingExercisePreviewListProps = {
 	items: BreathingExerciseEntity[];

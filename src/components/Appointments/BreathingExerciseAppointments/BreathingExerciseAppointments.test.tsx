@@ -7,7 +7,7 @@ import {
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import { mockAppointment } from "./__mocks__/mock-appointment";
 
-import type { BreathingExerciseAppointmentEntity } from "@/entities";
+import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 
 const renderComponent = (props: BreathingExerciseAppointmentsProps) =>
 	renderWithThemeProvider(<BreathingExerciseAppointments {...props} />);
@@ -15,9 +15,7 @@ const renderComponent = (props: BreathingExerciseAppointmentsProps) =>
 describe("<BreathingExerciseAppointments />", () => {
 	describe("Render", () => {
 		it("should render correctly listing the appointments data", () => {
-			const appointments = [
-				mockAppointment as BreathingExerciseAppointmentEntity,
-			];
+			const appointments = [mockAppointment as BreathingAppointmentEntity];
 			renderComponent({ appointments });
 
 			expect(
@@ -28,8 +26,7 @@ describe("<BreathingExerciseAppointments />", () => {
 			const cases = [[], undefined];
 			test.each(cases)("should render correctly with empty data", (param) => {
 				renderComponent({
-					appointments:
-						param as unknown as BreathingExerciseAppointmentEntity[],
+					appointments: param as unknown as BreathingAppointmentEntity[],
 				});
 
 				expect(screen.getByTestId("empty-data-message")).toBeTruthy();
