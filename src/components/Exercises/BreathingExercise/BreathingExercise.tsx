@@ -3,7 +3,7 @@ import { Shell } from "lucide-react-native";
 import { AdditionalExerciseInfo } from "../AdditionalExerciseInfo";
 import { BaseExercise } from "../BaseExercise";
 
-import type { BreathingExerciseEntity } from "@/entities";
+import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 export const PATHNAME_START_EXERCISE = "/";
 
