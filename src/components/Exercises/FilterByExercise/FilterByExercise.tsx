@@ -1,25 +1,22 @@
 import styled from "styled-components/native";
 import { Check, CheckProps } from "@/components/commons";
 
-export type FilterByExerciseProps = {
+export type FilterByExerciseProps = Pick<
+	CheckProps,
+	"initialValue" | "onChange"
+> & {
 	exercises: Pick<CheckProps, "items">["items"];
-	onChange: (type: string) => Promise<void> | void;
 };
 
 export const FilterByExercise = (props: FilterByExerciseProps) => {
-	const { exercises, onChange } = props;
+	const { exercises, ...rest } = props;
 	return (
 		<Container
 			horizontal
 			showsHorizontalScrollIndicator={false}
 			contentContainerStyle={{ paddingHorizontal: 16, gap: 16 }}
 		>
-			<Check
-				initialValue="breathing"
-				onChange={(values) => onChange(values[0])}
-				items={exercises}
-				optionStyle={{ minWidth: 134 }}
-			/>
+			<Check {...rest} items={exercises} optionStyle={{ minWidth: 134 }} />
 		</Container>
 	);
 };

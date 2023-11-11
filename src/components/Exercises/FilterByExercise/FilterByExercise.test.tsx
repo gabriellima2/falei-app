@@ -7,6 +7,7 @@ import {
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const defaultProps: FilterByExerciseProps = {
+	initialValue: "any_name",
 	exercises: [{ name: "any_name", value: "any_value" }],
 	onChange: jest.fn(),
 };
