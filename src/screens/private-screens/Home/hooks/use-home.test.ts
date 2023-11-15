@@ -23,7 +23,7 @@ const useGetIncompleteBreathingExercisesSpyOn = jest.spyOn(
 export const mock = {
 	appointments: [
 		{
-			id: "1",
+			id: "appointment_1",
 			title: "any_title_schedule_1",
 			scheduled_at: { days: [DAYS_OF_THE_WEEK[2]], hour: "18:00" },
 			rounds: {},
@@ -31,7 +31,7 @@ export const mock = {
 	] as BreathingAppointmentEntity[],
 	exercises: [
 		{
-			id: "1",
+			id: "exercise_1",
 			title: "any_title_exercise",
 			rounds: {
 				rounds_completed: 1,
