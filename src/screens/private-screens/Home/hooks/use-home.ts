@@ -1,6 +1,7 @@
 import {
 	useFilteredAppointments,
 	useIncompleteBreathingExercises,
+	useExerciseOrderedByLastProgress,
 } from "@/hooks";
 
 import { hasAppointmentToday } from "@/helpers/has-appointment-today";
@@ -27,7 +28,8 @@ export type UseHomeReturn = {
 export function useHome(params: UseHomeParams): UseHomeReturn {
 	const { exercises, appointments } = params;
 	const filteredAppointments = useFilteredAppointments(appointments);
-	const incompleteExercises = useIncompleteBreathingExercises(exercises);
+	const ordedExercises = useExerciseOrderedByLastProgress(exercises);
+	const incompleteExercises = useIncompleteBreathingExercises(ordedExercises);
 	const incompleteAppointments = useIncompleteBreathingExercises(
 		filteredAppointments,
 		(appointment) => hasAppointmentToday(appointment.scheduled_at.days)

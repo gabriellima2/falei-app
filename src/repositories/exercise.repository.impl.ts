@@ -16,6 +16,7 @@ import { db } from "@/config/firebase";
 import type { ExerciseRepository } from "./exercise.repository";
 import type { ExerciseEntity } from "@/entities/exercise.entity";
 import type * as DTO from "@/dtos/exercise.dto";
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 
 export class ExerciseRepositoryImpl implements ExerciseRepository {
 	private readonly collection;
@@ -64,8 +65,7 @@ export class ExerciseRepositoryImpl implements ExerciseRepository {
 		const { category } = params;
 		const docRef = doc(db, this.collection, this.document);
 		const subCollectionRef = collection(docRef, category);
-		const q = query(subCollectionRef, orderBy("last_progress_at", "desc"));
-		const querySnapshot = await getDocs(q);
+		const querySnapshot = await getDocs(subCollectionRef);
 		let data: T[] = [];
 		querySnapshot.forEach((doc) => {
 			data = [...data, { ...(doc.data() as T), id: doc.id, category }];
