@@ -20,7 +20,7 @@ jest
 const defaultReturn: useHome.UseHomeReturn = {
 	title: "any_title",
 	filteredAppointments: mock.appointments,
-	incomplete: mock,
+	incompleteExercises: [...mock.exercises, ...mock.appointments],
 };
 
 const renderComponent = () =>
