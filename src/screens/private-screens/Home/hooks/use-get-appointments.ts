@@ -8,7 +8,7 @@ import type { AppointmentEntity } from "@/entities/appointment.entity";
 
 const date = new Date();
 
-export function useFilteredAppointments<T extends AppointmentEntity>(
+export function useGetAppointments<T extends AppointmentEntity>(
 	appointments: T[]
 ) {
 	const isTimeForAppointment = (currentHour: number, scheduledHour: string) => {

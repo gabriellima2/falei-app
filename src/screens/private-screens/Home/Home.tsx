@@ -13,6 +13,7 @@ import {
 } from "@/components";
 import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 
+import { makeAppointmentRepositoryImpl } from "@/factories/repositories/make-appointment-repository-impl";
 import { makeExerciseRepositoryImpl } from "@/factories/repositories/make-exercise-repository-impl";
 
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
@@ -20,7 +21,6 @@ import type {
 	BreathingExerciseEntity,
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
-import { makeAppointmentRepositoryImpl } from "@/factories/repositories/make-appointment-repository-impl";
 
 async function getData() {
 	return {
@@ -45,15 +45,10 @@ export const Home = WithQuery(
 		const {
 			data: { exercises, appointments },
 		} = props;
-		const { title, filteredAppointments, incomplete } = useHome({
+		const { title, filteredAppointments, incompleteExercises } = useHome({
 			exercises,
 			appointments,
 		});
-
-		const incompleteExercises = incomplete.appointments || incomplete.exercises;
-		const hasMoreThanOneIncompleteExercise =
-			incompleteExercises && incompleteExercises.length > 1;
-
 		return (
 			<ScrollContainer isBottomTabRendered>
 				<Header
@@ -69,7 +64,7 @@ export const Home = WithQuery(
 					<Group
 						title="Em progresso"
 						rightLink={
-							hasMoreThanOneIncompleteExercise
+							incompleteExercises?.length
 								? { pathname: "/", text: "Ver Mais" }
 								: undefined
 						}

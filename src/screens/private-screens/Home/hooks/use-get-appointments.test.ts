@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { useFilteredAppointments } from "./use-filtered-appointments";
+import { useGetAppointments } from "./use-get-appointments";
 
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import { time } from "@/helpers/time";
@@ -40,9 +40,9 @@ const defaultParams = [
 ] as BreathingAppointmentEntity[];
 
 const executeHook = (params: BreathingAppointmentEntity[] = defaultParams) =>
-	renderHook(() => useFilteredAppointments<BreathingAppointmentEntity>(params));
+	renderHook(() => useGetAppointments<BreathingAppointmentEntity>(params));
 
-describe("useFilteredAppointments", () => {
+describe("useGetAppointments", () => {
 	const weekIsNotOver = time.day <= 5; // 5 === Saturday
 	const validResult = weekIsNotOver
 		? [defaultParams[1], defaultParams[3]]

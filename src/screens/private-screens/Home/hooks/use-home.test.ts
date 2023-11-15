@@ -1,8 +1,8 @@
 import { renderHook } from "@testing-library/react-hooks";
 
 import { useHome } from "./use-home";
-import * as useFilteredAppointments from "@/hooks/use-filtered-appointments";
-import * as useIncompleteBreathingExercises from "@/hooks/use-incomplete-breathing-exercises";
+import * as useFilteredAppointments from "@/screens/private-screens/Home/hooks/use-get-appointments";
+import * as useIncompleteBreathingExercises from "@/hooks/use-get-incomplete-exercises";
 
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import {

@@ -1,12 +1,12 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { useIncompleteBreathingExercises } from "./use-incomplete-breathing-exercises";
+import { useGetIncompleteExercises } from "./use-get-incomplete-exercises";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 const executeHook = (
 	exercises: BreathingExerciseEntity[],
 	additional?: jest.Mock
-) => renderHook(() => useIncompleteBreathingExercises(exercises, additional));
+) => renderHook(() => useGetIncompleteExercises(exercises, additional));
 
 describe("UseIncompleteBreathingExercises", () => {
 	describe("Valid", () => {

@@ -1,9 +1,10 @@
 import { useCallback, useMemo } from "react";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
-export function useIncompleteBreathingExercises<
-	T extends BreathingExerciseEntity
->(exercises: T[], additional?: (exercise: T) => boolean): T[] | undefined {
+export function useGetIncompleteExercises<T extends BreathingExerciseEntity>(
+	exercises: T[],
+	additional?: (exercise: T) => boolean
+): T[] | undefined {
 	const isIncomplete = (exercise: T) => {
 		return (
 			exercise.rounds.rounds_completed > 0 &&
@@ -11,7 +12,7 @@ export function useIncompleteBreathingExercises<
 		);
 	};
 
-	const getIncomplete = useCallback(
+	const getIncompleteExercise = useCallback(
 		(data: T[], additional?: (item: T) => boolean) => {
 			if (!data || data.length === 0) return;
 			const filtered = data.filter(
@@ -23,7 +24,7 @@ export function useIncompleteBreathingExercises<
 	);
 
 	return useMemo(
-		() => getIncomplete(exercises, additional),
-		[getIncomplete, exercises]
+		() => getIncompleteExercise(exercises, additional),
+		[getIncompleteExercise, exercises]
 	);
 }
