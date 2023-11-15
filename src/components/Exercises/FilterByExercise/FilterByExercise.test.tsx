@@ -42,7 +42,7 @@ describe("<FilterByExercise", () => {
 				fireEvent.press(el);
 
 				expect(onChange).toHaveBeenCalled();
-				expect(onChange).toHaveBeenCalledWith(item.value);
+				expect(onChange).toHaveBeenCalledWith([item.value]);
 			});
 		});
 	});
