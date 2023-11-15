@@ -51,7 +51,6 @@ describe("useGetAppointments", () => {
 		jest.clearAllMocks();
 	});
 	it("should return today's appointment when you are at the scheduled time", () => {
-		console.log(time.day);
 		const { result } = executeHook();
 		expect(result.current[0]).toMatchObject(validResult[0]);
 	});

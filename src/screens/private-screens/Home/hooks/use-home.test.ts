@@ -1,22 +1,23 @@
 import { renderHook } from "@testing-library/react-hooks";
 
 import { useHome } from "./use-home";
-import * as useFilteredAppointments from "@/screens/private-screens/Home/hooks/use-get-appointments";
-import * as useIncompleteBreathingExercises from "@/hooks/use-get-incomplete-exercises";
+
+import * as useGetIncompleteBreathingExercises from "./use-get-incomplete-breathing-exercises";
+import * as useGetAppointments from "./use-get-appointments";
 
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
-import {
+import type {
 	BreathingAppointmentEntity,
 	BreathingExerciseEntity,
 } from "@/entities/breathing-entities";
 
-const useFilteredAppointmentsSpyOn = jest.spyOn(
-	useFilteredAppointments,
-	"useFilteredAppointments"
+const useGetAppointmentsSpyOn = jest.spyOn(
+	useGetAppointments,
+	"useGetAppointments"
 );
-const useIncompleteBreathingExercisesSpyOn = jest.spyOn(
-	useIncompleteBreathingExercises,
-	"useIncompleteBreathingExercises"
+const useGetIncompleteBreathingExercisesSpyOn = jest.spyOn(
+	useGetIncompleteBreathingExercises,
+	"useGetIncompleteBreathingExercises"
 );
 
 export const mock = {
@@ -44,31 +45,60 @@ export const mock = {
 const executeHook = () => renderHook(() => useHome(mock));
 
 describe("UseHome", () => {
-	it("should return correctly with values", () => {
-		useFilteredAppointmentsSpyOn.mockReturnValue(mock.appointments);
-		useIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(mock.exercises);
-		useIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(mock.appointments);
+	describe("Default", () => {
+		it("should return correctly with values", () => {
+			useGetAppointmentsSpyOn.mockReturnValue(mock.appointments);
+			useGetIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(mock);
 
-		const { result } = executeHook();
+			const { result } = executeHook();
 
-		expect(result.current.title).toBeTruthy();
-		expect(result.current.incomplete).toMatchObject(mock);
-		expect(result.current.filteredAppointments).toMatchObject(
-			mock.appointments
-		);
-	});
-	it("should return correctly when hooks return undefined", () => {
-		useFilteredAppointmentsSpyOn.mockReturnValue([]);
-		useIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(undefined);
-		useIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(undefined);
-
-		const { result } = executeHook();
-
-		expect(result.current.title).toBe("Torne um exercício parte de sua rotina");
-		expect(result.current.filteredAppointments).toMatchObject([]);
-		expect(result.current.incomplete).toMatchObject({
-			appointments: undefined,
-			exercises: undefined,
+			expect(result.current.title).toBeTruthy();
+			expect(result.current.incompleteExercises).toMatchObject([
+				...mock.exercises,
+				...mock.appointments,
+			]);
+			expect(result.current.filteredAppointments).toMatchObject(
+				mock.appointments
+			);
 		});
+		it("should return correctly when hooks return undefined", () => {
+			useGetAppointmentsSpyOn.mockReturnValue([]);
+			useGetIncompleteBreathingExercisesSpyOn.mockReturnValueOnce({
+				exercises: undefined,
+				appointments: undefined,
+			});
+
+			const { result } = executeHook();
+
+			expect(result.current.title).toBe(
+				"Torne um exercício parte de sua rotina"
+			);
+			expect(result.current.filteredAppointments).toMatchObject([]);
+			expect(result.current.incompleteExercises).toBeUndefined();
+		});
+	});
+
+	describe("useGetIncompleteExercises", () => {
+		const cases = [
+			{
+				mock: { exercises: mock.exercises, appointments: undefined },
+				expected: mock.exercises,
+			},
+			{
+				mock: { appointments: mock.appointments, exercises: undefined },
+				expected: mock.appointments,
+			},
+			{ mock, expected: [...mock.exercises, ...mock.appointments] },
+		];
+		test.each(cases)(
+			"should handle incomplete-exercises correctly",
+			({ mock, expected }) => {
+				useGetIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(mock);
+
+				const { result } = executeHook();
+
+				expect(result.current.incompleteExercises).toMatchObject(expected);
+			}
+		);
 	});
 });

@@ -37,9 +37,16 @@ export function useHome(params: UseHomeParams): UseHomeReturn {
 			: "Torne um exercício parte de sua rotina";
 	};
 
+	const getIncompleteExercises = () => {
+		const { exercises, appointments } = incomplete;
+		if (exercises && appointments) return [...exercises, ...appointments];
+		if (exercises) return exercises;
+		if (appointments) return appointments;
+	};
+
 	return {
 		title: getHeaderTitle(),
 		filteredAppointments,
-		incompleteExercises: incomplete.appointments || incomplete.exercises,
+		incompleteExercises: getIncompleteExercises(),
 	};
 }
