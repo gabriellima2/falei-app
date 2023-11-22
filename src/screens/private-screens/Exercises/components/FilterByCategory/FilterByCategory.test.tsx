@@ -1,32 +1,29 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import {
-	FilterByExercise,
-	type FilterByExerciseProps,
-} from "./FilterByExercise";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+	FilterByCategory,
+	type FilterByCategoryProps,
+} from "./FilterByCategory";
 
-const defaultProps: FilterByExerciseProps = {
+import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
+
+const defaultProps: FilterByCategoryProps = {
 	initialValue: "any_name",
-	exercises: [{ name: "any_name", value: "any_value" }],
 	onChange: jest.fn(),
 };
 const renderComponent = (props = defaultProps) =>
-	renderWithThemeProvider(<FilterByExercise {...props} />);
+	renderWithThemeProvider(<FilterByCategory {...props} />);
 
-const getFirstOption = () => screen.getByText(defaultProps.exercises[0].name);
+const getFirstOption = () => screen.getAllByTestId("check-option")[0];
 
-describe("<FilterByExercise", () => {
+describe("<FilterByCategory", () => {
 	describe("Render", () => {
 		it("should render correctly", () => {
 			renderComponent();
 
-			const { exercises } = defaultProps;
-
 			expect(getFirstOption()).toBeTruthy();
-			expect(screen.getAllByTestId("check-option")).toHaveLength(
-				exercises.length
-			);
+			expect(screen.getAllByTestId("check-option")).toHaveLength(3);
 		});
 	});
 	describe("Interactions", () => {
@@ -34,15 +31,14 @@ describe("<FilterByExercise", () => {
 			it("should call the onChange function passing the value of the pressed exercise", () => {
 				renderComponent();
 
-				const {
-					onChange,
-					exercises: [item],
-				} = defaultProps;
+				const { onChange } = defaultProps;
 				const el = getFirstOption();
 				fireEvent.press(el);
 
 				expect(onChange).toHaveBeenCalled();
-				expect(onChange).toHaveBeenCalledWith([item.value]);
+				expect(onChange).toHaveBeenCalledWith([
+					ExerciseCategoryEntity.Breathing,
+				]);
 			});
 		});
 	});

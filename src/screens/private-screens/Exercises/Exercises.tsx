@@ -1,10 +1,5 @@
-import {
-	LoadingIndicator,
-	FilterByExercise,
-	TextError,
-	Header,
-} from "@/components";
-import { ExerciseList } from "./components/ExerciseList";
+import { LoadingIndicator, TextError, Header } from "@/components";
+import { ExerciseList, FilterByCategory } from "./components";
 
 import { useExercises } from "./hooks/use-exercises";
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
@@ -15,17 +10,9 @@ export const Exercises = () => {
 	return (
 		<>
 			<Header title="Exercícios" />
-			<FilterByExercise
+			<FilterByCategory
 				initialValue={ExerciseCategoryEntity.Breathing}
 				onChange={([v]) => handleCategoryChange(v as ExerciseCategoryEntity)}
-				exercises={[
-					{ name: "Respiração", value: ExerciseCategoryEntity.Breathing },
-					{
-						name: "Trava-línguas",
-						value: ExerciseCategoryEntity.TongueTwister,
-					},
-					{ name: "Poemas", value: ExerciseCategoryEntity.Poem },
-				]}
 			/>
 			{isLoading && <LoadingIndicator />}
 			{error && <TextError>{(error as Error).message}</TextError>}
