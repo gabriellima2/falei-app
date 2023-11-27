@@ -26,7 +26,7 @@ export const BaseExercise = <TParams extends object>(
 		<Container {...rest} onLongPress={handleLongPress}>
 			<Icon>{icon({ color: theme.colors.utils.white, size: 24 })}</Icon>
 			<Content>
-				<Title numberOfLines={5}>{title}</Title>
+				<Title numberOfLines={4}>{title}</Title>
 				{children}
 			</Content>
 		</Container>
@@ -39,7 +39,7 @@ const Container = styled(BaseLink)`
 		min-width: auto;
 		width: 190px;
 		max-width: auto;
-		max-height: 266px;
+		max-height: 243px;
 		gap: ${theme.spaces[4]};
 		padding: ${theme.spaces[4]} ${theme.spaces[3]};
 		border: 1px solid ${theme.colors.overlay};

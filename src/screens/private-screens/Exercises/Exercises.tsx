@@ -12,7 +12,9 @@ export const Exercises = () => {
 			<Header title="Exercícios" />
 			<FilterByCategory
 				initialValue={ExerciseCategoryEntity.Breathing}
-				onChange={([v]) => handleCategoryChange(v as ExerciseCategoryEntity)}
+				onChange={([category]) =>
+					handleCategoryChange(category as ExerciseCategoryEntity)
+				}
 			/>
 			{isLoading && <LoadingIndicator />}
 			{error && <TextError>{(error as Error).message}</TextError>}

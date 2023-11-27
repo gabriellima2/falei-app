@@ -1,4 +1,5 @@
 import { Book } from "lucide-react-native";
+import styled from "styled-components/native";
 
 import { BaseExercise } from "../BaseExercise";
 import type { ReadExerciseEntity } from "@/entities/read-entities";
@@ -8,7 +9,7 @@ type ReadExerciseProps = Pick<ReadExerciseEntity, "content" | "id">;
 export const ReadExercise = (props: ReadExerciseProps) => {
 	const { id, content } = props;
 	return (
-		<BaseExercise
+		<Exercise
 			title={content}
 			id={id}
 			icon={(props) => <Book {...props} />}
@@ -17,3 +18,7 @@ export const ReadExercise = (props: ReadExerciseProps) => {
 		/>
 	);
 };
+
+const Exercise = styled(BaseExercise)`
+	height: 243px;
+`;

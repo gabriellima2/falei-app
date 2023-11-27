@@ -29,8 +29,10 @@ export const ExerciseList = (props: ExerciseListProps) => {
 	const ExerciseItem = exerciseItem[category];
 	return (
 		<FlatList
+			numColumns={2}
 			data={exercises}
 			renderItem={({ item }) => <ExerciseItem {...item} />}
+			keyExtractor={({ id }) => id.toString()}
 		/>
 	);
 };
