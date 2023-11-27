@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
-import { Check, CheckProps } from "@/components/commons";
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
+import { Check, type CheckProps } from "@/components/commons";
 
 export type FilterByCategoryProps = Pick<
 	CheckProps,
