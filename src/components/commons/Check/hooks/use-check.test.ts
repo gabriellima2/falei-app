@@ -24,7 +24,7 @@ describe("UseCheck", () => {
 			const params = { ...defaultParams, onChange: jest.fn() };
 			const cases = [
 				{
-					params,
+					params: { ...params, toggle: true },
 					value: params.initialValue,
 					expected: [],
 					description: "should remove the passed value if it is already added",
