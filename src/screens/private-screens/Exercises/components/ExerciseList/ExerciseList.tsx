@@ -1,6 +1,9 @@
 import { FlatList } from "react-native";
+import styled, { css } from "styled-components/native";
 
 import { BreathingExercise, ReadExercise } from "@/components";
+
+import { dimensions } from "@/constants/dimensions";
 
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
@@ -24,15 +27,40 @@ const exerciseItem = {
 	),
 };
 
+const NUM_COLUMNS = 2;
+const DEFAULT_SPACING = 16;
+
 export const ExerciseList = (props: ExerciseListProps) => {
 	const { exercises, category } = props;
 	const ExerciseItem = exerciseItem[category];
 	return (
 		<FlatList
-			numColumns={2}
+			numColumns={NUM_COLUMNS}
 			data={exercises}
-			renderItem={({ item }) => <ExerciseItem {...item} />}
+			renderItem={({ item, index }) => (
+				<ExerciseContainer hasSpacing={index % 2 === 0}>
+					<ExerciseItem {...item} />
+				</ExerciseContainer>
+			)}
+			contentContainerStyle={{ padding: DEFAULT_SPACING }}
 			keyExtractor={({ id }) => id.toString()}
+			ItemSeparatorComponent={() => <Separator />}
 		/>
 	);
 };
+
+const width =
+	(dimensions.screen.withMargin.width - DEFAULT_SPACING) / NUM_COLUMNS;
+
+type ExerciseContainerProps = { hasSpacing?: boolean };
+
+const ExerciseContainer = styled.View<ExerciseContainerProps>`
+	${({ hasSpacing }) => css`
+		width: ${width}px;
+		margin-right: ${hasSpacing ? DEFAULT_SPACING : 0}px;
+	`}
+`;
+
+const Separator = styled.View`
+	height: ${DEFAULT_SPACING}px;
+`;

@@ -1,3 +1,5 @@
+import styled from "styled-components/native";
+
 import { HorizontalList } from "@/components/commons";
 import { BreathingExercise } from "./BreathingExercise";
 
@@ -15,9 +17,11 @@ export const BreathingExercisePreviewList = (
 		<HorizontalList<BreathingExerciseEntity>
 			data={items}
 			keyExtractor={(item) => item.id}
-			renderItem={({ item }) => (
-				<BreathingExercise {...item} testID="list__item" />
-			)}
+			renderItem={({ item }) => <Exercise {...item} testID="list__item" />}
 		/>
 	);
 };
+
+const Exercise = styled(BreathingExercise)`
+	width: 191px;
+`;

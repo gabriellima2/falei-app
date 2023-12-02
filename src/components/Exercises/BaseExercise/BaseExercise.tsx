@@ -36,9 +36,7 @@ export const BaseExercise = <TParams extends object>(
 const Container = styled(BaseLink)`
 	${({ theme }) => css`
 		flex: 1;
-		min-width: auto;
-		width: 190px;
-		max-width: auto;
+		max-width: 191px;
 		max-height: 243px;
 		gap: ${theme.spaces[4]};
 		padding: ${theme.spaces[4]} ${theme.spaces[3]};
