@@ -3,6 +3,8 @@ import styled from "styled-components/native";
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import { Check, type CheckProps } from "@/components/commons";
 
+import { categoriesPortuguese } from "@/constants/categories-portuguese";
+
 export type FilterByCategoryProps = Pick<
 	CheckProps,
 	"initialValue" | "onChange"
@@ -18,12 +20,18 @@ export const FilterByCategory = (props: FilterByCategoryProps) => {
 			<Check
 				{...props}
 				items={[
-					{ name: "Respiração", value: ExerciseCategoryEntity.Breathing },
 					{
-						name: "Trava-línguas",
+						name: categoriesPortuguese.breathing_exercises,
+						value: ExerciseCategoryEntity.Breathing,
+					},
+					{
+						name: categoriesPortuguese.tongue_twister_exercises,
 						value: ExerciseCategoryEntity.TongueTwister,
 					},
-					{ name: "Poemas", value: ExerciseCategoryEntity.Poem },
+					{
+						name: categoriesPortuguese.poem_exercises,
+						value: ExerciseCategoryEntity.Poem,
+					},
 				]}
 				optionStyle={{ minWidth: 134 }}
 			/>
