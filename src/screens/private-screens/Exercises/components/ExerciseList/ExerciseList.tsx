@@ -2,7 +2,9 @@ import { FlatList } from "react-native";
 import styled, { css } from "styled-components/native";
 
 import { BreathingExercise, ReadExercise } from "@/components";
+import { Header } from "./components/Header";
 
+import { categoriesPortuguese } from "@/constants/categories-portuguese";
 import { dimensions } from "@/constants/dimensions";
 
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
@@ -33,10 +35,12 @@ const DEFAULT_SPACING = 16;
 export const ExerciseList = (props: ExerciseListProps) => {
 	const { exercises, category } = props;
 	const ExerciseItem = exerciseItem[category];
+	const title = categoriesPortuguese[category];
 	return (
 		<FlatList
 			numColumns={NUM_COLUMNS}
 			data={exercises}
+			ListHeaderComponent={() => <Header title={title} />}
 			renderItem={({ item, index }) => (
 				<ExerciseContainer hasSpacing={index % 2 === 0}>
 					<ExerciseItem {...item} />

@@ -31,4 +31,6 @@ export const FilterByCategory = (props: FilterByCategoryProps) => {
 	);
 };
 
-const Container = styled.ScrollView``;
+const Container = styled.ScrollView`
+	flex: none;
+`;
