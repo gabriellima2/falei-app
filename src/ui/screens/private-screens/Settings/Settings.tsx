@@ -1,13 +1,9 @@
 import styled, { css } from "styled-components/native";
 import { Bell, HelpCircle, User2 } from "lucide-react-native";
 
-import {
-	Header,
-	LogoutButton,
-	ScrollContainer,
-	SettingOption,
-	Typography,
-} from "@/ui/components";
+import { SettingOption } from "@/ui/components";
+import { Header, LogoutButton, ScrollContainer, Typography } from "@/ui/atoms";
+
 import { useAuthStore } from "@/store/auth-store";
 
 export const Settings = () => {

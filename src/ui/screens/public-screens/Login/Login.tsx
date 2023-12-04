@@ -1,11 +1,12 @@
+import { AuthForm } from "@/ui/components";
+import { useLogin, type UseLoginParams } from "./hooks/use-login";
+
 import {
-	ContainerWithDefaultSpaces,
-	KeyboardAvoidingWrapper,
-	AuthForm,
 	Header,
 	AuthLink,
-} from "@/ui/components";
-import { useLogin, type UseLoginParams } from "./hooks/use-login";
+	KeyboardAvoidingWrapper,
+	ContainerWithDefaultSpaces,
+} from "@/ui/atoms";
 
 export type LoginProps<T> = UseLoginParams<T>;
 

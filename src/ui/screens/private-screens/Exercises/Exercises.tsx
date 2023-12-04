@@ -1,9 +1,11 @@
-import { LoadingIndicator, TextError, Header } from "@/ui/components";
-import { ExerciseList, FilterByCategory } from "./components";
+import styled, { css } from "styled-components/native";
 
 import { useExercises } from "./hooks/use-exercises";
+
+import { LoadingIndicator, TextError, Header } from "@/ui/atoms";
+import { ExerciseList, FilterByCategory } from "./components";
+
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
-import styled, { css } from "styled-components/native";
 
 export const Exercises = () => {
 	const { exercises, category, error, isLoading, handleCategoryChange } =

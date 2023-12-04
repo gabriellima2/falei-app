@@ -9,7 +9,7 @@ import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider"
 import {
 	getFieldEl,
 	placeholders,
-} from "@/components/Forms/AuthForm/AuthForm.test";
+} from "@/ui/components/AuthForm/AuthForm.test";
 
 const useClearNavigationSpyOn = jest.spyOn(
 	useClearNavigation,

@@ -1,16 +1,13 @@
 import styled from "styled-components/native";
 
 import { useHome } from "./hooks/use-home";
+
 import {
-	BreathingExercisePreviewList,
-	ContainerWithDefaultSpaces,
-	NotificationButton,
-	BreathingExerciseAppointments,
 	IncompleteExercises,
-	ScrollContainer,
-	Group,
-	Header,
+	BreathingExercisePreviewList,
+	BreathingExerciseAppointments,
 } from "@/ui/components";
+import { Group, Header, NotificationButton, ScrollContainer } from "@/ui/atoms";
 import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 
 import { makeAppointmentRepositoryImpl } from "@/factories/repositories/make-appointment-repository-impl";

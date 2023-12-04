@@ -1,7 +1,7 @@
 import { Dimensions } from "react-native";
 import styled, { css } from "styled-components/native";
 
-import { Typography } from "../commons";
+import { Typography } from "@/ui/atoms";
 
 export type OnboardingItemProps = {
 	title: string;

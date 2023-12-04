@@ -1,7 +1,7 @@
 import { useTheme } from "styled-components/native";
 import { ArrowRight } from "lucide-react-native";
 
-import { ButtonLink } from "@/components/commons";
+import { ButtonLink } from "@/ui/atoms";
 import type { IconStyles } from "@/@types/icon-styles";
 
 export type SettingOptionProps = Pick<

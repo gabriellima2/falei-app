@@ -1,17 +1,18 @@
 import styled, { css } from "styled-components/native";
 
 import {
-	ContainerWithDefaultSpaces,
-	KeyboardAvoidingWrapper,
-	AuthForm,
-	TextLink,
-	Header,
-	AuthLink,
-} from "@/ui/components";
-import {
 	useCreateAccount,
 	type UseCreateAccountParams,
 } from "./hooks/use-create-account";
+
+import { AuthForm } from "@/ui/components";
+import {
+	Header,
+	AuthLink,
+	TextLink,
+	KeyboardAvoidingWrapper,
+	ContainerWithDefaultSpaces,
+} from "@/ui/atoms";
 
 export type CreateAccountProps<T> = UseCreateAccountParams<T>;
 

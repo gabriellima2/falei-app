@@ -4,6 +4,7 @@ import {
 	BreathingExerciseAppointments,
 	type BreathingExerciseAppointmentsProps,
 } from "./BreathingExerciseAppointments";
+
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import { mockAppointment } from "./__mocks__/mock-appointment";
 

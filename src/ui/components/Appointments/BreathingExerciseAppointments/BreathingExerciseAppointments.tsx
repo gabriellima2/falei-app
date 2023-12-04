@@ -1,7 +1,7 @@
 import { useTheme } from "styled-components/native";
 
 import { EmptyAppointments, Appointment } from "./components";
-import { HorizontalList } from "@/components/commons";
+import { HorizontalList } from "@/ui/atoms";
 
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 

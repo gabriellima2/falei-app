@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react-native";
 
 import { BaseExercise, type BaseExerciseProps } from "./BaseExercise";
-import { Typography } from "@/components/commons";
+import { Typography } from "@/ui/atoms";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import { FakeIconComponent } from "@/__mocks__/fake-icon-component";

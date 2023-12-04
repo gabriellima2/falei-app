@@ -7,7 +7,7 @@ import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider"
 import {
 	getFieldEl,
 	placeholders,
-} from "@/components/Forms/AuthForm/AuthForm.test";
+} from "@/ui/components/AuthForm/AuthForm.test";
 
 const defaultProps: CreateAccountProps<null> = {
 	authentication: jest.fn(),

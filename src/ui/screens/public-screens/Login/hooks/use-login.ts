@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 
 import { useClearNavigation } from "@/hooks/use-clear-navigation";
 
-import type { UserAuthInputDTO } from "@/dtos";
+import type { AuthInputDTO } from "@/dtos/auth.dto";
 import type { Authentication } from "@/@types/authentication";
 
 export type UseLoginParams<T> = {
@@ -21,7 +21,7 @@ export function useLogin<T>(params: UseLoginParams<T>): UseLoginReturn {
 	]);
 	const router = useRouter();
 
-	const handleSignIn = async (credentials: UserAuthInputDTO) => {
+	const handleSignIn = async (credentials: AuthInputDTO) => {
 		await authentication(credentials);
 		clearNavigation();
 		router.replace("(tabs)/");

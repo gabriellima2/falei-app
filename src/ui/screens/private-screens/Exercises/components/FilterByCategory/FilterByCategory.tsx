@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
 
-import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
-import { Check, type CheckProps } from "@/ui/components/commons";
+import { Check, type CheckProps } from "@/ui/components";
 
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import { categoriesPortuguese } from "@/constants/categories-portuguese";
 
 export type FilterByCategoryProps = Pick<

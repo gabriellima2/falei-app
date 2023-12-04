@@ -1,7 +1,7 @@
 import { Shell } from "lucide-react-native";
 
-import { AdditionalExerciseInfo } from "../AdditionalExerciseInfo";
 import { BaseExercise } from "../BaseExercise";
+import { AdditionalExerciseInfo } from "@/ui/atoms";
 
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Header, Typography } from "@/ui/components";
+import { Header, Typography } from "@/ui/atoms";
 
 export default function Page() {
 	return (

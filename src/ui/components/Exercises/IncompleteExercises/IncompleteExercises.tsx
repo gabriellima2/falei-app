@@ -1,5 +1,5 @@
 import { Exercise, type ExerciseProps } from "./components/Exercise";
-import { HorizontalList, Typography } from "@/components/commons";
+import { HorizontalList, Typography } from "@/ui/atoms";
 
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 

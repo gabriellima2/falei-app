@@ -1,8 +1,7 @@
 import styled, { css } from "styled-components/native";
 
-import { AdditionalExerciseInfo } from "@/components/Exercises";
 import { AppointmentMenu } from "./AppointmentMenu";
-import { Typography } from "@/components/commons";
+import { AdditionalExerciseInfo, Typography } from "@/ui/atoms";
 
 import { dimensions } from "@/constants/dimensions";
 

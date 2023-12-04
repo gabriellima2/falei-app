@@ -1,11 +1,12 @@
 import { type ReactNode } from "react";
 import styled, { css } from "styled-components/native";
 
-import { BaseLink, BaseLinkProps, Typography } from "@/ui/components/commons";
 import {
 	useBaseExercise,
 	type UseBaseExerciseParams,
 } from "./hooks/use-base-exercise";
+
+import { BaseLink, Typography, type BaseLinkProps } from "@/ui/atoms";
 
 import { theme } from "@/styles/theme";
 import type { IconStyles } from "@/@types/icon-styles";

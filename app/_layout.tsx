@@ -9,7 +9,7 @@ import {
 	Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
-import { ContainerWithDefaultSpaces, Splash } from "@/ui/components";
+import { ContainerWithDefaultSpaces, Splash } from "@/ui/atoms";
 import { Providers } from "@/ui/providers";
 
 import { useAuthStore } from "@/store/auth-store";

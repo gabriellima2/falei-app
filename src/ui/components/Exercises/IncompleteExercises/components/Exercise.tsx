@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import styled, { css } from "styled-components/native";
 
-import { BaseLink, Progress, Typography } from "@/components/commons";
+import { BaseLink, Progress, Typography } from "@/ui/atoms";
 
 import { dimensions } from "@/constants/dimensions";
 import { margin } from "@/constants/margin";
