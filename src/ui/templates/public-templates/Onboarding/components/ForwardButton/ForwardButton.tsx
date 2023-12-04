@@ -3,7 +3,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { BaseButton } from "@/ui/atoms";
 import type { IconStyles } from "@/@types/icon-styles";
 
-const actions = {
+export const actions = {
 	next: {
 		label: "Próximo",
 		hint: "Move para o próximo item",
@@ -16,7 +16,7 @@ const actions = {
 	},
 };
 
-type ForwardButtonProps = {
+export type ForwardButtonProps = {
 	action: keyof typeof actions;
 	onForwardPress: () => void;
 };
