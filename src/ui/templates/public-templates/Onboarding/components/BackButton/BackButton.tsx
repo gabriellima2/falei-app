@@ -1,6 +1,6 @@
 import { BaseButton } from "@/ui/atoms";
 
-type BackButtonProps = {
+export type BackButtonProps = {
 	disabled?: boolean;
 	onBackPress: () => void;
 };
