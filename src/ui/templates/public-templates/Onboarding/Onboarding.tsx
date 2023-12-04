@@ -1,25 +1,23 @@
 import styled, { css } from "styled-components/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-import { useOnboarding } from "./hooks/use-onboarding";
+import { useOnboardingState } from "./hooks/use-onboarding-state";
 
-import { OnboardingItem, CarouselList } from "@/ui/components";
 import { BaseButton, ContainerWithDefaultSpaces } from "@/ui/atoms";
+import { Carousel } from "./components/Carousel";
 
-import { onboardingItems } from "./assets";
+import { defaultItems } from "./constants/default-items";
 
 export const Onboarding = () => {
 	const { currentItem, isLast, isFirst, back, next, navigateTo } =
-		useOnboarding();
-
+		useOnboardingState();
 	return (
 		<>
 			<Container>
-				<CarouselList
-					data={onboardingItems}
+				<Carousel
+					items={defaultItems}
 					currentItem={currentItem}
-					changeCurrentItem={(item) => navigateTo(item)}
-					Item={(props) => <OnboardingItem {...props} img={props.image} />}
+					onCurrentItemChange={(index) => navigateTo(index)}
 				/>
 			</Container>
 			<Footer horizontalSpacing>

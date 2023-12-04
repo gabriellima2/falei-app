@@ -3,7 +3,7 @@ import styled, { css } from "styled-components/native";
 
 import { Typography } from "@/ui/atoms";
 
-export type OnboardingItemProps = {
+export type ItemProps = {
 	title: string;
 	description: string;
 	img: {
@@ -12,7 +12,7 @@ export type OnboardingItemProps = {
 	};
 };
 
-export const OnboardingItem = (props: OnboardingItemProps) => {
+export const Item = (props: ItemProps) => {
 	const { title, description, img } = props;
 	return (
 		<Container>
