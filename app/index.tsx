@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import styled from "styled-components/native";
 
 import { ContainerWithDefaultSpaces } from "@/ui/atoms";
-import { Onboarding } from "@/ui/screens";
+import { Onboarding } from "@/ui/templates";
 import { ProtectScreen } from "@/hocs";
 
 function Page() {

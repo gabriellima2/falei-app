@@ -1,4 +1,4 @@
-import { Settings } from "@/ui/screens";
+import { Settings } from "@/ui/templates";
 
 export default function Page() {
 	return <Settings />;

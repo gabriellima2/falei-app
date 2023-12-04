@@ -1,4 +1,4 @@
-import { Home } from "@/ui/screens";
+import { Home } from "@/ui/templates";
 import { ProtectScreen } from "@/hocs";
 
 function Page() {

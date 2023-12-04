@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-import { CreateAccount } from "@/ui/screens";
+import { CreateAccount } from "@/ui/templates";
 import { firebaseSignUp } from "@/services/firebase-auth";
 
 export default function Page() {
