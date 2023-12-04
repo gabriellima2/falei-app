@@ -10,7 +10,8 @@ import {
 } from "@expo-google-fonts/roboto";
 
 import { ContainerWithDefaultSpaces, Splash } from "@/ui/components";
-import { Providers } from "@/contexts/Providers";
+import { Providers } from "@/ui/providers";
+
 import { useAuthStore } from "@/store/auth-store";
 
 import { theme } from "@/styles/theme";
@@ -22,7 +23,6 @@ export default function RootLayout() {
 		Roboto_500Medium,
 		Roboto_700Bold,
 	});
-
 	return (
 		<ThemeProvider theme={theme}>
 			<StatusBar style="light" />

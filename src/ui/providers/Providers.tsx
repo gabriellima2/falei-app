@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { QueryClientProvider } from "react-query";
 
-import { ToastProvider } from "./ToastContext";
-import { MenuProvider } from "./MenuContext";
+import { ToastProvider } from "@/contexts/ToastContext";
+import { MenuProvider } from "@/contexts/MenuContext";
 
 import { queryClient } from "@/lib/query-client";
 
