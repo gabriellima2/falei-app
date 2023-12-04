@@ -16,17 +16,19 @@ export function useOnboardingState() {
 	const isFirst = count === 0;
 	const isLast = count === ITEMS_AMOUNT;
 
-	const next = () => {
+	const handleForwardPress = () => {
 		if (isLast) return push("/create-account");
 		increment();
 	};
+
+	const handleCurrentItemChange = (item: number) => changeCount(item);
 
 	return {
 		currentItem: count,
 		isLast,
 		isFirst,
-		next,
-		back: decrement,
-		navigateTo: changeCount,
+		handleForwardPress,
+		handleBackPress: decrement,
+		handleCurrentItemChange,
 	};
 }

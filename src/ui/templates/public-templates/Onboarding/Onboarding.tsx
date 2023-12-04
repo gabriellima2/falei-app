@@ -8,22 +8,28 @@ import { ContainerWithDefaultSpaces } from "@/ui/atoms";
 import { defaultItems } from "./constants/default-items";
 
 export const Onboarding = () => {
-	const { currentItem, isLast, isFirst, back, next, navigateTo } =
-		useOnboardingState();
+	const {
+		currentItem,
+		isLast,
+		isFirst,
+		handleBackPress,
+		handleForwardPress,
+		handleCurrentItemChange,
+	} = useOnboardingState();
 	return (
 		<>
 			<Container>
 				<Carousel
 					items={defaultItems}
 					currentItem={currentItem}
-					onCurrentItemChange={(index) => navigateTo(index)}
+					onCurrentItemChange={handleCurrentItemChange}
 				/>
 			</Container>
 			<Footer horizontalSpacing>
-				<BackButton disabled={isFirst} onBackPress={back} />
+				<BackButton disabled={isFirst} onBackPress={handleBackPress} />
 				<ForwardButton
 					action={isLast ? "continue" : "next"}
-					onForwardPress={next}
+					onForwardPress={handleForwardPress}
 				/>
 			</Footer>
 		</>
