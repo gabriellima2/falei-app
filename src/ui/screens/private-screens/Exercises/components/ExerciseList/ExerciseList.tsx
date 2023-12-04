@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import styled, { css } from "styled-components/native";
 
-import { BreathingExercise, ReadExercise } from "@/components";
+import { BreathingExercise, ReadExercise } from "@/ui/components";
 import { Header } from "./components/Header";
 
 import { categoriesPortuguese } from "@/constants/categories-portuguese";

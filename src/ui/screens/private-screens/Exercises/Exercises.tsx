@@ -1,4 +1,4 @@
-import { LoadingIndicator, TextError, Header } from "@/components";
+import { LoadingIndicator, TextError, Header } from "@/ui/components";
 import { ExerciseList, FilterByCategory } from "./components";
 
 import { useExercises } from "./hooks/use-exercises";

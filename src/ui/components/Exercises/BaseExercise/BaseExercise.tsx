@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import styled, { css } from "styled-components/native";
 
-import { BaseLink, BaseLinkProps, Typography } from "@/components/commons";
+import { BaseLink, BaseLinkProps, Typography } from "@/ui/components/commons";
 import {
 	useBaseExercise,
 	type UseBaseExerciseParams,

@@ -7,8 +7,9 @@ import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 export const PATHNAME_START_EXERCISE = "/";
 
-export type BreathingExerciseProps = BreathingExerciseEntity &
-	Pick<Parameters<typeof BaseExercise>[0], "testID">;
+export type BreathingExerciseProps = BreathingExerciseEntity & {
+	testID?: string;
+};
 
 export const BreathingExercise = (props: BreathingExerciseProps) => {
 	const { id, title, rounds, ...rest } = props;

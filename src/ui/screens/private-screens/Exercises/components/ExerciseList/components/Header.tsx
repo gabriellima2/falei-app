@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components/native";
-import { Typography } from "@/components";
+import { Typography } from "@/ui/components";
 
 type HeaderProps = { title?: string };
 

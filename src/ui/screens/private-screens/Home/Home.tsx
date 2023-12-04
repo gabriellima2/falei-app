@@ -10,7 +10,7 @@ import {
 	ScrollContainer,
 	Group,
 	Header,
-} from "@/components";
+} from "@/ui/components";
 import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 
 import { makeAppointmentRepositoryImpl } from "@/factories/repositories/make-appointment-repository-impl";

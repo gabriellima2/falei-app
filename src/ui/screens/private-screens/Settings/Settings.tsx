@@ -7,7 +7,7 @@ import {
 	ScrollContainer,
 	SettingOption,
 	Typography,
-} from "@/components";
+} from "@/ui/components";
 import { useAuthStore } from "@/store/auth-store";
 
 export const Settings = () => {

@@ -4,7 +4,7 @@ import {
 	AuthForm,
 	Header,
 	AuthLink,
-} from "@/components";
+} from "@/ui/components";
 import { useLogin, type UseLoginParams } from "./hooks/use-login";
 
 export type LoginProps<T> = UseLoginParams<T>;

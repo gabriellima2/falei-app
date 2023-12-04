@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-import { HorizontalList } from "@/components/commons";
+import { HorizontalList } from "@/ui/components/commons";
 import { BreathingExercise } from "./BreathingExercise";
 
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";

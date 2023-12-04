@@ -6,7 +6,7 @@ import {
 	OnboardingItem,
 	CarouselList,
 	ContainerWithDefaultSpaces,
-} from "@/components";
+} from "@/ui/components";
 import { useOnboarding } from "./hooks/use-onboarding";
 
 import { onboardingItems } from "./assets";

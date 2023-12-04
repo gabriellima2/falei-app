@@ -7,7 +7,7 @@ import {
 	TextLink,
 	Header,
 	AuthLink,
-} from "@/components";
+} from "@/ui/components";
 import {
 	useCreateAccount,
 	type UseCreateAccountParams,
