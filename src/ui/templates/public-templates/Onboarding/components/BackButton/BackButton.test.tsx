@@ -29,21 +29,30 @@ describe("<BackButton", () => {
 	});
 	describe("Interactions", () => {
 		describe("Press", () => {
-			it("should call the 'onBackPress' function when pressed and 'disabled' is false", () => {
-				renderComponent();
+			const cases = [
+				{
+					description:
+						"should call the 'onBackPress' function when pressed and 'disabled' is false",
+					props: defaultProps,
+				},
+				{
+					description:
+						"should not call the 'onBackPress' function when pressed and 'disabled' is true",
+					props: { ...defaultProps, disabled: true },
+				},
+			];
+			test.each(cases)("%s", ({ props }) => {
+				renderComponent(props);
 
 				const button = getButtonEl();
 				fireEvent.press(button);
 
-				expect(defaultProps.onBackPress).toHaveBeenCalledTimes(1);
-			});
-			it("should not call the 'onBackPress' function when pressed and 'disabled' is true", () => {
-				renderComponent({ ...defaultProps, disabled: true });
-
-				const button = getButtonEl();
-				fireEvent.press(button);
-
-				expect(defaultProps.onBackPress).not.toHaveBeenCalled();
+				if (props.disabled) {
+					expect(defaultProps.onBackPress).not.toHaveBeenCalled();
+				}
+				if (!props.disabled) {
+					expect(props.onBackPress).toHaveBeenCalledTimes(1);
+				}
 			});
 		});
 	});
