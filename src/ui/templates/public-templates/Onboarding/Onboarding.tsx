@@ -1,10 +1,9 @@
 import styled, { css } from "styled-components/native";
-import AntDesign from "@expo/vector-icons/AntDesign";
 
 import { useOnboardingState } from "./hooks/use-onboarding-state";
 
-import { BaseButton, ContainerWithDefaultSpaces } from "@/ui/atoms";
-import { Carousel } from "./components/Carousel";
+import { Carousel, BackButton, ForwardButton } from "./components";
+import { ContainerWithDefaultSpaces } from "@/ui/atoms";
 
 import { defaultItems } from "./constants/default-items";
 
@@ -21,31 +20,11 @@ export const Onboarding = () => {
 				/>
 			</Container>
 			<Footer horizontalSpacing>
-				<BaseButton
-					accessibilityLabel="Voltar"
-					accessibilityHint="Move para o item anterior"
-					onPress={back}
-					secondary
-					disabled={isFirst}
-				>
-					Voltar
-				</BaseButton>
-				<BaseButton
-					accessibilityLabel={isLast ? "Continuar" : "Próximo"}
-					accessibilityHint={
-						isLast
-							? "Redireciona para a tela de autenticação"
-							: "Move para o próximo item"
-					}
-					onPress={next}
-					rightIcon={
-						isLast
-							? (props) => <AntDesign name="arrowright" {...props} />
-							: undefined
-					}
-				>
-					{isLast ? "Continuar" : "Próximo"}
-				</BaseButton>
+				<BackButton disabled={isFirst} onBackPress={back} />
+				<ForwardButton
+					action={isLast ? "continue" : "next"}
+					onForwardPress={next}
+				/>
 			</Footer>
 		</>
 	);

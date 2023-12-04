@@ -10,18 +10,10 @@ const renderComponent = () => renderWithThemeProvider(<Onboarding />);
 describe("<Onboarding", () => {
 	const ITEMS_AMOUNT = defaultItems.length - 1;
 
-	const getContinueButtonEl = () => {
-		return screen.getByHintText("Redireciona para a tela de autenticação");
-	};
-	const getBackButtonEl = () => {
-		return screen.getByHintText("Move para o item anterior");
-	};
-	const getNextButtonEl = () => {
-		return screen.getByHintText("Move para o próximo item");
-	};
-	const getCarousel = () => {
-		return screen.getByTestId("carousel");
-	};
+	const getContinueButtonEl = () => screen.getByLabelText("Continuar");
+	const getBackButtonEl = () => screen.getByLabelText("Voltar");
+	const getNextButtonEl = () => screen.getByLabelText("Próximo");
+	const getCarousel = () => screen.getByTestId("carousel");
 
 	describe("Render", () => {
 		it("should render correctly", () => {
@@ -35,8 +27,6 @@ describe("<Onboarding", () => {
 	});
 	describe("Interactions", () => {
 		describe("Press", () => {
-			const CONTINUE_TEXT = "Continuar";
-
 			describe("Next", () => {
 				it("should move to next item when next-button is clicked", () => {
 					renderComponent();
@@ -53,7 +43,6 @@ describe("<Onboarding", () => {
 					[...new Array(ITEMS_AMOUNT)].forEach(() => fireEvent.press(button));
 
 					expect(getCarousel().props.accessibilityValue.now).toBe(ITEMS_AMOUNT);
-					expect(screen.getByText(CONTINUE_TEXT)).toBeTruthy();
 					expect(getContinueButtonEl()).toBeTruthy();
 				});
 			});
