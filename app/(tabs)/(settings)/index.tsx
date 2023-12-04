@@ -1,4 +1,4 @@
-import { Settings } from "@/screens/private-screens";
+import { Settings } from "@/ui/screens";
 
 export default function Page() {
 	return <Settings />;

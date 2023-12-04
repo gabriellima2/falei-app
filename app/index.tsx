@@ -1,9 +1,9 @@
 import { Stack } from "expo-router";
 import styled from "styled-components/native";
 
-import { ContainerWithDefaultSpaces } from "@/components";
+import { ContainerWithDefaultSpaces } from "@/ui/components";
 import { ProtectScreen } from "@/hocs";
-import { Onboarding } from "@/screens";
+import { Onboarding } from "@/ui/screens";
 
 function Page() {
 	return (
