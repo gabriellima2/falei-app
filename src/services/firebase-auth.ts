@@ -1,11 +1,12 @@
-import { UserAuthInputDTO } from "@/dtos";
-import { firebaseAuth } from "@/helpers/firebase-auth";
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 } from "firebase/auth";
 
-export async function firebaseSignIn(user: UserAuthInputDTO) {
+import { firebaseAuth } from "@/helpers/firebase-auth";
+import type { AuthInputDTO } from "@/dtos/auth.dto";
+
+export async function firebaseSignIn(user: AuthInputDTO) {
 	return await signInWithEmailAndPassword(
 		firebaseAuth,
 		user.email,
@@ -13,7 +14,7 @@ export async function firebaseSignIn(user: UserAuthInputDTO) {
 	);
 }
 
-export async function firebaseSignUp(user: UserAuthInputDTO) {
+export async function firebaseSignUp(user: AuthInputDTO) {
 	return await createUserWithEmailAndPassword(
 		firebaseAuth,
 		user.email,

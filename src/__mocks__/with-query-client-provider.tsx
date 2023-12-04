@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from "react";
 import { QueryClientProvider } from "react-query";
 
-import { queryClient } from "@/services/query-client";
+import { queryClient } from "@/lib/query-client";
 
 type WithQueryClientProviderProps = PropsWithChildren;
 

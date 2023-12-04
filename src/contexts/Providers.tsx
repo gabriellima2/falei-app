@@ -4,7 +4,7 @@ import { QueryClientProvider } from "react-query";
 import { ToastProvider } from "./ToastContext";
 import { MenuProvider } from "./MenuContext";
 
-import { queryClient } from "@/services/query-client";
+import { queryClient } from "@/lib/query-client";
 
 type ProvidersProps = { children: ReactNode };
 
