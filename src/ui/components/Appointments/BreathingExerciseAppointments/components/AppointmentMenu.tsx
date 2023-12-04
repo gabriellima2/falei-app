@@ -1,7 +1,7 @@
 import { Clock, BellOff, Trash2 } from "lucide-react-native";
 
-import { MenuButton } from "@/components/commons";
 import { useMenuContext } from "@/contexts/MenuContext";
+import { MenuButton } from "@/ui/atoms";
 
 import type { MenuOption } from "@/contexts/MenuContext/@types/menu-option";
 

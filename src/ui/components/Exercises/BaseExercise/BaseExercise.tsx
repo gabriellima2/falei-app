@@ -6,7 +6,8 @@ import {
 	type UseBaseExerciseParams,
 } from "./hooks/use-base-exercise";
 
-import { BaseLink, Typography, type BaseLinkProps } from "@/ui/atoms";
+import { Typography, type BaseLinkProps } from "@/ui/atoms";
+import { BaseLink } from "@/ui/atoms/Links/BaseLink";
 
 import { theme } from "@/styles/theme";
 import type { IconStyles } from "@/@types/icon-styles";

@@ -1,7 +1,7 @@
 import { useState, type ReactNode, useRef } from "react";
 import { Animated } from "react-native";
 
-import { Toast } from "@/components/commons/Toast";
+import { Toast } from "@/ui/components";
 import { ToastContext } from "./ToastContext";
 
 import { dimensions } from "@/constants/dimensions";
