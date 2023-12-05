@@ -1,5 +1,7 @@
-import { AuthForm } from "@/ui/components";
-import { useLogin, type UseLoginParams } from "./hooks/use-login";
+import {
+	useLoginState,
+	type UseLoginStateParams,
+} from "./hooks/use-login-state";
 
 import {
 	Header,
@@ -7,12 +9,13 @@ import {
 	KeyboardAvoidingWrapper,
 	ContainerWithDefaultSpaces,
 } from "@/ui/atoms";
+import { AuthForm } from "@/ui/components";
 
-export type LoginProps<T> = UseLoginParams<T>;
+export type LoginProps<T> = UseLoginStateParams<T>;
 
 export function Login<T>(props: LoginProps<T>) {
 	const { authentication } = props;
-	const { handleSignIn } = useLogin({ authentication });
+	const { handleSignIn } = useLoginState({ authentication });
 
 	return (
 		<>

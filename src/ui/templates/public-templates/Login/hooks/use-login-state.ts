@@ -5,15 +5,17 @@ import { useClearNavigation } from "@/hooks/use-clear-navigation";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 import type { Authentication } from "@/@types/authentication";
 
-export type UseLoginParams<T> = {
+export type UseLoginStateParams<T> = {
 	authentication: Authentication<T>;
 };
 
-type UseLoginReturn = {
+type UseLoginStateReturn = {
 	handleSignIn: Authentication<void>;
 };
 
-export function useLogin<T>(params: UseLoginParams<T>): UseLoginReturn {
+export function useLoginState<T>(
+	params: UseLoginStateParams<T>
+): UseLoginStateReturn {
 	const { authentication } = params;
 	const clearNavigation = useClearNavigation([
 		"(auth)/create-account",
