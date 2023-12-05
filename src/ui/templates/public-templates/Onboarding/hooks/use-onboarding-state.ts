@@ -3,9 +3,18 @@ import { useRouter } from "expo-router";
 import { useCounter } from "@/hooks";
 import { defaultItems } from "../constants/default-items";
 
+type UseOnboardingStateReturn = {
+	currentItem: number;
+	isFirst: boolean;
+	isLast: boolean;
+	handleBackPress: () => void;
+	handleForwardPress: () => void;
+	handleCurrentItemChange: (item: number) => void;
+};
+
 const ITEMS_AMOUNT = defaultItems.length - 1;
 
-export function useOnboardingState() {
+export function useOnboardingState(): UseOnboardingStateReturn {
 	const { push } = useRouter();
 	const { count, decrement, increment, changeCount } = useCounter({
 		initialValue: 0,
