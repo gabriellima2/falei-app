@@ -2,8 +2,9 @@ import styled, { css } from "styled-components/native";
 
 import { useOnboardingState } from "./hooks/use-onboarding-state";
 
-import { Carousel, BackButton, ForwardButton } from "./components";
+import { Item, BackButton, ForwardButton } from "./components";
 import { ContainerWithDefaultSpaces } from "@/ui/atoms";
+import { CarouselList } from "@/ui/components";
 
 import { defaultItems } from "./constants/default-items";
 
@@ -19,10 +20,11 @@ export const Onboarding = () => {
 	return (
 		<>
 			<Container>
-				<Carousel
-					items={defaultItems}
+				<CarouselList
+					data={defaultItems}
 					currentItem={currentItem}
 					onCurrentItemChange={handleCurrentItemChange}
+					Item={(props) => <Item {...props} img={props.image} />}
 				/>
 			</Container>
 			<Footer horizontalSpacing>
