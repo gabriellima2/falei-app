@@ -8,7 +8,7 @@ import { CarouselIndicator } from "./components";
 export type CarouselListProps<TData extends {}> = {
 	data: TData[];
 	currentItem: number;
-	changeCurrentItem: (item: number) => void;
+	onCurrentItemChange: (item: number) => void;
 	Item: (props: TData) => JSX.Element;
 };
 
@@ -17,10 +17,10 @@ type DefaultData = { id: string };
 export const CarouselList = <TData extends DefaultData>(
 	props: CarouselListProps<TData>
 ) => {
-	const { currentItem, data, changeCurrentItem, Item } = props;
+	const { currentItem, data, onCurrentItemChange, Item } = props;
 	const { ref, handleViewableChange, scrollToIndex, tryScrollingToIndexAgain } =
 		useCarouseList<TData>({
-			changeCurrentItem,
+			onCurrentItemChange,
 		});
 
 	const dataAmount = data.length;
@@ -54,7 +54,7 @@ export const CarouselList = <TData extends DefaultData>(
 						currentPosition={i}
 						dataAmount={dataAmount}
 						isActive={i === currentItem}
-						handlePress={(item) => changeCurrentItem(item)}
+						handlePress={(item) => onCurrentItemChange(item)}
 					/>
 				))}
 			</Controls>

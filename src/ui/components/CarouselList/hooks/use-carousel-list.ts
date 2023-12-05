@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { type ViewToken, FlatList } from "react-native";
 
 type UseCarouseListParams = {
-	changeCurrentItem: (item: number) => void;
+	onCurrentItemChange: (item: number) => void;
 };
 
 type UseCarouseListReturn<TData extends {}> = {
@@ -21,14 +21,14 @@ type HandleViewableChangeParams = {
 export function useCarouseList<TData extends {}>(
 	params: UseCarouseListParams
 ): UseCarouseListReturn<TData> {
-	const { changeCurrentItem } = params;
+	const { onCurrentItemChange } = params;
 
 	const ref = useRef<FlatList<TData> | null>(null);
 
 	const handleViewableChange = useRef((params: HandleViewableChangeParams) => {
 		const { changed } = params;
 		if (!changed[0].isViewable) return;
-		changeCurrentItem(changed[0].index as number);
+		onCurrentItemChange(changed[0].index as number);
 	});
 
 	const scrollToIndex = (indexItem: number) => {

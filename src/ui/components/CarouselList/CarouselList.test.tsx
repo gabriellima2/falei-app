@@ -11,7 +11,7 @@ const DATA: Data[] = [
 	{ id: "2", text: "any_item_1" },
 ];
 const CURRENT_ITEM = 0;
-const changeCurrentItemMock = jest.fn();
+const onCurrentItemChangeMock = jest.fn();
 
 const renderComponent = () =>
 	renderWithThemeProvider(
@@ -19,7 +19,7 @@ const renderComponent = () =>
 			data={DATA}
 			currentItem={CURRENT_ITEM}
 			Item={(props) => <Text>{props.text}</Text>}
-			changeCurrentItem={changeCurrentItemMock}
+			onCurrentItemChange={onCurrentItemChangeMock}
 		/>
 	);
 
@@ -48,7 +48,7 @@ describe("<CarouselList />", () => {
 				const indicator = screen.getAllByRole("button")[item];
 				fireEvent.press(indicator);
 
-				expect(changeCurrentItemMock).toHaveBeenCalledWith(item);
+				expect(onCurrentItemChangeMock).toHaveBeenCalledWith(item);
 			});
 		});
 	});
