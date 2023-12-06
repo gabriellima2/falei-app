@@ -3,17 +3,17 @@ import { useToastContext } from "@/contexts/ToastContext";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 import type { Authentication } from "@/@types/authentication";
 
-export type UseCreateAccountParams<T> = {
+export type UseCreateAccountStateParams<T> = {
 	authentication: Authentication<T>;
 };
 
-type UseCreateAccountReturn = {
+type UseCreateAccountStateReturn = {
 	handleSignUp: Authentication<void>;
 };
 
-export function useCreateAccount<T>(
-	params: UseCreateAccountParams<T>
-): UseCreateAccountReturn {
+export function useCreateAccountState<T>(
+	params: UseCreateAccountStateParams<T>
+): UseCreateAccountStateReturn {
 	const { authentication } = params;
 	const { notify } = useToastContext();
 

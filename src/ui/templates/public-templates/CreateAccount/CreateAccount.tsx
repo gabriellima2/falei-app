@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components/native";
 
 import {
-	useCreateAccount,
-	type UseCreateAccountParams,
-} from "./hooks/use-create-account";
+	useCreateAccountState,
+	type UseCreateAccountStateParams,
+} from "./hooks/use-create-account-state";
 
 import { AuthForm } from "@/ui/components";
 import {
@@ -14,11 +14,11 @@ import {
 	ContainerWithDefaultSpaces,
 } from "@/ui/atoms";
 
-export type CreateAccountProps<T> = UseCreateAccountParams<T>;
+export type CreateAccountProps<T> = UseCreateAccountStateParams<T>;
 
 export function CreateAccount<T>(props: CreateAccountProps<T>) {
 	const { authentication } = props;
-	const { handleSignUp } = useCreateAccount<T>({ authentication });
+	const { handleSignUp } = useCreateAccountState<T>({ authentication });
 
 	return (
 		<>
