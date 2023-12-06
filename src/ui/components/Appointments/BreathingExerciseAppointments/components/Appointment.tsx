@@ -46,7 +46,7 @@ export const Appointment = (props: AppointmentProps) => {
 					</AdditionalExerciseInfo>
 				</Description>
 				<CharacterImage
-					source={require("../../../../../public/assets/exercise-bg.png")}
+					source={require("../../../../../../public/assets/exercise-bg.png")}
 					resizeMode="contain"
 				/>
 			</Content>

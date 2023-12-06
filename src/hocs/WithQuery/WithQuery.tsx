@@ -1,7 +1,7 @@
 import { ComponentType } from "react";
 import { useQuery } from "react-query";
 
-import { LoadingIndicator, TextError } from "@/components";
+import { LoadingIndicator, TextError } from "@/ui/atoms";
 
 type Query<T> = {
 	name: string;

@@ -1,8 +1,4 @@
-import { ComponentType } from "react";
-
-import { Splash } from "@/components";
-
-import { useEffect } from "react";
+import { useEffect, type ComponentType } from "react";
 import {
 	usePathname,
 	useRootNavigationState,
@@ -11,6 +7,8 @@ import {
 } from "expo-router";
 
 import { useAuthStore } from "@/store/auth-store";
+import { Splash } from "@/ui/atoms";
+
 import { PRIVATE_GROUP_NAME, PUBLIC_GROUP_NAME } from "./constants/group-names";
 
 export function ProtectScreen<P extends {}>(Component: ComponentType<P>) {

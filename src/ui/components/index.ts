@@ -1,6 +1,5 @@
 export * from "./Exercises";
 export * from "./Appointments";
-export * from "./SettingOption";
 export * from "./CarouselList";
 export * from "./Check";
 export * from "./Field";

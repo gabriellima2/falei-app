@@ -3,7 +3,6 @@ export * from "./LoadingIndicator";
 export * from "./Typography";
 export * from "./Buttons";
 export * from "./ContainerWithDefaultSpaces";
-export * from "./ScreenContent";
 export * from "./Label";
 export * from "./KeyboardAvoidingWrapper";
 export * from "./Indicator";
