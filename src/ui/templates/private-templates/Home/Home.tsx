@@ -7,7 +7,13 @@ import {
 	BreathingExercisePreviewList,
 	BreathingExerciseAppointments,
 } from "@/ui/components";
-import { Group, Header, NotificationButton, ScrollContainer } from "@/ui/atoms";
+import {
+	ContainerWithDefaultSpaces,
+	Group,
+	Header,
+	NotificationButton,
+	ScrollContainer,
+} from "@/ui/atoms";
 import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 
 import { makeAppointmentRepositoryImpl } from "@/factories/repositories/make-appointment-repository-impl";

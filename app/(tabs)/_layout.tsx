@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { LayoutGrid, Dumbbell, PieChart, Settings } from "lucide-react-native";
 
-import { BottomTab, BottomTabElements } from "@/ui/components";
+import { BottomTab, BottomTabElements } from "@/ui/components/BottomTab";
 import { theme } from "@/styles/theme";
 
 export default function Layout() {
