@@ -4,7 +4,7 @@ import { Dimensions, Animated } from "react-native";
 
 import { Typography, CloseButton } from "@/ui/atoms";
 
-import { useToastContext } from "@/contexts/ToastContext";
+import { useToastContext } from "@/contexts/ToastContext/hooks/use-toast-context";
 
 import type { ToastTypes } from "@/contexts/ToastContext/@types/toast-types";
 import type { IconStyles } from "@/@types/icon-styles";

@@ -1,7 +1,7 @@
 import { MenuOption } from "./components";
 import { BottomSheet } from "../BottomSheet";
 
-import { useMenuContext } from "@/contexts/MenuContext";
+import { useMenuContext } from "@/contexts/MenuContext/hooks/use-menu-context";
 
 export const Menu = () => {
 	const { ref, menuOptions, handleClose } = useMenuContext();

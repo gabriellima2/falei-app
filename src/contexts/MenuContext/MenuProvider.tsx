@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 
-import { Menu } from "@/ui/components";
+import { Menu } from "@/ui/components/Menu";
 import { MenuContext } from "./MenuContext";
 
 import type { BottomSheetEl } from "@/@types/bottom-sheet-el";
