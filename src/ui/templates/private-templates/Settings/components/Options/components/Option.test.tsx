@@ -1,20 +1,20 @@
 import { screen } from "@testing-library/react-native";
 
-import { SettingOption, type SettingOptionProps } from "./SettingOption";
+import { Option, type OptionProps } from "./Option";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import { FakeIconComponent } from "@/__mocks__/fake-icon-component";
 
-const defaultProps: SettingOptionProps = {
+const defaultProps: OptionProps = {
 	text: "any_text",
 	href: { pathname: "any_pathname" },
 	icon: () => <FakeIconComponent icon="any_icon" />,
 };
 
 const renderComponent = (props = defaultProps) =>
-	renderWithThemeProvider(<SettingOption {...props} />);
+	renderWithThemeProvider(<Option {...props} />);
 
-describe("<SettingOption />", () => {
+describe("<Option />", () => {
 	describe("Render", () => {
 		it("should render correctly", () => {
 			renderComponent();

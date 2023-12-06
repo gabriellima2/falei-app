@@ -4,15 +4,12 @@ import { ArrowRight } from "lucide-react-native";
 import { ButtonLink } from "@/ui/atoms";
 import type { IconStyles } from "@/@types/icon-styles";
 
-export type SettingOptionProps = Pick<
-	Parameters<typeof ButtonLink>[0],
-	"href"
-> & {
+export type OptionProps = Pick<Parameters<typeof ButtonLink>[0], "href"> & {
 	text: string;
 	icon: (props: IconStyles) => JSX.Element;
 };
 
-export const SettingOption = (props: SettingOptionProps) => {
+export const Option = (props: OptionProps) => {
 	const { text, href, icon } = props;
 	const { colors } = useTheme();
 	return (
