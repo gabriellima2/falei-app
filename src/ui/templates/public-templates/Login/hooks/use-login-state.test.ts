@@ -35,9 +35,7 @@ describe("useLoginState", () => {
 	describe("Interactions", () => {
 		const credentials: AuthInputDTO = { email: "hello", password: "world" };
 
-		function expectAuthenticationToHaveBeenCalledCorrectly(
-			authentication: jest.Mock
-		) {
+		function expectAuthenticationToHaveBeenCalled(authentication: jest.Mock) {
 			expect(authentication).toHaveBeenCalled();
 			expect(authentication).toHaveBeenCalledWith(credentials);
 		}
@@ -48,7 +46,7 @@ describe("useLoginState", () => {
 
 			await result.current.handleSignIn(credentials);
 
-			expectAuthenticationToHaveBeenCalledCorrectly(mockAuthentication);
+			expectAuthenticationToHaveBeenCalled(mockAuthentication);
 			expect(mockClearNavigation).toHaveBeenCalled();
 			expect(mockReplace).toHaveBeenCalled();
 		});
@@ -59,7 +57,7 @@ describe("useLoginState", () => {
 			try {
 				await result.current.handleSignIn(credentials);
 			} catch (e) {
-				expectAuthenticationToHaveBeenCalledCorrectly(mockAuthentication);
+				expectAuthenticationToHaveBeenCalled(mockAuthentication);
 				expect(mockClearNavigation).not.toHaveBeenCalled();
 				expect(mockReplace).not.toHaveBeenCalled();
 			}
