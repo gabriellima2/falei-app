@@ -12,8 +12,8 @@ import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 import type { ReadExerciseEntity } from "@/entities/read-entities";
 import type { ExerciseEntity } from "@/entities/exercise.entity";
 
-type ExerciseListProps = {
-	exercises: ExerciseEntity[];
+export type ExerciseListProps = {
+	exercises: Omit<ExerciseEntity, "category">[];
 	category: ExerciseCategoryEntity;
 };
 
@@ -42,8 +42,8 @@ export const ExerciseList = (props: ExerciseListProps) => {
 			data={exercises}
 			ListHeaderComponent={() => <Header title={title} />}
 			renderItem={({ item, index }) => (
-				<ExerciseContainer hasSpacing={index % 2 === 0}>
-					<ExerciseItem {...item} />
+				<ExerciseContainer hasSpacing={index % 2 === 0} testID="exercise">
+					<ExerciseItem {...(item as ExerciseEntity)} />
 				</ExerciseContainer>
 			)}
 			contentContainerStyle={{ padding: DEFAULT_SPACING }}
