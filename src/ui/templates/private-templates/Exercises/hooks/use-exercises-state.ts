@@ -2,8 +2,17 @@ import { useState } from "react";
 
 import { useGetExercisesByCategory } from "@/hooks/use-get-exercises-by-category";
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
+import { ExerciseEntity } from "@/entities/exercise.entity";
 
-export function useExercises() {
+type UseExercisesStateReturn = {
+	exercises: ExerciseEntity[] | undefined;
+	error: unknown;
+	isLoading: boolean;
+	category: ExerciseCategoryEntity;
+	handleCategoryChange: (value: ExerciseCategoryEntity) => void;
+};
+
+export function useExercisesState(): UseExercisesStateReturn {
 	const [category, setCategory] = useState<ExerciseCategoryEntity>(
 		ExerciseCategoryEntity.Breathing
 	);
