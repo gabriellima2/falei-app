@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/native";
 import { Typography } from "@/ui/atoms";
 
-type HeaderProps = { title?: string };
+export type HeaderProps = { title?: string };
 
 export const Header = (props: HeaderProps) => {
 	const { title } = props;
