@@ -10,6 +10,21 @@ export type FilterByCategoryProps = Pick<
 	"initialValue" | "onChange"
 >;
 
+const filterOptions: Pick<CheckProps, "items">["items"] = [
+	{
+		name: categoriesPortuguese.breathing_exercises,
+		value: ExerciseCategoryEntity.Breathing,
+	},
+	{
+		name: categoriesPortuguese.tongue_twister_exercises,
+		value: ExerciseCategoryEntity.TongueTwister,
+	},
+	{
+		name: categoriesPortuguese.poem_exercises,
+		value: ExerciseCategoryEntity.Poem,
+	},
+];
+
 export const FilterByCategory = (props: FilterByCategoryProps) => {
 	return (
 		<Container
@@ -17,24 +32,7 @@ export const FilterByCategory = (props: FilterByCategoryProps) => {
 			showsHorizontalScrollIndicator={false}
 			contentContainerStyle={{ paddingHorizontal: 16, gap: 16 }}
 		>
-			<Check
-				{...props}
-				items={[
-					{
-						name: categoriesPortuguese.breathing_exercises,
-						value: ExerciseCategoryEntity.Breathing,
-					},
-					{
-						name: categoriesPortuguese.tongue_twister_exercises,
-						value: ExerciseCategoryEntity.TongueTwister,
-					},
-					{
-						name: categoriesPortuguese.poem_exercises,
-						value: ExerciseCategoryEntity.Poem,
-					},
-				]}
-				optionStyle={{ minWidth: 134 }}
-			/>
+			<Check {...props} items={filterOptions} optionStyle={{ minWidth: 134 }} />
 		</Container>
 	);
 };

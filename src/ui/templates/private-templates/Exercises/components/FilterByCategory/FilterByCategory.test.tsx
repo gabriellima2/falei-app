@@ -12,12 +12,13 @@ const defaultProps: FilterByCategoryProps = {
 	initialValue: "any_name",
 	onChange: jest.fn(),
 };
+
 const renderComponent = (props = defaultProps) =>
 	renderWithThemeProvider(<FilterByCategory {...props} />);
 
-const getFirstOption = () => screen.getAllByTestId("check-option")[0];
-
 describe("<FilterByCategory", () => {
+	const getFirstOption = () => screen.getAllByTestId("check-option")[0];
+
 	describe("Render", () => {
 		it("should render correctly", () => {
 			renderComponent();
