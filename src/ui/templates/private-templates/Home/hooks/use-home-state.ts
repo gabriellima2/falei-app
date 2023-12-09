@@ -7,12 +7,12 @@ import type {
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
 
-export type UseHomeParams = {
+export type UseHomeStateParams = {
 	exercises: BreathingExerciseEntity[];
 	appointments: BreathingAppointmentEntity[];
 };
 
-export type UseHomeReturn = {
+export type UseHomeStateReturn = {
 	title: string;
 	filteredAppointments: BreathingAppointmentEntity[];
 	incompleteExercises:
@@ -21,7 +21,7 @@ export type UseHomeReturn = {
 		| undefined;
 };
 
-export function useHome(params: UseHomeParams): UseHomeReturn {
+export function useHomeState(params: UseHomeStateParams): UseHomeStateReturn {
 	const { exercises, appointments } = params;
 	const filteredAppointments = useGetAppointments(appointments);
 	const ordedExercises = useExerciseOrderedByLastProgress(exercises);

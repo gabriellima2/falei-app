@@ -3,21 +3,21 @@ import * as ReactQuery from "react-query";
 
 import { Home } from "./Home";
 
-import { mock } from "./hooks/use-home.test";
-import * as useHome from "./hooks/use-home";
+import { mock } from "./hooks/use-home-state.test";
+import * as useHomeState from "./hooks/use-home-state";
 
 import { WithQueryClientProvider } from "@/__mocks__/with-query-client-provider";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import type { TestingLibraryEl } from "@/@types/testing-library-el";
 
-const useHomeSpyOn = jest.spyOn(useHome, "useHome");
+const useHomeStateSpyOn = jest.spyOn(useHomeState, "useHomeState");
 jest
 	.spyOn(ReactQuery, "useQuery")
 	.mockImplementation(
 		jest.fn().mockReturnValue({ isLoading: false, error: null, data: mock })
 	);
 
-const defaultReturn: useHome.UseHomeReturn = {
+const defaultReturn: useHomeState.UseHomeStateReturn = {
 	title: "any_title",
 	filteredAppointments: mock.appointments,
 	incompleteExercises: [...mock.exercises, ...mock.appointments],
@@ -39,7 +39,7 @@ describe("<Home />", () => {
 
 	describe("Render", () => {
 		it("should render correctly with all exercises", () => {
-			useHomeSpyOn.mockReturnValue(defaultReturn);
+			useHomeStateSpyOn.mockReturnValue(defaultReturn);
 			renderComponent();
 
 			const appointmentEls = screen.getAllByText(

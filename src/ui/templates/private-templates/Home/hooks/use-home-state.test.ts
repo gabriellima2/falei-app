@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { useHome } from "./use-home";
+import { useHomeState } from "./use-home-state";
 
 import * as useGetIncompleteBreathingExercises from "./use-get-incomplete-breathing-exercises";
 import * as useGetAppointments from "./use-get-appointments";
@@ -42,7 +42,7 @@ export const mock = {
 	] as BreathingExerciseEntity[],
 };
 
-const executeHook = () => renderHook(() => useHome(mock));
+const executeHook = () => renderHook(() => useHomeState(mock));
 
 describe("UseHome", () => {
 	describe("Default", () => {

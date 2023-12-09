@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-import { useHome } from "./hooks/use-home";
+import { useHomeState } from "./hooks/use-home-state";
 
 import {
 	IncompleteExercises,
@@ -48,7 +48,7 @@ export const Home = WithQuery(
 		const {
 			data: { exercises, appointments },
 		} = props;
-		const { title, filteredAppointments, incompleteExercises } = useHome({
+		const { title, filteredAppointments, incompleteExercises } = useHomeState({
 			exercises,
 			appointments,
 		});
