@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { BaseExercise } from "../BaseExercise";
 import type { ReadExerciseEntity } from "@/entities/read-entities";
 
-type ReadExerciseProps = Pick<ReadExerciseEntity, "content" | "id">;
+export type ReadExerciseProps = Pick<ReadExerciseEntity, "content" | "id">;
 
 export const ReadExercise = (props: ReadExerciseProps) => {
 	const { id, content } = props;
