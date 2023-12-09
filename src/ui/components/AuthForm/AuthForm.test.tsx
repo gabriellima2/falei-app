@@ -9,19 +9,6 @@ import { asyncFunctions } from "@/__mocks__/async-functions";
 
 type Fields = { email: string; password: string };
 
-const fields: (keyof Fields)[] = ["email", "password"];
-export const placeholders: Fields = {
-	email: "Ex: seuemail@gmail.com",
-	password: "8+ Caracteres",
-};
-const labels: Fields = {
-	email: "Email",
-	password: "Senha",
-};
-const validValues: Fields = {
-	email: "any@email.com",
-	password: "any_password",
-};
 const defaultProps: AuthFormProps = {
 	title: "any_title",
 	button: { text: "any_button_text" },
@@ -35,11 +22,21 @@ const renderComponent = (props: AuthFormProps = defaultProps) =>
 		</ToastProvider>
 	);
 
-const getErrorEls = () => screen.queryAllByRole("alert");
-const getButtonEl = () => screen.getByText(defaultProps.button.text);
-export const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
-
 describe("<AuthForm />", () => {
+	const fields: (keyof Fields)[] = ["email", "password"];
+	const placeholders: Fields = {
+		email: "Ex: seuemail@gmail.com",
+		password: "8+ Caracteres",
+	};
+	const labels: Fields = {
+		email: "Email",
+		password: "Senha",
+	};
+
+	const getErrorEls = () => screen.queryAllByRole("alert");
+	const getButtonEl = () => screen.getByText(defaultProps.button.text);
+	const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
+
 	describe("Render", () => {
 		it("should render correctly", () => {
 			renderComponent();
@@ -54,15 +51,22 @@ describe("<AuthForm />", () => {
 		});
 	});
 	describe("Validations", () => {
-		type ExpectHasErrorOnSubmittingParams = {
+		const ERROR_MESSAGES = {
+			email: {
+				required: "O campo email é obrigatório",
+				invalid: "email inválido",
+			},
+			password: {
+				required: "Digite uma senha com 8 ou mais caracteres",
+				invalid: "Digite uma senha com 8 ou mais caracteres",
+			},
+		};
+
+		function expectHasErrorOnSubmit(params: {
 			errorIndex: number;
 			errorMessage: string;
 			onSubmit: typeof defaultProps.onSubmit;
-		};
-
-		function expectHasErrorOnSubmitting(
-			params: ExpectHasErrorOnSubmittingParams
-		) {
+		}) {
 			const { errorMessage, errorIndex, onSubmit } = params;
 			const errorEl = getErrorEls()[errorIndex];
 			expect(errorEl.props.children).toContain(errorMessage);
@@ -86,9 +90,9 @@ describe("<AuthForm />", () => {
 				});
 
 				await waitFor(() => {
-					expectHasErrorOnSubmitting({
+					expectHasErrorOnSubmit({
 						errorIndex: fields.indexOf(field),
-						errorMessage: "obrigatório",
+						errorMessage: ERROR_MESSAGES[field].required,
 						onSubmit,
 					});
 				});
@@ -97,13 +101,9 @@ describe("<AuthForm />", () => {
 		test.each(fields)(
 			"should show an error message when submitting with invalid %s",
 			async (field) => {
-				const invalidValues: Fields = {
+				const values: Fields = {
 					email: "invalid_email.com",
 					password: "1234567",
-				};
-				const errorMessages: Fields = {
-					email: "email inválido",
-					password: "8 ou mais caracteres",
 				};
 				renderComponent();
 				const { onSubmit } = defaultProps;
@@ -112,16 +112,16 @@ describe("<AuthForm />", () => {
 					fields: [
 						{
 							el: getFieldEl(placeholders[field]),
-							value: invalidValues[field],
+							value: values[field],
 						},
 					],
 					buttonEl: getButtonEl(),
 				});
 
 				await waitFor(() => {
-					expectHasErrorOnSubmitting({
+					expectHasErrorOnSubmit({
 						errorIndex: fields.indexOf(field),
-						errorMessage: errorMessages[field],
+						errorMessage: ERROR_MESSAGES[field].invalid,
 						onSubmit,
 					});
 				});
@@ -130,13 +130,17 @@ describe("<AuthForm />", () => {
 		test.each(fields)(
 			"should not show errors when submitting with valid %s",
 			async (field) => {
+				const values: Fields = {
+					email: "any@email.com",
+					password: "any_password",
+				};
 				renderComponent();
 
 				simulateFormSubmit({
 					fields: [
 						{
 							el: getFieldEl(placeholders[field]),
-							value: validValues[field],
+							value: values[field],
 						},
 					],
 					buttonEl: getButtonEl(),
@@ -150,8 +154,8 @@ describe("<AuthForm />", () => {
 	});
 	describe("Submit", () => {
 		const user = {
-			email: validValues.email,
-			password: validValues.password,
+			email: "any@email.com",
+			password: "any_password",
 		};
 
 		function submitCorrectly() {
