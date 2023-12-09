@@ -4,7 +4,7 @@ import { Bell, HelpCircle, User2 } from "lucide-react-native";
 
 import { Option, type OptionProps } from "./components/Option";
 
-type OptionsProps = PropsWithChildren & {
+export type OptionsProps = PropsWithChildren & {
 	items?: OptionProps[];
 };
 
@@ -31,7 +31,7 @@ export const Options = (props: OptionsProps) => {
 	return (
 		<Container contentContainerStyle={{ gap: 16 }}>
 			{items.map((item) => (
-				<Option key={item.text} {...item} />
+				<Option testID="options-item" key={item.text} {...item} />
 			))}
 			{children}
 		</Container>
