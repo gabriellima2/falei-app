@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { FlatList } from "react-native";
 import styled, { css } from "styled-components/native";
 
-import { useCarouseList } from "./hooks";
 import { CarouselIndicator } from "./components";
+import { useCarouseList } from "./hooks/use-carousel-list";
 
 export type CarouselListProps<TData extends {}> = {
 	data: TData[];

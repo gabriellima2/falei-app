@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 
-import { Menu } from "./components/Menu";
+import { Menu } from "./components";
 import { AdditionalExerciseInfo, Typography } from "@/ui/atoms";
 
 import { dimensions } from "@/constants/dimensions";
