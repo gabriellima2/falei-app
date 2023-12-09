@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
 import { Bell } from "lucide-react-native";
 
-import { SmallButton } from "./SmallButton";
-import { Indicator } from "../Indicator";
+import { SmallButton } from "../../../../../atoms/Buttons/SmallButton";
+import { Indicator } from "../../../../../atoms/Indicator";
 
 import { theme } from "@/styles/theme";
 

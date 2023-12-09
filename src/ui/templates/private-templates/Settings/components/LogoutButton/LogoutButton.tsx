@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { LogOut } from "lucide-react-native";
 
-import { BaseButton } from "./BaseButton";
+import { BaseButton } from "@/ui/atoms";
 
 type LogoutButtonProps = {
 	onLogout?: () => Promise<void> | void;

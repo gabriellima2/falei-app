@@ -2,12 +2,16 @@ import styled from "styled-components/native";
 
 import { useHomeState } from "./hooks/use-home-state";
 
-import { BreathingExercisesPreview, IncompleteExercises } from "./components";
+import {
+	BreathingExercisesPreview,
+	IncompleteExercises,
+	NotificationButton,
+	BreathingAppointments,
+} from "./components";
 import {
 	Group,
 	Header,
 	ScrollContainer,
-	NotificationButton,
 	ContainerWithDefaultSpaces,
 } from "@/ui/atoms";
 import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
@@ -20,7 +24,6 @@ import type {
 	BreathingExerciseEntity,
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
-import { BreathingAppointments } from "./components/BreathingAppointments/BreathingAppointments";
 
 async function getData() {
 	return {

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/native";
 
-import { Header, LogoutButton, ScrollContainer, Typography } from "@/ui/atoms";
-import { Options } from "./components/Options";
+import { Header, ScrollContainer, Typography } from "@/ui/atoms";
+import { LogoutButton, Options } from "./components";
 
 import { useAuthStore } from "@/store/auth-store";
 
