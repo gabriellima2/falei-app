@@ -6,10 +6,6 @@ import * as useClearNavigation from "@/hooks/use-clear-navigation";
 
 import { mockReplace } from "jest-setup";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import {
-	getFieldEl,
-	placeholders,
-} from "@/ui/components/AuthForm/AuthForm.test";
 
 const useClearNavigationSpyOn = jest.spyOn(
 	useClearNavigation,
@@ -27,6 +23,8 @@ const renderComponent = () =>
 const getButtonEl = () => screen.getByText("Entrar");
 
 describe("<Login />", () => {
+	const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
+
 	beforeAll(() => {
 		useClearNavigationSpyOn.mockReturnValue(mockClearNavigation);
 	});
@@ -48,23 +46,29 @@ describe("<Login />", () => {
 	describe("Interactions", () => {
 		describe("Submit", () => {
 			it("should login the user correctly", async () => {
-				const emailValue = "test@example.com";
-				const passwordValue = "password123";
+				const placeholders = {
+					email: "Ex: seuemail@gmail.com",
+					password: "8+ Caracteres",
+				};
+				const values = {
+					email: "test@example.com",
+					password: "password123",
+				};
 				renderComponent();
 
 				act(() => {
-					fireEvent.changeText(getFieldEl(placeholders.email), emailValue);
+					fireEvent.changeText(getFieldEl(placeholders.email), values.email);
 					fireEvent.changeText(
 						getFieldEl(placeholders.password),
-						passwordValue
+						values.password
 					);
 					fireEvent.press(getButtonEl());
 				});
 
 				await waitFor(() => {
 					expect(defaultProps.authentication).toHaveBeenCalledWith({
-						email: emailValue,
-						password: passwordValue,
+						email: values.email,
+						password: values.password,
 					});
 					expect(mockReplace).toHaveBeenCalledWith("(tabs)/");
 					expect(mockClearNavigation).toHaveBeenCalled();

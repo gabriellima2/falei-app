@@ -4,10 +4,6 @@ import { CreateAccount, type CreateAccountProps } from "./CreateAccount";
 import { ToastProvider } from "@/contexts/ToastContext";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import {
-	getFieldEl,
-	placeholders,
-} from "@/ui/components/AuthForm/AuthForm.test";
 
 const defaultProps: CreateAccountProps<null> = {
 	authentication: jest.fn(),
@@ -23,6 +19,8 @@ const renderComponent = () =>
 const getButtonEl = () => screen.getByText("Criar conta");
 
 describe("<CreateAccount />", () => {
+	const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
+
 	describe("Render", () => {
 		it("should render correctly", () => {
 			renderComponent();
@@ -37,23 +35,29 @@ describe("<CreateAccount />", () => {
 	describe("Interactions", () => {
 		describe("Submit", () => {
 			it("should create account correctly", async () => {
-				const emailValue = "test@example.com";
-				const passwordValue = "password123";
+				const placeholders = {
+					email: "Ex: seuemail@gmail.com",
+					password: "8+ Caracteres",
+				};
+				const values = {
+					email: "test@example.com",
+					password: "password123",
+				};
 				renderComponent();
 
 				act(() => {
-					fireEvent.changeText(getFieldEl(placeholders.email), emailValue);
+					fireEvent.changeText(getFieldEl(placeholders.email), values.email);
 					fireEvent.changeText(
 						getFieldEl(placeholders.password),
-						passwordValue
+						values.password
 					);
 					fireEvent.press(getButtonEl());
 				});
 
 				await waitFor(() => {
 					expect(defaultProps.authentication).toHaveBeenCalledWith({
-						email: emailValue,
-						password: passwordValue,
+						email: values.email,
+						password: values.password,
 					});
 					expect(screen.getByText("Conta criada com sucesso")).toBeTruthy();
 				});
