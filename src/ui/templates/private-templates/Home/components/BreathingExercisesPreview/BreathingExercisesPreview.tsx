@@ -1,16 +1,16 @@
 import styled from "styled-components/native";
 
+import { BreathingExercise } from "@/ui/components";
 import { HorizontalList } from "@/ui/atoms";
-import { BreathingExercise } from "./BreathingExercise";
 
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
-export type BreathingExercisePreviewListProps = {
+export type BreathingExercisesPreviewProps = {
 	items: BreathingExerciseEntity[];
 };
 
-export const BreathingExercisePreviewList = (
-	props: BreathingExercisePreviewListProps
+export const BreathingExercisesPreview = (
+	props: BreathingExercisesPreviewProps
 ) => {
 	const { items } = props;
 	return (

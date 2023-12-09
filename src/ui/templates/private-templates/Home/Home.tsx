@@ -2,17 +2,13 @@ import styled from "styled-components/native";
 
 import { useHomeState } from "./hooks/use-home-state";
 
+import { BreathingExercisesPreview, IncompleteExercises } from "./components";
 import {
-	IncompleteExercises,
-	BreathingExercisePreviewList,
-	BreathingExerciseAppointments,
-} from "@/ui/components";
-import {
-	ContainerWithDefaultSpaces,
 	Group,
 	Header,
-	NotificationButton,
 	ScrollContainer,
+	NotificationButton,
+	ContainerWithDefaultSpaces,
 } from "@/ui/atoms";
 import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 
@@ -24,6 +20,7 @@ import type {
 	BreathingExerciseEntity,
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
+import { BreathingAppointments } from "./components/BreathingAppointments/BreathingAppointments";
 
 async function getData() {
 	return {
@@ -60,9 +57,7 @@ export const Home = WithQuery(
 				/>
 				<Container horizontalSpacing>
 					<Group title="Lembretes da semana">
-						<BreathingExerciseAppointments
-							appointments={filteredAppointments}
-						/>
+						<BreathingAppointments appointments={filteredAppointments} />
 					</Group>
 					<Group
 						title="Em progresso"
@@ -81,7 +76,7 @@ export const Home = WithQuery(
 						title="Exercícios"
 						rightLink={{ pathname: "/", text: "Ver Mais" }}
 					>
-						<BreathingExercisePreviewList items={exercises} />
+						<BreathingExercisesPreview items={exercises} />
 					</Group>
 				</Container>
 			</ScrollContainer>

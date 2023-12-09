@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 
-import { Typography } from "@/ui/atoms";
+import { Typography } from "@/ui/atoms/Typography";
 import { dimensions } from "@/constants/dimensions";
 
 export const EmptyAppointments = () => {

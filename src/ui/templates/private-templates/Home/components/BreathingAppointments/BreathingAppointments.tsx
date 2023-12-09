@@ -1,17 +1,15 @@
 import { useTheme } from "styled-components/native";
 
-import { EmptyAppointments, Appointment } from "./components";
-import { HorizontalList } from "@/ui/atoms";
+import { BreathingAppointment } from "@/ui/components";
+import { EmptyAppointments, HorizontalList } from "@/ui/atoms";
 
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 
-export type BreathingExerciseAppointmentsProps = {
+export type BreathingAppointmentsProps = {
 	appointments: BreathingAppointmentEntity[];
 };
 
-export const BreathingExerciseAppointments = (
-	props: BreathingExerciseAppointmentsProps
-) => {
+export const BreathingAppointments = (props: BreathingAppointmentsProps) => {
 	const { appointments } = props;
 	const { colors } = useTheme();
 	const hasOneItem = appointments && appointments.length === 1;
@@ -20,7 +18,7 @@ export const BreathingExerciseAppointments = (
 			data={appointments}
 			keyExtractor={(item) => item.id}
 			renderItem={({ item, index }) => (
-				<Appointment
+				<BreathingAppointment
 					autoSize={hasOneItem}
 					title={item.title}
 					rounds={item.rounds}

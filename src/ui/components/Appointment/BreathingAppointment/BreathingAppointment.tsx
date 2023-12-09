@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 
-import { AppointmentMenu } from "./AppointmentMenu";
+import { Menu } from "./components/Menu";
 import { AdditionalExerciseInfo, Typography } from "@/ui/atoms";
 
 import { dimensions } from "@/constants/dimensions";
@@ -8,7 +8,7 @@ import { dimensions } from "@/constants/dimensions";
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 import type { Modifiers } from "@/@types/modifiers";
 
-export type AppointmentProps = Omit<
+export type BreathingAppointmentProps = Omit<
 	BreathingAppointmentEntity,
 	"id" | "exercise_id" | "user_id" | "last_progress_at" | "category"
 > &
@@ -16,7 +16,7 @@ export type AppointmentProps = Omit<
 		onPress?: () => void | Promise<void>;
 	};
 
-export const Appointment = (props: AppointmentProps) => {
+export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 	const { title, rounds, scheduled_at, autoSize, color, onPress } = props;
 	return (
 		<Container
@@ -31,7 +31,7 @@ export const Appointment = (props: AppointmentProps) => {
 		>
 			<Header>
 				<Title>{title}</Title>
-				<AppointmentMenu />
+				<Menu />
 			</Header>
 			<Content>
 				<Description>
@@ -46,7 +46,7 @@ export const Appointment = (props: AppointmentProps) => {
 					</AdditionalExerciseInfo>
 				</Description>
 				<CharacterImage
-					source={require("../../../../../../public/assets/exercise-bg.png")}
+					source={require("../../../../../public/assets/exercise-bg.png")}
 					resizeMode="contain"
 				/>
 			</Content>

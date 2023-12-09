@@ -1,5 +1,4 @@
-export * from "./Exercises";
-export * from "./Appointments";
+export * from "./Appointment";
 export * from "./CarouselList";
 export * from "./Check";
 export * from "./Field";
@@ -7,3 +6,4 @@ export * from "./Menu";
 export * from "./BottomSheet";
 export * from "./AuthForm";
 export * from "./Toast";
+export * from "./Exercise";

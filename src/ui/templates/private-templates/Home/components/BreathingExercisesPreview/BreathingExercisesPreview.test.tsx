@@ -1,17 +1,17 @@
 import { screen } from "@testing-library/react-native";
 
 import {
-	BreathingExercisePreviewList,
-	type BreathingExercisePreviewListProps,
-} from "./BreathingExercisePreviewList";
+	BreathingExercisesPreview,
+	type BreathingExercisesPreviewProps,
+} from "./BreathingExercisesPreview";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
-const renderComponent = (props: BreathingExercisePreviewListProps) =>
-	renderWithThemeProvider(<BreathingExercisePreviewList {...props} />);
+const renderComponent = (props: BreathingExercisesPreviewProps) =>
+	renderWithThemeProvider(<BreathingExercisesPreview {...props} />);
 
-describe("<BreathingExercisePreviewList />", () => {
+describe("<BreathingExercisesPreview />", () => {
 	describe("Render", () => {
 		it("should render correctly with filled list", () => {
 			const FILLED_LIST: BreathingExerciseEntity[] = [

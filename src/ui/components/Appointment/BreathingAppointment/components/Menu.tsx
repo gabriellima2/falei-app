@@ -23,7 +23,7 @@ const options: MenuOption[] = [
 	},
 ];
 
-export const AppointmentMenu = () => {
+export const Menu = () => {
 	const { handleToggle } = useMenuContext();
 	return <MenuButton onPress={() => handleToggle(options)} />;
 };

@@ -1,19 +1,19 @@
 import { screen } from "@testing-library/react-native";
 
 import {
-	BreathingExerciseAppointments,
-	type BreathingExerciseAppointmentsProps,
-} from "./BreathingExerciseAppointments";
+	BreathingAppointments,
+	type BreathingAppointmentsProps,
+} from "./BreathingAppointments";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { mockAppointment } from "./__mocks__/mock-appointment";
+import { mockAppointment } from "../../../../../components/Appointment/BreathingAppointment/__mocks__/mock-appointment";
 
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 
-const renderComponent = (props: BreathingExerciseAppointmentsProps) =>
-	renderWithThemeProvider(<BreathingExerciseAppointments {...props} />);
+const renderComponent = (props: BreathingAppointmentsProps) =>
+	renderWithThemeProvider(<BreathingAppointments {...props} />);
 
-describe("<BreathingExerciseAppointments />", () => {
+describe("<BreathingAppointments />", () => {
 	describe("Render", () => {
 		it("should render correctly listing the appointments data", () => {
 			const appointments = [mockAppointment as BreathingAppointmentEntity];
