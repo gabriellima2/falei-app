@@ -50,7 +50,7 @@ type ContainerProps = { withPreviewForNextItem?: boolean };
 const { withMargin } = dimensions.screen;
 const modifiers: Modifiers<keyof ContainerProps> = {
 	withPreviewForNextItem: () => css`
-		width: ${withMargin.width + margin.vertical.total}px;
+		width: ${withMargin.width - margin.vertical.total}px;
 		min-width: 320px;
 	`,
 };
