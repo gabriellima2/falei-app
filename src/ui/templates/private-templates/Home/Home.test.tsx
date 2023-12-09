@@ -33,17 +33,11 @@ const renderComponent = () =>
 describe("<Home />", () => {
 	const getExerciseList = () => screen.queryAllByTestId("list__item");
 
-	describe("Render", () => {
-		function expectMessageToBePresent(message: string) {
-			expect(screen.getByText(message)).toBeTruthy();
-		}
-		function expectExerciseToBePresent(el: TestingLibraryEl) {
-			expect(el).toBeTruthy();
-		}
-		function expectExerciseListToBePresent() {
-			expect(getExerciseList()).toHaveLength(mock.exercises.length);
-		}
+	function expectExerciseToHaveBeenPresent(el: TestingLibraryEl) {
+		expect(el).toBeTruthy();
+	}
 
+	describe("Render", () => {
 		it("should render correctly with all exercises", () => {
 			useHomeSpyOn.mockReturnValue(defaultReturn);
 			renderComponent();
@@ -54,10 +48,10 @@ describe("<Home />", () => {
 			const reminder = appointmentEls[0];
 			const progress = appointmentEls[1];
 
-			expectMessageToBePresent(defaultReturn.title);
-			expectExerciseToBePresent(reminder);
-			expectExerciseToBePresent(progress);
-			expectExerciseListToBePresent();
+			expectExerciseToHaveBeenPresent(reminder);
+			expectExerciseToHaveBeenPresent(progress);
+			expect(screen.getByText(defaultReturn.title)).toBeTruthy();
+			expect(getExerciseList()).toHaveLength(mock.exercises.length);
 		});
 	});
 });
