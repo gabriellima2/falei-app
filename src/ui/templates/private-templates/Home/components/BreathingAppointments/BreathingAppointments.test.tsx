@@ -6,18 +6,33 @@ import {
 } from "./BreathingAppointments";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { mockAppointment } from "../../../../../components/Appointment/BreathingAppointment/__mocks__/mock-appointment";
 
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 
-const renderComponent = (props: BreathingAppointmentsProps) =>
+const defaultProps: BreathingAppointmentsProps = {
+	appointments: [
+		{
+			id: "1",
+			title: "any_title",
+			scheduled_at: { days: ["Terça"], hour: "17:00" },
+			rounds: {
+				duration_per_round_in_min: 10,
+				rounds_completed: 0,
+				rounds_total: 3,
+			},
+		} as BreathingAppointmentEntity,
+	],
+};
+
+const renderComponent = (props = defaultProps) =>
 	renderWithThemeProvider(<BreathingAppointments {...props} />);
 
 describe("<BreathingAppointments />", () => {
 	describe("Render", () => {
 		it("should render correctly listing the appointments data", () => {
-			const appointments = [mockAppointment as BreathingAppointmentEntity];
-			renderComponent({ appointments });
+			renderComponent();
+
+			const { appointments } = defaultProps;
 
 			expect(
 				screen.getAllByTestId("breathing-exercise-appointment").length
