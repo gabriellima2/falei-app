@@ -1,3 +1,4 @@
+import { Text } from "react-native";
 import { screen } from "@testing-library/react-native";
 
 import { Options, type OptionsProps } from "./Options";
@@ -19,13 +20,30 @@ const renderComponent = (props = defaultProps) =>
 	renderWithThemeProvider(<Options {...props} />);
 
 describe("<Options />", () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
+
 	describe("Render", () => {
-		it("should render correctly", () => {
+		function expectOptionsToHaveBeenPresent() {
+			const { items } = defaultProps;
+			expect(screen.getAllByTestId("options-item")).toHaveLength(items!.length);
+		}
+
+		it("should render correctly without 'additional' props", () => {
 			renderComponent();
 
-			const { items } = defaultProps;
+			expectOptionsToHaveBeenPresent();
+		});
+		it("should render correctly with 'additional' props", () => {
+			const ADDITIONAL_CONTENT_TEXT = "any_text";
+			renderComponent({
+				...defaultProps,
+				additional: () => <Text>any_text</Text>,
+			});
 
-			expect(screen.getAllByTestId("options-item")).toHaveLength(items!.length);
+			expectOptionsToHaveBeenPresent();
+			expect(screen.findByText(ADDITIONAL_CONTENT_TEXT)).toBeTruthy();
 		});
 	});
 });

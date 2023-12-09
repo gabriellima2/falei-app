@@ -12,9 +12,7 @@ export const Settings = () => {
 			<Header title="Configurações" />
 			<ScrollContainer>
 				<Content>
-					<Options>
-						<LogoutButton onLogout={signOut} />
-					</Options>
+					<Options additional={() => <LogoutButton onLogout={signOut} />} />
 					<CreatedBy>© Gabriel Lima</CreatedBy>
 				</Content>
 			</ScrollContainer>

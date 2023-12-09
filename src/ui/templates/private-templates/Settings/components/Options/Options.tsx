@@ -1,11 +1,11 @@
-import { type PropsWithChildren } from "react";
 import styled from "styled-components/native";
 import { Bell, HelpCircle, User2 } from "lucide-react-native";
 
 import { Option, type OptionProps } from "./components/Option";
 
-export type OptionsProps = PropsWithChildren & {
+export type OptionsProps = {
 	items?: OptionProps[];
+	additional?: () => JSX.Element;
 };
 
 const defaultItems: OptionProps[] = [
@@ -27,13 +27,13 @@ const defaultItems: OptionProps[] = [
 ];
 
 export const Options = (props: OptionsProps) => {
-	const { items = defaultItems, children } = props;
+	const { items = defaultItems, additional } = props;
 	return (
 		<Container contentContainerStyle={{ gap: 16 }}>
 			{items.map((item) => (
 				<Option testID="options-item" key={item.text} {...item} />
 			))}
-			{children}
+			{!!additional && additional()}
 		</Container>
 	);
 };
