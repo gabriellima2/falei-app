@@ -1,6 +1,6 @@
+import { useGetExercisesOrderedByLastProgress } from "./use-get-exercises-ordered-by-last-progress";
 import { useGetIncompleteBreathingExercises } from "./use-get-incomplete-breathing-exercises";
-import { useGetAppointments } from "./use-get-appointments";
-import { useExerciseOrderedByLastProgress } from "@/hooks";
+import { useGetAppointments } from "@/hooks/use-get-appointments";
 
 import type {
 	BreathingExerciseEntity,
@@ -24,7 +24,7 @@ export type UseHomeStateReturn = {
 export function useHomeState(params: UseHomeStateParams): UseHomeStateReturn {
 	const { exercises, appointments } = params;
 	const filteredAppointments = useGetAppointments(appointments);
-	const ordedExercises = useExerciseOrderedByLastProgress(exercises);
+	const ordedExercises = useGetExercisesOrderedByLastProgress(exercises);
 	const incomplete = useGetIncompleteBreathingExercises({
 		exercises: ordedExercises,
 		appointments: filteredAppointments,
