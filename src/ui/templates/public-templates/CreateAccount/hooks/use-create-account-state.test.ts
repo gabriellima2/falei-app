@@ -8,7 +8,7 @@ import {
 import {
 	mockNotify,
 	ToastContextWrapper,
-} from "../mocks/toast-context-wrapper";
+} from "@/__mocks__/toast-context-wrapper";
 
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 
