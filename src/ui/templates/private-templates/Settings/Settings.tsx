@@ -3,16 +3,18 @@ import styled, { css } from "styled-components/native";
 import { Header, ScrollContainer, Typography } from "@/ui/atoms";
 import { LogoutButton, Options } from "./components";
 
-import { useAuthStore } from "@/store/auth-store";
+import { useSettingsState } from "./hooks/use-settings-state";
 
 export const Settings = () => {
-	const { signOut } = useAuthStore((state) => state);
+	const { handleLogout } = useSettingsState();
 	return (
 		<>
 			<Header title="Configurações" />
 			<ScrollContainer>
 				<Content>
-					<Options additional={() => <LogoutButton onLogout={signOut} />} />
+					<Options
+						additional={() => <LogoutButton onLogout={handleLogout} />}
+					/>
 					<CreatedBy>© Gabriel Lima</CreatedBy>
 				</Content>
 			</ScrollContainer>
