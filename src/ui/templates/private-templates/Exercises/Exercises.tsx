@@ -21,8 +21,10 @@ export const Exercises = () => {
 					}
 				/>
 				{isLoading && <LoadingIndicator />}
-				{!!error && <TextError>{(error as Error).message}</TextError>}
-				{!error && exercises && (
+				{!!error && !isLoading && (
+					<TextError>{(error as Error).message}</TextError>
+				)}
+				{!error && !isLoading && exercises && (
 					<ExerciseList exercises={exercises} category={category} />
 				)}
 			</Content>

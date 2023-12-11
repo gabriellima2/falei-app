@@ -29,6 +29,7 @@ export const FilterByCategory = (props: FilterByCategoryProps) => {
 	return (
 		<Container
 			horizontal
+			testID="categories"
 			showsHorizontalScrollIndicator={false}
 			contentContainerStyle={{ paddingHorizontal: 16, gap: 16 }}
 		>

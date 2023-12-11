@@ -4,7 +4,7 @@ import { useGetExercisesByCategory } from "@/hooks/use-get-exercises-by-category
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import { ExerciseEntity } from "@/entities/exercise.entity";
 
-type UseExercisesStateReturn = {
+export type UseExercisesStateReturn = {
 	exercises: ExerciseEntity[] | undefined;
 	error: unknown;
 	isLoading: boolean;
