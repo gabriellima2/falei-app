@@ -1,6 +1,8 @@
 import { renderHook } from "@testing-library/react-hooks";
 
 import { useGetIncompleteExercises } from "./use-get-incomplete-exercises";
+
+import { createFakeRoundExercise } from "@/__mocks__/create-fake-round-exercise";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 const executeHook = (
@@ -10,45 +12,34 @@ const executeHook = (
 
 describe("UseIncompleteBreathingExercises", () => {
 	describe("Valid", () => {
-		type CreateMockExerciseParams = {
-			roundsCompleted: number;
-			roundsTotal: number;
-		};
-
-		const createMockExercise = (params: CreateMockExerciseParams) => {
-			const { roundsCompleted, roundsTotal } = params;
-			return {
-				rounds: {
-					rounds_completed: roundsCompleted,
-					rounds_total: roundsTotal,
-				},
-			};
-		};
-
 		const cases = [
 			{
 				params: {
 					exercises: [
-						createMockExercise({ roundsCompleted: 0, roundsTotal: 1 }),
-						createMockExercise({ roundsCompleted: 1, roundsTotal: 2 }),
-						createMockExercise({ roundsCompleted: 1, roundsTotal: 1 }),
+						createFakeRoundExercise({ roundsCompleted: 0, roundsTotal: 1 }),
+						createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 2 }),
+						createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 1 }),
 					],
 				},
-				result: [createMockExercise({ roundsCompleted: 1, roundsTotal: 2 })],
+				result: [
+					createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 2 }),
+				],
 			},
 			{
 				params: {
 					exercises: [
-						createMockExercise({ roundsCompleted: 1, roundsTotal: 3 }),
+						createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 3 }),
 					],
 					additional: jest.fn().mockReturnValue(true),
 				},
-				result: [createMockExercise({ roundsCompleted: 1, roundsTotal: 3 })],
+				result: [
+					createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 3 }),
+				],
 			},
 			{
 				params: {
 					exercises: [
-						createMockExercise({ roundsCompleted: 0, roundsTotal: 3 }),
+						createFakeRoundExercise({ roundsCompleted: 0, roundsTotal: 3 }),
 					],
 				},
 				result: [],

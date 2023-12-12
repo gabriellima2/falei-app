@@ -4,6 +4,8 @@ import {
 	useGetIncompleteBreathingExercises,
 	type UseGetIncompleteBreathingExercisesParams,
 } from "./use-get-incomplete-breathing-exercises";
+
+import { createFakeRoundExercise } from "@/__mocks__/create-fake-round-exercise";
 import { getDayOfTheWeek } from "@/helpers/get-day-of-the-week";
 
 const executeHook = (params: UseGetIncompleteBreathingExercisesParams) =>
@@ -13,21 +15,6 @@ describe("useGetIncompleteBreathingExercises", () => {
 	const day = new Date().getDay();
 
 	describe("Return Values", () => {
-		type CreateMockExerciseParams = {
-			roundsCompleted: number;
-			roundsTotal: number;
-		};
-
-		const createMockExercise = (params: CreateMockExerciseParams) => {
-			const { roundsCompleted, roundsTotal } = params;
-			return {
-				rounds: {
-					rounds_completed: roundsCompleted,
-					rounds_total: roundsTotal,
-				},
-			};
-		};
-
 		it("should return the initial values correctly", () => {
 			const { result } = executeHook({ exercises: [], appointments: [] });
 
@@ -41,29 +28,29 @@ describe("useGetIncompleteBreathingExercises", () => {
 		it("should return 'incomplete exercises' correctly", () => {
 			const exercises = {
 				all: [
-					createMockExercise({ roundsCompleted: 1, roundsTotal: 2 }),
-					createMockExercise({ roundsCompleted: 1, roundsTotal: 1 }),
+					createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 2 }),
+					createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 1 }),
 				],
 				incomplete: [
-					createMockExercise({ roundsCompleted: 1, roundsTotal: 2 }),
+					createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 2 }),
 				],
 			};
 			const appointments = {
 				all: [
 					{
-						...createMockExercise({ roundsCompleted: 2, roundsTotal: 4 }),
+						...createFakeRoundExercise({ roundsCompleted: 2, roundsTotal: 4 }),
 						scheduled_at: {
 							days: [getDayOfTheWeek(day === 0 ? day + 1 : day - 1)],
 						},
 					},
 					{
-						...createMockExercise({ roundsCompleted: 1, roundsTotal: 2 }),
+						...createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 2 }),
 						scheduled_at: { days: [getDayOfTheWeek(day)] },
 					},
 				],
 				incomplete: [
 					{
-						...createMockExercise({ roundsCompleted: 1, roundsTotal: 2 }),
+						...createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 2 }),
 						scheduled_at: { days: [getDayOfTheWeek(new Date().getDay())] },
 					},
 				],
