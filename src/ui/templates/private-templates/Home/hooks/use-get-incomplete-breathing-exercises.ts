@@ -6,7 +6,7 @@ import type {
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
 
-type UseGetIncompleteBreathingExercisesParams = {
+export type UseGetIncompleteBreathingExercisesParams = {
 	exercises: BreathingExerciseEntity[];
 	appointments: BreathingAppointmentEntity[];
 };
