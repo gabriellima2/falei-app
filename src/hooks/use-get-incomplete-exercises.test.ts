@@ -51,7 +51,7 @@ describe("UseIncompleteBreathingExercises", () => {
 						createMockExercise({ roundsCompleted: 0, roundsTotal: 3 }),
 					],
 				},
-				result: undefined,
+				result: [],
 			},
 		];
 		test.each(cases)(
@@ -74,13 +74,9 @@ describe("UseIncompleteBreathingExercises", () => {
 		);
 	});
 	describe("Invalid", () => {
-		const cases = [undefined, []];
-		test.each(cases)(
-			"should return undefined when exercises is empty",
-			(param) => {
-				const { result } = executeHook(param as BreathingExerciseEntity[]);
-				expect(result.current).toBeUndefined();
-			}
-		);
+		it("should return a empty array when exercises is empty", () => {
+			const { result } = executeHook([] as BreathingExerciseEntity[]);
+			expect(result.current).toMatchObject([]);
+		});
 	});
 });
