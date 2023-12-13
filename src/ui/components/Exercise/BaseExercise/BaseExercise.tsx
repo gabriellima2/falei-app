@@ -2,9 +2,9 @@ import { type ReactNode } from "react";
 import styled, { css } from "styled-components/native";
 
 import {
-	useBaseExercise,
-	type UseBaseExerciseParams,
-} from "./hooks/use-base-exercise";
+	useBaseExerciseState,
+	type UseBaseExerciseStateParams,
+} from "./hooks/use-base-exercise-state";
 
 import { Typography, type BaseLinkProps } from "@/ui/atoms";
 import { BaseLink } from "@/ui/atoms/Links/BaseLink";
@@ -13,7 +13,7 @@ import { theme } from "@/styles/theme";
 import type { IconStyles } from "@/@types/icon-styles";
 
 export type BaseExerciseProps<TParams extends object> = BaseLinkProps<TParams> &
-	UseBaseExerciseParams & {
+	UseBaseExerciseStateParams & {
 		title: string;
 		children?: ReactNode;
 		icon: (props: IconStyles) => JSX.Element;
@@ -23,7 +23,7 @@ export const BaseExercise = <TParams extends object>(
 	props: BaseExerciseProps<TParams>
 ) => {
 	const { title, icon, children, id, withCustomOptions, ...rest } = props;
-	const { handleLongPress } = useBaseExercise({ id, withCustomOptions });
+	const { handleLongPress } = useBaseExerciseState({ id, withCustomOptions });
 	return (
 		<Container {...rest} onLongPress={handleLongPress}>
 			<Icon>{icon({ color: theme.colors.utils.white, size: 24 })}</Icon>
