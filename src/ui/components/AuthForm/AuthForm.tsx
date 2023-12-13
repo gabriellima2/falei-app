@@ -4,7 +4,7 @@ import { TextInput, type TouchableOpacityProps } from "react-native";
 import { Field } from "../Field";
 import { Form } from "@/ui/atoms";
 
-import { useAuthForm } from "./hooks/use-auth-form";
+import { useAuthFormState } from "./hooks/use-auth-form-state";
 
 import { focusNextField } from "@/helpers/focus-next-field";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
@@ -27,7 +27,7 @@ export const AuthForm = (props: AuthFormProps) => {
 		onSubmit,
 	} = props;
 	const { errors, isAuthenticating, setValue, handleAuthentication } =
-		useAuthForm({ onSubmit });
+		useAuthFormState({ onSubmit });
 	const passwordFieldRef = useRef<null | TextInput>(null);
 
 	return (

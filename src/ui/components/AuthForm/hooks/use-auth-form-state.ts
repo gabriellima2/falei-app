@@ -12,9 +12,9 @@ import { userAuthSchema } from "@/validations/user-auth-validation";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 import type { AuthFormProps } from "../AuthForm";
 
-type UseAuthFormParams = Pick<AuthFormProps, "onSubmit">;
+type UseAuthFormStateParams = Pick<AuthFormProps, "onSubmit">;
 
-type UseAuthFormReturn = {
+type UseAuthFormStateReturn = {
 	isAuthenticating: boolean;
 	errors: FieldErrors<AuthInputDTO>;
 	setValue: UseFormSetValue<AuthInputDTO>;
@@ -23,7 +23,9 @@ type UseAuthFormReturn = {
 	) => Promise<void>;
 };
 
-export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
+export function useAuthFormState(
+	params: UseAuthFormStateParams
+): UseAuthFormStateReturn {
 	const { onSubmit } = params;
 	const { notify } = useToastContext();
 	const [isAuthenticating, setIsAuthenticating] = useState(false);
