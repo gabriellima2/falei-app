@@ -52,6 +52,7 @@ export const Home = WithQuery(
 			exercises,
 			appointments,
 		});
+		const hasIncompleteExercises = !!incompleteExercises.length;
 		return (
 			<ScrollContainer isBottomTabRendered>
 				<Header
@@ -65,13 +66,13 @@ export const Home = WithQuery(
 					<Group
 						title="Em progresso"
 						rightLink={
-							incompleteExercises?.length
+							hasIncompleteExercises
 								? { pathname: "/", text: "Ver Mais" }
 								: undefined
 						}
 					>
 						<IncompleteExercises
-							exercises={incompleteExercises ? incompleteExercises : []}
+							exercises={hasIncompleteExercises ? incompleteExercises : []}
 							href={{ pathname: "/" }}
 						/>
 					</Group>

@@ -61,11 +61,11 @@ describe("UseHome", () => {
 				mock.appointments
 			);
 		});
-		it("should return correctly when hooks return undefined", () => {
+		it("should return correctly when hooks return empty values", () => {
 			useGetAppointmentsSpyOn.mockReturnValue([]);
 			useGetIncompleteBreathingExercisesSpyOn.mockReturnValueOnce({
-				exercises: undefined,
-				appointments: undefined,
+				exercises: [],
+				appointments: [],
 			});
 
 			const { result } = executeHook();
@@ -74,18 +74,18 @@ describe("UseHome", () => {
 				"Torne um exercício parte de sua rotina"
 			);
 			expect(result.current.filteredAppointments).toMatchObject([]);
-			expect(result.current.incompleteExercises).toBeUndefined();
+			expect(result.current.incompleteExercises).toMatchObject([]);
 		});
 	});
 
 	describe("useGetIncompleteExercises", () => {
 		const cases = [
 			{
-				mock: { exercises: mock.exercises, appointments: undefined },
+				mock: { exercises: mock.exercises, appointments: [] },
 				expected: mock.exercises,
 			},
 			{
-				mock: { appointments: mock.appointments, exercises: undefined },
+				mock: { appointments: mock.appointments, exercises: [] },
 				expected: mock.appointments,
 			},
 			{ mock, expected: [...mock.exercises, ...mock.appointments] },

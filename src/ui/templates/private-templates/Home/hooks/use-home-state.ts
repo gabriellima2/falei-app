@@ -15,10 +15,7 @@ export type UseHomeStateParams = {
 export type UseHomeStateReturn = {
 	title: string;
 	filteredAppointments: BreathingAppointmentEntity[];
-	incompleteExercises:
-		| BreathingExerciseEntity[]
-		| BreathingAppointmentEntity[]
-		| undefined;
+	incompleteExercises: BreathingExerciseEntity[] | BreathingAppointmentEntity[];
 };
 
 export function useHomeState(params: UseHomeStateParams): UseHomeStateReturn {
@@ -42,6 +39,7 @@ export function useHomeState(params: UseHomeStateParams): UseHomeStateReturn {
 		if (exercises && appointments) return [...exercises, ...appointments];
 		if (exercises) return exercises;
 		if (appointments) return appointments;
+		return [];
 	};
 
 	return {
