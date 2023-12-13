@@ -12,7 +12,7 @@ import { userAuthSchema } from "@/validations/user-auth-validation";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 import type { AuthFormProps } from "../AuthForm";
 
-type UseAuthFormStateParams = Pick<AuthFormProps, "onSubmit">;
+export type UseAuthFormStateParams = Pick<AuthFormProps, "onSubmit">;
 
 type UseAuthFormStateReturn = {
 	isAuthenticating: boolean;
