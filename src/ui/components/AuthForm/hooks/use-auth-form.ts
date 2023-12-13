@@ -1,12 +1,7 @@
-import { useEffect, useState } from "react";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { FirebaseError } from "firebase/app";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-	useForm,
-	FieldErrors,
-	UseFormSetValue,
-	UseFormHandleSubmit,
-} from "react-hook-form";
+import { useForm, FieldErrors, UseFormSetValue } from "react-hook-form";
 
 import { useToastContext } from "@/contexts/ToastContext";
 
@@ -23,8 +18,9 @@ type UseAuthFormReturn = {
 	isAuthenticating: boolean;
 	errors: FieldErrors<AuthInputDTO>;
 	setValue: UseFormSetValue<AuthInputDTO>;
-	handleSubmit: UseFormHandleSubmit<AuthInputDTO>;
-	handleUserAuthentication: (credentials: AuthInputDTO) => Promise<void>;
+	handleAuthentication: (
+		e?: BaseSyntheticEvent<object, unknown, unknown> | undefined
+	) => Promise<void>;
 };
 
 export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
@@ -45,7 +41,7 @@ export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 		register("password");
 	}, []);
 
-	const handleUserAuthentication = async (credentials: AuthInputDTO) => {
+	const handleAuthentication = async (credentials: AuthInputDTO) => {
 		setIsAuthenticating(true);
 		try {
 			await onSubmit(credentials);
@@ -66,7 +62,6 @@ export function useAuthForm(params: UseAuthFormParams): UseAuthFormReturn {
 		errors,
 		isAuthenticating,
 		setValue,
-		handleSubmit,
-		handleUserAuthentication,
+		handleAuthentication: handleSubmit(handleAuthentication),
 	};
 }
