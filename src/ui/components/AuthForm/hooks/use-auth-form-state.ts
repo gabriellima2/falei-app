@@ -1,7 +1,12 @@
 import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { FirebaseError } from "firebase/app";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FieldErrors, UseFormSetValue } from "react-hook-form";
+import {
+	useForm,
+	FieldErrors,
+	UseFormSetValue,
+	UseFormHandleSubmit,
+} from "react-hook-form";
 
 import { useToastContext } from "@/contexts/ToastContext";
 
@@ -18,9 +23,8 @@ type UseAuthFormStateReturn = {
 	isAuthenticating: boolean;
 	errors: FieldErrors<AuthInputDTO>;
 	setValue: UseFormSetValue<AuthInputDTO>;
-	handleAuthentication: (
-		e?: BaseSyntheticEvent<object, unknown, unknown> | undefined
-	) => Promise<void>;
+	handleSubmit: UseFormHandleSubmit<AuthInputDTO, undefined>;
+	handleAuthentication: (credentials: AuthInputDTO) => Promise<void>;
 };
 
 export function useAuthFormState(
@@ -64,6 +68,7 @@ export function useAuthFormState(
 		errors,
 		isAuthenticating,
 		setValue,
-		handleAuthentication: handleSubmit(handleAuthentication),
+		handleSubmit,
+		handleAuthentication,
 	};
 }

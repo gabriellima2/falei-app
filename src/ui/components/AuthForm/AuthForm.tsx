@@ -26,8 +26,13 @@ export const AuthForm = (props: AuthFormProps) => {
 		button: { text, ...buttonRest },
 		onSubmit,
 	} = props;
-	const { errors, isAuthenticating, setValue, handleAuthentication } =
-		useAuthFormState({ onSubmit });
+	const {
+		errors,
+		isAuthenticating,
+		setValue,
+		handleAuthentication,
+		handleSubmit,
+	} = useAuthFormState({ onSubmit });
 	const passwordFieldRef = useRef<null | TextInput>(null);
 
 	return (
@@ -52,7 +57,7 @@ export const AuthForm = (props: AuthFormProps) => {
 					placeholder="8+ Caracteres"
 					errorMessage={errors.password?.message?.toString()}
 					onChangeText={(text) => setValue("password", text)}
-					onSubmitEditing={handleAuthentication}
+					onSubmitEditing={handleSubmit(handleAuthentication)}
 					returnKeyType="send"
 					autoCapitalize="none"
 					secureTextEntry
@@ -61,7 +66,7 @@ export const AuthForm = (props: AuthFormProps) => {
 			<Form.Button
 				{...buttonRest}
 				isSubmitting={isAuthenticating}
-				onPress={handleAuthentication}
+				onPress={handleSubmit(handleAuthentication)}
 			>
 				{text}
 			</Form.Button>
