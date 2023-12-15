@@ -7,7 +7,7 @@ import { firebaseAuth } from "@/helpers/firebase-auth";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 
 export class FirebaseAuthenticatorService {
-	async sigIn(credentials: AuthInputDTO) {
+	async signIn(credentials: AuthInputDTO) {
 		const { email, password } = credentials;
 		return await signInWithEmailAndPassword(firebaseAuth, email, password);
 	}

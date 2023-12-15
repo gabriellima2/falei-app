@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FirebaseError } from "firebase/app";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {

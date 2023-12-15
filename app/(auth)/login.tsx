@@ -9,7 +9,7 @@ export default function Page() {
 	return (
 		<>
 			<Stack.Screen options={{ animation: "default" }} />
-			<Login authentication={firebaseAuthenticatorService.sigIn} />
+			<Login authentication={firebaseAuthenticatorService.signIn} />
 		</>
 	);
 }
