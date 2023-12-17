@@ -2,6 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import {
 	FilterByCategory,
+	filterOptions,
 	type FilterByCategoryProps,
 } from "./FilterByCategory";
 
@@ -24,7 +25,9 @@ describe("<FilterByCategory", () => {
 			renderComponent();
 
 			expect(getFirstOption()).toBeTruthy();
-			expect(screen.getAllByTestId("check-option")).toHaveLength(3);
+			expect(screen.getAllByTestId("check-option")).toHaveLength(
+				filterOptions.length
+			);
 		});
 	});
 	describe("Interactions", () => {
@@ -38,7 +41,7 @@ describe("<FilterByCategory", () => {
 
 				expect(onChange).toHaveBeenCalled();
 				expect(onChange).toHaveBeenCalledWith([
-					ExerciseCategoryEntity.Breathing,
+					ExerciseCategoryEntity.Incomplete,
 				]);
 			});
 		});

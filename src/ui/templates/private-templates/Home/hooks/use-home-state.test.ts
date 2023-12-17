@@ -2,8 +2,8 @@ import { renderHook } from "@testing-library/react-hooks";
 
 import { useHomeState } from "./use-home-state";
 
-import * as useGetIncompleteBreathingExercises from "../../../../../hooks/use-find-incomplete-breathing-exercises";
-import * as useGetAppointments from "../../../../../hooks/use-week-appointments";
+import * as useFindIncompleteBreathingExercises from "@/hooks/use-find-incomplete-breathing-exercises";
+import * as useWeekAppointments from "@/hooks/use-week-appointments";
 
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import type {
@@ -11,13 +11,13 @@ import type {
 	BreathingExerciseEntity,
 } from "@/entities/breathing-entities";
 
-const useGetAppointmentsSpyOn = jest.spyOn(
-	useGetAppointments,
-	"useGetAppointments"
+const useWeekAppointmentsSpyOn = jest.spyOn(
+	useWeekAppointments,
+	"useWeekAppointments"
 );
-const useGetIncompleteBreathingExercisesSpyOn = jest.spyOn(
-	useGetIncompleteBreathingExercises,
-	"useGetIncompleteBreathingExercises"
+const useFindIncompleteBreathingExercisesSpyOn = jest.spyOn(
+	useFindIncompleteBreathingExercises,
+	"useFindIncompleteBreathingExercises"
 );
 
 export const mock = {
@@ -45,60 +45,41 @@ export const mock = {
 const executeHook = () => renderHook(() => useHomeState(mock));
 
 describe("UseHome", () => {
-	describe("Default", () => {
+	describe("Initial Values", () => {
+		it("should return the initial values correctly", () => {
+			const { result } = executeHook();
+
+			const {
+				current: { title, weekAppointments, incompleteExercises },
+			} = result;
+
+			expect(typeof title).toBe("string");
+			expect(typeof weekAppointments).toBe("object");
+			expect(typeof incompleteExercises).toBe("object");
+		});
 		it("should return correctly with values", () => {
-			useGetAppointmentsSpyOn.mockReturnValue(mock.appointments);
-			useGetIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(mock);
+			useWeekAppointmentsSpyOn.mockReturnValue(mock.appointments);
+			useFindIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(
+				mock.exercises
+			);
 
 			const { result } = executeHook();
 
 			expect(result.current.title).toBeTruthy();
-			expect(result.current.incompleteExercises).toMatchObject([
-				...mock.exercises,
-				...mock.appointments,
-			]);
-			expect(result.current.filteredAppointments).toMatchObject(
-				mock.appointments
-			);
+			expect(result.current.incompleteExercises).toMatchObject(mock.exercises);
+			expect(result.current.weekAppointments).toMatchObject(mock.appointments);
 		});
 		it("should return correctly when hooks return empty values", () => {
-			useGetAppointmentsSpyOn.mockReturnValue([]);
-			useGetIncompleteBreathingExercisesSpyOn.mockReturnValueOnce({
-				exercises: [],
-				appointments: [],
-			});
+			useWeekAppointmentsSpyOn.mockReturnValue([]);
+			useFindIncompleteBreathingExercisesSpyOn.mockReturnValueOnce([]);
 
 			const { result } = executeHook();
 
 			expect(result.current.title).toBe(
 				"Torne um exercício parte de sua rotina"
 			);
-			expect(result.current.filteredAppointments).toMatchObject([]);
+			expect(result.current.weekAppointments).toMatchObject([]);
 			expect(result.current.incompleteExercises).toMatchObject([]);
 		});
-	});
-
-	describe("useGetIncompleteExercises", () => {
-		const cases = [
-			{
-				mock: { exercises: mock.exercises, appointments: [] },
-				expected: mock.exercises,
-			},
-			{
-				mock: { appointments: mock.appointments, exercises: [] },
-				expected: mock.appointments,
-			},
-			{ mock, expected: [...mock.exercises, ...mock.appointments] },
-		];
-		test.each(cases)(
-			"should handle incomplete-exercises correctly",
-			({ mock, expected }) => {
-				useGetIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(mock);
-
-				const { result } = executeHook();
-
-				expect(result.current.incompleteExercises).toMatchObject(expected);
-			}
-		);
 	});
 });

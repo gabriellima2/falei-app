@@ -19,7 +19,7 @@ jest
 
 const defaultReturn: useHomeState.UseHomeStateReturn = {
 	title: "any_title",
-	filteredAppointments: mock.appointments,
+	weekAppointments: mock.appointments,
 	incompleteExercises: [...mock.exercises, ...mock.appointments],
 };
 
@@ -43,7 +43,7 @@ describe("<Home />", () => {
 			renderComponent();
 
 			const appointmentEls = screen.getAllByText(
-				defaultReturn.filteredAppointments[0].title
+				defaultReturn.weekAppointments[0].title
 			);
 			const reminder = appointmentEls[0];
 			const progress = appointmentEls[1];

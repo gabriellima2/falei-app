@@ -10,5 +10,9 @@ export function createFakeRoundExercise(params: CreateFakeRoundExerciseParams) {
 			rounds_completed: roundsCompleted,
 			rounds_total: roundsTotal,
 		},
+		last_progress_at: {
+			seconds: 0,
+			nanoseconds: 0,
+		},
 	};
 }

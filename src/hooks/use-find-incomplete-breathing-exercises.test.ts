@@ -18,12 +18,9 @@ describe("useFindIncompleteBreathingExercises", () => {
 		it("should return the initial values correctly", () => {
 			const { result } = executeHook({ exercises: [], appointments: [] });
 
-			const {
-				current: { exercises, appointments },
-			} = result;
+			const { current } = result;
 
-			expect(typeof exercises).toBe("object");
-			expect(typeof appointments).toBe("object");
+			expect(typeof current).toBe("object");
 		});
 		it("should return 'incomplete exercises' correctly", () => {
 			const exercises = {
@@ -62,8 +59,10 @@ describe("useFindIncompleteBreathingExercises", () => {
 				appointments: appointments.all,
 			} as UseFindIncompleteBreathingExercisesParams);
 
-			expect(current.exercises).toMatchObject(exercises.incomplete);
-			expect(current.appointments).toMatchObject(appointments.incomplete);
+			expect(current).toMatchObject([
+				...exercises.incomplete,
+				...appointments.incomplete,
+			]);
 		});
 	});
 });

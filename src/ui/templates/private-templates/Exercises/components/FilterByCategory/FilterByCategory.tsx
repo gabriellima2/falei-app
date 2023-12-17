@@ -10,7 +10,7 @@ export type FilterByCategoryProps = Pick<
 	"initialValue" | "onChange"
 >;
 
-const filterOptions: Pick<CheckProps, "items">["items"] = [
+export const filterOptions: Pick<CheckProps, "items">["items"] = [
 	{
 		name: categoriesPortuguese.incomplete,
 		value: ExerciseCategoryEntity.Incomplete,
