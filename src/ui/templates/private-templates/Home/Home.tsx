@@ -19,24 +19,11 @@ import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 import { makeAppointmentRepositoryImpl } from "@/factories/repositories/make-appointment-repository-impl";
 import { makeExerciseRepositoryImpl } from "@/factories/repositories/make-exercise-repository-impl";
 
-import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import type {
 	BreathingExerciseEntity,
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
-
-async function getData() {
-	return {
-		appointments:
-			await makeAppointmentRepositoryImpl<BreathingAppointmentEntity>().getAll({
-				category: ExerciseCategoryEntity.Breathing,
-			}),
-		exercises:
-			await makeExerciseRepositoryImpl().getAll<BreathingExerciseEntity>({
-				category: ExerciseCategoryEntity.Breathing,
-			}),
-	};
-}
+import { BreathingExerciseService } from "@/services/breathing-exercise.service";
 
 type HomeProps = WithQueryInjectProps<{
 	appointments: BreathingAppointmentEntity[];
@@ -45,13 +32,8 @@ type HomeProps = WithQueryInjectProps<{
 
 export const Home = WithQuery(
 	(props: HomeProps) => {
-		const {
-			data: { exercises, appointments },
-		} = props;
-		const { title, filteredAppointments, incompleteExercises } = useHomeState({
-			exercises,
-			appointments,
-		});
+		const { data } = props;
+		const { title, weekAppointments, incompleteExercises } = useHomeState(data);
 		const hasIncompleteExercises = !!incompleteExercises.length;
 		return (
 			<ScrollContainer isBottomTabRendered>
@@ -61,7 +43,7 @@ export const Home = WithQuery(
 				/>
 				<Container horizontalSpacing>
 					<Group title="Lembretes da semana">
-						<BreathingAppointments appointments={filteredAppointments} />
+						<BreathingAppointments appointments={weekAppointments} />
 					</Group>
 					<Group
 						title="Em progresso"
@@ -80,13 +62,20 @@ export const Home = WithQuery(
 						title="Exercícios"
 						rightLink={{ pathname: "/", text: "Ver Mais" }}
 					>
-						<BreathingExercisesPreview items={exercises} />
+						<BreathingExercisesPreview items={data.exercises} />
 					</Group>
 				</Container>
 			</ScrollContainer>
 		);
 	},
-	{ name: "overview-data", fn: getData }
+	{
+		name: "overview-data",
+		fn: () =>
+			new BreathingExerciseService({
+				exercise: makeExerciseRepositoryImpl(),
+				appointment: makeAppointmentRepositoryImpl(),
+			}).getAll(),
+	}
 );
 
 const Container = styled(ContainerWithDefaultSpaces)`

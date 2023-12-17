@@ -1,17 +1,17 @@
 import { renderHook } from "@testing-library/react-hooks";
 
 import {
-	useGetIncompleteBreathingExercises,
-	type UseGetIncompleteBreathingExercisesParams,
-} from "./use-get-incomplete-breathing-exercises";
+	useFindIncompleteBreathingExercises,
+	type UseFindIncompleteBreathingExercisesParams,
+} from "./use-find-incomplete-breathing-exercises";
 
 import { createFakeRoundExercise } from "@/__mocks__/create-fake-round-exercise";
 import { getDayOfTheWeek } from "@/helpers/get-day-of-the-week";
 
-const executeHook = (params: UseGetIncompleteBreathingExercisesParams) =>
-	renderHook(() => useGetIncompleteBreathingExercises(params));
+const executeHook = (params: UseFindIncompleteBreathingExercisesParams) =>
+	renderHook(() => useFindIncompleteBreathingExercises(params));
 
-describe("useGetIncompleteBreathingExercises", () => {
+describe("useFindIncompleteBreathingExercises", () => {
 	const day = new Date().getDay();
 
 	describe("Return Values", () => {
@@ -60,7 +60,7 @@ describe("useGetIncompleteBreathingExercises", () => {
 			} = executeHook({
 				exercises: exercises.all,
 				appointments: appointments.all,
-			} as UseGetIncompleteBreathingExercisesParams);
+			} as UseFindIncompleteBreathingExercisesParams);
 
 			expect(current.exercises).toMatchObject(exercises.incomplete);
 			expect(current.appointments).toMatchObject(appointments.incomplete);

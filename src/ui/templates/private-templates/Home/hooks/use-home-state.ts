@@ -1,6 +1,7 @@
-import { useGetExercisesOrderedByLastProgress } from "./use-get-exercises-ordered-by-last-progress";
-import { useGetIncompleteBreathingExercises } from "./use-get-incomplete-breathing-exercises";
-import { useGetAppointments } from "@/hooks/use-get-appointments";
+import {
+	useFindIncompleteBreathingExercises,
+	useWeekAppointments,
+} from "@/hooks";
 
 import type {
 	BreathingExerciseEntity,
@@ -14,37 +15,28 @@ export type UseHomeStateParams = {
 
 export type UseHomeStateReturn = {
 	title: string;
-	filteredAppointments: BreathingAppointmentEntity[];
+	weekAppointments: BreathingAppointmentEntity[];
 	incompleteExercises: BreathingExerciseEntity[] | BreathingAppointmentEntity[];
 };
 
 export function useHomeState(params: UseHomeStateParams): UseHomeStateReturn {
 	const { exercises, appointments } = params;
-	const filteredAppointments = useGetAppointments(appointments);
-	const ordedExercises = useGetExercisesOrderedByLastProgress(exercises);
-	const incomplete = useGetIncompleteBreathingExercises({
-		exercises: ordedExercises,
-		appointments: filteredAppointments,
+	const weekAppointments = useWeekAppointments(appointments);
+	const incompleteExercises = useFindIncompleteBreathingExercises({
+		exercises,
+		appointments: weekAppointments,
 	});
 
 	const getHeaderTitle = () => {
-		const appointmentsTotal = filteredAppointments.length;
+		const appointmentsTotal = weekAppointments.length;
 		return appointmentsTotal
 			? `Você tem ${appointmentsTotal} exercício(s) em seus lembretes pendentes`
 			: "Torne um exercício parte de sua rotina";
 	};
 
-	const getIncompleteExercises = () => {
-		const { exercises, appointments } = incomplete;
-		if (exercises && appointments) return [...exercises, ...appointments];
-		if (exercises) return exercises;
-		if (appointments) return appointments;
-		return [];
-	};
-
 	return {
 		title: getHeaderTitle(),
-		filteredAppointments,
-		incompleteExercises: getIncompleteExercises(),
+		weekAppointments,
+		incompleteExercises,
 	};
 }

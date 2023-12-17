@@ -1,12 +1,12 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { useGetExercisesOrderedByLastProgress } from "./use-get-exercises-ordered-by-last-progress";
+import { useOrderExercisesByLastProgress } from "./use-order-exercises-by-last-progress";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 const executeHook = (params: BreathingExerciseEntity[]) =>
-	renderHook(() => useGetExercisesOrderedByLastProgress(params));
+	renderHook(() => useOrderExercisesByLastProgress(params));
 
-describe("useGetExercisesOrderedByLastProgress", () => {
+describe("useOrderExercisesByLastProgress", () => {
 	describe("Initial Values", () => {
 		const fakeExercises = {
 			first: { last_progress_at: { nanoseconds: 5, seconds: 5 } },

@@ -2,8 +2,8 @@ import { renderHook } from "@testing-library/react-hooks";
 
 import { useHomeState } from "./use-home-state";
 
-import * as useGetIncompleteBreathingExercises from "./use-get-incomplete-breathing-exercises";
-import * as useGetAppointments from "../../../../../hooks/use-get-appointments";
+import * as useGetIncompleteBreathingExercises from "../../../../../hooks/use-find-incomplete-breathing-exercises";
+import * as useGetAppointments from "../../../../../hooks/use-week-appointments";
 
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import type {

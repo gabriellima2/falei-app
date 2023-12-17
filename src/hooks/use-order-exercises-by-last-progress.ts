@@ -6,7 +6,7 @@ type LastProgress = Pick<
 	"last_progress_at"
 >["last_progress_at"];
 
-export function useGetExercisesOrderedByLastProgress<
+export function useOrderExercisesByLastProgress<
 	T extends BreathingExerciseEntity
 >(exercises: T[]) {
 	const getHour = (lastProgress: LastProgress) => {
