@@ -18,6 +18,9 @@ export type ExerciseListProps = {
 };
 
 const exerciseItem = {
+	[ExerciseCategoryEntity.Incomplete]: (props: ExerciseEntity) => (
+		<BreathingExercise {...(props as BreathingExerciseEntity)} />
+	),
 	[ExerciseCategoryEntity.Breathing]: (props: ExerciseEntity) => (
 		<BreathingExercise {...(props as BreathingExerciseEntity)} />
 	),

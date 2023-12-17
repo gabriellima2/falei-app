@@ -12,6 +12,10 @@ export type FilterByCategoryProps = Pick<
 
 const filterOptions: Pick<CheckProps, "items">["items"] = [
 	{
+		name: categoriesPortuguese.incomplete,
+		value: ExerciseCategoryEntity.Incomplete,
+	},
+	{
 		name: categoriesPortuguese.breathing_exercises,
 		value: ExerciseCategoryEntity.Breathing,
 	},
