@@ -1,13 +1,16 @@
 import { useState } from "react";
 
-import { useGetExercisesByCategory } from "@/hooks/use-get-exercises-by-category";
-import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
-import { ExerciseEntity } from "@/entities/exercise.entity";
 import {
+	useGetExercisesByCategory,
+	useFindIncompleteBreathingExercises,
+} from "@/hooks";
+
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
+import type { ExerciseEntity } from "@/entities/exercise.entity";
+import type {
 	BreathingAppointmentEntity,
 	BreathingExerciseEntity,
 } from "@/entities/breathing-entities";
-import { useFindIncompleteBreathingExercises } from "@/hooks";
 
 type UseExercisesStateParams = {
 	exercises: BreathingExerciseEntity[];
