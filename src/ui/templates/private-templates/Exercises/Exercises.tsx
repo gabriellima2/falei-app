@@ -4,17 +4,16 @@ import { useExercisesState } from "./hooks/use-exercises-state";
 
 import { LoadingIndicator, TextError, Header } from "@/ui/atoms";
 import { ExerciseList, FilterByCategory } from "./components";
-
-import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import { WithQuery } from "@/hocs";
-import { BreathingExerciseService } from "@/services/breathing-exercise.service";
-import { makeExerciseRepositoryImpl } from "@/factories/repositories/make-exercise-repository-impl";
-import { makeAppointmentRepositoryImpl } from "@/factories/repositories/make-appointment-repository-impl";
-import { WithQueryInjectProps } from "@/hocs/WithQuery";
-import {
-	BreathingAppointmentEntity,
+
+import { makeBreathingExerciseService } from "@/factories/services/make-breathing-exercise-service";
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
+
+import type {
 	BreathingExerciseEntity,
+	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
+import type { WithQueryInjectProps } from "@/hocs/WithQuery";
 
 type ExercisesProps = WithQueryInjectProps<{
 	appointments: BreathingAppointmentEntity[];
@@ -65,11 +64,7 @@ export const Exercises = WithQuery(
 	},
 	{
 		name: "all",
-		fn: () =>
-			new BreathingExerciseService({
-				exercise: makeExerciseRepositoryImpl(),
-				appointment: makeAppointmentRepositoryImpl(),
-			}).getAll(),
+		fn: () => makeBreathingExerciseService().getAll(),
 	}
 );
 

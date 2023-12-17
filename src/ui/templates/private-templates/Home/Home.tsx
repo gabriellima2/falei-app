@@ -16,14 +16,12 @@ import {
 } from "@/ui/atoms";
 import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 
-import { makeAppointmentRepositoryImpl } from "@/factories/repositories/make-appointment-repository-impl";
-import { makeExerciseRepositoryImpl } from "@/factories/repositories/make-exercise-repository-impl";
+import { makeBreathingExerciseService } from "@/factories/services/make-breathing-exercise-service";
 
 import type {
 	BreathingExerciseEntity,
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
-import { BreathingExerciseService } from "@/services/breathing-exercise.service";
 
 type HomeProps = WithQueryInjectProps<{
 	appointments: BreathingAppointmentEntity[];
@@ -70,11 +68,7 @@ export const Home = WithQuery(
 	},
 	{
 		name: "overview-data",
-		fn: () =>
-			new BreathingExerciseService({
-				exercise: makeExerciseRepositoryImpl(),
-				appointment: makeAppointmentRepositoryImpl(),
-			}).getAll(),
+		fn: () => makeBreathingExerciseService().getAll(),
 	}
 );
 
