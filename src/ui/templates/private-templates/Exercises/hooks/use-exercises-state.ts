@@ -12,7 +12,7 @@ import type {
 	BreathingExerciseEntity,
 } from "@/entities/breathing-entities";
 
-type UseExercisesStateParams = {
+export type UseExercisesStateParams = {
 	initialCategory: ExerciseCategoryEntity;
 	exercises: BreathingExerciseEntity[];
 	appointments: BreathingAppointmentEntity[];

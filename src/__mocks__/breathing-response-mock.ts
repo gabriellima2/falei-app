@@ -23,5 +23,14 @@ export const breathingResponseMock = {
 				duration_per_round_in_min: 10,
 			},
 		},
+		{
+			id: "exercise_2",
+			title: "any_title_exercise",
+			rounds: {
+				rounds_completed: 3,
+				rounds_total: 3,
+				duration_per_round_in_min: 10,
+			},
+		},
 	] as BreathingExerciseEntity[],
 };
