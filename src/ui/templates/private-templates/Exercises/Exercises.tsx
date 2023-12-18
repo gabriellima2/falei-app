@@ -15,10 +15,14 @@ import type {
 } from "@/entities/breathing-entities";
 import type { WithQueryInjectProps } from "@/hocs/WithQuery";
 
+import { exerciseCategories } from "./constants/exercise-categories";
+
 type ExercisesProps = WithQueryInjectProps<{
 	appointments: BreathingAppointmentEntity[];
 	exercises: BreathingExerciseEntity[];
 }>;
+
+const INITIAL_CATEGORY = ExerciseCategoryEntity.Incomplete;
 
 export const Exercises = WithQuery(
 	(props: ExercisesProps) => {
@@ -29,7 +33,10 @@ export const Exercises = WithQuery(
 			error,
 			isLoading,
 			handleCategoryChange,
-		} = useExercisesState(props.data);
+		} = useExercisesState({
+			...props.data,
+			initialCategory: INITIAL_CATEGORY,
+		});
 
 		const hasActiveIncompleteExercisesCategory =
 			category === ExerciseCategoryEntity.Incomplete && !!incompleteExercises;
@@ -39,7 +46,8 @@ export const Exercises = WithQuery(
 				<Header title="Exercícios" />
 				<Content>
 					<FilterByCategory
-						initialValue={ExerciseCategoryEntity.Incomplete}
+						categories={exerciseCategories}
+						initialValue={INITIAL_CATEGORY}
 						onChange={([category]) =>
 							handleCategoryChange(category as ExerciseCategoryEntity)
 						}

@@ -13,6 +13,7 @@ import type {
 } from "@/entities/breathing-entities";
 
 type UseExercisesStateParams = {
+	initialCategory: ExerciseCategoryEntity;
 	exercises: BreathingExerciseEntity[];
 	appointments: BreathingAppointmentEntity[];
 };
@@ -29,15 +30,14 @@ export type UseExercisesStateReturn = {
 export function useExercisesState(
 	params: UseExercisesStateParams
 ): UseExercisesStateReturn {
-	const { exercises, appointments } = params;
+	const { initialCategory, exercises, appointments } = params;
+	const [category, setCategory] =
+		useState<ExerciseCategoryEntity>(initialCategory);
+	const { data, error, isLoading } = useGetExercisesByCategory(category);
 	const incompleteExercises = useFindIncompleteBreathingExercises({
 		exercises,
 		appointments,
 	});
-	const [category, setCategory] = useState<ExerciseCategoryEntity>(
-		ExerciseCategoryEntity.Incomplete
-	);
-	const { data, error, isLoading } = useGetExercisesByCategory(category);
 
 	const handleCategoryChange = (value: ExerciseCategoryEntity) => {
 		if (!value) return;

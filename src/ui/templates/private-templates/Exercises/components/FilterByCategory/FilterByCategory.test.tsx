@@ -2,14 +2,16 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import {
 	FilterByCategory,
-	filterOptions,
 	type FilterByCategoryProps,
 } from "./FilterByCategory";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 
 const defaultProps: FilterByCategoryProps = {
+	categories: [
+		{ name: "any_name_1", value: "any_value_1" },
+		{ name: "any_name_2", value: "any_value_2" },
+	],
 	initialValue: "any_name",
 	onChange: jest.fn(),
 };
@@ -24,9 +26,11 @@ describe("<FilterByCategory", () => {
 		it("should render correctly", () => {
 			renderComponent();
 
+			const { categories } = defaultProps;
+
 			expect(getFirstOption()).toBeTruthy();
 			expect(screen.getAllByTestId("check-option")).toHaveLength(
-				filterOptions.length
+				categories.length
 			);
 		});
 	});
@@ -39,10 +43,12 @@ describe("<FilterByCategory", () => {
 				const el = getFirstOption();
 				fireEvent.press(el);
 
+				const {
+					categories: [firstCategory],
+				} = defaultProps;
+
 				expect(onChange).toHaveBeenCalled();
-				expect(onChange).toHaveBeenCalledWith([
-					ExerciseCategoryEntity.Incomplete,
-				]);
+				expect(onChange).toHaveBeenCalledWith([firstCategory.value]);
 			});
 		});
 	});
