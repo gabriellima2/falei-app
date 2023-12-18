@@ -67,7 +67,7 @@ export const Home = WithQuery(
 		);
 	},
 	{
-		name: "overview-data",
+		name: "breathing-exercises",
 		fn: () => makeBreathingExerciseService().getAll(),
 	}
 );

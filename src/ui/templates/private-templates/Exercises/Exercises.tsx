@@ -71,7 +71,7 @@ export const Exercises = WithQuery(
 		);
 	},
 	{
-		name: "all",
+		name: "breathing-exercises",
 		fn: () => makeBreathingExerciseService().getAll(),
 	}
 );

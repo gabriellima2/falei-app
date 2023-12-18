@@ -1,28 +1,30 @@
 import { AppointmentRepository } from "@/repositories/appointment.repository";
 import { ExerciseRepository } from "@/repositories/exercise.repository";
 
-import {
+import type {
 	BreathingExerciseEntity,
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 
+type BreathingExerciseServiceParams = {
+	repositories: {
+		exercise: ExerciseRepository;
+		appointment: AppointmentRepository<BreathingAppointmentEntity>;
+	};
+};
+
 export class BreathingExerciseService {
-	constructor(
-		private readonly repositories: {
-			exercise: ExerciseRepository;
-			appointment: AppointmentRepository<BreathingAppointmentEntity>;
-		}
-	) {}
+	constructor(private readonly params: BreathingExerciseServiceParams) {}
 	async getAll() {
+		const { repositories } = this.params;
 		return {
-			appointments: await this.repositories.appointment.getAll({
+			appointments: await repositories.appointment.getAll({
 				category: ExerciseCategoryEntity.Breathing,
 			}),
-			exercises:
-				await this.repositories.exercise.getAll<BreathingExerciseEntity>({
-					category: ExerciseCategoryEntity.Breathing,
-				}),
+			exercises: await repositories.exercise.getAll<BreathingExerciseEntity>({
+				category: ExerciseCategoryEntity.Breathing,
+			}),
 		};
 	}
 }

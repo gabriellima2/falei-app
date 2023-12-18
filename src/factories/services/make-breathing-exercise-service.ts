@@ -5,7 +5,9 @@ import { makeExerciseRepositoryImpl } from "../repositories/make-exercise-reposi
 
 export const makeBreathingExerciseService = () => {
 	return new BreathingExerciseService({
-		exercise: makeExerciseRepositoryImpl(),
-		appointment: makeAppointmentRepositoryImpl(),
+		repositories: {
+			exercise: makeExerciseRepositoryImpl(),
+			appointment: makeAppointmentRepositoryImpl(),
+		},
 	});
 };
