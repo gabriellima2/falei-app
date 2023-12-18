@@ -5,11 +5,7 @@ import { useHomeState } from "./use-home-state";
 import * as useFindIncompleteBreathingExercises from "@/hooks/use-find-incomplete-breathing-exercises";
 import * as useWeekAppointments from "@/hooks/use-week-appointments";
 
-import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
-import type {
-	BreathingAppointmentEntity,
-	BreathingExerciseEntity,
-} from "@/entities/breathing-entities";
+import { breathingResponseMock } from "@/__mocks__/breathing-response-mock";
 
 const useWeekAppointmentsSpyOn = jest.spyOn(
 	useWeekAppointments,
@@ -20,29 +16,7 @@ const useFindIncompleteBreathingExercisesSpyOn = jest.spyOn(
 	"useFindIncompleteBreathingExercises"
 );
 
-export const mock = {
-	appointments: [
-		{
-			id: "appointment_1",
-			title: "any_title_schedule_1",
-			scheduled_at: { days: [DAYS_OF_THE_WEEK[2]], hour: "18:00" },
-			rounds: {},
-		},
-	] as BreathingAppointmentEntity[],
-	exercises: [
-		{
-			id: "exercise_1",
-			title: "any_title_exercise",
-			rounds: {
-				rounds_completed: 1,
-				rounds_total: 3,
-				duration_per_round_in_min: 10,
-			},
-		},
-	] as BreathingExerciseEntity[],
-};
-
-const executeHook = () => renderHook(() => useHomeState(mock));
+const executeHook = () => renderHook(() => useHomeState(breathingResponseMock));
 
 describe("UseHome", () => {
 	describe("Initial Values", () => {
@@ -58,16 +32,22 @@ describe("UseHome", () => {
 			expect(typeof incompleteExercises).toBe("object");
 		});
 		it("should return correctly with values", () => {
-			useWeekAppointmentsSpyOn.mockReturnValue(mock.appointments);
+			useWeekAppointmentsSpyOn.mockReturnValue(
+				breathingResponseMock.appointments
+			);
 			useFindIncompleteBreathingExercisesSpyOn.mockReturnValueOnce(
-				mock.exercises
+				breathingResponseMock.exercises
 			);
 
 			const { result } = executeHook();
 
 			expect(result.current.title).toBeTruthy();
-			expect(result.current.incompleteExercises).toMatchObject(mock.exercises);
-			expect(result.current.weekAppointments).toMatchObject(mock.appointments);
+			expect(result.current.incompleteExercises).toMatchObject(
+				breathingResponseMock.exercises
+			);
+			expect(result.current.weekAppointments).toMatchObject(
+				breathingResponseMock.appointments
+			);
 		});
 		it("should return correctly when hooks return empty values", () => {
 			useWeekAppointmentsSpyOn.mockReturnValue([]);

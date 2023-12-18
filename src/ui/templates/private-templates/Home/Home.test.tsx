@@ -2,31 +2,36 @@ import { screen } from "@testing-library/react-native";
 import * as ReactQuery from "react-query";
 
 import { Home } from "./Home";
-
-import { mock } from "./hooks/use-home-state.test";
 import * as useHomeState from "./hooks/use-home-state";
 
+import { breathingResponseMock } from "@/__mocks__/breathing-response-mock";
 import { WithQueryClientProvider } from "@/__mocks__/with-query-client-provider";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+
 import type { TestingLibraryEl } from "@/@types/testing-library-el";
 
 const useHomeStateSpyOn = jest.spyOn(useHomeState, "useHomeState");
-jest
-	.spyOn(ReactQuery, "useQuery")
-	.mockImplementation(
-		jest.fn().mockReturnValue({ isLoading: false, error: null, data: mock })
-	);
+jest.spyOn(ReactQuery, "useQuery").mockImplementation(
+	jest.fn().mockReturnValue({
+		isLoading: false,
+		error: null,
+		data: breathingResponseMock,
+	})
+);
 
 const defaultReturn: useHomeState.UseHomeStateReturn = {
 	title: "any_title",
-	weekAppointments: mock.appointments,
-	incompleteExercises: [...mock.exercises, ...mock.appointments],
+	weekAppointments: breathingResponseMock.appointments,
+	incompleteExercises: [
+		...breathingResponseMock.exercises,
+		...breathingResponseMock.appointments,
+	],
 };
 
 const renderComponent = () =>
 	renderWithThemeProvider(
 		<WithQueryClientProvider>
-			<Home data={mock} />
+			<Home data={breathingResponseMock} />
 		</WithQueryClientProvider>
 	);
 
@@ -51,7 +56,9 @@ describe("<Home />", () => {
 			expectExerciseToHaveBeenPresent(reminder);
 			expectExerciseToHaveBeenPresent(progress);
 			expect(screen.getByText(defaultReturn.title)).toBeTruthy();
-			expect(getExerciseList()).toHaveLength(mock.exercises.length);
+			expect(getExerciseList()).toHaveLength(
+				breathingResponseMock.exercises.length
+			);
 		});
 	});
 });
