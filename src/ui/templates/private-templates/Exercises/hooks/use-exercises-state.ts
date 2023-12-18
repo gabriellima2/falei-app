@@ -20,7 +20,6 @@ type UseExercisesStateParams = {
 
 export type UseExercisesStateReturn = {
 	exercises: ExerciseEntity[] | undefined;
-	incompleteExercises: ExerciseEntity[] | undefined;
 	error: unknown;
 	isLoading: boolean;
 	category: ExerciseCategoryEntity;
@@ -30,23 +29,22 @@ export type UseExercisesStateReturn = {
 export function useExercisesState(
 	params: UseExercisesStateParams
 ): UseExercisesStateReturn {
-	const { initialCategory, exercises, appointments } = params;
+	const { initialCategory, ...rest } = params;
 	const [category, setCategory] =
 		useState<ExerciseCategoryEntity>(initialCategory);
 	const { data, error, isLoading } = useGetExercisesByCategory(category);
-	const incompleteExercises = useFindIncompleteBreathingExercises({
-		exercises,
-		appointments,
-	});
+	const incompleteExercises = useFindIncompleteBreathingExercises(rest);
 
 	const handleCategoryChange = (value: ExerciseCategoryEntity) => {
 		if (!value) return;
 		setCategory(value);
 	};
 
+	const exercises =
+		category === ExerciseCategoryEntity.Incomplete ? incompleteExercises : data;
+
 	return {
-		exercises: data,
-		incompleteExercises,
+		exercises,
 		error,
 		isLoading,
 		category,

@@ -26,21 +26,11 @@ const INITIAL_CATEGORY = ExerciseCategoryEntity.Incomplete;
 
 export const Exercises = WithQuery(
 	(props: ExercisesProps) => {
-		const {
-			exercises,
-			incompleteExercises,
-			category,
-			error,
-			isLoading,
-			handleCategoryChange,
-		} = useExercisesState({
-			...props.data,
-			initialCategory: INITIAL_CATEGORY,
-		});
-
-		const hasActiveIncompleteExercisesCategory =
-			category === ExerciseCategoryEntity.Incomplete && !!incompleteExercises;
-
+		const { exercises, category, error, isLoading, handleCategoryChange } =
+			useExercisesState({
+				...props.data,
+				initialCategory: INITIAL_CATEGORY,
+			});
 		return (
 			<>
 				<Header title="Exercícios" />
@@ -56,15 +46,9 @@ export const Exercises = WithQuery(
 					{!!error && !isLoading && (
 						<TextError>{(error as Error).message}</TextError>
 					)}
+
 					{!error && !isLoading && exercises && (
-						<ExerciseList
-							exercises={
-								hasActiveIncompleteExercisesCategory
-									? incompleteExercises
-									: exercises
-							}
-							category={category}
-						/>
+						<ExerciseList exercises={exercises} category={category} />
 					)}
 				</Content>
 			</>
