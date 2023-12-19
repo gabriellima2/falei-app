@@ -123,8 +123,8 @@ describe("useExercisesState", () => {
 		});
 	});
 	describe("Interactions", () => {
-		describe("HandleCategoryChange", () => {
-			it("should change category value", () => {
+		describe("Category Change", () => {
+			it("should change the category value correctly", () => {
 				const { result } = executeHook();
 				const previousCategory = ExerciseCategoryEntity.Incomplete;
 				const newCategory = ExerciseCategoryEntity.Poem;

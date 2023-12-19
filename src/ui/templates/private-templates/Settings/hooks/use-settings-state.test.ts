@@ -3,8 +3,8 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { useSettingsState } from "./use-settings-state";
 
 import {
-	mockNotify,
 	ToastContextWrapper,
+	mockNotify,
 } from "@/__mocks__/toast-context-wrapper";
 import { firebaseAuth } from "@/helpers/firebase-auth";
 
@@ -26,7 +26,7 @@ describe("useSettingsState", () => {
 		jest.clearAllMocks();
 	});
 
-	describe("Initial Values", () => {
+	describe("Return Values", () => {
 		it("should return the initial values correctly", () => {
 			const { result } = executeHook();
 
@@ -38,33 +38,34 @@ describe("useSettingsState", () => {
 		});
 	});
 	describe("Interactions", () => {
-		it("should handle when 'handleLogout' is resolved", async () => {
-			signOutSpy.mockResolvedValue();
-			const { result } = executeHook();
+		describe("Logout", () => {
+			it("should handle when 'handleLogout' is resolved", async () => {
+				signOutSpy.mockResolvedValue();
+				const { result } = executeHook();
 
-			await act(async () => {
-				await result.current.handleLogout();
-			});
-
-			expect(mockNotify).not.toHaveBeenCalled();
-		});
-		it("should handle when 'handleLogout' is rejected", async () => {
-			signOutSpy.mockRejectedValue(() => "");
-			const { result } = executeHook();
-
-			try {
 				await act(async () => {
 					await result.current.handleLogout();
 				});
-			} catch (e) {
-				expect(mockNotify).toHaveBeenCalled();
-				expect(mockNotify).toHaveBeenCalledWith(
-					"Desculpe, encontramos um problema ao tentar encerrar sua sessão",
-					{
+
+				expect(mockNotify).not.toHaveBeenCalled();
+			});
+			it("should handle when 'handleLogout' is rejected", async () => {
+				signOutSpy.mockRejectedValue(() => "");
+				const DEFAULT_ERROR_MESSAGE =
+					"Desculpe, encontramos um problema ao tentar encerrar sua sessão";
+				const { result } = executeHook();
+
+				try {
+					await act(async () => {
+						await result.current.handleLogout();
+					});
+				} catch (e) {
+					expect(mockNotify).toHaveBeenCalled();
+					expect(mockNotify).toHaveBeenCalledWith(DEFAULT_ERROR_MESSAGE, {
 						type: "alert",
-					}
-				);
-			}
+					});
+				}
+			});
 		});
 	});
 });

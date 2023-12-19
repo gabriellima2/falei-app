@@ -26,7 +26,7 @@ describe("useCreateAccountState", () => {
 		jest.clearAllMocks();
 	});
 
-	describe("Initial Values", () => {
+	describe("Return Values", () => {
 		it("should return the initial values correctly", () => {
 			const { result } = executeHook();
 
@@ -38,35 +38,37 @@ describe("useCreateAccountState", () => {
 		});
 	});
 	describe("Interactions", () => {
-		const credentials: AuthInputDTO = { email: "hello", password: "world" };
+		describe("Authentication", () => {
+			const credentials: AuthInputDTO = { email: "hello", password: "world" };
 
-		function expectAuthenticationToHaveBeenCalled(authentication: jest.Mock) {
-			expect(authentication).toHaveBeenCalled();
-			expect(authentication).toHaveBeenCalledWith(credentials);
-		}
-
-		it("should handle when authentication is completed correctly", async () => {
-			const mockAuthentication = jest.fn().mockResolvedValue(() => "");
-			const { result } = executeHook({ authentication: mockAuthentication });
-
-			await result.current.handleSignUp(credentials);
-
-			expectAuthenticationToHaveBeenCalled(mockAuthentication);
-			expect(mockNotify).toHaveBeenCalled();
-			expect(mockNotify).toHaveBeenCalledWith("Conta criada com sucesso", {
-				type: "success",
-			});
-		});
-		it("should handle when authentication throw an error", async () => {
-			const mockAuthentication = jest.fn().mockRejectedValue(() => "");
-			const { result } = executeHook({ authentication: mockAuthentication });
-
-			try {
-				await result.current.handleSignUp(credentials);
-			} catch (e) {
-				expectAuthenticationToHaveBeenCalled(mockAuthentication);
-				expect(mockNotify).not.toHaveBeenCalled();
+			function expectAuthenticationToHaveBeenCalled(authentication: jest.Mock) {
+				expect(authentication).toHaveBeenCalled();
+				expect(authentication).toHaveBeenCalledWith(credentials);
 			}
+
+			it("should handle when authentication is completed correctly", async () => {
+				const mockAuthentication = jest.fn().mockResolvedValue(() => "");
+				const { result } = executeHook({ authentication: mockAuthentication });
+
+				await result.current.handleSignUp(credentials);
+
+				expectAuthenticationToHaveBeenCalled(mockAuthentication);
+				expect(mockNotify).toHaveBeenCalled();
+				expect(mockNotify).toHaveBeenCalledWith("Conta criada com sucesso", {
+					type: "success",
+				});
+			});
+			it("should handle when authentication throw an error", async () => {
+				const mockAuthentication = jest.fn().mockRejectedValue(() => "");
+				const { result } = executeHook({ authentication: mockAuthentication });
+
+				try {
+					await result.current.handleSignUp(credentials);
+				} catch (e) {
+					expectAuthenticationToHaveBeenCalled(mockAuthentication);
+					expect(mockNotify).not.toHaveBeenCalled();
+				}
+			});
 		});
 	});
 });

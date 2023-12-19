@@ -4,7 +4,7 @@ import { useOnboardingState } from "./use-onboarding-state";
 const executeHook = () => renderHook(useOnboardingState);
 
 describe("useOnboardingState", () => {
-	describe("Initial Values", () => {
+	describe("Return Values", () => {
 		it("should return the initial values correctly", () => {
 			const {
 				result: { current },
@@ -40,7 +40,7 @@ describe("useOnboardingState", () => {
 
 			expect(result.current.currentItem).toBe(1);
 		});
-		it("should decrement the 'currentItem' when 'handleBackPress' is called", () => {
+		it("should decrement the 'currentItem' value when 'handleBackPress' is called", () => {
 			const { result } = executeHook();
 
 			act(() => {

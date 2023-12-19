@@ -43,23 +43,32 @@ const executeHook = (params: BreathingAppointmentEntity[] = defaultParams) =>
 	renderHook(() => useWeekAppointments<BreathingAppointmentEntity>(params));
 
 describe("useWeekAppointments", () => {
-	const weekIsNotOver = time.day <= 5; // 5 === Saturday
-	const validResult = weekIsNotOver
+	const WEEK_IS_NOT_OVER = time.day <= 5; // 5 === Saturday
+	const validResult = WEEK_IS_NOT_OVER
 		? [defaultParams[1], defaultParams[3]]
 		: [defaultParams[1]];
+
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
-	it("should return today's appointment when you are at the scheduled time", () => {
-		const { result } = executeHook();
-		expect(result.current[0]).toMatchObject(validResult[0]);
-	});
-	it("should return upcoming appointments ignoring past appointments from the current day ordered by hour", () => {
-		const { result } = executeHook();
-		expect(result.current).toMatchObject(validResult);
-	});
-	it("should return empty when there are no appointments for the week", () => {
-		const { result } = executeHook([]);
-		expect(result.current).toMatchObject([]);
+
+	describe("Return Values", () => {
+		it("should return the initial values correctly", () => {
+			const { result } = executeHook();
+
+			expect(typeof result.current).toBe("object");
+		});
+		it("should return today's appointment when you are at the scheduled time", () => {
+			const { result } = executeHook();
+			expect(result.current[0]).toMatchObject(validResult[0]);
+		});
+		it("should return upcoming appointments ignoring past appointments from the current day ordered by hour", () => {
+			const { result } = executeHook();
+			expect(result.current).toMatchObject(validResult);
+		});
+		it("should return empty when there are no appointments for the week", () => {
+			const { result } = executeHook([]);
+			expect(result.current).toMatchObject([]);
+		});
 	});
 });

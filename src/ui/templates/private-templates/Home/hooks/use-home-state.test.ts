@@ -19,10 +19,12 @@ const useFindIncompleteBreathingExercisesSpyOn = jest.spyOn(
 const executeHook = () => renderHook(() => useHomeState(breathingResponseMock));
 
 describe("UseHome", () => {
-	describe("Initial Values", () => {
+	describe("Return Values", () => {
 		it("should return the initial values correctly", () => {
-			const { result } = executeHook();
+			useWeekAppointmentsSpyOn.mockReturnValue([]);
+			useFindIncompleteBreathingExercisesSpyOn.mockReturnValueOnce([]);
 
+			const { result } = executeHook();
 			const {
 				current: { title, weekAppointments, incompleteExercises },
 			} = result;
