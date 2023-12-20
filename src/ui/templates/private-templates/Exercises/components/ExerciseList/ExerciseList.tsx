@@ -1,7 +1,11 @@
 import { FlatList } from "react-native";
 import styled, { css } from "styled-components/native";
 
-import { BreathingExercise, ReadExercise } from "@/ui/components";
+import {
+	ReadExercise,
+	BreathingExercise,
+	IncompleteExercise,
+} from "@/ui/components";
 import { Header } from "./components/Header";
 
 import { categoriesPortuguese } from "@/constants/categories-portuguese";
@@ -19,7 +23,7 @@ export type ExerciseListProps = {
 
 const exerciseItem = {
 	[ExerciseCategoryEntity.Incomplete]: (props: ExerciseEntity) => (
-		<BreathingExercise {...(props as BreathingExerciseEntity)} />
+		<IncompleteExercise {...(props as BreathingExerciseEntity)} />
 	),
 	[ExerciseCategoryEntity.Breathing]: (props: ExerciseEntity) => (
 		<BreathingExercise {...(props as BreathingExerciseEntity)} />
