@@ -1,1 +1,1 @@
-export * from "./ReadExercise";
+export { ReadExercise, ReadExerciseProps } from "./ReadExercise";

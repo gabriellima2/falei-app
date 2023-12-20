@@ -4,6 +4,8 @@ import styled from "styled-components/native";
 import { BaseExercise } from "../BaseExercise";
 import type { ReadExerciseEntity } from "@/entities/read-entities";
 
+export const START_READ_EXERCISE_PATHNAME = "/read";
+
 export type ReadExerciseProps = Pick<ReadExerciseEntity, "content" | "id">;
 
 export const ReadExercise = (props: ReadExerciseProps) => {
@@ -13,7 +15,7 @@ export const ReadExercise = (props: ReadExerciseProps) => {
 			title={content}
 			id={id}
 			icon={(props) => <Book {...props} />}
-			href={{ pathname: "/read", params: { id } }}
+			href={{ pathname: START_READ_EXERCISE_PATHNAME, params: { id } }}
 			accessibilityHint="Abrirá uma tela para a leitura completa"
 		/>
 	);
