@@ -1,5 +1,5 @@
 import * as ReactQuery from "react-query";
-import { screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 
 import { Exercises } from "./Exercises";
 import * as ExercisesState from "./hooks/use-exercises-state";
@@ -37,6 +37,11 @@ describe("<Exercises />", () => {
 		);
 	});
 
+	const getCategoryOptionEls = () => screen.getAllByTestId("check-option");
+	const getLoadingEl = () => screen.queryByLabelText("Carregando...");
+	const getExercisesEl = () => screen.queryAllByTestId("exercise");
+	const getErrorEl = () => screen.queryByRole("alert");
+
 	const USE_EXERCISES_STATE_DEFAULT_RETURN: ExercisesState.UseExercisesStateReturn =
 		{
 			category: ExerciseCategoryEntity.Incomplete,
@@ -47,16 +52,10 @@ describe("<Exercises />", () => {
 		};
 
 	describe("Render", () => {
-		const getExercisesEl = () => screen.queryAllByTestId("exercise");
-		const getLoadingEl = () => screen.queryByLabelText("Carregando...");
-		const getErrorEl = () => screen.queryByRole("alert");
-
 		function expectStaticElementsToHaveBeenPresent() {
 			expect(screen.getByText("Exercícios")).toBeTruthy();
 			expect(screen.getByTestId("categories")).toBeTruthy();
-			expect(screen.getAllByTestId("check-option")).toHaveLength(
-				exerciseCategories.length
-			);
+			expect(getCategoryOptionEls()).toHaveLength(exerciseCategories.length);
 		}
 
 		function expectExercisesToHaveBeenPresentWith(quantity: number) {
@@ -125,6 +124,29 @@ describe("<Exercises />", () => {
 			expect(screen.getAllByText(CATEGORY_TITLE)[1]).toBeTruthy();
 			expect(getLoadingEl()).toBeFalsy();
 			expect(getErrorEl()).toBeFalsy();
+		});
+	});
+	describe("Interactions", () => {
+		describe("Press", () => {
+			describe("Category Change", () => {
+				it("should call the 'handleCategoryChange' with correctly value when category option is pressed", () => {
+					useExercisesStateSpy.mockReturnValue(
+						USE_EXERCISES_STATE_DEFAULT_RETURN
+					);
+
+					renderComponent();
+
+					const { handleCategoryChange } = USE_EXERCISES_STATE_DEFAULT_RETURN;
+					const category = {
+						el: getCategoryOptionEls()[1],
+						value: ExerciseCategoryEntity.Breathing,
+					};
+					fireEvent.press(category.el);
+
+					expect(handleCategoryChange).toHaveBeenCalled();
+					expect(handleCategoryChange).toHaveBeenCalledWith(category.value);
+				});
+			});
 		});
 	});
 });
