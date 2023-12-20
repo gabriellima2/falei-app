@@ -17,7 +17,7 @@ import type { WithQueryInjectProps } from "@/hocs/WithQuery";
 
 import { exerciseCategories } from "./constants/exercise-categories";
 
-type ExercisesProps = WithQueryInjectProps<{
+export type ExercisesProps = WithQueryInjectProps<{
 	appointments: BreathingAppointmentEntity[];
 	exercises: BreathingExerciseEntity[];
 }>;
