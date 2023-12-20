@@ -3,9 +3,10 @@ import { Shell } from "lucide-react-native";
 import { BaseExercise } from "../BaseExercise";
 import { AdditionalExerciseInfo } from "@/ui/atoms";
 
-import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
+import { START_EXERCISE_PATHNAME } from "@/constants/start-exercise-pathname";
 
-export const PATHNAME_START_EXERCISE = "/";
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
+import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 export type BreathingExerciseProps = BreathingExerciseEntity & {
 	testID?: string;
@@ -19,7 +20,10 @@ export const BreathingExercise = (props: BreathingExerciseProps) => {
 			id={id}
 			title={title}
 			icon={(props) => <Shell {...props} />}
-			href={{ pathname: PATHNAME_START_EXERCISE, params: { id } }}
+			href={{
+				pathname: START_EXERCISE_PATHNAME,
+				params: { id, category: ExerciseCategoryEntity.Breathing },
+			}}
 			accessibilityLabel={title}
 			accessibilityHint={`Começará o exercício ${title}`}
 		>

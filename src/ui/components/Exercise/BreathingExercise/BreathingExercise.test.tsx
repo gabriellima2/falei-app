@@ -2,11 +2,13 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import {
 	BreathingExercise,
-	PATHNAME_START_EXERCISE,
 	type BreathingExerciseProps,
 } from "./BreathingExercise";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+
+import { START_EXERCISE_PATHNAME } from "@/constants/start-exercise-pathname";
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import { mockPush } from "jest-setup";
 
 const defaultProps = {
@@ -27,12 +29,13 @@ describe("<BreathingExercise />", () => {
 		it("should render correctly", () => {
 			renderComponent();
 
-			const repetitionsPhrase = `${defaultProps.rounds.rounds_total} Rounds`;
-			const durationPhrase = `${defaultProps.rounds.duration_per_round_in_min} Min.`;
+			const { rounds, title } = defaultProps;
+			const ROUNDS_TEXT = `${rounds.rounds_total} Rounds`;
+			const DURATION_TEXT = `${rounds.duration_per_round_in_min} Min.`;
 
-			expect(screen.getByText(defaultProps.title)).toBeTruthy();
-			expect(screen.getByText(repetitionsPhrase)).toBeTruthy();
-			expect(screen.getByText(durationPhrase)).toBeTruthy();
+			expect(screen.getByText(title)).toBeTruthy();
+			expect(screen.getByText(ROUNDS_TEXT)).toBeTruthy();
+			expect(screen.getByText(DURATION_TEXT)).toBeTruthy();
 		});
 	});
 	describe("Interactions", () => {
@@ -40,13 +43,14 @@ describe("<BreathingExercise />", () => {
 			it("should call the router method with correct params when press", () => {
 				renderComponent();
 
-				const el = screen.getByLabelText(defaultProps.title);
+				const { title, id } = defaultProps;
+				const el = screen.getByLabelText(title);
 				fireEvent.press(el);
 
 				expect(mockPush).toHaveBeenCalledTimes(1);
 				expect(mockPush).toHaveBeenCalledWith({
-					pathname: PATHNAME_START_EXERCISE,
-					params: { id: defaultProps.id },
+					pathname: START_EXERCISE_PATHNAME,
+					params: { id, category: ExerciseCategoryEntity.Breathing },
 				});
 			});
 		});
