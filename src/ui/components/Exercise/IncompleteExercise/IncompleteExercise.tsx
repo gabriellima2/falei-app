@@ -3,6 +3,7 @@ import { Clock } from "lucide-react-native";
 import { BaseExercise } from "../BaseExercise";
 import { AdditionalExerciseInfo } from "@/ui/atoms";
 
+import { START_EXERCISE_PATHNAME } from "@/constants/start-exercise-pathname";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 export type IncompleteExerciseProps = BreathingExerciseEntity & {
@@ -10,14 +11,14 @@ export type IncompleteExerciseProps = BreathingExerciseEntity & {
 };
 
 export const IncompleteExercise = (props: IncompleteExerciseProps) => {
-	const { id, title, rounds, ...rest } = props;
+	const { id, title, rounds, category, ...rest } = props;
 	return (
 		<BaseExercise
 			{...rest}
 			id={id}
 			title={title}
 			icon={(props) => <Clock {...props} />}
-			href={{ pathname: "/", params: { id } }}
+			href={{ pathname: START_EXERCISE_PATHNAME, params: { id, category } }}
 			accessibilityLabel={title}
 			accessibilityHint={`Começará o exercício ${title}`}
 		>
