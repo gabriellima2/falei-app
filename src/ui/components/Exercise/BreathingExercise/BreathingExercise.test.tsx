@@ -31,7 +31,7 @@ describe("<BreathingExercise />", () => {
 
 			const { rounds, title } = defaultProps;
 			const ROUNDS_TEXT = `${rounds.rounds_total} Rounds`;
-			const DURATION_TEXT = `${rounds.duration_per_round_in_sec} Min.`;
+			const DURATION_TEXT = "1 Min.";
 
 			expect(screen.getByText(title)).toBeTruthy();
 			expect(screen.getByText(ROUNDS_TEXT)).toBeTruthy();

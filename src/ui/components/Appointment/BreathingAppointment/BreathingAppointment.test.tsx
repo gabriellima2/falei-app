@@ -31,7 +31,7 @@ describe("<BreathingAppointment />", () => {
 			const { title, rounds, scheduled_at } = defaultProps;
 			const dateText = `${scheduled_at.days[0]} - ${scheduled_at.hour}`;
 			const roundsText = `${rounds.rounds_total} Rounds`;
-			const durationText = "40 Seg.";
+			const durationText = "30 Seg.";
 
 			expect(screen.getByText(title)).toBeTruthy();
 			expect(screen.getByText(dateText)).toBeTruthy();

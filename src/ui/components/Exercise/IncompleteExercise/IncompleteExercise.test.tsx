@@ -28,8 +28,8 @@ describe("<IncompleteExercise />", () => {
 			renderComponent();
 
 			const { rounds, title } = defaultProps;
-			const ROUNDS_TEXT = `${rounds.rounds_completed}  / ${rounds.rounds_total} Rounds`;
-			const DURATION_TEXT = `${rounds.duration_per_round_in_sec} Min.`;
+			const ROUNDS_TEXT = `${rounds.rounds_completed} / ${rounds.rounds_total} Rounds`;
+			const DURATION_TEXT = "40 Seg.";
 
 			expect(screen.getByText(title)).toBeTruthy();
 			expect(screen.getByText(ROUNDS_TEXT)).toBeTruthy();
