@@ -3,7 +3,7 @@ import { ExerciseEntity } from "../exercise.entity";
 export interface BreathingExerciseRounds {
 	rounds_total: number;
 	rounds_completed: number;
-	duration_per_round_in_min: number;
+	duration_per_round_in_sec: number;
 }
 
 export interface BreathingExerciseEntity extends ExerciseEntity {

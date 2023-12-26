@@ -11,7 +11,7 @@ const defaultProps: BreathingAppointmentProps = {
 	title: "any_title",
 	scheduled_at: { days: ["Terça"], hour: "17:00" },
 	rounds: {
-		duration_per_round_in_min: 10,
+		duration_per_round_in_sec: 10,
 		rounds_completed: 0,
 		rounds_total: 3,
 	},
@@ -31,7 +31,7 @@ describe("<BreathingAppointment />", () => {
 			const { title, rounds, scheduled_at } = defaultProps;
 			const dateText = `${scheduled_at.days[0]} - ${scheduled_at.hour}`;
 			const roundsText = `${rounds.rounds_total} Rounds`;
-			const durationText = `${rounds.duration_per_round_in_min} Min.`;
+			const durationText = "40 Seg.";
 
 			expect(screen.getByText(title)).toBeTruthy();
 			expect(screen.getByText(dateText)).toBeTruthy();

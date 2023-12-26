@@ -5,8 +5,6 @@ import {
 	doc,
 	getDoc,
 	getDocs,
-	orderBy,
-	query,
 	updateDoc,
 } from "firebase/firestore";
 import Constants from "expo-constants";
@@ -16,7 +14,6 @@ import { db } from "@/config/firebase";
 import type { ExerciseRepository } from "./exercise.repository";
 import type { ExerciseEntity } from "@/entities/exercise.entity";
 import type * as DTO from "@/dtos/exercise.dto";
-import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 
 export class ExerciseRepositoryImpl implements ExerciseRepository {
 	private readonly collection;

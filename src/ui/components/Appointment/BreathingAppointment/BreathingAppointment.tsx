@@ -3,6 +3,8 @@ import styled, { css } from "styled-components/native";
 import { Menu } from "./components";
 import { AdditionalExerciseInfo, Typography } from "@/ui/atoms";
 
+import { useCalcTotalRoundDuration } from "@/hooks/use-cal-total-round-duration";
+
 import { dimensions } from "@/constants/dimensions";
 
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
@@ -18,6 +20,10 @@ export type BreathingAppointmentProps = Omit<
 
 export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 	const { title, rounds, scheduled_at, autoSize, color, onPress } = props;
+	const duration = useCalcTotalRoundDuration({
+		rounds: rounds.rounds_total,
+		duration: rounds.duration_per_round_in_sec,
+	});
 	return (
 		<Container
 			testID="breathing-exercise-appointment"
@@ -42,7 +48,7 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 						{rounds.rounds_total} Rounds
 					</AdditionalExerciseInfo>
 					<AdditionalExerciseInfo hasDarkColors>
-						{rounds.duration_per_round_in_min} Min.
+						{duration}
 					</AdditionalExerciseInfo>
 				</Description>
 				<CharacterImage

@@ -20,7 +20,7 @@ export const breathingResponseMock = {
 			rounds: {
 				rounds_completed: 1,
 				rounds_total: 3,
-				duration_per_round_in_min: 10,
+				duration_per_round_in_sec: 10,
 			},
 		},
 		{
@@ -29,7 +29,7 @@ export const breathingResponseMock = {
 			rounds: {
 				rounds_completed: 3,
 				rounds_total: 3,
-				duration_per_round_in_min: 10,
+				duration_per_round_in_sec: 10,
 			},
 		},
 	] as BreathingExerciseEntity[],

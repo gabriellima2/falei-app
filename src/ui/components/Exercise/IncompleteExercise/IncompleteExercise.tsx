@@ -3,6 +3,8 @@ import { Clock } from "lucide-react-native";
 import { BaseExercise } from "../BaseExercise";
 import { AdditionalExerciseInfo } from "@/ui/atoms";
 
+import { useCalcTotalRoundDuration } from "@/hooks/use-cal-total-round-duration";
+
 import { START_EXERCISE_PATHNAME } from "@/constants/start-exercise-pathname";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
@@ -12,6 +14,10 @@ export type IncompleteExerciseProps = BreathingExerciseEntity & {
 
 export const IncompleteExercise = (props: IncompleteExerciseProps) => {
 	const { id, title, rounds, category, ...rest } = props;
+	const duration = useCalcTotalRoundDuration({
+		rounds: rounds.rounds_total,
+		duration: rounds.duration_per_round_in_sec,
+	});
 	return (
 		<BaseExercise
 			{...rest}
@@ -25,9 +31,7 @@ export const IncompleteExercise = (props: IncompleteExerciseProps) => {
 			<AdditionalExerciseInfo>
 				{rounds.rounds_completed} / {rounds.rounds_total} Rounds
 			</AdditionalExerciseInfo>
-			<AdditionalExerciseInfo>
-				{rounds.duration_per_round_in_min} Min.
-			</AdditionalExerciseInfo>
+			<AdditionalExerciseInfo>{duration}</AdditionalExerciseInfo>
 		</BaseExercise>
 	);
 };
