@@ -3,7 +3,7 @@ import styled, { css } from "styled-components/native";
 import { Typography } from "./Typography";
 import type { Modifiers } from "@/@types/modifiers";
 
-type AdditionalExerciseInfoProps = {
+export type AdditionalExerciseInfoProps = {
 	hasDarkColors?: boolean;
 };
 

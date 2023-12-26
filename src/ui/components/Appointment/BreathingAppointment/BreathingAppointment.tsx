@@ -1,9 +1,8 @@
 import styled, { css } from "styled-components/native";
 
 import { Menu } from "./components";
+import { ExerciseInformation } from "../../ExerciseInformation";
 import { AdditionalExerciseInfo, Typography } from "@/ui/atoms";
-
-import { useCalcTotalRoundDuration } from "@/hooks/use-cal-total-round-duration";
 
 import { dimensions } from "@/constants/dimensions";
 
@@ -20,10 +19,6 @@ export type BreathingAppointmentProps = Omit<
 
 export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 	const { title, rounds, scheduled_at, autoSize, color, onPress } = props;
-	const duration = useCalcTotalRoundDuration({
-		rounds: rounds.rounds_total,
-		duration: rounds.duration_per_round_in_sec,
-	});
 	return (
 		<Container
 			testID="breathing-exercise-appointment"
@@ -44,12 +39,14 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 					<AdditionalExerciseInfo hasDarkColors>
 						{scheduled_at.days[0]} - {scheduled_at.hour}
 					</AdditionalExerciseInfo>
-					<AdditionalExerciseInfo hasDarkColors>
-						{rounds.rounds_total} Rounds
-					</AdditionalExerciseInfo>
-					<AdditionalExerciseInfo hasDarkColors>
-						{duration}
-					</AdditionalExerciseInfo>
+					<ExerciseInformation
+						hasDarkColors
+						rounds={{
+							total: rounds.rounds_total,
+							completed: rounds.rounds_completed,
+							duration: rounds.duration_per_round_in_sec,
+						}}
+					/>
 				</Description>
 				<CharacterImage
 					source={require("../../../../../public/assets/exercise-bg.png")}
