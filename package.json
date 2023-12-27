@@ -38,7 +38,8 @@
     "styled-components": "^5.3.11",
     "zod": "^3.21.4",
     "zustand": "^4.3.9",
-    "expo-notifications": "~0.18.1"
+    "expo-notifications": "~0.18.1",
+    "expo-device": "~5.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
