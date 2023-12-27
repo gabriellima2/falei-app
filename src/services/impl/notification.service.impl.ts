@@ -4,6 +4,7 @@ import * as Notifications from "expo-notifications";
 
 import { NotificationService } from "../notification.service";
 
+import { NotificationPermissionStatus } from "@/constants/notification-permission-status";
 import type {
 	CancelNotificationInputDTO,
 	CancelNotificationOutputDTO,
@@ -14,9 +15,9 @@ import type {
 let HAS_NOTIFICATION_CONFIG = false;
 
 export class NotificationServiceImpl implements NotificationService {
-	public status: Notifications.PermissionStatus | null;
+	public status: string;
 	constructor() {
-		this.status = null;
+		this.status = NotificationPermissionStatus.UNDETERMINED;
 		this.setDefaultConfig();
 	}
 	private setDefaultConfig() {
@@ -39,21 +40,21 @@ export class NotificationServiceImpl implements NotificationService {
 		HAS_NOTIFICATION_CONFIG = true;
 	}
 	async getPermissions() {
-		if (this.status && this.status === "granted") return;
-		if (isDevice) {
-			const { status } = await Notifications.getPermissionsAsync();
-			let finalStatus = status;
-			if (status !== "granted") {
-				const { status } = await Notifications.requestPermissionsAsync();
-				finalStatus = status;
-			}
-			if (finalStatus !== "granted") {
-				alert("Enable push notifications to use the app!");
-			}
-			this.status = finalStatus;
-		} else {
-			alert("Must use physical device for Push Notifications");
+		if (this.status === NotificationPermissionStatus.GRANTED) return;
+		if (!isDevice) {
+			return alert("Must use physical device for Push Notifications");
 		}
+		const { status } = await Notifications.getPermissionsAsync();
+		let finalStatus = status;
+		if (status !== NotificationPermissionStatus.GRANTED) {
+			const { status } = await Notifications.requestPermissionsAsync();
+			finalStatus = status;
+		}
+		if (finalStatus !== NotificationPermissionStatus.GRANTED) {
+			alert("Enable push notifications to use the app!");
+		}
+		this.status = finalStatus;
+		return;
 	}
 	async schedule(
 		params: ScheduleNotificationInputDTO
