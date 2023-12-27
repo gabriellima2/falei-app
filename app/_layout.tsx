@@ -1,4 +1,5 @@
 import "react-native-gesture-handler";
+import { useEffect } from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import styled, { ThemeProvider, css } from "styled-components/native";
@@ -15,6 +16,9 @@ import { Providers } from "@/ui/providers";
 import { useAuthStore } from "@/store/auth-store";
 
 import { theme } from "@/styles/theme";
+import { NotificationServiceImpl } from "@/services/impl/notification.service.impl";
+
+const notification = new NotificationServiceImpl();
 
 export default function RootLayout() {
 	const { authHasBeenChecked } = useAuthStore();
@@ -23,6 +27,9 @@ export default function RootLayout() {
 		Roboto_500Medium,
 		Roboto_700Bold,
 	});
+	useEffect(() => {
+		notification.getPermissions();
+	}, []);
 	return (
 		<ThemeProvider theme={theme}>
 			<StatusBar style="light" />

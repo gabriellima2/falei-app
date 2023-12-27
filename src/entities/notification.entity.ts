@@ -2,5 +2,9 @@ export interface NotificationEntity {
 	id: string;
 	title: string;
 	body: string;
-	scheduledAt: Date;
+	scheduledAt: {
+		days: number[];
+		hour: number;
+		minute: number;
+	};
 }
