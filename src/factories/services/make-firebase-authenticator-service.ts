@@ -1,4 +1,4 @@
-import { FirebaseAuthenticatorService } from "@/services/firebase-authenticator.service";
+import { FirebaseAuthenticatorServiceImpl } from "@/services/impl/firebase-authenticator.service.impl";
 
 export const makeFirebaseAuthenticatorService = () =>
-	new FirebaseAuthenticatorService();
+	new FirebaseAuthenticatorServiceImpl();

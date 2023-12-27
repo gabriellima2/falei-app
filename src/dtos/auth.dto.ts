@@ -1,3 +1,5 @@
-import { UserEntity } from "@/entities/user.entity";
+import type { UserCredential } from "firebase/auth";
+import type { UserEntity } from "@/entities/user.entity";
 
-export interface AuthInputDTO extends Omit<UserEntity, "id"> {}
+export type AuthInputDTO = Omit<UserEntity, "id">;
+export type AuthOutputDTO = Promise<UserCredential>;
