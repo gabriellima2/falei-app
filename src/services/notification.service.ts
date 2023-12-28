@@ -9,5 +9,4 @@ export interface NotificationService {
 	schedule(params: ScheduleNotificationInputDTO): ScheduleNotificationOutputDTO;
 	cancel(id: CancelNotificationInputDTO): CancelNotificationOutputDTO;
 	cancelAll(): Promise<void>;
-	getPermissions(): Promise<void>;
 }
