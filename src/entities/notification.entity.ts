@@ -5,6 +5,6 @@ export interface NotificationEntity {
 	scheduledAt: {
 		days: number[];
 		hour: number;
-		minute: number;
+		minutes: number;
 	};
 }
