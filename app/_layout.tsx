@@ -15,10 +15,10 @@ import { Providers } from "@/ui/providers";
 
 import { useAuthStore } from "@/store/auth-store";
 
+import { makeNotificationAdapter } from "@/factories/adapters/make-notification-adapter";
 import { theme } from "@/styles/theme";
-import { NotificationServiceImpl } from "@/services/impl/notification.service.impl";
 
-const notification = new NotificationServiceImpl();
+const notificationAdapter = makeNotificationAdapter();
 
 export default function RootLayout() {
 	const { authHasBeenChecked } = useAuthStore();
@@ -28,7 +28,7 @@ export default function RootLayout() {
 		Roboto_700Bold,
 	});
 	useEffect(() => {
-		notification.getPermissions();
+		notificationAdapter.getPermissions();
 	}, []);
 	return (
 		<ThemeProvider theme={theme}>

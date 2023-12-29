@@ -1,15 +1,50 @@
 import { Platform } from "react-native";
-import { isDevice } from "expo-device";
 import * as Notifications from "expo-notifications";
 
+import { NotificationAdapter } from "../notification.adapter";
+
+import { getDiffInSecondsBasedOnDate } from "@/helpers/get-diff-in-seconds-based-on-date";
 import { NotificationPermissionStatus } from "@/constants/notification-permission-status";
+
+import type {
+	CancelNotificationInputDTO,
+	CancelNotificationOutputDTO,
+	ScheduleNotificationInputDTO,
+	ScheduleNotificationOutputDTO,
+} from "@/dtos/notification.dto";
 
 let HAS_NOTIFICATION_CONFIG = false;
 
-export class ExpoNotifications {
+export class NotificationAdapterImpl implements NotificationAdapter {
 	public status: string;
 	constructor() {
 		this.status = NotificationPermissionStatus.UNDETERMINED;
+		this.setDefaultConfig();
+	}
+	public async schedule(
+		params: ScheduleNotificationInputDTO
+	): ScheduleNotificationOutputDTO {
+		const { title, body, scheduledAt } = params;
+		if (this.status && this.status !== "granted") return [];
+		const promises = scheduledAt.days.map(async (day) => {
+			const { hour, minutes } = scheduledAt;
+			const seconds = getDiffInSecondsBasedOnDate({ day, hour, minutes });
+			const id = await Notifications.scheduleNotificationAsync({
+				content: { title, body },
+				trigger: { seconds },
+			});
+			return { ...params, id };
+		});
+		const notifications = Promise.all(promises);
+		return notifications;
+	}
+	public async cancel(
+		id: CancelNotificationInputDTO
+	): CancelNotificationOutputDTO {
+		await Notifications.cancelScheduledNotificationAsync(id);
+	}
+	public async cancelAll() {
+		await Notifications.cancelAllScheduledNotificationsAsync();
 	}
 	public setDefaultConfig() {
 		if (HAS_NOTIFICATION_CONFIG) return;
@@ -42,6 +77,5 @@ export class ExpoNotifications {
 			alert("Enable push notifications to use the app!");
 		}
 		this.status = finalStatus;
-		return;
 	}
 }
