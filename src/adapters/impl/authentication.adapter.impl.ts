@@ -5,12 +5,10 @@ import {
 
 import { firebaseAuth } from "@/helpers/firebase-auth";
 
-import type { FirebaseAuthenticatorService } from "../firebase-authenticator.service";
+import type { AuthenticationAdapter } from "../authentication.adapter";
 import type { AuthInputDTO, AuthOutputDTO } from "@/dtos/auth.dto";
 
-export class FirebaseAuthenticatorServiceImpl
-	implements FirebaseAuthenticatorService
-{
+export class AuthenticationAdapterImpl implements AuthenticationAdapter {
 	async signIn(credentials: AuthInputDTO): AuthOutputDTO {
 		const { email, password } = credentials;
 		return await signInWithEmailAndPassword(firebaseAuth, email, password);

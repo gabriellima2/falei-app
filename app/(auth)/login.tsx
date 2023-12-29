@@ -1,15 +1,15 @@
 import { Stack } from "expo-router";
 
 import { Login } from "@/ui/templates";
-import { makeFirebaseAuthenticatorService } from "@/factories/services/make-firebase-authenticator-service";
+import { makeAuthenticationAdapter } from "@/factories/adapters/make-authentication-adapter";
 
-const firebaseAuthenticatorService = makeFirebaseAuthenticatorService();
+const authenticationAdapter = makeAuthenticationAdapter();
 
 export default function Page() {
 	return (
 		<>
 			<Stack.Screen options={{ animation: "default" }} />
-			<Login authentication={firebaseAuthenticatorService.signIn} />
+			<Login authentication={authenticationAdapter.signIn} />
 		</>
 	);
 }
