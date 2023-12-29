@@ -23,9 +23,21 @@ export function useFindIncompleteBreathingExercises(
 		(appointment) => hasAppointmentToday(appointment.scheduledAt.days)
 	);
 
+	const getIncompleteExercisesWithoutAppointment = () => {
+		return incompleteExercises.filter((exercise) => {
+			return incompleteAppointments.some(
+				(appointment) => exercise.id !== appointment.exerciseID
+			);
+		});
+	};
+
 	const getIncompleteExercises = () => {
-		if (incompleteExercises && incompleteAppointments)
-			return [...incompleteExercises, ...incompleteAppointments];
+		if (incompleteExercises && incompleteAppointments) {
+			return [
+				...incompleteAppointments,
+				...getIncompleteExercisesWithoutAppointment(),
+			];
+		}
 		if (incompleteExercises) return incompleteExercises;
 		if (incompleteAppointments) return incompleteAppointments;
 		return [];
