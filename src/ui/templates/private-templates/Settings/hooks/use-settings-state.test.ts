@@ -6,7 +6,7 @@ import {
 	ToastContextWrapper,
 	mockNotify,
 } from "@/__mocks__/toast-context-wrapper";
-import { firebaseAuth } from "@/helpers/firebase-auth";
+import { firebaseAuth } from "@/lib/firebase-auth";
 
 jest.mock("@/helpers/firebase-auth", () => ({
 	firebaseAuth: {

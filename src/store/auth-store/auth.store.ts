@@ -1,7 +1,7 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { create } from "zustand";
 
-import { firebaseAuth } from "@/helpers/firebase-auth";
+import { firebaseAuth } from "@/lib/firebase-auth";
 import type { AuthStoreState } from "./@types/auth-store-state";
 
 export const useAuthStore = create<AuthStoreState>((set) => ({

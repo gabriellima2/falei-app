@@ -3,7 +3,7 @@ import {
 	signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { firebaseAuth } from "@/helpers/firebase-auth";
+import { firebaseAuth } from "@/lib/firebase-auth";
 
 import type { AuthenticationAdapter } from "../authentication.adapter";
 import type { AuthInputDTO, AuthOutputDTO } from "@/dtos/auth.dto";
