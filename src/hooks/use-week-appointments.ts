@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 
 import { hasAppointmentToday } from "@/helpers/has-appointment-today";
-import { getCurrentTime } from "@/helpers/get-current-time";
-import { formatHour } from "@/helpers/format-hour";
+import { formatTime } from "@/helpers/format-time";
 
 import type { AppointmentEntity } from "@/entities/appointment.entity";
 
@@ -11,29 +10,27 @@ const date = new Date();
 export function useWeekAppointments<T extends AppointmentEntity>(
 	appointments: T[]
 ) {
-	const isTimeForAppointment = (currentHour: number, scheduledHour: string) => {
-		const appointmentHour = new Date(
-			`1970-01-01T${formatHour(scheduledHour)}Z`
-		).getTime();
-		return currentHour <= appointmentHour;
+	const isTimeForAppointment = (hour: number, minutes: number) => {
+		const currentHour = date.getHours();
+		const currentMinutes = date.getMinutes();
+		return hour >= currentHour && minutes >= currentMinutes;
 	};
 
 	const getTodayAppointment = (appointment: T, appointmentDay: number) => {
-		const currentHour = getCurrentTime();
-		const { scheduled_at: scheduleDetails } = appointment;
+		const { scheduledAt: scheduleDetails } = appointment;
 		if (
 			hasAppointmentToday(scheduleDetails.days, appointmentDay) &&
-			isTimeForAppointment(currentHour, scheduleDetails.hour)
+			isTimeForAppointment(scheduleDetails.hour, scheduleDetails.minutes)
 		) {
 			return appointment;
 		}
 	};
 
 	const getAppointmentForTheWeek = (appointment: T, appointmentDay: number) => {
-		const { scheduled_at: scheduleDetails } = appointment;
+		const { scheduledAt } = appointment;
 		let nextDay = appointmentDay;
 		while (nextDay <= 6) {
-			if (hasAppointmentToday(scheduleDetails.days, nextDay)) {
+			if (hasAppointmentToday(scheduledAt.days, nextDay)) {
 				return appointment;
 			}
 			nextDay++;
@@ -42,7 +39,15 @@ export function useWeekAppointments<T extends AppointmentEntity>(
 
 	const orderAppointmentsByHour = (appointments: T[]) => {
 		appointments.sort((current, next) => {
-			return current.scheduled_at.hour.localeCompare(next.scheduled_at.hour);
+			const currentTime = formatTime(
+				current.scheduledAt.hour,
+				current.scheduledAt.minutes
+			);
+			const nextTime = formatTime(
+				next.scheduledAt.hour,
+				next.scheduledAt.minutes
+			);
+			return currentTime.localeCompare(nextTime);
 		});
 		return appointments;
 	};

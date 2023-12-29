@@ -30,8 +30,8 @@ export const IncompleteExercises = <T extends Params>(
 					id={item.id}
 					title={item.title}
 					rounds={{
-						completed: item.rounds.rounds_completed,
-						total: item.rounds.rounds_total,
+						completed: item.rounds.completed,
+						total: item.rounds.total,
 					}}
 					href={href}
 					withPreviewForNextItem={hasMoreThanOneItem}

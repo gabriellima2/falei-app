@@ -29,9 +29,9 @@ export const BreathingExercise = (props: BreathingExerciseProps) => {
 		>
 			<ExerciseInformation
 				rounds={{
-					total: rounds.rounds_total,
-					completed: rounds.rounds_completed,
-					duration: rounds.duration_per_round_in_sec,
+					total: rounds.total,
+					completed: rounds.completed,
+					duration: rounds.durationPerRoundInSec,
 				}}
 			/>
 		</BaseExercise>

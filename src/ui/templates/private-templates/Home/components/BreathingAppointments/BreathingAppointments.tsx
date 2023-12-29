@@ -22,7 +22,7 @@ export const BreathingAppointments = (props: BreathingAppointmentsProps) => {
 					autoSize={hasOneItem}
 					title={item.title}
 					rounds={item.rounds}
-					scheduled_at={item.scheduled_at}
+					scheduledAt={item.scheduledAt}
 					color={Number(index) % 2 === 1 ? colors.utils.blue : colors.brand}
 				/>
 			)}

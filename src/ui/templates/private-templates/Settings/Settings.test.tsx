@@ -5,7 +5,7 @@ import * as SettingsState from "./hooks/use-settings-state";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
-jest.mock("@/helpers/firebase-auth", () => ({
+jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {
 		signOut: jest.fn(),
 	},

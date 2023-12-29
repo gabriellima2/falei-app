@@ -9,11 +9,11 @@ import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider"
 
 const defaultProps: BreathingAppointmentProps = {
 	title: "any_title",
-	scheduled_at: { days: ["Terça"], hour: "17:00" },
+	scheduledAt: { days: [2], hour: 17, minutes: 0 },
 	rounds: {
-		duration_per_round_in_sec: 10,
-		rounds_completed: 0,
-		rounds_total: 3,
+		durationPerRoundInSec: 10,
+		completed: 0,
+		total: 3,
 	},
 };
 
@@ -28,9 +28,9 @@ describe("<BreathingAppointment />", () => {
 		it("should render correctly", () => {
 			renderComponent();
 
-			const { title, rounds, scheduled_at } = defaultProps;
-			const dateText = `${scheduled_at.days[0]} - ${scheduled_at.hour}`;
-			const roundsText = `${rounds.rounds_total} Rounds`;
+			const { title, rounds } = defaultProps;
+			const dateText = "Terça - 17:00";
+			const roundsText = `${rounds.total} Rounds`;
 			const durationText = "30 Seg.";
 
 			expect(screen.getByText(title)).toBeTruthy();

@@ -7,8 +7,8 @@ export function useGetIncompleteExercises<T extends BreathingExerciseEntity>(
 ): T[] {
 	const isIncomplete = (exercise: T) => {
 		return (
-			exercise.rounds.rounds_completed > 0 &&
-			exercise.rounds.rounds_completed < exercise.rounds.rounds_total
+			exercise.rounds.completed > 0 &&
+			exercise.rounds.completed < exercise.rounds.total
 		);
 	};
 

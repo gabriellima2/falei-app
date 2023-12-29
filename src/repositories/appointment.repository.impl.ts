@@ -65,7 +65,7 @@ export class AppointmentRepositoryImpl<T extends AppointmentEntity>
 		});
 		const promises = appointments.map(async (appointment) => {
 			const exercise = await this.repository.getById({
-				id: appointment.exercise_id,
+				id: appointment.exerciseID,
 				category: appointment.category,
 			});
 			return { ...exercise, ...appointment };

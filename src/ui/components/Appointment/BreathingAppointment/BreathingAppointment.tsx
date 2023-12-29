@@ -4,21 +4,27 @@ import { Menu } from "./components";
 import { ExerciseInformation } from "../../ExerciseInformation";
 import { AdditionalExerciseInfo, Typography } from "@/ui/atoms";
 
+import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import { dimensions } from "@/constants/dimensions";
+import { formatTime } from "@/helpers/format-time";
 
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 import type { Modifiers } from "@/@types/modifiers";
 
 export type BreathingAppointmentProps = Omit<
 	BreathingAppointmentEntity,
-	"id" | "exercise_id" | "user_id" | "last_progress_at" | "category"
+	"id" | "exerciseID" | "userID" | "lastProgressAt" | "category"
 > &
 	ContainerProps & {
 		onPress?: () => void | Promise<void>;
 	};
 
 export const BreathingAppointment = (props: BreathingAppointmentProps) => {
-	const { title, rounds, scheduled_at, autoSize, color, onPress } = props;
+	const { title, rounds, scheduledAt, autoSize, color, onPress } = props;
+	const date = `${DAYS_OF_THE_WEEK[scheduledAt.days[0]]} - ${formatTime(
+		scheduledAt.hour,
+		scheduledAt.minutes
+	)}`;
 	return (
 		<Container
 			testID="breathing-exercise-appointment"
@@ -36,15 +42,13 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 			</Header>
 			<Content>
 				<Description>
-					<AdditionalExerciseInfo hasDarkColors>
-						{scheduled_at.days[0]} - {scheduled_at.hour}
-					</AdditionalExerciseInfo>
+					<AdditionalExerciseInfo hasDarkColors>{date}</AdditionalExerciseInfo>
 					<ExerciseInformation
 						hasDarkColors
 						rounds={{
-							total: rounds.rounds_total,
-							completed: rounds.rounds_completed,
-							duration: rounds.duration_per_round_in_sec,
+							total: rounds.total,
+							completed: rounds.completed,
+							duration: rounds.durationPerRoundInSec,
 						}}
 					/>
 				</Description>

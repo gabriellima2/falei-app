@@ -9,9 +9,9 @@ const executeHook = (params: BreathingExerciseEntity[]) =>
 describe("useOrderExercisesByLastProgress", () => {
 	describe("Return Values", () => {
 		const fakeExercises = {
-			first: { last_progress_at: { nanoseconds: 5, seconds: 5 } },
-			middle: { last_progress_at: { nanoseconds: 50, seconds: 50 } },
-			last: { last_progress_at: { nanoseconds: 500, seconds: 500 } },
+			first: { lastProgressAt: { nanoseconds: 5, seconds: 5 } },
+			middle: { lastProgressAt: { nanoseconds: 50, seconds: 50 } },
+			last: { lastProgressAt: { nanoseconds: 500, seconds: 500 } },
 		};
 		const orderedExercises = [
 			fakeExercises.first,

@@ -8,7 +8,7 @@ import {
 } from "@/__mocks__/toast-context-wrapper";
 import { firebaseAuth } from "@/lib/firebase-auth";
 
-jest.mock("@/helpers/firebase-auth", () => ({
+jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {
 		signOut: jest.fn(),
 	},

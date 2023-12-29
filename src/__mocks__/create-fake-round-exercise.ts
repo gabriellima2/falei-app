@@ -7,10 +7,10 @@ export function createFakeRoundExercise(params: CreateFakeRoundExerciseParams) {
 	const { roundsCompleted, roundsTotal } = params;
 	return {
 		rounds: {
-			rounds_completed: roundsCompleted,
-			rounds_total: roundsTotal,
+			completed: roundsCompleted,
+			total: roundsTotal,
 		},
-		last_progress_at: {
+		lastProgressAt: {
 			seconds: 0,
 			nanoseconds: 0,
 		},

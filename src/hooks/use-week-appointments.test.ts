@@ -1,49 +1,56 @@
 import { renderHook } from "@testing-library/react-hooks";
 
 import { useWeekAppointments } from "./use-week-appointments";
-
-import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
-import { time } from "@/helpers/time";
-
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
+
+const date = new Date();
+const now = {
+	day: date.getDay(),
+	nextDay: date.getDay() === 6 ? 0 : date.getDay() + 1,
+	hour: date.getHours(),
+	minutes: date.getMinutes(),
+};
 
 const defaultParams = [
 	{
 		id: "1",
 		title: "any_title_schedule_1",
-		scheduled_at: {
-			days: [DAYS_OF_THE_WEEK[time.day]],
-			hour: `${Number(time.hours) - 3}:00`,
+		scheduledAt: {
+			days: [now.day],
+			hour: Number(now.hour) - 3,
+			minutes: 0,
 		},
 	},
 	{
 		id: "2",
 		title: "any_title_schedule_2",
-		scheduled_at: {
-			days: [DAYS_OF_THE_WEEK[time.day]],
-			hour: `${time.hours}:${time.minutes}`,
+		scheduledAt: {
+			days: [now.day],
+			hour: now.hour,
+			minutes: now.minutes,
 		},
 	},
 	{
 		id: "3",
 		title: "any_title_schedule_3",
-		scheduled_at: {
-			days: [DAYS_OF_THE_WEEK[time.day]],
-			hour: `${Number(time.hours) - 1}:${time.minutes}`,
+		scheduledAt: {
+			days: [now.day],
+			hour: Number(now.hour) - 1,
+			minutes: now.minutes,
 		},
 	},
 	{
 		id: "4",
 		title: "any_title_schedule_4",
-		scheduled_at: { days: [DAYS_OF_THE_WEEK[time.nextDay]], hour: "10:00" },
+		scheduledAt: { days: [now.nextDay], hour: 10, minutes: 0 },
 	},
-] as BreathingAppointmentEntity[];
+] as unknown as BreathingAppointmentEntity[];
 
 const executeHook = (params: BreathingAppointmentEntity[] = defaultParams) =>
 	renderHook(() => useWeekAppointments<BreathingAppointmentEntity>(params));
 
 describe("useWeekAppointments", () => {
-	const WEEK_IS_NOT_OVER = time.day <= 5; // 5 === Saturday
+	const WEEK_IS_NOT_OVER = now.day <= 5; // 5 === Saturday
 	const validResult = WEEK_IS_NOT_OVER
 		? [defaultParams[1], defaultParams[3]]
 		: [defaultParams[1]];

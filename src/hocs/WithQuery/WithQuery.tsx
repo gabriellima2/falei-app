@@ -18,7 +18,6 @@ export function WithQuery<P extends {}, T>(
 ) {
 	return function HOC(props: P) {
 		const { data, error, isLoading } = useQuery<T>(query.name, query.fn);
-
 		if (isLoading) return <LoadingIndicator />;
 		if (error) return <TextError>{(error as Error).message}</TextError>;
 		if ((!error || !isLoading) && !data)

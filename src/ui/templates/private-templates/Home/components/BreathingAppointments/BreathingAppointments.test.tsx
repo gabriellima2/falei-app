@@ -14,11 +14,11 @@ const defaultProps: BreathingAppointmentsProps = {
 		{
 			id: "1",
 			title: "any_title",
-			scheduled_at: { days: ["Terça"], hour: "17:00" },
+			scheduledAt: { days: [2], hour: 17, minutes: 0 },
 			rounds: {
-				duration_per_round_in_sec: 10,
-				rounds_completed: 0,
-				rounds_total: 3,
+				durationPerRoundInSec: 10,
+				completed: 0,
+				total: 3,
 			},
 		} as BreathingAppointmentEntity,
 	],

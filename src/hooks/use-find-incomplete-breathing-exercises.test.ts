@@ -6,7 +6,6 @@ import {
 } from "./use-find-incomplete-breathing-exercises";
 
 import { createFakeRoundExercise } from "@/__mocks__/create-fake-round-exercise";
-import { getDayOfTheWeek } from "@/helpers/get-day-of-the-week";
 
 const executeHook = (params: UseFindIncompleteBreathingExercisesParams) =>
 	renderHook(() => useFindIncompleteBreathingExercises(params));
@@ -36,19 +35,19 @@ describe("useFindIncompleteBreathingExercises", () => {
 				all: [
 					{
 						...createFakeRoundExercise({ roundsCompleted: 2, roundsTotal: 4 }),
-						scheduled_at: {
-							days: [getDayOfTheWeek(day === 0 ? day + 1 : day - 1)],
+						scheduledAt: {
+							days: [day === 0 ? day + 1 : day - 1],
 						},
 					},
 					{
 						...createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 2 }),
-						scheduled_at: { days: [getDayOfTheWeek(day)] },
+						scheduledAt: { days: [day] },
 					},
 				],
 				incomplete: [
 					{
 						...createFakeRoundExercise({ roundsCompleted: 1, roundsTotal: 2 }),
-						scheduled_at: { days: [getDayOfTheWeek(new Date().getDay())] },
+						scheduledAt: { days: [new Date().getDay()] },
 					},
 				],
 			};

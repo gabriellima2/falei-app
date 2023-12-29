@@ -15,9 +15,9 @@ const defaultProps = {
 	id: "1",
 	title: "any_title",
 	rounds: {
-		duration_per_round_in_sec: 20,
-		rounds_completed: 0,
-		rounds_total: 4,
+		durationPerRoundInSec: 20,
+		completed: 0,
+		total: 4,
 	},
 } as BreathingExerciseProps;
 
@@ -30,7 +30,7 @@ describe("<BreathingExercise />", () => {
 			renderComponent();
 
 			const { rounds, title } = defaultProps;
-			const ROUNDS_TEXT = `${rounds.rounds_total} Rounds`;
+			const ROUNDS_TEXT = `${rounds.total} Rounds`;
 			const DURATION_TEXT = "1 Min.";
 
 			expect(screen.getByText(title)).toBeTruthy();

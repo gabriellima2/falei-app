@@ -13,7 +13,7 @@ const defaultProps: IncompleteExercisesProps<BreathingExerciseEntity> = {
 		{
 			id: "any_id",
 			title: "any_title",
-			rounds: { rounds_total: 3, rounds_completed: 0 },
+			rounds: { total: 3, completed: 0 },
 		} as BreathingExerciseEntity,
 	],
 	href: { pathname: "/any_pathname" },

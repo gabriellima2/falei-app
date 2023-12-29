@@ -20,7 +20,7 @@ export function useFindIncompleteBreathingExercises(
 	const incompleteExercises = useGetIncompleteExercises(orderedExercises);
 	const incompleteAppointments = useGetIncompleteExercises(
 		appointments,
-		(appointment) => hasAppointmentToday(appointment.scheduled_at.days)
+		(appointment) => hasAppointmentToday(appointment.scheduledAt.days)
 	);
 
 	const getIncompleteExercises = () => {

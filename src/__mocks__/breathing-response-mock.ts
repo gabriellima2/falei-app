@@ -1,4 +1,3 @@
-import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import type {
 	BreathingAppointmentEntity,
 	BreathingExerciseEntity,
@@ -9,7 +8,7 @@ export const breathingResponseMock = {
 		{
 			id: "appointment_1",
 			title: "any_title_schedule_1",
-			scheduled_at: { days: [DAYS_OF_THE_WEEK[2]], hour: "18:00" },
+			scheduledAt: { days: [2], hour: 18, minutes: 0 },
 			rounds: {},
 		},
 	] as BreathingAppointmentEntity[],
@@ -18,18 +17,18 @@ export const breathingResponseMock = {
 			id: "exercise_1",
 			title: "any_title_exercise",
 			rounds: {
-				rounds_completed: 1,
-				rounds_total: 3,
-				duration_per_round_in_sec: 10,
+				completed: 1,
+				total: 3,
+				durationPerRoundInSec: 10,
 			},
 		},
 		{
 			id: "exercise_2",
 			title: "any_title_exercise",
 			rounds: {
-				rounds_completed: 3,
-				rounds_total: 3,
-				duration_per_round_in_sec: 10,
+				completed: 3,
+				total: 3,
+				durationPerRoundInSec: 10,
 			},
 		},
 	] as BreathingExerciseEntity[],

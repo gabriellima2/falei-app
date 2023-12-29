@@ -3,8 +3,8 @@ import { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 type LastProgress = Pick<
 	BreathingExerciseEntity,
-	"last_progress_at"
->["last_progress_at"];
+	"lastProgressAt"
+>["lastProgressAt"];
 
 export function useOrderExercisesByLastProgress<
 	T extends BreathingExerciseEntity
@@ -19,7 +19,7 @@ export function useOrderExercisesByLastProgress<
 	return useMemo(() => {
 		if (!exercises.length) return [];
 		return exercises.sort((prev, next) => {
-			return getHour(prev.last_progress_at) - getHour(next.last_progress_at);
+			return getHour(prev.lastProgressAt) - getHour(next.lastProgressAt);
 		});
 	}, [exercises]);
 }

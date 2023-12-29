@@ -12,7 +12,6 @@ export type IncompleteExerciseProps = BreathingExerciseEntity & {
 
 export const IncompleteExercise = (props: IncompleteExerciseProps) => {
 	const { id, title, rounds, category, ...rest } = props;
-
 	return (
 		<BaseExercise
 			{...rest}
@@ -25,9 +24,9 @@ export const IncompleteExercise = (props: IncompleteExerciseProps) => {
 		>
 			<ExerciseInformation
 				rounds={{
-					total: rounds.rounds_total,
-					completed: rounds.rounds_completed,
-					duration: rounds.duration_per_round_in_sec,
+					total: rounds.total,
+					completed: rounds.completed,
+					duration: rounds.durationPerRoundInSec,
 				}}
 			/>
 		</BaseExercise>

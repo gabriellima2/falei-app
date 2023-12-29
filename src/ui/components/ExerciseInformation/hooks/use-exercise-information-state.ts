@@ -15,7 +15,7 @@ export function useExerciseInformationState(
 	const roundsTotal =
 		rounds.completed === 0
 			? rounds.total
-			: `${rounds.total} / ${rounds.completed}`;
+			: `${rounds.completed} / ${rounds.total}`;
 
 	const getTotalRoundDuration = () => {
 		const total = rounds.duration * rounds.total;
