@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
+import { getDiffInMinutesSinceMidnight } from "@/helpers/get-diff-in-minutes-since-midnight";
 import { hasAppointmentToday } from "@/helpers/has-appointment-today";
-import { formatTime } from "@/helpers/format-time";
 
 import type { AppointmentEntity } from "@/entities/appointment.entity";
 
@@ -10,18 +10,9 @@ const date = new Date();
 export function useWeekAppointments<T extends AppointmentEntity>(
 	appointments: T[]
 ) {
-	const isTimeForAppointment = (hour: number, minutes: number) => {
-		const currentHour = date.getHours();
-		const currentMinutes = date.getMinutes();
-		return hour >= currentHour && minutes >= currentMinutes;
-	};
-
 	const getTodayAppointment = (appointment: T, appointmentDay: number) => {
 		const { scheduledAt: scheduleDetails } = appointment;
-		if (
-			hasAppointmentToday(scheduleDetails.days, appointmentDay) &&
-			isTimeForAppointment(scheduleDetails.hour, scheduleDetails.minutes)
-		) {
+		if (hasAppointmentToday(scheduleDetails.days, appointmentDay)) {
 			return appointment;
 		}
 	};
@@ -37,19 +28,28 @@ export function useWeekAppointments<T extends AppointmentEntity>(
 		}
 	};
 
-	const orderAppointmentsByHour = (appointments: T[]) => {
-		appointments.sort((current, next) => {
-			const currentTime = formatTime(
-				current.scheduledAt.hour,
-				current.scheduledAt.minutes
-			);
-			const nextTime = formatTime(
-				next.scheduledAt.hour,
-				next.scheduledAt.minutes
-			);
-			return currentTime.localeCompare(nextTime);
-		});
-		return appointments;
+	const orderAppointments = (appointments: T[]) => {
+		const orderByTime = (appointments: T[]) => {
+			return appointments.sort((current, next) => {
+				const currentTime = getDiffInMinutesSinceMidnight(
+					current.scheduledAt.hour,
+					current.scheduledAt.minutes
+				);
+				const nextTime = getDiffInMinutesSinceMidnight(
+					next.scheduledAt.hour,
+					next.scheduledAt.minutes
+				);
+				return currentTime - nextTime;
+			});
+		};
+		const orderByDay = (appointments: T[]) => {
+			return appointments.sort((current, next) => {
+				const minCurrentDay = Math.min(...current.scheduledAt.days);
+				const minNextDay = Math.min(...next.scheduledAt.days);
+				return minCurrentDay - minNextDay;
+			});
+		};
+		return orderByTime(orderByDay(appointments));
 	};
 
 	const filteredAppointments = useMemo(() => {
@@ -74,13 +74,10 @@ export function useWeekAppointments<T extends AppointmentEntity>(
 			},
 			{ todayAppointments: [] as T[], appointmentsForTheWeek: [] as T[] }
 		);
-		const orderedAppointmentsByHour = [
-			todayAppointments,
-			appointmentsForTheWeek,
-		]
-			.map(orderAppointmentsByHour)
+		const orderedAppointments = [todayAppointments, appointmentsForTheWeek]
+			.map(orderAppointments)
 			.flat();
-		return orderedAppointmentsByHour;
+		return orderedAppointments;
 	}, [appointments]);
 
 	return filteredAppointments;

@@ -7,14 +7,15 @@ const date = new Date();
 const now = {
 	day: date.getDay(),
 	nextDay: date.getDay() === 6 ? 0 : date.getDay() + 1,
+	previousDay: date.getDay() === 0 ? 6 : date.getDay() - 1,
 	hour: date.getHours(),
 	minutes: date.getMinutes(),
 };
 
 const defaultParams = [
 	{
-		id: "1",
-		title: "any_title_schedule_1",
+		id: "0",
+		title: "any_title_schedule_0",
 		scheduledAt: {
 			days: [now.day],
 			hour: Number(now.hour) - 3,
@@ -22,8 +23,8 @@ const defaultParams = [
 		},
 	},
 	{
-		id: "2",
-		title: "any_title_schedule_2",
+		id: "1",
+		title: "any_title_schedule_1",
 		scheduledAt: {
 			days: [now.day],
 			hour: now.hour,
@@ -33,6 +34,11 @@ const defaultParams = [
 	{
 		id: "3",
 		title: "any_title_schedule_3",
+		scheduledAt: { days: [now.nextDay], hour: 10, minutes: 0 },
+	},
+	{
+		id: "2",
+		title: "any_title_schedule_2",
 		scheduledAt: {
 			days: [now.day],
 			hour: Number(now.hour) - 1,
@@ -42,7 +48,16 @@ const defaultParams = [
 	{
 		id: "4",
 		title: "any_title_schedule_4",
-		scheduledAt: { days: [now.nextDay], hour: 10, minutes: 0 },
+		scheduledAt: { days: [now.previousDay], hour: 13, minutes: 0 },
+	},
+	{
+		id: "5",
+		title: "any_title_schedule_5",
+		scheduledAt: {
+			days: [now.previousDay, now.day],
+			hour: now.hour === 23 ? 0 : now.hour + 1,
+			minutes: 0,
+		},
 	},
 ] as unknown as BreathingAppointmentEntity[];
 
@@ -50,10 +65,16 @@ const executeHook = (params: BreathingAppointmentEntity[] = defaultParams) =>
 	renderHook(() => useWeekAppointments<BreathingAppointmentEntity>(params));
 
 describe("useWeekAppointments", () => {
-	const WEEK_IS_NOT_OVER = now.day <= 5; // 5 === Saturday
-	const validResult = WEEK_IS_NOT_OVER
-		? [defaultParams[1], defaultParams[3]]
-		: [defaultParams[1]];
+	const WEEK_IS_OVER = now.day === 5; // 5 === Saturday
+	const validResult = WEEK_IS_OVER
+		? [
+				defaultParams[0],
+				defaultParams[3],
+				defaultParams[1],
+				defaultParams[5],
+				defaultParams[2],
+		  ]
+		: [defaultParams[0], defaultParams[3], defaultParams[1], defaultParams[5]];
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -62,14 +83,9 @@ describe("useWeekAppointments", () => {
 	describe("Return Values", () => {
 		it("should return the initial values correctly", () => {
 			const { result } = executeHook();
-
 			expect(typeof result.current).toBe("object");
 		});
-		it("should return today's appointment when you are at the scheduled time", () => {
-			const { result } = executeHook();
-			expect(result.current[0]).toMatchObject(validResult[0]);
-		});
-		it("should return upcoming appointments ignoring past appointments from the current day ordered by hour", () => {
+		it("should return today's appointment", () => {
 			const { result } = executeHook();
 			expect(result.current).toMatchObject(validResult);
 		});
