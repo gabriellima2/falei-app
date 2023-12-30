@@ -14,12 +14,11 @@ import {
 	ContainerWithDefaultSpaces,
 } from "@/ui/atoms";
 
-export type CreateAccountProps<T> = UseCreateAccountStateParams<T>;
+export type CreateAccountProps = UseCreateAccountStateParams;
 
-export function CreateAccount<T>(props: CreateAccountProps<T>) {
-	const { authentication } = props;
-	const { handleSignUp } = useCreateAccountState<T>({ authentication });
-
+export function CreateAccount(props: CreateAccountProps) {
+	const { signUp } = props;
+	const { handleSignUp } = useCreateAccountState({ signUp });
 	return (
 		<>
 			<Header
@@ -47,8 +46,7 @@ export function CreateAccount<T>(props: CreateAccountProps<T>) {
 const Container = styled(ContainerWithDefaultSpaces)`
 	${({ theme }) => css`
 		flex: 1;
-		gap: 100px;
-		padding-bottom: ${theme.spaces[4]};
+		gap: ${theme.spaces[5]};
 	`}
 `;
 

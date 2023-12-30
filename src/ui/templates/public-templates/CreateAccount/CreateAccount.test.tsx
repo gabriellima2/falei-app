@@ -5,8 +5,8 @@ import { ToastProvider } from "@/contexts/ToastContext";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
-const defaultProps: CreateAccountProps<null> = {
-	authentication: jest.fn(),
+const defaultProps: CreateAccountProps = {
+	signUp: jest.fn(),
 };
 
 const renderComponent = () =>
@@ -55,7 +55,7 @@ describe("<CreateAccount />", () => {
 				});
 
 				await waitFor(() => {
-					expect(defaultProps.authentication).toHaveBeenCalledWith({
+					expect(defaultProps.signUp).toHaveBeenCalledWith({
 						email: values.email,
 						password: values.password,
 					});

@@ -12,8 +12,8 @@ import {
 
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 
-const defaultParams: UseCreateAccountStateParams<void> = {
-	authentication: jest.fn(),
+const defaultParams: UseCreateAccountStateParams = {
+	signUp: jest.fn(),
 };
 
 const executeHook = (params = defaultParams) =>
@@ -38,34 +38,37 @@ describe("useCreateAccountState", () => {
 		});
 	});
 	describe("Interactions", () => {
-		describe("Authentication", () => {
-			const credentials: AuthInputDTO = { email: "hello", password: "world" };
+		describe("handleSignUp", () => {
+			const credentials: AuthInputDTO = {
+				email: "any@email.com",
+				password: "any_password",
+			};
 
-			function expectAuthenticationToHaveBeenCalled(authentication: jest.Mock) {
-				expect(authentication).toHaveBeenCalled();
-				expect(authentication).toHaveBeenCalledWith(credentials);
+			function expectSignUpServiceToHaveBeenCalled(signUp: jest.Mock) {
+				expect(signUp).toHaveBeenCalled();
+				expect(signUp).toHaveBeenCalledWith(credentials);
 			}
 
-			it("should handle when authentication is completed correctly", async () => {
-				const mockAuthentication = jest.fn().mockResolvedValue(() => "");
-				const { result } = executeHook({ authentication: mockAuthentication });
+			it("should handle when sign-up service is resolved", async () => {
+				const mockSignUp = jest.fn().mockResolvedValue(() => "");
+				const { result } = executeHook({ signUp: mockSignUp });
 
 				await result.current.handleSignUp(credentials);
 
-				expectAuthenticationToHaveBeenCalled(mockAuthentication);
+				expectSignUpServiceToHaveBeenCalled(mockSignUp);
 				expect(mockNotify).toHaveBeenCalled();
 				expect(mockNotify).toHaveBeenCalledWith("Conta criada com sucesso", {
 					type: "success",
 				});
 			});
-			it("should handle when authentication throw an error", async () => {
-				const mockAuthentication = jest.fn().mockRejectedValue(() => "");
-				const { result } = executeHook({ authentication: mockAuthentication });
+			it("should handle when sign-up service is rejected", async () => {
+				const mockSignUp = jest.fn().mockRejectedValue(() => "");
+				const { result } = executeHook({ signUp: mockSignUp });
 
 				try {
 					await result.current.handleSignUp(credentials);
 				} catch (e) {
-					expectAuthenticationToHaveBeenCalled(mockAuthentication);
+					expectSignUpServiceToHaveBeenCalled(mockSignUp);
 					expect(mockNotify).not.toHaveBeenCalled();
 				}
 			});

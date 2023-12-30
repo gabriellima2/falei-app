@@ -1,24 +1,24 @@
 import { useToastContext } from "@/contexts/ToastContext";
 
+import type { AuthenticationAdapter } from "@/adapters/authentication.adapter";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
-import type { Authentication } from "@/@types/authentication";
 
-export type UseCreateAccountStateParams<T> = {
-	authentication: Authentication<T>;
+export type UseCreateAccountStateParams = {
+	signUp: Pick<AuthenticationAdapter, "signUp">["signUp"];
 };
 
 type UseCreateAccountStateReturn = {
-	handleSignUp: Authentication<void>;
+	handleSignUp: (credentials: AuthInputDTO) => Promise<void>;
 };
 
-export function useCreateAccountState<T>(
-	params: UseCreateAccountStateParams<T>
+export function useCreateAccountState(
+	params: UseCreateAccountStateParams
 ): UseCreateAccountStateReturn {
-	const { authentication } = params;
+	const { signUp } = params;
 	const { notify } = useToastContext();
 
 	const handleSignUp = async (credentials: AuthInputDTO) => {
-		await authentication(credentials);
+		await signUp(credentials);
 		notify("Conta criada com sucesso", { type: "success" });
 	};
 

@@ -9,7 +9,7 @@ export default function Page() {
 	return (
 		<>
 			<Stack.Screen options={{ animation: "slide_from_right" }} />
-			<CreateAccount authentication={authenticationAdapter.signUp} />
+			<CreateAccount signUp={authenticationAdapter.signUp} />
 		</>
 	);
 }
