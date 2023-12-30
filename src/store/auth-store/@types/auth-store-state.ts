@@ -1,8 +1,8 @@
-import { User } from "firebase/auth";
 import { Unsubscribe } from "firebase/firestore";
+import { UserEntity } from "@/entities/user.entity";
 
 export type AuthStoreState = {
-	user: User | null;
+	user: Omit<UserEntity, "password"> | null;
 	authHasBeenChecked: boolean;
 	signOut: () => Promise<void>;
 	checkAuthState: () => Unsubscribe;

@@ -12,7 +12,17 @@ export const useAuthStore = create<AuthStoreState>((set) => ({
 		set((state) => ({ ...state, user: null, authHasBeenChecked: false }));
 	},
 	checkAuthState: () =>
-		onAuthStateChanged(firebaseAuth, (user) => {
-			set((state) => ({ ...state, user, authHasBeenChecked: true }));
+		onAuthStateChanged(firebaseAuth, (credentials) => {
+			const user = credentials && {
+				id: credentials.uid,
+				email: credentials.email,
+				emailVerified: credentials.emailVerified,
+				isAnonymous: credentials.isAnonymous,
+			};
+			set((state) => ({
+				...state,
+				user: user ?? null,
+				authHasBeenChecked: true,
+			}));
 		}),
 }));
