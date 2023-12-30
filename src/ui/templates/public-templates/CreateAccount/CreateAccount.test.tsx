@@ -4,7 +4,7 @@ import { CreateAccount, type CreateAccountProps } from "./CreateAccount";
 import { ToastProvider } from "@/contexts/ToastContext";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { mockClearNavigation, mockReplace } from "jest-setup";
+import { mockRedirect } from "jest-setup";
 
 const defaultProps: CreateAccountProps = {
 	signUp: jest.fn(),
@@ -88,8 +88,7 @@ describe("<CreateAccount />", () => {
 					expectAnonymousButtonToHaveState({ disabled: true });
 					await waitFor(() => {
 						expect(defaultProps.anonymous).toHaveBeenCalled();
-						expect(mockReplace).toHaveBeenCalledWith("(tabs)/");
-						expect(mockClearNavigation).toHaveBeenCalled();
+						expect(mockRedirect).toHaveBeenCalled();
 						expectAnonymousButtonToHaveState({ disabled: false });
 					});
 				});
@@ -109,8 +108,7 @@ describe("<CreateAccount />", () => {
 						await waitFor(() => {
 							expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
 							expect(defaultProps.anonymous).toHaveBeenCalled();
-							expect(mockReplace).not.toHaveBeenCalled();
-							expect(mockClearNavigation).not.toHaveBeenCalled();
+							expect(mockRedirect).not.toHaveBeenCalled();
 							expectAnonymousButtonToHaveState({ disabled: false });
 						});
 					}

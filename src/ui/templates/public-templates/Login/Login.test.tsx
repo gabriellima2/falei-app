@@ -2,34 +2,29 @@ import "expo-router";
 import { screen, fireEvent, waitFor, act } from "@testing-library/react-native";
 
 import { Login, type LoginProps } from "./Login";
-import * as useClearNavigation from "@/hooks/use-clear-navigation";
+import { ToastProvider } from "@/contexts/ToastContext";
 
-import { mockReplace } from "jest-setup";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { mockRedirect } from "jest-setup";
 
-const useClearNavigationSpyOn = jest.spyOn(
-	useClearNavigation,
-	"useClearNavigation"
-);
-
-const mockClearNavigation = jest.fn();
 const defaultProps: LoginProps = {
 	signIn: jest.fn(),
 };
 
-const renderComponent = () =>
-	renderWithThemeProvider(<Login {...defaultProps} />);
+const renderComponent = (props = defaultProps) =>
+	renderWithThemeProvider(
+		<ToastProvider>
+			{" "}
+			<Login {...props} />
+		</ToastProvider>
+	);
 
 const getButtonEl = () => screen.getByText("Entrar");
 
 describe("<Login />", () => {
 	const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
 
-	beforeAll(() => {
-		useClearNavigationSpyOn.mockReturnValue(mockClearNavigation);
-	});
-
-	afterAll(() => {
+	beforeEach(() => {
 		jest.clearAllMocks();
 	});
 
@@ -70,8 +65,7 @@ describe("<Login />", () => {
 						email: values.email,
 						password: values.password,
 					});
-					expect(mockReplace).toHaveBeenCalledWith("(tabs)/");
-					expect(mockClearNavigation).toHaveBeenCalled();
+					expect(mockRedirect).toHaveBeenCalled();
 				});
 			});
 		});

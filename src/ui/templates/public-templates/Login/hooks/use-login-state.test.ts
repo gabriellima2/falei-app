@@ -1,14 +1,9 @@
 import { renderHook } from "@testing-library/react-hooks";
 
 import { useLoginState, UseLoginStateParams } from "./use-login-state";
-
-import { mockReplace } from "jest-setup";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 
-const mockClearNavigation = jest.fn();
-jest.mock("@/hooks/use-clear-navigation.ts", () => ({
-	useClearNavigation: () => mockClearNavigation,
-}));
+import { mockRedirect } from "jest-setup";
 
 const defaultParams: UseLoginStateParams = {
 	signIn: jest.fn(),
@@ -51,8 +46,7 @@ describe("useLoginState", () => {
 				await result.current.handleSignIn(credentials);
 
 				expectSignInServiceToHaveBeenCalled(mockSignIn);
-				expect(mockClearNavigation).toHaveBeenCalled();
-				expect(mockReplace).toHaveBeenCalled();
+				expect(mockRedirect).toHaveBeenCalled();
 			});
 			it("should handle when sign-in service is rejected", async () => {
 				const mockSignIn = jest.fn().mockRejectedValue(() => "");
@@ -62,8 +56,7 @@ describe("useLoginState", () => {
 					await result.current.handleSignIn(credentials);
 				} catch (e) {
 					expectSignInServiceToHaveBeenCalled(mockSignIn);
-					expect(mockClearNavigation).not.toHaveBeenCalled();
-					expect(mockReplace).not.toHaveBeenCalled();
+					expect(mockRedirect).not.toHaveBeenCalled();
 				}
 			});
 		});

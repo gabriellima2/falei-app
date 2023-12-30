@@ -27,8 +27,8 @@ describe("UseClearNavigation", () => {
 					reset: mockReset,
 				} as unknown as ReturnType<typeof ExpoRouter.useNavigation>);
 
-				const { result } = executeHook();
-				result.current();
+				const clear = executeHook().result.current;
+				clear();
 
 				expect(mockReset).toHaveBeenCalledWith({
 					index: 0,

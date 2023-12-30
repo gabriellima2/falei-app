@@ -9,7 +9,7 @@ import {
 	mockNotify,
 	ToastContextWrapper,
 } from "@/__mocks__/toast-context-wrapper";
-import { mockClearNavigation, mockReplace } from "jest-setup";
+import { mockRedirect } from "jest-setup";
 
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 import type { ToastOptions } from "@/contexts/ToastContext";
@@ -100,8 +100,7 @@ describe("useCreateAccountState", () => {
 				await result.current.handleAnonymous();
 
 				expect(mockAnonymousAuth).toHaveBeenCalled();
-				expect(mockClearNavigation).toHaveBeenCalled();
-				expect(mockReplace).toHaveBeenCalled();
+				expect(mockRedirect).toHaveBeenCalled();
 				expect(mockNotify).not.toHaveBeenCalled();
 			});
 			it("should handle when sign-up service is rejected", async () => {
@@ -118,8 +117,7 @@ describe("useCreateAccountState", () => {
 					await result.current.handleAnonymous();
 				} catch (e) {
 					expect(mockAnonymousAuth).toHaveBeenCalled();
-					expect(mockClearNavigation).not.toHaveBeenCalled();
-					expect(mockReplace).not.toHaveBeenCalled();
+					expect(mockRedirect).not.toHaveBeenCalled();
 					expectNotifyToHaveBeenCalledWith(ERROR_MESSAGE, {
 						type: "alert",
 					});

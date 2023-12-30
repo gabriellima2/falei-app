@@ -1,6 +1,4 @@
-import { useRouter } from "expo-router";
-
-import { useClearNavigation } from "@/hooks/use-clear-navigation";
+import { useRedirectAfterAuthentication } from "@/hooks/use-redirect-after-authentication";
 
 import type { AuthenticationAdapter } from "@/adapters/authentication.adapter";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
@@ -17,16 +15,11 @@ export function useLoginState(
 	params: UseLoginStateParams
 ): UseLoginStateReturn {
 	const { signIn } = params;
-	const clearNavigation = useClearNavigation([
-		"(auth)/create-account",
-		"(auth)/login",
-	]);
-	const router = useRouter();
+	const { redirect } = useRedirectAfterAuthentication();
 
 	const handleSignIn = async (credentials: AuthInputDTO) => {
 		await signIn(credentials);
-		clearNavigation();
-		router.replace("(tabs)/");
+		redirect();
 	};
 
 	return { handleSignIn };
