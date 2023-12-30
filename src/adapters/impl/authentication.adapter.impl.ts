@@ -1,6 +1,7 @@
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
+	signInAnonymously,
 } from "firebase/auth";
 
 import { firebaseAuth } from "@/lib/firebase-auth";
@@ -16,5 +17,8 @@ export class AuthenticationAdapterImpl implements AuthenticationAdapter {
 	async signUp(credentials: AuthInputDTO): AuthOutputDTO {
 		const { email, password } = credentials;
 		return await createUserWithEmailAndPassword(firebaseAuth, email, password);
+	}
+	async anonymous(): AuthOutputDTO {
+		return await signInAnonymously(firebaseAuth);
 	}
 }
