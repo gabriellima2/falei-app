@@ -28,7 +28,7 @@ export const BaseExercise = <TParams extends object>(
 		<Container {...rest} onLongPress={handleLongPress}>
 			<Icon>{icon({ color: theme.colors.utils.white, size: 24 })}</Icon>
 			<Content>
-				<Title numberOfLines={4}>{title}</Title>
+				<Title numberOfLines={7}>{title}</Title>
 				{children}
 			</Content>
 		</Container>
