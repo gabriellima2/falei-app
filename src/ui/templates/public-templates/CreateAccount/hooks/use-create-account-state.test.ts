@@ -9,11 +9,14 @@ import {
 	mockNotify,
 	ToastContextWrapper,
 } from "@/__mocks__/toast-context-wrapper";
+import { mockClearNavigation, mockReplace } from "jest-setup";
 
 import type { AuthInputDTO } from "@/dtos/auth.dto";
+import type { ToastOptions } from "@/contexts/ToastContext";
 
 const defaultParams: UseCreateAccountStateParams = {
 	signUp: jest.fn(),
+	anonymous: jest.fn(),
 };
 
 const executeHook = (params = defaultParams) =>
@@ -38,6 +41,13 @@ describe("useCreateAccountState", () => {
 		});
 	});
 	describe("Interactions", () => {
+		function expectNotifyToHaveBeenCalledWith(
+			message: string,
+			options: ToastOptions
+		) {
+			expect(mockNotify).toHaveBeenCalledWith(message, options);
+		}
+
 		describe("handleSignUp", () => {
 			const credentials: AuthInputDTO = {
 				email: "any@email.com",
@@ -51,25 +61,68 @@ describe("useCreateAccountState", () => {
 
 			it("should handle when sign-up service is resolved", async () => {
 				const mockSignUp = jest.fn().mockResolvedValue(() => "");
-				const { result } = executeHook({ signUp: mockSignUp });
+				const { result } = executeHook({
+					...defaultParams,
+					signUp: mockSignUp,
+				});
 
 				await result.current.handleSignUp(credentials);
 
 				expectSignUpServiceToHaveBeenCalled(mockSignUp);
 				expect(mockNotify).toHaveBeenCalled();
-				expect(mockNotify).toHaveBeenCalledWith("Conta criada com sucesso", {
+				expectNotifyToHaveBeenCalledWith("Conta criada com sucesso", {
 					type: "success",
 				});
 			});
 			it("should handle when sign-up service is rejected", async () => {
 				const mockSignUp = jest.fn().mockRejectedValue(() => "");
-				const { result } = executeHook({ signUp: mockSignUp });
+				const { result } = executeHook({
+					...defaultParams,
+					signUp: mockSignUp,
+				});
 
 				try {
 					await result.current.handleSignUp(credentials);
 				} catch (e) {
 					expectSignUpServiceToHaveBeenCalled(mockSignUp);
 					expect(mockNotify).not.toHaveBeenCalled();
+				}
+			});
+		});
+		describe("handleAnonymous", () => {
+			it("should handle when anonymous service is resolved", async () => {
+				const mockAnonymousAuth = jest.fn().mockResolvedValue(() => "");
+				const { result } = executeHook({
+					...defaultParams,
+					anonymous: mockAnonymousAuth,
+				});
+
+				await result.current.handleAnonymous();
+
+				expect(mockAnonymousAuth).toHaveBeenCalled();
+				expect(mockClearNavigation).toHaveBeenCalled();
+				expect(mockReplace).toHaveBeenCalled();
+				expect(mockNotify).not.toHaveBeenCalled();
+			});
+			it("should handle when sign-up service is rejected", async () => {
+				const ERROR_MESSAGE = "any_error";
+				const mockAnonymousAuth = jest
+					.fn()
+					.mockRejectedValue(() => ERROR_MESSAGE);
+				const { result } = executeHook({
+					...defaultParams,
+					anonymous: mockAnonymousAuth,
+				});
+
+				try {
+					await result.current.handleAnonymous();
+				} catch (e) {
+					expect(mockAnonymousAuth).toHaveBeenCalled();
+					expect(mockClearNavigation).not.toHaveBeenCalled();
+					expect(mockReplace).not.toHaveBeenCalled();
+					expectNotifyToHaveBeenCalledWith(ERROR_MESSAGE, {
+						type: "alert",
+					});
 				}
 			});
 		});

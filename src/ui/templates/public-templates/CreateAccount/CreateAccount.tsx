@@ -9,16 +9,20 @@ import { AuthForm } from "@/ui/components";
 import {
 	Header,
 	AuthLink,
-	TextLink,
 	KeyboardAvoidingWrapper,
 	ContainerWithDefaultSpaces,
+	BaseButton,
 } from "@/ui/atoms";
 
 export type CreateAccountProps = UseCreateAccountStateParams;
 
 export function CreateAccount(props: CreateAccountProps) {
-	const { signUp } = props;
-	const { handleSignUp } = useCreateAccountState({ signUp });
+	const { signUp, anonymous } = props;
+	const { isLoadingAsAnonymous, handleSignUp, handleAnonymous } =
+		useCreateAccountState({
+			signUp,
+			anonymous,
+		});
 	return (
 		<>
 			<Header
@@ -26,7 +30,6 @@ export function CreateAccount(props: CreateAccountProps) {
 					<AuthLink href={{ pathname: "login" }}>Entrar</AuthLink>
 				)}
 			/>
-
 			<KeyboardAvoidingWrapper>
 				<Container bottomSpacing horizontalSpacing verticalSpacing>
 					<AuthForm
@@ -34,9 +37,15 @@ export function CreateAccount(props: CreateAccountProps) {
 						button={{ text: "Criar conta" }}
 						onSubmit={handleSignUp}
 					/>
-					<ContinueWithoutAccountLink href={{ pathname: "/" }}>
+					<AnonymousButton
+						disabled={isLoadingAsAnonymous}
+						onlyText
+						onPress={handleAnonymous}
+						accessibilityLabel="Continuar sem conta"
+						accessibilityHint="Comecará a usar o aplicativo como anônimo"
+					>
 						Continuar sem conta
-					</ContinueWithoutAccountLink>
+					</AnonymousButton>
 				</Container>
 			</KeyboardAvoidingWrapper>
 		</>
@@ -50,6 +59,6 @@ const Container = styled(ContainerWithDefaultSpaces)`
 	`}
 `;
 
-const ContinueWithoutAccountLink = styled(TextLink)`
+const AnonymousButton = styled(BaseButton)`
 	align-self: center;
 `;

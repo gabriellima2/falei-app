@@ -2,6 +2,7 @@ import '@testing-library/react-native';
 
 export const mockPush = jest.fn();
 export const mockReplace = jest.fn();
+export const mockClearNavigation = jest.fn();
 export const mockNavigation = { canGoBack: jest.fn() };
 
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
@@ -34,5 +35,9 @@ jest.mock("@gorhom/bottom-sheet", () => {
 		})
 	};
 });
+
+jest.mock("@/hooks/use-clear-navigation.ts", () => ({
+	useClearNavigation: () => mockClearNavigation,
+}));
 
 global.setImmediate = (callback) => setTimeout(callback, 0);
