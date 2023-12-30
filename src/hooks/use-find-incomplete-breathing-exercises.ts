@@ -32,14 +32,16 @@ export function useFindIncompleteBreathingExercises(
 	};
 
 	const getIncompleteExercises = () => {
-		if (incompleteExercises && incompleteAppointments) {
+		const hasIncompleteExercises = !!incompleteExercises.length;
+		const hasIncompleteAppointments = !!incompleteAppointments.length;
+		if (hasIncompleteExercises && hasIncompleteAppointments) {
 			return [
 				...incompleteAppointments,
 				...getIncompleteExercisesWithoutAppointment(),
 			];
 		}
-		if (incompleteExercises) return incompleteExercises;
-		if (incompleteAppointments) return incompleteAppointments;
+		if (hasIncompleteExercises) return incompleteExercises;
+		if (hasIncompleteAppointments) return incompleteAppointments;
 		return [];
 	};
 
