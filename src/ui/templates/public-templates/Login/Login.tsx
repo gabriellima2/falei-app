@@ -11,12 +11,11 @@ import {
 } from "@/ui/atoms";
 import { AuthForm } from "@/ui/components";
 
-export type LoginProps<T> = UseLoginStateParams<T>;
+export type LoginProps = UseLoginStateParams;
 
-export function Login<T>(props: LoginProps<T>) {
-	const { authentication } = props;
-	const { handleSignIn } = useLoginState({ authentication });
-
+export function Login(props: LoginProps) {
+	const { signIn } = props;
+	const { handleSignIn } = useLoginState({ signIn });
 	return (
 		<>
 			<Header

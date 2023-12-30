@@ -10,8 +10,8 @@ jest.mock("@/hooks/use-clear-navigation.ts", () => ({
 	useClearNavigation: () => mockClearNavigation,
 }));
 
-const defaultParams: UseLoginStateParams<void> = {
-	authentication: jest.fn(),
+const defaultParams: UseLoginStateParams = {
+	signIn: jest.fn(),
 };
 const executeHook = (params = defaultParams) =>
 	renderHook(() => useLoginState(params));
@@ -33,32 +33,35 @@ describe("useLoginState", () => {
 		});
 	});
 	describe("Interactions", () => {
-		describe("Authentication", () => {
-			const credentials: AuthInputDTO = { email: "hello", password: "world" };
+		describe("handleSignIn", () => {
+			const credentials: AuthInputDTO = {
+				email: "any@email.com",
+				password: "any_password",
+			};
 
-			function expectAuthenticationToHaveBeenCalled(authentication: jest.Mock) {
-				expect(authentication).toHaveBeenCalled();
-				expect(authentication).toHaveBeenCalledWith(credentials);
+			function expectSignInServiceToHaveBeenCalled(signIn: jest.Mock) {
+				expect(signIn).toHaveBeenCalled();
+				expect(signIn).toHaveBeenCalledWith(credentials);
 			}
 
-			it("should handle when authentication is completed correctly", async () => {
-				const mockAuthentication = jest.fn().mockResolvedValue(() => "");
-				const { result } = executeHook({ authentication: mockAuthentication });
+			it("should handle when sign-in service is resolved", async () => {
+				const mockSignIn = jest.fn().mockResolvedValue(() => "");
+				const { result } = executeHook({ signIn: mockSignIn });
 
 				await result.current.handleSignIn(credentials);
 
-				expectAuthenticationToHaveBeenCalled(mockAuthentication);
+				expectSignInServiceToHaveBeenCalled(mockSignIn);
 				expect(mockClearNavigation).toHaveBeenCalled();
 				expect(mockReplace).toHaveBeenCalled();
 			});
-			it("should handle when authentication throw an error", async () => {
-				const mockAuthentication = jest.fn().mockRejectedValue(() => "");
-				const { result } = executeHook({ authentication: mockAuthentication });
+			it("should handle when sign-in service is rejected", async () => {
+				const mockSignIn = jest.fn().mockRejectedValue(() => "");
+				const { result } = executeHook({ signIn: mockSignIn });
 
 				try {
 					await result.current.handleSignIn(credentials);
 				} catch (e) {
-					expectAuthenticationToHaveBeenCalled(mockAuthentication);
+					expectSignInServiceToHaveBeenCalled(mockSignIn);
 					expect(mockClearNavigation).not.toHaveBeenCalled();
 					expect(mockReplace).not.toHaveBeenCalled();
 				}

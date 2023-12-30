@@ -2,21 +2,21 @@ import { useRouter } from "expo-router";
 
 import { useClearNavigation } from "@/hooks/use-clear-navigation";
 
+import type { AuthenticationAdapter } from "@/adapters/authentication.adapter";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
-import type { Authentication } from "@/@types/authentication";
 
-export type UseLoginStateParams<T> = {
-	authentication: Authentication<T>;
+export type UseLoginStateParams = {
+	signIn: Pick<AuthenticationAdapter, "signIn">["signIn"];
 };
 
 type UseLoginStateReturn = {
-	handleSignIn: Authentication<void>;
+	handleSignIn: (credentials: AuthInputDTO) => Promise<void>;
 };
 
-export function useLoginState<T>(
-	params: UseLoginStateParams<T>
+export function useLoginState(
+	params: UseLoginStateParams
 ): UseLoginStateReturn {
-	const { authentication } = params;
+	const { signIn } = params;
 	const clearNavigation = useClearNavigation([
 		"(auth)/create-account",
 		"(auth)/login",
@@ -24,7 +24,7 @@ export function useLoginState<T>(
 	const router = useRouter();
 
 	const handleSignIn = async (credentials: AuthInputDTO) => {
-		await authentication(credentials);
+		await signIn(credentials);
 		clearNavigation();
 		router.replace("(tabs)/");
 	};

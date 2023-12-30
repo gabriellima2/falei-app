@@ -13,8 +13,8 @@ const useClearNavigationSpyOn = jest.spyOn(
 );
 
 const mockClearNavigation = jest.fn();
-const defaultProps: LoginProps<null> = {
-	authentication: jest.fn(),
+const defaultProps: LoginProps = {
+	signIn: jest.fn(),
 };
 
 const renderComponent = () =>
@@ -66,7 +66,7 @@ describe("<Login />", () => {
 				});
 
 				await waitFor(() => {
-					expect(defaultProps.authentication).toHaveBeenCalledWith({
+					expect(defaultProps.signIn).toHaveBeenCalledWith({
 						email: values.email,
 						password: values.password,
 					});

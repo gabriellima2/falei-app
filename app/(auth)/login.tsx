@@ -9,7 +9,7 @@ export default function Page() {
 	return (
 		<>
 			<Stack.Screen options={{ animation: "default" }} />
-			<Login authentication={authenticationAdapter.signIn} />
+			<Login signIn={authenticationAdapter.signIn} />
 		</>
 	);
 }
