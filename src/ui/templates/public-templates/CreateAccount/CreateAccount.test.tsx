@@ -25,7 +25,8 @@ describe("<CreateAccount />", () => {
 
 	const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
 	const getCreateAccountButtonEl = () => screen.getByText("Criar conta");
-	const getAnonymousButtonEl = () => screen.getByText("Continuar sem conta");
+	const getAnonymousButtonEl = () =>
+		screen.getByLabelText("Continuar sem conta");
 
 	describe("Render", () => {
 		it("should render correctly", () => {
@@ -69,6 +70,14 @@ describe("<CreateAccount />", () => {
 				});
 			});
 			describe("Anonymous", () => {
+				function expectAnonymousButtonToHaveState(state: {
+					disabled: boolean;
+				}) {
+					expect(getAnonymousButtonEl().props.accessibilityState.disabled).toBe(
+						state.disabled
+					);
+				}
+
 				it("should handle anonymous when is resolved", async () => {
 					renderComponent();
 
@@ -76,10 +85,12 @@ describe("<CreateAccount />", () => {
 						fireEvent.press(getAnonymousButtonEl());
 					});
 
+					expectAnonymousButtonToHaveState({ disabled: true });
 					await waitFor(() => {
 						expect(defaultProps.anonymous).toHaveBeenCalled();
 						expect(mockReplace).toHaveBeenCalledWith("(tabs)/");
 						expect(mockClearNavigation).toHaveBeenCalled();
+						expectAnonymousButtonToHaveState({ disabled: false });
 					});
 				});
 				it("should handle anonymous when is rejected", async () => {
@@ -93,12 +104,14 @@ describe("<CreateAccount />", () => {
 						act(() => {
 							fireEvent.press(getAnonymousButtonEl());
 						});
+						expectAnonymousButtonToHaveState({ disabled: true });
 					} catch (err) {
 						await waitFor(() => {
 							expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
 							expect(defaultProps.anonymous).toHaveBeenCalled();
 							expect(mockReplace).not.toHaveBeenCalled();
 							expect(mockClearNavigation).not.toHaveBeenCalled();
+							expectAnonymousButtonToHaveState({ disabled: false });
 						});
 					}
 				});
