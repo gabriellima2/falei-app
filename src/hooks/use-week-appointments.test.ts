@@ -65,16 +65,18 @@ const executeHook = (params: BreathingAppointmentEntity[] = defaultParams) =>
 	renderHook(() => useWeekAppointments<BreathingAppointmentEntity>(params));
 
 describe("useWeekAppointments", () => {
-	const WEEK_IS_OVER = now.day === 5; // 5 === Saturday
-	const validResult = WEEK_IS_OVER
-		? [
-				defaultParams[0],
-				defaultParams[3],
-				defaultParams[1],
-				defaultParams[5],
-				defaultParams[2],
-		  ]
-		: [defaultParams[0], defaultParams[3], defaultParams[1], defaultParams[5]];
+	const isSunday = now.day === 0;
+	const appointmentsForTheRestOfTheWeek = [
+		defaultParams[0],
+		defaultParams[3],
+		defaultParams[1],
+		defaultParams[5],
+		defaultParams[2],
+	];
+	const appointmentsForTheWeek = [
+		...appointmentsForTheRestOfTheWeek,
+		defaultParams[4],
+	];
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -87,7 +89,12 @@ describe("useWeekAppointments", () => {
 		});
 		it("should return today's appointment", () => {
 			const { result } = executeHook();
-			expect(result.current).toMatchObject(validResult);
+
+			const expected = isSunday
+				? appointmentsForTheWeek
+				: appointmentsForTheRestOfTheWeek;
+
+			expect(result.current).toMatchObject(expected);
 		});
 		it("should return empty when there are no appointments for the week", () => {
 			const { result } = executeHook([]);
