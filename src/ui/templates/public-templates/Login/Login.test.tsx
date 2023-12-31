@@ -21,9 +21,10 @@ const renderComponent = (props = defaultProps) =>
 		</ToastProvider>
 	);
 
-const getButtonEl = () => screen.getByText("Entrar");
-
 describe("<Login />", () => {
+	const ERROR_MESSAGE = "any_error";
+
+	const getButtonEl = () => screen.getByText("Entrar");
 	const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
 
 	beforeEach(() => {
@@ -41,24 +42,25 @@ describe("<Login />", () => {
 		});
 	});
 	describe("Interactions", () => {
-		describe("Submit", () => {
-			it("should login the user correctly", async () => {
-				const placeholders = {
-					email: "Ex: seuemail@gmail.com",
-					password: "8+ Caracteres",
-				};
-				const values = {
-					email: "test@example.com",
-					password: "password123",
-				};
+		describe("SignIn", () => {
+			const values = {
+				email: "test@example.com",
+				password: "password123",
+			};
+
+			function fillFormFields() {
+				fireEvent.changeText(
+					getFieldEl("Ex: seuemail@gmail.com"),
+					values.email
+				);
+				fireEvent.changeText(getFieldEl("8+ Caracteres"), values.password);
+			}
+
+			it("should handle the sign-in service when is resolved", async () => {
 				renderComponent();
 
 				act(() => {
-					fireEvent.changeText(getFieldEl(placeholders.email), values.email);
-					fireEvent.changeText(
-						getFieldEl(placeholders.password),
-						values.password
-					);
+					fillFormFields();
 					fireEvent.press(getButtonEl());
 				});
 
@@ -68,6 +70,27 @@ describe("<Login />", () => {
 						password: values.password,
 					});
 				});
+			});
+			it("should handle the sign-in service when is rejected", async () => {
+				renderComponent({
+					...defaultProps,
+					signIn: jest.fn().mockRejectedValue(ERROR_MESSAGE),
+				});
+
+				try {
+					act(() => {
+						fillFormFields();
+						fireEvent.press(getButtonEl());
+					});
+				} catch (err) {
+					await waitFor(() => {
+						expect(defaultProps.signIn).toHaveBeenCalledWith({
+							email: values.email,
+							password: values.password,
+						});
+						expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
+					});
+				}
 			});
 		});
 	});
