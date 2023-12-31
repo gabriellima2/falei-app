@@ -22,6 +22,8 @@ const renderComponent = (props = defaultProps) =>
 	);
 
 describe("<CreateAccount />", () => {
+	const ERROR_MESSAGE = "any_message";
+
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
@@ -44,23 +46,24 @@ describe("<CreateAccount />", () => {
 	});
 	describe("Interactions", () => {
 		describe("SignUp", () => {
-			it("should create account correctly", async () => {
-				const placeholders = {
-					email: "Ex: seuemail@gmail.com",
-					password: "8+ Caracteres",
-				};
-				const values = {
-					email: "test@example.com",
-					password: "password123",
-				};
+			const values = {
+				email: "test@example.com",
+				password: "password123",
+			};
+
+			function fillFormFields() {
+				fireEvent.changeText(
+					getFieldEl("Ex: seuemail@gmail.com"),
+					values.email
+				);
+				fireEvent.changeText(getFieldEl("8+ Caracteres"), values.password);
+			}
+
+			it("should handle the sign-up service when is resolved", async () => {
 				renderComponent();
 
 				act(() => {
-					fireEvent.changeText(getFieldEl(placeholders.email), values.email);
-					fireEvent.changeText(
-						getFieldEl(placeholders.password),
-						values.password
-					);
+					fillFormFields();
 					fireEvent.press(getCreateAccountButtonEl());
 				});
 
@@ -72,48 +75,66 @@ describe("<CreateAccount />", () => {
 					expect(screen.getByText("Conta criada com sucesso")).toBeTruthy();
 				});
 			});
-			describe("Anonymous", () => {
-				function expectAnonymousButtonToHaveState(state: {
-					disabled: boolean;
-				}) {
-					expect(getAnonymousButtonEl().props.accessibilityState.disabled).toBe(
-						state.disabled
-					);
+			it("should handle the sign-up service when is rejected", async () => {
+				renderComponent({
+					...defaultProps,
+					signUp: jest.fn().mockRejectedValue(ERROR_MESSAGE),
+				});
+
+				try {
+					act(() => {
+						fillFormFields();
+						fireEvent.press(getCreateAccountButtonEl());
+					});
+				} catch (err) {
+					await waitFor(() => {
+						expect(defaultProps.signUp).toHaveBeenCalledWith({
+							email: values.email,
+							password: values.password,
+						});
+						expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
+					});
 				}
+			});
+		});
+		describe("Anonymous", () => {
+			function expectAnonymousButtonToHaveState(state: { disabled: boolean }) {
+				expect(getAnonymousButtonEl().props.accessibilityState.disabled).toBe(
+					state.disabled
+				);
+			}
 
-				it("should handle anonymous when is resolved", async () => {
-					renderComponent();
+			it("should handle the sign-in-anonymously service when is resolved", async () => {
+				renderComponent();
 
+				act(() => {
+					fireEvent.press(getAnonymousButtonEl());
+				});
+
+				expectAnonymousButtonToHaveState({ disabled: true });
+				await waitFor(() => {
+					expect(defaultProps.anonymous).toHaveBeenCalled();
+					expectAnonymousButtonToHaveState({ disabled: false });
+				});
+			});
+			it("should handle the sign-in-anonymously service when is rejected", async () => {
+				renderComponent({
+					...defaultProps,
+					anonymous: jest.fn().mockRejectedValue(ERROR_MESSAGE),
+				});
+
+				try {
 					act(() => {
 						fireEvent.press(getAnonymousButtonEl());
 					});
-
 					expectAnonymousButtonToHaveState({ disabled: true });
+				} catch (err) {
 					await waitFor(() => {
+						expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
 						expect(defaultProps.anonymous).toHaveBeenCalled();
 						expectAnonymousButtonToHaveState({ disabled: false });
 					});
-				});
-				it("should handle anonymous when is rejected", async () => {
-					const ERROR_MESSAGE = "any_message";
-					renderComponent({
-						...defaultProps,
-						anonymous: jest.fn().mockRejectedValue(ERROR_MESSAGE),
-					});
-
-					try {
-						act(() => {
-							fireEvent.press(getAnonymousButtonEl());
-						});
-						expectAnonymousButtonToHaveState({ disabled: true });
-					} catch (err) {
-						await waitFor(() => {
-							expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
-							expect(defaultProps.anonymous).toHaveBeenCalled();
-							expectAnonymousButtonToHaveState({ disabled: false });
-						});
-					}
-				});
+				}
 			});
 		});
 	});
