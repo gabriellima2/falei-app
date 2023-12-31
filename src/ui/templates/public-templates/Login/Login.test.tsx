@@ -5,7 +5,10 @@ import { Login, type LoginProps } from "./Login";
 import { ToastProvider } from "@/contexts/ToastContext";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { mockRedirect } from "jest-setup";
+
+jest.mock("@/lib/firebase-auth", () => ({
+	firebaseAuth: {},
+}));
 
 const defaultProps: LoginProps = {
 	signIn: jest.fn(),
@@ -14,7 +17,6 @@ const defaultProps: LoginProps = {
 const renderComponent = (props = defaultProps) =>
 	renderWithThemeProvider(
 		<ToastProvider>
-			{" "}
 			<Login {...props} />
 		</ToastProvider>
 	);
@@ -65,7 +67,6 @@ describe("<Login />", () => {
 						email: values.email,
 						password: values.password,
 					});
-					expect(mockRedirect).toHaveBeenCalled();
 				});
 			});
 		});

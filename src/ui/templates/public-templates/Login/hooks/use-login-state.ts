@@ -1,7 +1,6 @@
-import { useRedirectAfterAuthentication } from "@/hooks/use-redirect-after-authentication";
-
 import type { AuthenticationAdapter } from "@/adapters/authentication.adapter";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
+import { useAuthStore } from "@/store/auth-store";
 
 export type UseLoginStateParams = {
 	signIn: Pick<AuthenticationAdapter, "signIn">["signIn"];
@@ -15,11 +14,11 @@ export function useLoginState(
 	params: UseLoginStateParams
 ): UseLoginStateReturn {
 	const { signIn } = params;
-	const { redirect } = useRedirectAfterAuthentication();
+	const { checkAuthState } = useAuthStore((state) => state);
 
 	const handleSignIn = async (credentials: AuthInputDTO) => {
 		await signIn(credentials);
-		redirect();
+		checkAuthState();
 	};
 
 	return { handleSignIn };

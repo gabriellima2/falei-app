@@ -3,7 +3,19 @@ import { renderHook } from "@testing-library/react-hooks";
 import { useLoginState, UseLoginStateParams } from "./use-login-state";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 
-import { mockRedirect } from "jest-setup";
+const mockCheckAuthState = jest.fn();
+
+jest.mock("@/lib/firebase-auth", () => ({
+	firebaseAuth: {},
+}));
+
+jest.mock("@/store/auth-store", () => ({
+	__esModule: true,
+	default: jest.fn(),
+	useAuthStore: jest.fn(() => ({
+		checkAuthState: mockCheckAuthState,
+	})),
+}));
 
 const defaultParams: UseLoginStateParams = {
 	signIn: jest.fn(),
@@ -46,7 +58,7 @@ describe("useLoginState", () => {
 				await result.current.handleSignIn(credentials);
 
 				expectSignInServiceToHaveBeenCalled(mockSignIn);
-				expect(mockRedirect).toHaveBeenCalled();
+				expect(mockCheckAuthState).toHaveBeenCalled();
 			});
 			it("should handle when sign-in service is rejected", async () => {
 				const mockSignIn = jest.fn().mockRejectedValue(() => "");
@@ -56,7 +68,7 @@ describe("useLoginState", () => {
 					await result.current.handleSignIn(credentials);
 				} catch (e) {
 					expectSignInServiceToHaveBeenCalled(mockSignIn);
-					expect(mockRedirect).not.toHaveBeenCalled();
+					expect(mockCheckAuthState).not.toHaveBeenCalled();
 				}
 			});
 		});
