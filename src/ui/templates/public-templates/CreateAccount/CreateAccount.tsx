@@ -1,3 +1,4 @@
+import { Redirect } from "expo-router";
 import styled, { css } from "styled-components/native";
 
 import {
@@ -18,11 +19,12 @@ export type CreateAccountProps = UseCreateAccountStateParams;
 
 export function CreateAccount(props: CreateAccountProps) {
 	const { signUp, anonymous } = props;
-	const { isLoadingAsAnonymous, handleSignUp, handleAnonymous } =
+	const { user, isLoadingAsAnonymous, handleSignUp, handleAnonymous } =
 		useCreateAccountState({
 			signUp,
 			anonymous,
 		});
+	if (user) return <Redirect href="/(tabs)/" />;
 	return (
 		<>
 			<Header

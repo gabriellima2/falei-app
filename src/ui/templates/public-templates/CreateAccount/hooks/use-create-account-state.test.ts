@@ -9,10 +9,19 @@ import {
 	mockNotify,
 	ToastContextWrapper,
 } from "@/__mocks__/toast-context-wrapper";
-import { mockRedirect } from "jest-setup";
 
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 import type { ToastOptions } from "@/contexts/ToastContext";
+
+const mockCheckAuthState = jest.fn();
+
+jest.mock("@/store/auth-store", () => ({
+	__esModule: true,
+	default: jest.fn(),
+	useAuthStore: jest.fn(() => ({
+		checkAuthState: mockCheckAuthState,
+	})),
+}));
 
 const defaultParams: UseCreateAccountStateParams = {
 	signUp: jest.fn(),
@@ -100,7 +109,7 @@ describe("useCreateAccountState", () => {
 				await result.current.handleAnonymous();
 
 				expect(mockAnonymousAuth).toHaveBeenCalled();
-				expect(mockRedirect).toHaveBeenCalled();
+				expect(mockCheckAuthState).toHaveBeenCalled();
 				expect(mockNotify).not.toHaveBeenCalled();
 			});
 			it("should handle when sign-up service is rejected", async () => {
@@ -117,7 +126,7 @@ describe("useCreateAccountState", () => {
 					await result.current.handleAnonymous();
 				} catch (e) {
 					expect(mockAnonymousAuth).toHaveBeenCalled();
-					expect(mockRedirect).not.toHaveBeenCalled();
+					expect(mockCheckAuthState).not.toHaveBeenCalled();
 					expectNotifyToHaveBeenCalledWith(ERROR_MESSAGE, {
 						type: "alert",
 					});
