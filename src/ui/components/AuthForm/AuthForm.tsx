@@ -1,8 +1,7 @@
 import { useRef } from "react";
 import { TextInput, type TouchableOpacityProps } from "react-native";
 
-import { PasswordField } from "../PasswordField";
-import { EmailField } from "../EmailField";
+import { EmailField, PasswordField } from "../Fields";
 import { Form } from "@/ui/atoms";
 
 import { useAuthFormState } from "./hooks/use-auth-form-state";

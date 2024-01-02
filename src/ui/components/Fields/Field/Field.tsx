@@ -1,9 +1,8 @@
 import { forwardRef } from "react";
 import styled, { css } from "styled-components/native";
 
-import { Input, InputRef, type InputProps } from "../../atoms/Input";
-import { TextError } from "../../atoms/Errors";
-import { Label } from "../../atoms/Label";
+import { Input, InputRef, type InputProps } from "@/ui/atoms/Input";
+import { Label, TextError } from "@/ui/atoms";
 
 export type FieldProps = Omit<
 	InputProps,

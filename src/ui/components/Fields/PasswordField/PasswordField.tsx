@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
 import styled from "styled-components/native";
 
-import { Field, type FieldProps } from "@/ui/components/Field";
+import { Field, type FieldProps } from "../Field";
 import { ToggleVisibiltyButton } from "./components";
 
 import type { InputRef } from "@/ui/atoms/Input";
