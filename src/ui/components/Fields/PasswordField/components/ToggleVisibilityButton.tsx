@@ -23,6 +23,7 @@ export const ToggleVisibiltyButton = (props: ToggleVisibiltyButtonProps) => {
 			accessibilityLabel={isVisible ? "Ocultar senha" : "Mostrar senha"}
 			accessibilityHint="Alterna a visibilidade da senha"
 			accessibilityState={{ selected: isVisible }}
+			activeOpacity={0.7}
 		>
 			{isVisible ? <EyeOff {...iconStyles} /> : <Eye {...iconStyles} />}
 		</Button>

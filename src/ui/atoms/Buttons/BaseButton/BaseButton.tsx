@@ -36,6 +36,7 @@ export const BaseButton = (props: BaseButtonProps) => {
 	return (
 		<Button
 			{...rest}
+			accessibilityRole="button"
 			onlyText={onlyText}
 			bordered={bordered}
 			secondary={secondary}

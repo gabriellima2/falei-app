@@ -11,7 +11,12 @@ export const CloseButton = (props: CloseButtonProps) => {
 	const { colors } = useTheme();
 
 	return (
-		<Button activeOpacity={0.7} accessibilityLabel="Fechar" {...props}>
+		<Button
+			accessibilityRole="button"
+			activeOpacity={0.7}
+			accessibilityLabel="Fechar"
+			{...props}
+		>
 			<AntDesign name="close" color={colors.font.secondary} size={24} />
 		</Button>
 	);
