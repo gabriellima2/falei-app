@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { TextInput, type TouchableOpacityProps } from "react-native";
 
-import { Field } from "../Field";
+import { PasswordField } from "../PasswordField";
 import { Form } from "@/ui/atoms";
+import { Field } from "../Field";
 
 import { useAuthFormState } from "./hooks/use-auth-form-state";
 
@@ -50,17 +51,13 @@ export const AuthForm = (props: AuthFormProps) => {
 					autoCapitalize="none"
 					keyboardType="email-address"
 				/>
-				<Field
-					ref={passwordFieldRef}
+				<PasswordField
 					labelText="Senha"
 					labelId="password"
-					placeholder="8+ Caracteres"
+					ref={passwordFieldRef}
 					errorMessage={errors.password?.message?.toString()}
 					onChangeText={(text) => setValue("password", text)}
 					onSubmitEditing={handleSubmit(handleAuthentication)}
-					returnKeyType="send"
-					autoCapitalize="none"
-					secureTextEntry
 				/>
 			</Form.Fieldset>
 			<Form.Button

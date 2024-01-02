@@ -7,3 +7,4 @@ export * from "./BottomSheet";
 export * from "./AuthForm";
 export * from "./Toast";
 export * from "./Exercise";
+export * from "./PasswordField";
