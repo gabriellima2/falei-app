@@ -1,9 +1,10 @@
-import { IconStyles } from "@/@types/icon-styles";
-import { theme } from "@/styles/theme";
 import { Eye, EyeOff } from "lucide-react-native";
 import styled from "styled-components/native";
 
-type ToggleVisibiltyButtonProps = {
+import { theme } from "@/styles/theme";
+import type { IconStyles } from "@/@types/icon-styles";
+
+export type ToggleVisibiltyButtonProps = {
 	isVisible?: boolean;
 	onPress: () => void;
 };
@@ -16,7 +17,13 @@ const iconStyles: IconStyles = {
 export const ToggleVisibiltyButton = (props: ToggleVisibiltyButtonProps) => {
 	const { isVisible, onPress } = props;
 	return (
-		<Button onPress={onPress}>
+		<Button
+			onPress={onPress}
+			accessibilityRole="button"
+			accessibilityLabel={isVisible ? "Ocultar senha" : "Mostrar senha"}
+			accessibilityHint="Alterna a visibilidade da senha"
+			accessibilityState={{ selected: isVisible }}
+		>
 			{isVisible ? <EyeOff {...iconStyles} /> : <Eye {...iconStyles} />}
 		</Button>
 	);
