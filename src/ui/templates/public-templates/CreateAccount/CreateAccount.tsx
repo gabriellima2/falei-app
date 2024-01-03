@@ -10,9 +10,9 @@ import { AuthForm } from "@/ui/components";
 import {
 	Header,
 	AuthLink,
+	BaseButton,
 	KeyboardAvoidingWrapper,
 	ContainerWithDefaultSpaces,
-	BaseButton,
 } from "@/ui/atoms";
 
 export type CreateAccountProps = UseCreateAccountStateParams;
@@ -57,10 +57,8 @@ export function CreateAccount(props: CreateAccountProps) {
 const Container = styled(ContainerWithDefaultSpaces)`
 	${({ theme }) => css`
 		flex: 1;
-		gap: ${theme.spaces[5]};
+		gap: ${theme.spaces[2]};
 	`}
 `;
 
-const AnonymousButton = styled(BaseButton)`
-	align-self: center;
-`;
+const AnonymousButton = styled(BaseButton)``;

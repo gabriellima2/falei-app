@@ -1,3 +1,6 @@
+import { Redirect } from "expo-router";
+import styled, { css } from "styled-components/native";
+
 import { useAuthStore } from "@/store/auth-store";
 import {
 	useLoginState,
@@ -7,11 +10,11 @@ import {
 import {
 	Header,
 	AuthLink,
+	ButtonLink,
 	KeyboardAvoidingWrapper,
 	ContainerWithDefaultSpaces,
 } from "@/ui/atoms";
 import { AuthForm } from "@/ui/components";
-import { Redirect } from "expo-router";
 
 export type LoginProps = UseLoginStateParams;
 
@@ -28,18 +31,26 @@ export function Login(props: LoginProps) {
 				)}
 			/>
 			<KeyboardAvoidingWrapper>
-				<ContainerWithDefaultSpaces
-					bottomSpacing
-					horizontalSpacing
-					verticalSpacing
-				>
+				<Container bottomSpacing horizontalSpacing verticalSpacing>
 					<AuthForm
 						title="Olá, novamente! Entre para continuar"
 						button={{ text: "Entrar" }}
 						onSubmit={handleSignIn}
 					/>
-				</ContainerWithDefaultSpaces>
+					<ForgotPasswordLink onlyText href={{ pathname: "/forgot-password" }}>
+						Esqueceu a senha?
+					</ForgotPasswordLink>
+				</Container>
 			</KeyboardAvoidingWrapper>
 		</>
 	);
 }
+
+const Container = styled(ContainerWithDefaultSpaces)`
+	${({ theme }) => css`
+		flex: 1;
+		gap: ${theme.spaces[2]};
+	`}
+`;
+
+const ForgotPasswordLink = styled(ButtonLink)``;
