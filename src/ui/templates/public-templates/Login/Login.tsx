@@ -37,7 +37,10 @@ export function Login(props: LoginProps) {
 						button={{ text: "Entrar" }}
 						onSubmit={handleSignIn}
 					/>
-					<ForgotPasswordLink onlyText href={{ pathname: "/forgot-password" }}>
+					<ForgotPasswordLink
+						onlyText
+						href={{ pathname: "/(forgot-password)/send-email" }}
+					>
 						Esqueceu a senha?
 					</ForgotPasswordLink>
 				</Container>

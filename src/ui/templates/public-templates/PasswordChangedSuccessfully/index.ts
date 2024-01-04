@@ -1,0 +1,1 @@
+export { PasswordChangedSuccessfully } from "./PasswordChangedSuccessfully";
