@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { FirebaseError } from "firebase/app";
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	useForm,
@@ -8,16 +7,15 @@ import {
 	UseFormHandleSubmit,
 } from "react-hook-form";
 
-import { useToastContext } from "@/contexts/ToastContext";
+import { useHandleServiceError } from "@/hooks/use-handle-service-error";
 
-import { refineFirebaseErrorCode } from "@/helpers/refine-firebase-error-code";
-import { FIREBASE_ERROR_MESSAGES, UNEXPECTED_ERROR } from "@/errors";
 import { userAuthSchema } from "@/validations/user-auth-validation";
 
 import type { AuthInputDTO } from "@/dtos/auth.dto";
-import type { AuthFormProps } from "../AuthForm";
 
-export type UseAuthFormStateParams = Pick<AuthFormProps, "onSubmit">;
+export type UseAuthFormStateParams = {
+	authenticationService: (params: AuthInputDTO) => Promise<void> | void;
+};
 
 type UseAuthFormStateReturn = {
 	isAuthenticating: boolean;
@@ -30,14 +28,13 @@ type UseAuthFormStateReturn = {
 export function useAuthFormState(
 	params: UseAuthFormStateParams
 ): UseAuthFormStateReturn {
-	const { onSubmit } = params;
-	const { notify } = useToastContext();
-	const [isAuthenticating, setIsAuthenticating] = useState(false);
+	const { authenticationService } = params;
+	const { handleServiceError } = useHandleServiceError();
 	const {
 		register,
 		setValue,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<AuthInputDTO>({
 		resolver: zodResolver(userAuthSchema),
 	});
@@ -48,25 +45,16 @@ export function useAuthFormState(
 	}, []);
 
 	const handleAuthentication = async (credentials: AuthInputDTO) => {
-		setIsAuthenticating(true);
 		try {
-			await onSubmit(credentials);
+			await authenticationService(credentials);
 		} catch (err) {
-			if (err instanceof FirebaseError) {
-				const firebaseError = err as FirebaseError;
-				const { cause } = refineFirebaseErrorCode(firebaseError.code);
-				const errorMessage = FIREBASE_ERROR_MESSAGES[cause];
-				if (errorMessage) return notify(errorMessage, { type: "alert" });
-			}
-			notify((err as Error).message ?? UNEXPECTED_ERROR, { type: "alert" });
-		} finally {
-			setIsAuthenticating(false);
+			handleServiceError(err);
 		}
 	};
 
 	return {
 		errors,
-		isAuthenticating,
+		isAuthenticating: isSubmitting,
 		setValue,
 		handleSubmit,
 		handleAuthentication,

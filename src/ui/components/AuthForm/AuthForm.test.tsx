@@ -12,7 +12,7 @@ type Fields = { email: string; password: string };
 const defaultProps: AuthFormProps = {
 	title: "any_title",
 	button: { text: "any_button_text" },
-	onSubmit: asyncFunctions.resolved,
+	authenticationService: asyncFunctions.resolved,
 };
 
 const renderComponent = (props: AuthFormProps = defaultProps) =>
@@ -65,19 +65,19 @@ describe("<AuthForm />", () => {
 		function expectHasErrorOnSubmit(params: {
 			errorIndex: number;
 			errorMessage: string;
-			onSubmit: typeof defaultProps.onSubmit;
+			authenticationService: typeof defaultProps.authenticationService;
 		}) {
-			const { errorMessage, errorIndex, onSubmit } = params;
+			const { errorMessage, errorIndex, authenticationService } = params;
 			const errorEl = getErrorEls()[errorIndex];
 			expect(errorEl.props.children).toContain(errorMessage);
-			expect(onSubmit).not.toHaveBeenCalled();
+			expect(authenticationService).not.toHaveBeenCalled();
 		}
 
 		test.each(fields)(
 			"should show an error message when submitting with empty %s",
 			async (field) => {
 				renderComponent();
-				const { onSubmit } = defaultProps;
+				const { authenticationService } = defaultProps;
 
 				simulateFormSubmit({
 					fields: [
@@ -93,7 +93,7 @@ describe("<AuthForm />", () => {
 					expectHasErrorOnSubmit({
 						errorIndex: fields.indexOf(field),
 						errorMessage: ERROR_MESSAGES[field].required,
-						onSubmit,
+						authenticationService,
 					});
 				});
 			}
@@ -106,7 +106,7 @@ describe("<AuthForm />", () => {
 					password: "1234567",
 				};
 				renderComponent();
-				const { onSubmit } = defaultProps;
+				const { authenticationService } = defaultProps;
 
 				simulateFormSubmit({
 					fields: [
@@ -122,7 +122,7 @@ describe("<AuthForm />", () => {
 					expectHasErrorOnSubmit({
 						errorIndex: fields.indexOf(field),
 						errorMessage: ERROR_MESSAGES[field].invalid,
-						onSubmit,
+						authenticationService,
 					});
 				});
 			}
@@ -174,25 +174,27 @@ describe("<AuthForm />", () => {
 			});
 		}
 
-		it("should call the onSubmit function correctly when submitting", async () => {
+		it("should call the authenticationService function correctly when submitting", async () => {
 			renderComponent();
-			const { onSubmit } = defaultProps;
+			const { authenticationService } = defaultProps;
 
 			submitCorrectly();
 
 			await waitFor(() => {
 				expect(getErrorEls()[0]).toBeFalsy();
 				expect(getErrorEls()[1]).toBeFalsy();
-				expect(onSubmit).toHaveBeenCalledTimes(1);
-				expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining(user));
+				expect(authenticationService).toHaveBeenCalledTimes(1);
+				expect(authenticationService).toHaveBeenCalledWith(
+					expect.objectContaining(user)
+				);
 				expect(screen.getByLabelText("Carregando...")).toBeTruthy();
 			});
 		});
-		it("should show an error toast when onSubmit function throw an error", async () => {
+		it("should show an error toast when authenticationService function throw an error", async () => {
 			const ERROR_MESSAGE = "any_error";
 			renderComponent({
 				...defaultProps,
-				onSubmit: asyncFunctions.rejected(ERROR_MESSAGE),
+				authenticationService: asyncFunctions.rejected(ERROR_MESSAGE),
 			});
 
 			submitCorrectly();

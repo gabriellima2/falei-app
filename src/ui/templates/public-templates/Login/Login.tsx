@@ -35,7 +35,7 @@ export function Login(props: LoginProps) {
 					<AuthForm
 						title="Olá, novamente! Entre para continuar"
 						button={{ text: "Entrar" }}
-						onSubmit={handleSignIn}
+						authenticationService={handleSignIn}
 					/>
 					<ForgotPasswordLink
 						onlyText

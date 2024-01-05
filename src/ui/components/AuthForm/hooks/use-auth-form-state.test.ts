@@ -11,7 +11,7 @@ import {
 } from "@/__mocks__/toast-context-wrapper";
 
 const defaultParams: UseAuthFormStateParams = {
-	onSubmit: jest.fn(),
+	authenticationService: jest.fn(),
 };
 
 const executeHook = (params = defaultParams) =>
@@ -48,7 +48,7 @@ describe("useAuthFormState", () => {
 			it("should handle correctly when authentication is resolved", async () => {
 				const { result } = executeHook({
 					...defaultParams,
-					onSubmit: jest.fn().mockResolvedValueOnce({}),
+					authenticationService: jest.fn().mockResolvedValueOnce({}),
 				});
 
 				await act(async () => {
@@ -61,7 +61,9 @@ describe("useAuthFormState", () => {
 			it("should handle correctly when authentication is rejected", async () => {
 				const ERROR_MESSAGE = "any_message";
 				const { result } = executeHook({
-					onSubmit: jest.fn().mockRejectedValueOnce(new Error(ERROR_MESSAGE)),
+					authenticationService: jest
+						.fn()
+						.mockRejectedValueOnce(new Error(ERROR_MESSAGE)),
 				});
 
 				await act(async () => {

@@ -4,27 +4,28 @@ import { TextInput, type TouchableOpacityProps } from "react-native";
 import { EmailField, PasswordField } from "../Fields";
 import { Form } from "@/ui/atoms";
 
-import { useAuthFormState } from "./hooks/use-auth-form-state";
+import {
+	UseAuthFormStateParams,
+	useAuthFormState,
+} from "./hooks/use-auth-form-state";
 
 import { focusNextField } from "@/helpers/focus-next-field";
-import type { AuthInputDTO } from "@/dtos/auth.dto";
 
 type ButtonProps = Pick<
 	TouchableOpacityProps,
 	"accessibilityHint" | "accessibilityLabel"
 > & { text: string };
 
-export type AuthFormProps = {
+export type AuthFormProps = UseAuthFormStateParams & {
 	title: string;
 	button: ButtonProps;
-	onSubmit: (params: AuthInputDTO) => Promise<void> | void;
 };
 
 export const AuthForm = (props: AuthFormProps) => {
 	const {
 		title,
 		button: { text, ...buttonRest },
-		onSubmit,
+		authenticationService,
 	} = props;
 	const {
 		errors,
@@ -32,7 +33,7 @@ export const AuthForm = (props: AuthFormProps) => {
 		setValue,
 		handleAuthentication,
 		handleSubmit,
-	} = useAuthFormState({ onSubmit });
+	} = useAuthFormState({ authenticationService });
 	const passwordFieldRef = useRef<null | TextInput>(null);
 	return (
 		<Form.Root>

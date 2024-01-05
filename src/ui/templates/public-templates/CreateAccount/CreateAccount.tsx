@@ -37,7 +37,7 @@ export function CreateAccount(props: CreateAccountProps) {
 					<AuthForm
 						title="Bem-vindo! Crie uma conta para continuar"
 						button={{ text: "Criar conta" }}
-						onSubmit={handleSignUp}
+						authenticationService={handleSignUp}
 					/>
 					<AnonymousButton
 						disabled={isLoadingAsAnonymous}
