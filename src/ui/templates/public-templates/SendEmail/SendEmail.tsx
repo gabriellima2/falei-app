@@ -15,7 +15,16 @@ export const SendEmail = () => {
 						ajudá-lo a definir uma nova senha
 					</Typography.Paragraph>
 				</TextContainer>
-				<SendEmailForm />
+				<SendEmailForm
+					resetPasswordService={(credentials) => {
+						return new Promise((resolve) => {
+							setTimeout(() => {
+								console.log(credentials.email);
+								resolve();
+							}, 2000);
+						});
+					}}
+				/>
 			</Container>
 		</>
 	);
