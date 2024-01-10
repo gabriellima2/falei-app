@@ -1,9 +1,17 @@
 import styled, { css } from "styled-components/native";
 
+import {
+	useSendEmailState,
+	type UseSendEmailStateParams,
+} from "./hooks/use-send-email-state";
+
 import { ContainerWithDefaultSpaces, Header, Typography } from "@/ui/atoms";
 import { SendEmailForm } from "./components";
 
-export const SendEmail = () => {
+type SendEmailProps = UseSendEmailStateParams;
+
+export const SendEmail = (props: SendEmailProps) => {
+	const { handleResetPassword } = useSendEmailState(props);
 	return (
 		<>
 			<Header withBack />
@@ -15,16 +23,7 @@ export const SendEmail = () => {
 						ajudá-lo a definir uma nova senha
 					</Typography.Paragraph>
 				</TextContainer>
-				<SendEmailForm
-					resetPasswordService={(credentials) => {
-						return new Promise((resolve) => {
-							setTimeout(() => {
-								console.log(credentials.email);
-								resolve();
-							}, 2000);
-						});
-					}}
-				/>
+				<SendEmailForm resetPasswordService={handleResetPassword} />
 			</Container>
 		</>
 	);

@@ -8,7 +8,7 @@ import {
 	type UseSendEmailFormStateParams,
 } from "./hooks/use-send-email-form-state";
 
-type SendEmailFormProps = UseSendEmailFormStateParams;
+export type SendEmailFormProps = UseSendEmailFormStateParams;
 
 export const SendEmailForm = (props: SendEmailFormProps) => {
 	const {
