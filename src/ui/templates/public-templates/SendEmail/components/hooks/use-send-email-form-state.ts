@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { z } from "zod";
 import {
 	useForm,
 	FieldErrors,
@@ -7,6 +8,8 @@ import {
 } from "react-hook-form";
 
 import { useHandleServiceError } from "@/hooks/use-handle-service-error";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { emailConstraint } from "@/validations/generic-constraints";
 
 type Credentials = { email: string };
 
@@ -32,7 +35,9 @@ export function useSendEmailFormState(
 		register,
 		setValue,
 		handleSubmit,
-	} = useForm<Credentials>();
+	} = useForm<Credentials>({
+		resolver: zodResolver(z.object({ email: emailConstraint })),
+	});
 
 	useEffect(() => {
 		register("email");
