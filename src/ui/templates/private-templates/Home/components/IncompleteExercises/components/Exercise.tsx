@@ -47,17 +47,16 @@ export const Exercise = (props: ExerciseProps) => {
 
 type ContainerProps = { withPreviewForNextItem?: boolean };
 
-const { withMargin } = dimensions.screen;
 const modifiers: Modifiers<keyof ContainerProps> = {
 	withPreviewForNextItem: () => css`
-		width: ${withMargin.width - margin.vertical.total}px;
+		width: ${dimensions.window.withMargin.width - margin.vertical.total}px;
 		min-width: 320px;
 	`,
 };
 
 const Container = styled(BaseLink)<ContainerProps>`
 	${({ theme, withPreviewForNextItem }) => css`
-		width: ${withMargin.width}px;
+		width: ${dimensions.window.withMargin.width}px;
 		max-width: 390px;
 		min-width: 330px;
 		padding: ${theme.spaces[3]} ${theme.spaces[4]};

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 
-import { Header, ScrollContainer, Typography } from "@/ui/atoms";
+import { Header, Typography, ScrollContainer } from "@/ui/atoms";
 import { LogoutButton, Options } from "./components";
 
 import { useSettingsState } from "./hooks/use-settings-state";
@@ -10,7 +10,7 @@ export const Settings = () => {
 	return (
 		<>
 			<Header title="Configurações" />
-			<ScrollContainer>
+			<ScrollContainer horizontalSpacing>
 				<Content>
 					<Options
 						additional={() => <LogoutButton onLogout={handleLogout} />}

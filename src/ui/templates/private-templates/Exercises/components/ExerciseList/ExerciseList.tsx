@@ -61,7 +61,7 @@ export const ExerciseList = (props: ExerciseListProps) => {
 };
 
 const width =
-	(dimensions.screen.withMargin.width - DEFAULT_SPACING) / NUM_COLUMNS;
+	(dimensions.window.withMargin.width - DEFAULT_SPACING) / NUM_COLUMNS;
 
 type ExerciseContainerProps = { hasSpacing?: boolean };
 

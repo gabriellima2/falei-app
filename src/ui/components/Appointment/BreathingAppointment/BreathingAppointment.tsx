@@ -63,11 +63,10 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 
 type ContainerProps = { autoSize?: boolean; color?: string };
 
-const { withMargin } = dimensions.screen;
 const modifiers: Modifiers<keyof Pick<ContainerProps, "autoSize">> = {
 	autoSize: () => css`
 		max-width: auto;
-		width: ${withMargin.width}px;
+		width: ${dimensions.window.withMargin.width}px;
 		min-width: auto;
 	`,
 };

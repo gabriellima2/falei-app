@@ -8,6 +8,9 @@ export const dimensions = {
 	window: {
 		width: window.width,
 		height: window.height,
+		withMargin: {
+			width: window.width - margin.vertical.total,
+		},
 	},
 	screen: {
 		width: screen.width,
