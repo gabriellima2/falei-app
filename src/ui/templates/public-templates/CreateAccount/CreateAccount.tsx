@@ -19,12 +19,17 @@ export type CreateAccountProps = UseCreateAccountStateParams;
 
 export function CreateAccount(props: CreateAccountProps) {
 	const { signUp, anonymous } = props;
-	const { user, isLoadingAsAnonymous, handleSignUp, handleAnonymous } =
-		useCreateAccountState({
-			signUp,
-			anonymous,
-		});
-	if (user) return <Redirect href="/(tabs)/" />;
+	const {
+		user,
+		wasAnonymousAuthUsed,
+		isLoadingAsAnonymous,
+		handleSignUp,
+		handleAnonymous,
+	} = useCreateAccountState({
+		signUp,
+		anonymous,
+	});
+	if (user && wasAnonymousAuthUsed) return <Redirect href="/(tabs)/" />;
 	return (
 		<>
 			<Header

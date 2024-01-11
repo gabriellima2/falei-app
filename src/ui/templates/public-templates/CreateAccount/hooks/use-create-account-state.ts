@@ -18,6 +18,7 @@ export type UseCreateAccountStateParams = {
 
 type UseCreateAccountStateReturn = {
 	user: Omit<UserEntity, "password"> | null;
+	wasAnonymousAuthUsed: boolean;
 	isLoadingAsAnonymous: boolean;
 	handleSignUp: (credentials: AuthInputDTO) => Promise<void>;
 	handleAnonymous: () => Promise<void>;
@@ -27,6 +28,7 @@ export function useCreateAccountState(
 	params: UseCreateAccountStateParams
 ): UseCreateAccountStateReturn {
 	const { signUp, anonymous } = params;
+	const [wasAnonymousAuthUsed, setWasAnonymousAuthUsed] = useState(false);
 	const [isLoadingAsAnonymous, setIsLoadingAsAnonymous] = useState(false);
 	const { notify } = useToastContext();
 	const { user, checkAuthState } = useAuthStore((state) => state);
@@ -40,6 +42,7 @@ export function useCreateAccountState(
 		setIsLoadingAsAnonymous(true);
 		try {
 			await anonymous();
+			setWasAnonymousAuthUsed(true);
 			checkAuthState();
 		} catch (err) {
 			if (err instanceof FirebaseError) {
@@ -54,5 +57,11 @@ export function useCreateAccountState(
 		}
 	};
 
-	return { user, isLoadingAsAnonymous, handleSignUp, handleAnonymous };
+	return {
+		user,
+		wasAnonymousAuthUsed,
+		isLoadingAsAnonymous,
+		handleSignUp,
+		handleAnonymous,
+	};
 }
