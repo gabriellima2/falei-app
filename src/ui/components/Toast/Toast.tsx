@@ -1,10 +1,12 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import styled, { css, useTheme } from "styled-components/native";
-import { Dimensions, Animated } from "react-native";
+import { Animated } from "react-native";
 
 import { Typography, CloseButton } from "@/ui/atoms";
 
 import { useToastContext } from "@/contexts/ToastContext/hooks/use-toast-context";
+
+import { dimensions } from "@/constants/dimensions";
 
 import type { ToastTypes } from "@/contexts/ToastContext/@types/toast-types";
 import type { IconStyles } from "@/@types/icon-styles";
@@ -74,11 +76,9 @@ export const Toast = () => {
 type IndicatorProps = { type?: ToastTypes };
 type ContentProps = { onlyText?: boolean };
 
-const screenWidth = Dimensions.get("screen").width;
-
 const Container = styled(Animated.View)`
 	${({ theme }) => css`
-		width: ${Math.abs(screenWidth) - 16}px;
+		width: ${dimensions.window.withMargin.width}px;
 		align-items: center;
 		position: absolute;
 		bottom: 16px;
