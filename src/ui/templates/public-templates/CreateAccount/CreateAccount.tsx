@@ -1,10 +1,7 @@
 import { Redirect } from "expo-router";
 import styled, { css } from "styled-components/native";
 
-import {
-	useCreateAccountState,
-	type UseCreateAccountStateParams,
-} from "./hooks/use-create-account-state";
+import { useCreateAccountState } from "./hooks/use-create-account-state";
 
 import { AuthForm } from "@/ui/components";
 import {
@@ -15,20 +12,14 @@ import {
 	ContainerWithDefaultSpaces,
 } from "@/ui/atoms";
 
-export type CreateAccountProps = UseCreateAccountStateParams;
-
-export function CreateAccount(props: CreateAccountProps) {
-	const { signUp, anonymous } = props;
+export function CreateAccount() {
 	const {
 		user,
 		wasAnonymousAuthUsed,
 		isLoadingAsAnonymous,
 		handleSignUp,
 		handleAnonymous,
-	} = useCreateAccountState({
-		signUp,
-		anonymous,
-	});
+	} = useCreateAccountState();
 	if (user && wasAnonymousAuthUsed) return <Redirect href="/(tabs)/" />;
 	return (
 		<>

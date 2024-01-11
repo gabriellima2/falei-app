@@ -2,10 +2,7 @@ import { Redirect } from "expo-router";
 import styled, { css } from "styled-components/native";
 
 import { useAuthStore } from "@/store/auth-store";
-import {
-	useLoginState,
-	type UseLoginStateParams,
-} from "./hooks/use-login-state";
+import { useLoginState } from "./hooks/use-login-state";
 
 import {
 	Header,
@@ -16,11 +13,8 @@ import {
 } from "@/ui/atoms";
 import { AuthForm } from "@/ui/components";
 
-export type LoginProps = UseLoginStateParams;
-
-export function Login(props: LoginProps) {
-	const { signIn } = props;
-	const { handleSignIn } = useLoginState({ signIn });
+export function Login() {
+	const { handleSignIn } = useLoginState();
 	const { user } = useAuthStore((state) => state);
 	if (user) return <Redirect href="/(tabs)/" />;
 	return (

@@ -1,9 +1,6 @@
 import styled, { css } from "styled-components/native";
 
-import {
-	useSendEmailState,
-	type UseSendEmailStateParams,
-} from "./hooks/use-send-email-state";
+import { useSendEmailState } from "./hooks/use-send-email-state";
 
 import {
 	Header,
@@ -13,10 +10,8 @@ import {
 } from "@/ui/atoms";
 import { SendEmailForm } from "./components";
 
-type SendEmailProps = UseSendEmailStateParams;
-
-export const SendEmail = (props: SendEmailProps) => {
-	const { handleResetPassword } = useSendEmailState(props);
+export const SendEmail = () => {
+	const { handleResetPassword } = useSendEmailState();
 	return (
 		<>
 			<Header withBack />

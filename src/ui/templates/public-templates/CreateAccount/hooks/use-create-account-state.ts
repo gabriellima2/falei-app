@@ -7,14 +7,8 @@ import { useAuthStore } from "@/store/auth-store";
 import { refineFirebaseErrorCode } from "@/helpers/refine-firebase-error-code";
 import { FIREBASE_ERROR_MESSAGES, UNEXPECTED_ERROR } from "@/errors";
 
-import type { AuthenticationAdapter } from "@/adapters/authentication.adapter";
 import type { UserEntity } from "@/entities/user.entity";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
-
-export type UseCreateAccountStateParams = {
-	signUp: Pick<AuthenticationAdapter, "signUp">["signUp"];
-	anonymous: Pick<AuthenticationAdapter, "anonymous">["anonymous"];
-};
 
 type UseCreateAccountStateReturn = {
 	user: Omit<UserEntity, "password"> | null;
@@ -24,14 +18,13 @@ type UseCreateAccountStateReturn = {
 	handleAnonymous: () => Promise<void>;
 };
 
-export function useCreateAccountState(
-	params: UseCreateAccountStateParams
-): UseCreateAccountStateReturn {
-	const { signUp, anonymous } = params;
+export function useCreateAccountState(): UseCreateAccountStateReturn {
 	const [wasAnonymousAuthUsed, setWasAnonymousAuthUsed] = useState(false);
 	const [isLoadingAsAnonymous, setIsLoadingAsAnonymous] = useState(false);
+	const { user, checkAuthState, signUp, anonymous } = useAuthStore(
+		(state) => state
+	);
 	const { notify } = useToastContext();
-	const { user, checkAuthState } = useAuthStore((state) => state);
 
 	const handleSignUp = async (credentials: AuthInputDTO) => {
 		await signUp(credentials);
