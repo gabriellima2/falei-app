@@ -5,7 +5,12 @@ import {
 	type UseSendEmailStateParams,
 } from "./hooks/use-send-email-state";
 
-import { ContainerWithDefaultSpaces, Header, Typography } from "@/ui/atoms";
+import {
+	Header,
+	Typography,
+	KeyboardAvoidingWrapper,
+	ContainerWithDefaultSpaces,
+} from "@/ui/atoms";
 import { SendEmailForm } from "./components";
 
 type SendEmailProps = UseSendEmailStateParams;
@@ -15,16 +20,18 @@ export const SendEmail = (props: SendEmailProps) => {
 	return (
 		<>
 			<Header withBack />
-			<Container horizontalSpacing topSpacing>
-				<TextContainer>
-					<Typography.Title>Esqueceu a senha?</Typography.Title>
-					<Typography.Paragraph>
-						Por favor, insira o e-mail associado à sua conta para que possamos
-						ajudá-lo a definir uma nova senha
-					</Typography.Paragraph>
-				</TextContainer>
-				<SendEmailForm resetPasswordService={handleResetPassword} />
-			</Container>
+			<KeyboardAvoidingWrapper>
+				<Container horizontalSpacing topSpacing>
+					<TextContainer>
+						<Typography.Title>Esqueceu a senha?</Typography.Title>
+						<Typography.Paragraph>
+							Por favor, insira o e-mail associado à sua conta para que possamos
+							ajudá-lo a definir uma nova senha
+						</Typography.Paragraph>
+					</TextContainer>
+					<SendEmailForm resetPasswordService={handleResetPassword} />
+				</Container>
+			</KeyboardAvoidingWrapper>
 		</>
 	);
 };
