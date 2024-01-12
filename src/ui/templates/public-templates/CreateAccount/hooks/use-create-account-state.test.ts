@@ -15,10 +15,10 @@ import type { ToastOptions } from "@/contexts/ToastContext";
 
 const mockCheckAuthState = jest.fn();
 
-jest.mock("@/store/auth-store", () => ({
+jest.mock("@/store/authentication-store", () => ({
 	__esModule: true,
 	default: jest.fn(),
-	useAuthStore: jest.fn(() => ({
+	useAuthenticationStore: jest.fn(() => ({
 		checkAuthState: mockCheckAuthState,
 	})),
 }));

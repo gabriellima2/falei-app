@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FirebaseError } from "firebase/app";
 
 import { useToastContext } from "@/contexts/ToastContext";
-import { useAuthStore } from "@/store/auth-store";
+import { useAuthenticationStore } from "@/store/authentication-store";
 
 import { refineFirebaseErrorCode } from "@/helpers/refine-firebase-error-code";
 import { FIREBASE_ERROR_MESSAGES, UNEXPECTED_ERROR } from "@/errors";
@@ -21,7 +21,7 @@ type UseCreateAccountStateReturn = {
 export function useCreateAccountState(): UseCreateAccountStateReturn {
 	const [wasAnonymousAuthUsed, setWasAnonymousAuthUsed] = useState(false);
 	const [isLoadingAsAnonymous, setIsLoadingAsAnonymous] = useState(false);
-	const { user, checkAuthState, signUp, anonymous } = useAuthStore(
+	const { user, checkAuthState, signUp, anonymous } = useAuthenticationStore(
 		(state) => state
 	);
 	const { notify } = useToastContext();

@@ -1,8 +1,8 @@
 import { useToastContext } from "@/contexts/ToastContext";
-import { useAuthStore } from "@/store/auth-store";
+import { useAuthenticationStore } from "@/store/authentication-store";
 
 export function useSettingsState() {
-	const { signOut } = useAuthStore((state) => state);
+	const { signOut } = useAuthenticationStore((state) => state);
 	const { notify } = useToastContext();
 
 	const handleLogout = async () => {

@@ -9,10 +9,10 @@ jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},
 }));
 
-jest.mock("@/store/auth-store", () => ({
+jest.mock("@/store/authentication-store", () => ({
 	__esModule: true,
 	default: jest.fn(),
-	useAuthStore: jest.fn(() => ({
+	useAuthenticationStore: jest.fn(() => ({
 		checkAuthState: mockCheckAuthState,
 	})),
 }));

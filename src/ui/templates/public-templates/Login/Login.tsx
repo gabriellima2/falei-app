@@ -1,7 +1,7 @@
 import { Redirect } from "expo-router";
 import styled, { css } from "styled-components/native";
 
-import { useAuthStore } from "@/store/auth-store";
+import { useAuthenticationStore } from "@/store/authentication-store";
 import { useLoginState } from "./hooks/use-login-state";
 
 import {
@@ -15,7 +15,7 @@ import { AuthForm } from "@/ui/components";
 
 export function Login() {
 	const { handleSignIn } = useLoginState();
-	const { user } = useAuthStore((state) => state);
+	const { user } = useAuthenticationStore((state) => state);
 	if (user) return <Redirect href="/(tabs)/" />;
 	return (
 		<>

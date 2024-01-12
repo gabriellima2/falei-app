@@ -6,7 +6,7 @@ import {
 	useSegments,
 } from "expo-router";
 
-import { useAuthStore } from "@/store/auth-store";
+import { useAuthenticationStore } from "@/store/authentication-store";
 import { Splash } from "@/ui/atoms";
 
 import { PRIVATE_GROUP_NAME, PUBLIC_GROUP_NAME } from "./constants/group-names";
@@ -16,7 +16,7 @@ export function ProtectScreen<P extends {}>(Component: ComponentType<P>) {
 		const router = useRouter();
 		const segments = useSegments();
 		const pathname = usePathname();
-		const { user, checkAuthState, authHasBeenChecked } = useAuthStore(
+		const { user, checkAuthState, authHasBeenChecked } = useAuthenticationStore(
 			(state) => state
 		);
 		const navigationState = useRootNavigationState();

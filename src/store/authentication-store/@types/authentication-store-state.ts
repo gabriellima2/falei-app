@@ -1,12 +1,13 @@
 import { Unsubscribe } from "firebase/firestore";
-import { UserEntity } from "@/entities/user.entity";
-import {
+
+import type { UserEntity } from "@/entities/user.entity";
+import type {
 	AuthInputDTO,
 	ResetPasswordInputDTO,
 	ResetPasswordOutputDTO,
 } from "@/dtos/auth.dto";
 
-export type AuthStoreState = {
+export type AuthenticationStoreState = {
 	user: Omit<UserEntity, "password"> | null;
 	isNewUser: boolean;
 	authHasBeenChecked: boolean;

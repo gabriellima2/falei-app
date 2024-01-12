@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/store/auth-store";
+import { useAuthenticationStore } from "@/store/authentication-store";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 
 type UseLoginStateReturn = {
@@ -6,7 +6,7 @@ type UseLoginStateReturn = {
 };
 
 export function useLoginState(): UseLoginStateReturn {
-	const { checkAuthState, signIn } = useAuthStore((state) => state);
+	const { checkAuthState, signIn } = useAuthenticationStore((state) => state);
 
 	const handleSignIn = async (credentials: AuthInputDTO) => {
 		await signIn(credentials);

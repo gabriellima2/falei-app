@@ -13,7 +13,7 @@ import {
 import { ContainerWithDefaultSpaces, Splash } from "@/ui/atoms";
 import { Providers } from "@/ui/providers";
 
-import { useAuthStore } from "@/store/auth-store";
+import { useAuthStore } from "@/store/authentication-store";
 
 import { makeNotificationAdapter } from "@/factories/adapters/make-notification-adapter";
 import { theme } from "@/styles/theme";

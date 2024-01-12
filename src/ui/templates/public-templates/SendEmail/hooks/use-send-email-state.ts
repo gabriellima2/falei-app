@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 
 import { SendEmailFormProps } from "../components";
-import { useAuthStore } from "@/store/auth-store";
+import { useAuthenticationStore } from "@/store/authentication-store";
 
 type Credentials = Parameters<
 	Pick<SendEmailFormProps, "resetPasswordService">["resetPasswordService"]
@@ -12,7 +12,7 @@ export type UseSendEmailStateReturn = {
 };
 
 export function useSendEmailState() {
-	const { resetPassword } = useAuthStore((state) => state);
+	const { resetPassword } = useAuthenticationStore((state) => state);
 	const { replace } = useRouter();
 
 	const handleResetPassword = async (credentials: Credentials) => {
