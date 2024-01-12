@@ -1,21 +1,26 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { Settings } from "./Settings";
-import * as SettingsState from "./hooks/use-settings-state";
 
+import * as AuthenticationStore from "@/store/authentication-store/authentication.store";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 jest.mock("@/lib/firebase-auth", () => ({
-	firebaseAuth: {
-		signOut: jest.fn(),
-	},
+	firebaseAuth: {},
 }));
 
-const useSettingsStateSpy = jest.spyOn(SettingsState, "useSettingsState");
+const authenticationStoreSpy = jest.spyOn(
+	AuthenticationStore,
+	"useAuthenticationStore"
+);
 
 const renderComponent = () => renderWithThemeProvider(<Settings />);
 
 describe("<Settings />", () => {
+	const mocks = {
+		signOut: jest.fn(),
+	};
+
 	const getLogoutButtonEl = () => screen.getByLabelText("Sair");
 
 	describe("Render", () => {
@@ -30,17 +35,14 @@ describe("<Settings />", () => {
 	describe("Interactions", () => {
 		describe("Press", () => {
 			describe("HandleLogout", () => {
-				it("should call 'handleLogout' function when pressed on LogoutButton", () => {
-					const mockHandleLogout = jest.fn();
-					useSettingsStateSpy.mockReturnValue({
-						handleLogout: mockHandleLogout,
-					});
+				it("should call sign-out function when pressed on logout-button", () => {
+					authenticationStoreSpy.mockReturnValue({ ...mocks });
 					renderComponent();
 
 					const button = getLogoutButtonEl();
 					fireEvent.press(button);
 
-					expect(mockHandleLogout).toHaveBeenCalled();
+					expect(mocks.signOut).toHaveBeenCalled();
 				});
 			});
 		});
