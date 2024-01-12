@@ -27,6 +27,8 @@ export const SendEmailForm = (props: SendEmailFormProps) => {
 				onSubmitEditing={handleSubmit(handleSendPasswordResetEmail)}
 			/>
 			<Form.Button
+				accessibilityLabel="Prosseguir com a redefinição de senha"
+				accessibilityHint="Clique para prosseguir e enviar um link de redefinição de senha para o endereço de e-mail fornecido"
 				isSubmitting={isSubmitting}
 				onPress={handleSubmit(handleSendPasswordResetEmail)}
 				rightIcon={(props) => <ArrowRight {...props} />}
