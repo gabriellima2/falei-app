@@ -1,28 +1,33 @@
 import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 
-import { CreateAccount, type CreateAccountProps } from "./CreateAccount";
+import { CreateAccount } from "./CreateAccount";
 import { ToastProvider } from "@/contexts/ToastContext";
 
+import * as AuthenticationStore from "@/store/authentication-store/authentication.store";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},
 }));
 
-const defaultProps: CreateAccountProps = {
-	signUp: jest.fn(),
-	anonymous: jest.fn(),
-};
+const authenticationStoreSpy = jest.spyOn(
+	AuthenticationStore,
+	"useAuthenticationStore"
+);
 
-const renderComponent = (props = defaultProps) =>
+const renderComponent = () =>
 	renderWithThemeProvider(
 		<ToastProvider>
-			<CreateAccount {...props} />
+			<CreateAccount />
 		</ToastProvider>
 	);
 
 describe("<CreateAccount />", () => {
 	const ERROR_MESSAGE = "any_message";
+	const mocks = {
+		anonymous: jest.fn(),
+		signUp: jest.fn(),
+	};
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -60,6 +65,8 @@ describe("<CreateAccount />", () => {
 			}
 
 			it("should handle the sign-up service when is resolved", async () => {
+				mocks.signUp.mockResolvedValue(() => "");
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
 				renderComponent();
 
 				act(() => {
@@ -68,7 +75,7 @@ describe("<CreateAccount />", () => {
 				});
 
 				await waitFor(() => {
-					expect(defaultProps.signUp).toHaveBeenCalledWith({
+					expect(mocks.signUp).toHaveBeenCalledWith({
 						email: values.email,
 						password: values.password,
 					});
@@ -76,10 +83,9 @@ describe("<CreateAccount />", () => {
 				});
 			});
 			it("should handle the sign-up service when is rejected", async () => {
-				renderComponent({
-					...defaultProps,
-					signUp: jest.fn().mockRejectedValue(ERROR_MESSAGE),
-				});
+				mocks.signUp.mockRejectedValue(ERROR_MESSAGE);
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
+				renderComponent();
 
 				try {
 					act(() => {
@@ -88,7 +94,7 @@ describe("<CreateAccount />", () => {
 					});
 				} catch (err) {
 					await waitFor(() => {
-						expect(defaultProps.signUp).toHaveBeenCalledWith({
+						expect(mocks.signUp).toHaveBeenCalledWith({
 							email: values.email,
 							password: values.password,
 						});
@@ -105,6 +111,8 @@ describe("<CreateAccount />", () => {
 			}
 
 			it("should handle the sign-in-anonymously service when is resolved", async () => {
+				mocks.anonymous.mockResolvedValue(() => "");
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
 				renderComponent();
 
 				act(() => {
@@ -113,15 +121,14 @@ describe("<CreateAccount />", () => {
 
 				expectAnonymousButtonToHaveState({ disabled: true });
 				await waitFor(() => {
-					expect(defaultProps.anonymous).toHaveBeenCalled();
+					expect(mocks.anonymous).toHaveBeenCalled();
 					expectAnonymousButtonToHaveState({ disabled: false });
 				});
 			});
 			it("should handle the sign-in-anonymously service when is rejected", async () => {
-				renderComponent({
-					...defaultProps,
-					anonymous: jest.fn().mockRejectedValue(ERROR_MESSAGE),
-				});
+				mocks.anonymous.mockRejectedValue(ERROR_MESSAGE);
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
+				renderComponent();
 
 				try {
 					act(() => {
@@ -131,7 +138,7 @@ describe("<CreateAccount />", () => {
 				} catch (err) {
 					await waitFor(() => {
 						expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
-						expect(defaultProps.anonymous).toHaveBeenCalled();
+						expect(mocks.anonymous).toHaveBeenCalled();
 						expectAnonymousButtonToHaveState({ disabled: false });
 					});
 				}

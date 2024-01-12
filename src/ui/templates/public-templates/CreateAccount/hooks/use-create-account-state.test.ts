@@ -1,39 +1,35 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import {
-	useCreateAccountState,
-	type UseCreateAccountStateParams,
-} from "./use-create-account-state";
+import { useCreateAccountState } from "./use-create-account-state";
 
 import {
 	mockNotify,
 	ToastContextWrapper,
 } from "@/__mocks__/toast-context-wrapper";
+import * as AuthenticationStore from "@/store/authentication-store/authentication.store";
 
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 import type { ToastOptions } from "@/contexts/ToastContext";
 
-const mockCheckAuthState = jest.fn();
-
-jest.mock("@/store/authentication-store", () => ({
-	__esModule: true,
-	default: jest.fn(),
-	useAuthenticationStore: jest.fn(() => ({
-		checkAuthState: mockCheckAuthState,
-	})),
+jest.mock("@/lib/firebase-auth", () => ({
+	firebaseAuth: {},
 }));
 
-const defaultParams: UseCreateAccountStateParams = {
-	signUp: jest.fn(),
-	anonymous: jest.fn(),
-};
+const authenticationStoreSpy = jest.spyOn(
+	AuthenticationStore,
+	"useAuthenticationStore"
+);
 
-const executeHook = (params = defaultParams) =>
-	renderHook(() => useCreateAccountState(params), {
-		wrapper: ToastContextWrapper,
-	});
+const executeHook = () =>
+	renderHook(useCreateAccountState, { wrapper: ToastContextWrapper });
 
 describe("useCreateAccountState", () => {
+	const mocks = {
+		anonymous: jest.fn(),
+		signUp: jest.fn(),
+		checkAuthState: jest.fn(),
+	};
+
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
@@ -69,64 +65,54 @@ describe("useCreateAccountState", () => {
 			}
 
 			it("should handle when sign-up service is resolved", async () => {
-				const mockSignUp = jest.fn().mockResolvedValue(() => "");
-				const { result } = executeHook({
-					...defaultParams,
-					signUp: mockSignUp,
-				});
+				mocks.signUp.mockResolvedValue(() => "");
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
+				const { result } = executeHook();
 
 				await result.current.handleSignUp(credentials);
 
-				expectSignUpServiceToHaveBeenCalled(mockSignUp);
+				expectSignUpServiceToHaveBeenCalled(mocks.signUp);
 				expect(mockNotify).toHaveBeenCalled();
 				expectNotifyToHaveBeenCalledWith("Conta criada com sucesso", {
 					type: "success",
 				});
 			});
 			it("should handle when sign-up service is rejected", async () => {
-				const mockSignUp = jest.fn().mockRejectedValue(() => "");
-				const { result } = executeHook({
-					...defaultParams,
-					signUp: mockSignUp,
-				});
+				mocks.signUp.mockRejectedValue(() => "");
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
+				const { result } = executeHook();
 
 				try {
 					await result.current.handleSignUp(credentials);
 				} catch (e) {
-					expectSignUpServiceToHaveBeenCalled(mockSignUp);
+					expectSignUpServiceToHaveBeenCalled(mocks.signUp);
 					expect(mockNotify).not.toHaveBeenCalled();
 				}
 			});
 		});
 		describe("handleAnonymous", () => {
 			it("should handle when anonymous service is resolved", async () => {
-				const mockAnonymousAuth = jest.fn().mockResolvedValue(() => "");
-				const { result } = executeHook({
-					...defaultParams,
-					anonymous: mockAnonymousAuth,
-				});
+				mocks.anonymous.mockResolvedValue(() => "");
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
+				const { result } = executeHook();
 
 				await result.current.handleAnonymous();
 
-				expect(mockAnonymousAuth).toHaveBeenCalled();
-				expect(mockCheckAuthState).toHaveBeenCalled();
+				expect(mocks.anonymous).toHaveBeenCalled();
+				expect(mocks.checkAuthState).toHaveBeenCalled();
 				expect(mockNotify).not.toHaveBeenCalled();
 			});
 			it("should handle when sign-up service is rejected", async () => {
 				const ERROR_MESSAGE = "any_error";
-				const mockAnonymousAuth = jest
-					.fn()
-					.mockRejectedValue(() => ERROR_MESSAGE);
-				const { result } = executeHook({
-					...defaultParams,
-					anonymous: mockAnonymousAuth,
-				});
+				mocks.anonymous.mockRejectedValue(() => ERROR_MESSAGE);
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
+				const { result } = executeHook();
 
 				try {
 					await result.current.handleAnonymous();
 				} catch (e) {
-					expect(mockAnonymousAuth).toHaveBeenCalled();
-					expect(mockCheckAuthState).not.toHaveBeenCalled();
+					expect(mocks.anonymous).toHaveBeenCalled();
+					expect(mocks.checkAuthState).not.toHaveBeenCalled();
 					expectNotifyToHaveBeenCalledWith(ERROR_MESSAGE, {
 						type: "alert",
 					});
