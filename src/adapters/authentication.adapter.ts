@@ -8,6 +8,7 @@ import type {
 export interface AuthenticationAdapter {
 	signIn(params: AuthInputDTO): AuthOutputDTO;
 	signUp(params: AuthInputDTO): AuthOutputDTO;
+	signOut(): Promise<void>;
 	anonymous(): AuthOutputDTO;
 	resetPassword(params: ResetPasswordInputDTO): ResetPasswordOutputDTO;
 }

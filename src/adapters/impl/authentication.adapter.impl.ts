@@ -1,8 +1,9 @@
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
-	signInAnonymously,
 	sendPasswordResetEmail,
+	signInAnonymously,
+	signOut,
 } from "firebase/auth";
 
 import { firebaseAuth } from "@/lib/firebase-auth";
@@ -30,5 +31,8 @@ export class AuthenticationAdapterImpl implements AuthenticationAdapter {
 	async resetPassword(params: ResetPasswordInputDTO): ResetPasswordOutputDTO {
 		const { email } = params;
 		return await sendPasswordResetEmail(firebaseAuth, email);
+	}
+	async signOut(): Promise<void> {
+		await signOut(firebaseAuth);
 	}
 }
