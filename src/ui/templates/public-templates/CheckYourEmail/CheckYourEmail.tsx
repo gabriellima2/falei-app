@@ -15,6 +15,7 @@ export const CheckYourEmail = () => {
 				<Image
 					resizeMode="contain"
 					source={require("../../../../../public/assets/sended-email.png")}
+					accessibilityLabel="Imagem de um e-mail sendo enviado"
 				/>
 				<TextContainer>
 					<Title>Verifique o seu e-mail</Title>
@@ -25,12 +26,21 @@ export const CheckYourEmail = () => {
 				</TextContainer>
 			</Content>
 			<Footer>
-				<BaseButton onPress={() => Linking.openURL("mailto:")}>
+				<CheckEmailButton
+					accessibilityLabel="Verificar endereço de e-mail"
+					accessibilityHint="Clique para abrir o aplicativo de e-mail padrão do seu dispositivo"
+					onPress={() => Linking.openURL("mailto:")}
+				>
 					Verificar seu endereço de e-mail
-				</BaseButton>
-				<ButtonLink onlyText href={{ pathname: "(auth)/login" }}>
+				</CheckEmailButton>
+				<CheckEmailLaterButton
+					accessibilityLabel="Adiar verificação de e-mail"
+					accessibilityHint="Clique para adiar a verificação de e-mail e voltar para a tela de login"
+					onlyText
+					href={{ pathname: "(auth)/login" }}
+				>
 					Prefiro fazer isso mais tarde
-				</ButtonLink>
+				</CheckEmailLaterButton>
 			</Footer>
 		</Container>
 	);
@@ -77,3 +87,7 @@ const Footer = styled.View`
 		gap: ${theme.spaces[2]};
 	`}
 `;
+
+const CheckEmailButton = styled(BaseButton)``;
+
+const CheckEmailLaterButton = styled(ButtonLink)``;
