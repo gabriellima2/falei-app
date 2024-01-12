@@ -1,29 +1,27 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { useLoginState, UseLoginStateParams } from "./use-login-state";
-import type { AuthInputDTO } from "@/dtos/auth.dto";
+import { useLoginState } from "./use-login-state";
 
-const mockCheckAuthState = jest.fn();
+import * as AuthenticationStore from "@/store/authentication-store/authentication.store";
+import type { AuthInputDTO } from "@/dtos/auth.dto";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},
 }));
 
-jest.mock("@/store/authentication-store", () => ({
-	__esModule: true,
-	default: jest.fn(),
-	useAuthenticationStore: jest.fn(() => ({
-		checkAuthState: mockCheckAuthState,
-	})),
-}));
+const authenticationStoreSpy = jest.spyOn(
+	AuthenticationStore,
+	"useAuthenticationStore"
+);
 
-const defaultParams: UseLoginStateParams = {
-	signIn: jest.fn(),
-};
-const executeHook = (params = defaultParams) =>
-	renderHook(() => useLoginState(params));
+const executeHook = () => renderHook(useLoginState);
 
 describe("useLoginState", () => {
+	const mocks = {
+		signIn: jest.fn(),
+		checkAuthState: jest.fn(),
+	};
+
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
@@ -52,23 +50,25 @@ describe("useLoginState", () => {
 			}
 
 			it("should handle when sign-in service is resolved", async () => {
-				const mockSignIn = jest.fn().mockResolvedValue(() => "");
-				const { result } = executeHook({ signIn: mockSignIn });
+				mocks.signIn.mockResolvedValue(() => "");
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
+				const { result } = executeHook();
 
 				await result.current.handleSignIn(credentials);
 
-				expectSignInServiceToHaveBeenCalled(mockSignIn);
-				expect(mockCheckAuthState).toHaveBeenCalled();
+				expectSignInServiceToHaveBeenCalled(mocks.signIn);
+				expect(mocks.checkAuthState).toHaveBeenCalled();
 			});
 			it("should handle when sign-in service is rejected", async () => {
-				const mockSignIn = jest.fn().mockRejectedValue(() => "");
-				const { result } = executeHook({ signIn: mockSignIn });
+				mocks.signIn.mockRejectedValue(() => "");
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
+				const { result } = executeHook();
 
 				try {
 					await result.current.handleSignIn(credentials);
 				} catch (e) {
-					expectSignInServiceToHaveBeenCalled(mockSignIn);
-					expect(mockCheckAuthState).not.toHaveBeenCalled();
+					expectSignInServiceToHaveBeenCalled(mocks.signIn);
+					expect(mocks.checkAuthState).not.toHaveBeenCalled();
 				}
 			});
 		});

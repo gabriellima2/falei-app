@@ -1,28 +1,33 @@
 import "expo-router";
 import { screen, fireEvent, waitFor, act } from "@testing-library/react-native";
 
-import { Login, type LoginProps } from "./Login";
+import { Login } from "./Login";
 import { ToastProvider } from "@/contexts/ToastContext";
 
+import * as AuthenticationStore from "@/store/authentication-store/authentication.store";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},
 }));
 
-const defaultProps: LoginProps = {
-	signIn: jest.fn(),
-};
+const authenticationStoreSpy = jest.spyOn(
+	AuthenticationStore,
+	"useAuthenticationStore"
+);
 
-const renderComponent = (props = defaultProps) =>
+const renderComponent = () =>
 	renderWithThemeProvider(
 		<ToastProvider>
-			<Login {...props} />
+			<Login />
 		</ToastProvider>
 	);
 
 describe("<Login />", () => {
 	const ERROR_MESSAGE = "any_error";
+	const mocks = {
+		signIn: jest.fn(),
+	};
 
 	const getButtonEl = () => screen.getByText("Entrar");
 	const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
@@ -57,6 +62,8 @@ describe("<Login />", () => {
 			}
 
 			it("should handle the sign-in service when is resolved", async () => {
+				mocks.signIn.mockResolvedValue(() => "");
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
 				renderComponent();
 
 				act(() => {
@@ -65,17 +72,16 @@ describe("<Login />", () => {
 				});
 
 				await waitFor(() => {
-					expect(defaultProps.signIn).toHaveBeenCalledWith({
+					expect(mocks.signIn).toHaveBeenCalledWith({
 						email: values.email,
 						password: values.password,
 					});
 				});
 			});
 			it("should handle the sign-in service when is rejected", async () => {
-				renderComponent({
-					...defaultProps,
-					signIn: jest.fn().mockRejectedValue(ERROR_MESSAGE),
-				});
+				mocks.signIn.mockRejectedValue(ERROR_MESSAGE);
+				authenticationStoreSpy.mockReturnValue({ ...mocks });
+				renderComponent();
 
 				try {
 					act(() => {
@@ -84,7 +90,7 @@ describe("<Login />", () => {
 					});
 				} catch (err) {
 					await waitFor(() => {
-						expect(defaultProps.signIn).toHaveBeenCalledWith({
+						expect(mocks.signIn).toHaveBeenCalledWith({
 							email: values.email,
 							password: values.password,
 						});
