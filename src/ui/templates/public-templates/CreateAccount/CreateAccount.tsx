@@ -8,6 +8,7 @@ import {
 	Header,
 	AuthLink,
 	BaseButton,
+	LoadingIndicator,
 	KeyboardAvoidingWrapper,
 	ContainerWithDefaultSpaces,
 } from "@/ui/atoms";
@@ -35,15 +36,18 @@ export function CreateAccount() {
 						button={{ text: "Criar conta" }}
 						authenticationService={handleSignUp}
 					/>
-					<AnonymousButton
-						disabled={isLoadingAsAnonymous}
-						onlyText
-						onPress={handleAnonymous}
-						accessibilityLabel="Continuar sem conta"
-						accessibilityHint="Comecará a usar o aplicativo como anônimo"
-					>
-						Continuar sem conta
-					</AnonymousButton>
+					<Footer>
+						<AnonymousButton
+							disabled={isLoadingAsAnonymous}
+							onlyText
+							onPress={handleAnonymous}
+							accessibilityLabel="Continuar sem conta"
+							accessibilityHint="Comecará a usar o aplicativo como anônimo"
+						>
+							Continuar sem conta
+						</AnonymousButton>
+						{isLoadingAsAnonymous && <LoadingIndicator size="small" />}
+					</Footer>
 				</Container>
 			</KeyboardAvoidingWrapper>
 		</>
@@ -54,6 +58,14 @@ const Container = styled(ContainerWithDefaultSpaces)`
 	${({ theme }) => css`
 		flex: 1;
 		gap: ${theme.spaces[2]};
+	`}
+`;
+
+const Footer = styled.View`
+	${({ theme }) => css`
+		flex-direction: column;
+		align-items: center;
+		gap: ${theme.spaces[1]};
 	`}
 `;
 

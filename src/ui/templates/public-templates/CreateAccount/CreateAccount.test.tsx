@@ -51,6 +51,21 @@ describe("<CreateAccount />", () => {
 
 			expect(getCreateAccountButtonEl()).toBeTruthy();
 			expect(getAnonymousButtonEl()).toBeTruthy();
+			expect(screen.queryByLabelText("Carregando...")).toBeFalsy();
+			expect(
+				screen.getByText("Bem-vindo! Crie uma conta para continuar")
+			).toBeTruthy();
+		});
+		it("should render correctly when 'is-loading-as-anonymous' is true", () => {
+			useCreateAccountStateSpy.mockReturnValue({
+				...mocks,
+				isLoadingAsAnonymous: true,
+			});
+			renderComponent();
+
+			expect(getCreateAccountButtonEl()).toBeTruthy();
+			expect(getAnonymousButtonEl()).toBeTruthy();
+			expect(screen.getByLabelText("Carregando...")).toBeTruthy();
 			expect(
 				screen.getByText("Bem-vindo! Crie uma conta para continuar")
 			).toBeTruthy();
