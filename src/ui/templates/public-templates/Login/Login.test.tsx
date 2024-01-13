@@ -2,19 +2,17 @@ import "expo-router";
 import { screen, fireEvent, waitFor, act } from "@testing-library/react-native";
 
 import { Login } from "./Login";
-import { ToastProvider } from "@/contexts/ToastContext";
 
-import * as AuthenticationStore from "@/store/authentication-store/authentication.store";
+import { ToastProvider } from "@/contexts/ToastContext";
+import * as LoginState from "./hooks/use-login-state";
+
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},
 }));
 
-const authenticationStoreSpy = jest.spyOn(
-	AuthenticationStore,
-	"useAuthenticationStore"
-);
+const useLoginStateSpy = jest.spyOn(LoginState, "useLoginState");
 
 const renderComponent = () =>
 	renderWithThemeProvider(
@@ -24,13 +22,14 @@ const renderComponent = () =>
 	);
 
 describe("<Login />", () => {
-	const ERROR_MESSAGE = "any_error";
 	const mocks = {
-		signIn: jest.fn(),
+		handleSignIn: jest.fn(),
 	};
 
 	const getButtonEl = () => screen.getByText("Entrar");
-	const getFieldEl = (text: string) => screen.getByPlaceholderText(text);
+	const getPasswordFieldEl = () => screen.getByPlaceholderText("8+ Caracteres");
+	const getEmailFieldEl = () =>
+		screen.getByPlaceholderText("Ex: seuemail@gmail.com");
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -40,63 +39,59 @@ describe("<Login />", () => {
 		it("should render correctly", () => {
 			renderComponent();
 
-			expect(getButtonEl()).toBeTruthy();
 			expect(
 				screen.getByText("Olá, novamente! Entre para continuar")
 			).toBeTruthy();
+			expect(getEmailFieldEl()).toBeTruthy();
+			expect(getPasswordFieldEl()).toBeTruthy();
+			expect(getButtonEl()).toBeTruthy();
 		});
 	});
 	describe("Interactions", () => {
-		describe("SignIn", () => {
-			const values = {
-				email: "test@example.com",
-				password: "password123",
+		describe("Submit", () => {
+			const error = "any_message";
+			const credentials = {
+				email: "any@email.com",
+				password: "any_password",
 			};
-
-			function fillFormFields() {
-				fireEvent.changeText(
-					getFieldEl("Ex: seuemail@gmail.com"),
-					values.email
-				);
-				fireEvent.changeText(getFieldEl("8+ Caracteres"), values.password);
-			}
-
-			it("should handle the sign-in service when is resolved", async () => {
-				mocks.signIn.mockResolvedValue(() => "");
-				authenticationStoreSpy.mockReturnValue({ ...mocks });
+			it("should handle the correctly when handle-sign-in is resolved", async () => {
+				mocks.handleSignIn.mockResolvedValue({});
+				useLoginStateSpy.mockReturnValue({ ...mocks });
 				renderComponent();
 
 				act(() => {
-					fillFormFields();
+					fireEvent.changeText(getEmailFieldEl(), credentials.email);
+					fireEvent.changeText(getPasswordFieldEl(), credentials.password);
 					fireEvent.press(getButtonEl());
 				});
 
 				await waitFor(() => {
-					expect(mocks.signIn).toHaveBeenCalledWith({
-						email: values.email,
-						password: values.password,
+					expect(mocks.handleSignIn).toHaveBeenCalledWith({
+						email: credentials.email,
+						password: credentials.password,
 					});
 				});
 			});
-			it("should handle the sign-in service when is rejected", async () => {
-				mocks.signIn.mockRejectedValue(ERROR_MESSAGE);
-				authenticationStoreSpy.mockReturnValue({ ...mocks });
+			it("should handle the correctly when handle-sign-in is rejected", async () => {
+				mocks.handleSignIn.mockRejectedValue(error);
+				useLoginStateSpy.mockReturnValue({ ...mocks });
 				renderComponent();
 
-				try {
-					act(() => {
-						fillFormFields();
+				await act(async () => {
+					try {
+						fireEvent.changeText(getEmailFieldEl(), credentials.email);
+						fireEvent.changeText(getPasswordFieldEl(), credentials.password);
 						fireEvent.press(getButtonEl());
-					});
-				} catch (err) {
-					await waitFor(() => {
-						expect(mocks.signIn).toHaveBeenCalledWith({
-							email: values.email,
-							password: values.password,
+					} catch (err) {
+						await waitFor(() => {
+							expect(mocks.handleSignIn).toHaveBeenCalledWith({
+								email: credentials.email,
+								password: credentials.password,
+							});
+							expect(screen.getByText(error)).toBeTruthy();
 						});
-						expect(screen.getByText(ERROR_MESSAGE)).toBeTruthy();
-					});
-				}
+					}
+				});
 			});
 		});
 	});
