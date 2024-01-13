@@ -13,7 +13,7 @@ import {
 import { ContainerWithDefaultSpaces, Splash } from "@/ui/atoms";
 import { Providers } from "@/ui/providers";
 
-import { useAuthStore } from "@/store/authentication-store";
+import { useAuthenticationStore } from "@/store/authentication-store";
 
 import { makeNotificationAdapter } from "@/factories/adapters/make-notification-adapter";
 import { theme } from "@/styles/theme";
@@ -21,7 +21,7 @@ import { theme } from "@/styles/theme";
 const notificationAdapter = makeNotificationAdapter();
 
 export default function RootLayout() {
-	const { authHasBeenChecked } = useAuthStore();
+	const { authHasBeenChecked } = useAuthenticationStore();
 	const [fontsLoaded] = useFonts({
 		Roboto_400Regular,
 		Roboto_500Medium,
