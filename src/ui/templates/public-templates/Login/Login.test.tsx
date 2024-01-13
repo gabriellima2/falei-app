@@ -7,6 +7,7 @@ import { ToastProvider } from "@/contexts/ToastContext";
 import * as LoginState from "./hooks/use-login-state";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { mockPush } from "jest-setup";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},
@@ -26,7 +27,9 @@ describe("<Login />", () => {
 		handleSignIn: jest.fn(),
 	};
 
-	const getButtonEl = () => screen.getByText("Entrar");
+	const getCreateAccountLink = () => screen.getByText("Criar Conta");
+	const getForgotPasswordLink = () => screen.getByText("Esqueceu a senha?");
+	const getSubmitButton = () => screen.getByText("Entrar");
 	const getPasswordFieldEl = () => screen.getByPlaceholderText("8+ Caracteres");
 	const getEmailFieldEl = () =>
 		screen.getByPlaceholderText("Ex: seuemail@gmail.com");
@@ -42,12 +45,40 @@ describe("<Login />", () => {
 			expect(
 				screen.getByText("Olá, novamente! Entre para continuar")
 			).toBeTruthy();
+			expect(getForgotPasswordLink()).toBeTruthy();
+			expect(getCreateAccountLink()).toBeTruthy();
 			expect(getEmailFieldEl()).toBeTruthy();
 			expect(getPasswordFieldEl()).toBeTruthy();
-			expect(getButtonEl()).toBeTruthy();
+			expect(getSubmitButton()).toBeTruthy();
 		});
 	});
 	describe("Interactions", () => {
+		describe("Press", () => {
+			it("should redirect to create-account screen when create-account-link is pressed", () => {
+				renderComponent();
+
+				fireEvent.press(getCreateAccountLink());
+
+				expect(mockPush).toHaveBeenCalled();
+				expect(mockPush).toHaveBeenCalledWith(
+					expect.objectContaining({
+						pathname: "create-account",
+					})
+				);
+			});
+			it("should redirect to forgot-password screen when forgot-password-link is pressed", () => {
+				renderComponent();
+
+				fireEvent.press(getForgotPasswordLink());
+
+				expect(mockPush).toHaveBeenCalled();
+				expect(mockPush).toHaveBeenCalledWith(
+					expect.objectContaining({
+						pathname: "/(forgot-password)/send-email",
+					})
+				);
+			});
+		});
 		describe("Submit", () => {
 			const error = "any_message";
 			const credentials = {
@@ -62,7 +93,7 @@ describe("<Login />", () => {
 				act(() => {
 					fireEvent.changeText(getEmailFieldEl(), credentials.email);
 					fireEvent.changeText(getPasswordFieldEl(), credentials.password);
-					fireEvent.press(getButtonEl());
+					fireEvent.press(getSubmitButton());
 				});
 
 				await waitFor(() => {
@@ -81,7 +112,7 @@ describe("<Login />", () => {
 					try {
 						fireEvent.changeText(getEmailFieldEl(), credentials.email);
 						fireEvent.changeText(getPasswordFieldEl(), credentials.password);
-						fireEvent.press(getButtonEl());
+						fireEvent.press(getSubmitButton());
 					} catch (err) {
 						await waitFor(() => {
 							expect(mocks.handleSignIn).toHaveBeenCalledWith({
