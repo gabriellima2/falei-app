@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { FirebaseError } from "firebase/app";
 
 import { useToastContext } from "@/contexts/ToastContext";
 import { useAuthenticationStore } from "@/store/authentication-store";
-
-import { refineFirebaseErrorCode } from "@/helpers/refine-firebase-error-code";
-import { FIREBASE_ERROR_MESSAGES, UNEXPECTED_ERROR } from "@/errors";
+import { useHandleServiceError } from "@/hooks/use-handle-service-error";
 
 import type { UserEntity } from "@/entities/user.entity";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
@@ -19,6 +16,7 @@ type UseCreateAccountStateReturn = {
 };
 
 export function useCreateAccountState(): UseCreateAccountStateReturn {
+	const { handleServiceError } = useHandleServiceError();
 	const [wasAnonymousAuthUsed, setWasAnonymousAuthUsed] = useState(false);
 	const [isLoadingAsAnonymous, setIsLoadingAsAnonymous] = useState(false);
 	const { user, checkAuthState, signUp, anonymous } = useAuthenticationStore(
@@ -38,13 +36,7 @@ export function useCreateAccountState(): UseCreateAccountStateReturn {
 			setWasAnonymousAuthUsed(true);
 			checkAuthState();
 		} catch (err) {
-			if (err instanceof FirebaseError) {
-				const firebaseError = err as FirebaseError;
-				const { cause } = refineFirebaseErrorCode(firebaseError.code);
-				const errorMessage = FIREBASE_ERROR_MESSAGES[cause];
-				if (errorMessage) return notify(errorMessage, { type: "alert" });
-			}
-			notify((err as Error).message ?? UNEXPECTED_ERROR, { type: "alert" });
+			handleServiceError(err);
 		} finally {
 			setIsLoadingAsAnonymous(false);
 		}
