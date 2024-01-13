@@ -5,6 +5,8 @@ import { ToastProvider } from "@/contexts/ToastContext";
 
 import * as CreateAccountState from "./hooks/use-create-account-state";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { UserEntity } from "@/entities/user.entity";
+import { mockRedirect } from "jest-setup";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},
@@ -55,6 +57,19 @@ describe("<CreateAccount />", () => {
 		});
 	});
 	describe("Interactions", () => {
+		describe("Redirect", () => {
+			it("should redirect when logging in anonymously", () => {
+				useCreateAccountStateSpy.mockReturnValue({
+					...mocks,
+					user: {} as Omit<UserEntity, "password">,
+					wasAnonymousAuthUsed: true,
+				});
+				renderComponent();
+
+				expect(mockRedirect).toHaveBeenCalled();
+				expect(mockRedirect).toHaveBeenCalledWith({ href: "/(tabs)/" }, {});
+			});
+		});
 		describe("Submit", () => {
 			const error = "any_message";
 			describe("SignUp", () => {

@@ -11,6 +11,7 @@ jest.mock('@expo/vector-icons/AntDesign', () => 'AntDesign');
 jest.mock('@expo/vector-icons/Ionicons', () => 'Ionicons');
 
 jest.mock("expo-router", () => ({
+	Redirect: mockRedirect,
 	useRouter: () => ({ push: mockPush, replace: mockReplace }),
 	usePathname: jest.fn(),
 	useSegments: jest.fn(),
@@ -33,16 +34,6 @@ jest.mock("@gorhom/bottom-sheet", () => {
       animatedContentHeight: 300,
       handleContentLayout: jest.fn()
 		})
-	};
-});
-
-jest.mock("@/hooks/use-redirect-after-authentication.ts", () => {
-	return {
-		__esModule: true,
-		default: jest.fn(),
-		useRedirectAfterAuthentication: jest.fn(() => ({
-			redirect: mockRedirect,
-		})),
 	};
 });
 
