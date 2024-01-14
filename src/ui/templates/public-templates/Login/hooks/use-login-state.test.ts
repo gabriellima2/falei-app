@@ -31,9 +31,10 @@ describe("useLoginState", () => {
 			const { result } = executeHook();
 
 			const {
-				current: { handleSignIn },
+				current: { user, handleSignIn },
 			} = result;
 
+			expect(typeof user).toBe("object");
 			expect(typeof handleSignIn).toBe("function");
 		});
 	});
@@ -50,7 +51,7 @@ describe("useLoginState", () => {
 			}
 
 			it("should handle when sign-in service is resolved", async () => {
-				mocks.signIn.mockResolvedValue(() => "");
+				mocks.signIn.mockResolvedValue({});
 				authenticationStoreSpy.mockReturnValue({ ...mocks });
 				const { result } = executeHook();
 

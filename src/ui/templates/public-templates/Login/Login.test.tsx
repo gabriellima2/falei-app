@@ -7,7 +7,8 @@ import { ToastProvider } from "@/contexts/ToastContext";
 import * as LoginState from "./hooks/use-login-state";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { mockPush } from "jest-setup";
+import { mockPush, mockRedirect } from "jest-setup";
+import { UserEntity } from "@/entities/user.entity";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},
@@ -24,6 +25,7 @@ const renderComponent = () =>
 
 describe("<Login />", () => {
 	const mocks = {
+		user: null,
 		handleSignIn: jest.fn(),
 	};
 
@@ -53,8 +55,21 @@ describe("<Login />", () => {
 		});
 	});
 	describe("Interactions", () => {
+		describe("Redirect", () => {
+			it("should redirect when logged", () => {
+				useLoginStateSpy.mockReturnValue({
+					...mocks,
+					user: {} as Omit<UserEntity, "password">,
+				});
+				renderComponent();
+
+				expect(mockRedirect).toHaveBeenCalled();
+				expect(mockRedirect).toHaveBeenCalledWith({ href: "/(tabs)/" }, {});
+			});
+		});
 		describe("Press", () => {
 			it("should redirect to create-account screen when create-account-link is pressed", () => {
+				useLoginStateSpy.mockReturnValue({ ...mocks });
 				renderComponent();
 
 				fireEvent.press(getCreateAccountLink());
@@ -67,6 +82,7 @@ describe("<Login />", () => {
 				);
 			});
 			it("should redirect to forgot-password screen when forgot-password-link is pressed", () => {
+				useLoginStateSpy.mockReturnValue({ ...mocks });
 				renderComponent();
 
 				fireEvent.press(getForgotPasswordLink());
