@@ -7,6 +7,7 @@ import {
 	ToastContextWrapper,
 } from "@/__mocks__/toast-context-wrapper";
 import * as AuthenticationStore from "@/store/authentication-store/authentication.store";
+import { mockReplace } from "jest-setup";
 
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 import type { ToastOptions } from "@/contexts/ToastContext";
@@ -76,6 +77,10 @@ describe("useCreateAccountState", () => {
 				expectNotifyToHaveBeenCalledWith("Conta criada com sucesso", {
 					type: "success",
 				});
+				expect(mockReplace).toHaveBeenCalled();
+				expect(mockReplace).toHaveBeenCalledWith({
+					pathname: "(auth)/email-verification",
+				});
 			});
 			it("should handle when sign-up service is rejected", async () => {
 				mocks.signUp.mockRejectedValue(() => "");
@@ -87,6 +92,7 @@ describe("useCreateAccountState", () => {
 				} catch (e) {
 					expectSignUpServiceToHaveBeenCalled(mocks.signUp);
 					expect(mockNotify).not.toHaveBeenCalled();
+					expect(mockReplace).not.toHaveBeenCalled();
 				}
 			});
 		});
