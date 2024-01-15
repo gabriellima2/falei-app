@@ -31,7 +31,9 @@ export function Login() {
 					/>
 					<ForgotPasswordLink
 						onlyText
-						href={{ pathname: "/(forgot-password)/send-email" }}
+						href={{
+							pathname: "/(forgot-password)/email-sent-to-change-password",
+						}}
 					>
 						Esqueceu a senha?
 					</ForgotPasswordLink>

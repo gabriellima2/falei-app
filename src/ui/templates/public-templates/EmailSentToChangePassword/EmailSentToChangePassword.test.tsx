@@ -1,14 +1,15 @@
 import { Linking } from "react-native";
 import { fireEvent, screen } from "@testing-library/react-native";
 
-import { CheckYourEmail } from "./CheckYourEmail";
+import { EmailSentToChangePassword } from "./EmailSentToChangePassword";
 
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 import { mockPush } from "jest-setup";
 
-const renderComponent = () => renderWithThemeProvider(<CheckYourEmail />);
+const renderComponent = () =>
+	renderWithThemeProvider(<EmailSentToChangePassword />);
 
-describe("<CheckYourEmail />", () => {
+describe("<EmailSentToChangePassword />", () => {
 	const getCheckEmailLaterButton = () =>
 		screen.getByLabelText("Adiar verificação de e-mail");
 	const getCheckEmailButton = () =>

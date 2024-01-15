@@ -90,7 +90,7 @@ describe("<Login />", () => {
 				expect(mockPush).toHaveBeenCalled();
 				expect(mockPush).toHaveBeenCalledWith(
 					expect.objectContaining({
-						pathname: "/(forgot-password)/send-email",
+						pathname: "/(forgot-password)/email-sent-to-change-password",
 					})
 				);
 			});

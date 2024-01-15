@@ -1,0 +1,1 @@
+export { EmailSentToChangePassword } from "./EmailSentToChangePassword";

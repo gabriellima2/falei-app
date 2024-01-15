@@ -1,5 +1,6 @@
 export * from "./Appointment";
 export * from "./CarouselList";
+export * from "./CheckYourEmail";
 export * from "./Check";
 export * from "./Menu";
 export * from "./BottomSheet";
