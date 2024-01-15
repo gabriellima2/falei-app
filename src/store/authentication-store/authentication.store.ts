@@ -31,6 +31,9 @@ export const useAuthenticationStore = create<AuthenticationStoreState>(
 		resetPassword: async (params: ResetPasswordInputDTO) => {
 			await authenticationAdapter.resetPassword(params);
 		},
+		emailVerification: async () => {
+			await authenticationAdapter.emailVerification();
+		},
 		checkAuthState: () =>
 			onAuthStateChanged(firebaseAuth, (credentials) => {
 				const user = credentials && {

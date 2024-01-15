@@ -12,9 +12,10 @@ export type AuthenticationStoreState = {
 	isNewUser: boolean;
 	authHasBeenChecked: boolean;
 	signOut: () => Promise<void>;
+	anonymous: () => Promise<void>;
 	signIn: (credentials: AuthInputDTO) => Promise<void>;
 	signUp: (credentials: AuthInputDTO) => Promise<void>;
-	anonymous: () => Promise<void>;
 	resetPassword: (params: ResetPasswordInputDTO) => ResetPasswordOutputDTO;
+	emailVerification: () => Promise<void>;
 	checkAuthState: () => Unsubscribe;
 };

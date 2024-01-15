@@ -4,6 +4,7 @@ import {
 	sendPasswordResetEmail,
 	signInAnonymously,
 	signOut,
+	sendEmailVerification,
 } from "firebase/auth";
 
 import { firebaseAuth } from "@/lib/firebase-auth";
@@ -34,5 +35,10 @@ export class AuthenticationAdapterImpl implements AuthenticationAdapter {
 	}
 	async signOut(): Promise<void> {
 		await signOut(firebaseAuth);
+	}
+	async emailVerification(): Promise<void> {
+		const user = firebaseAuth.currentUser;
+		if (!user) throw new Error("No users currently authenticated");
+		await sendEmailVerification(user);
 	}
 }

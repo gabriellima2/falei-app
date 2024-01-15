@@ -11,4 +11,5 @@ export interface AuthenticationAdapter {
 	signOut(): Promise<void>;
 	anonymous(): AuthOutputDTO;
 	resetPassword(params: ResetPasswordInputDTO): ResetPasswordOutputDTO;
+	emailVerification(): Promise<void>;
 }
