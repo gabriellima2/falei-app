@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "expo-router";
 
 import { useToastContext } from "@/contexts/ToastContext";
 import { useAuthenticationStore } from "@/store/authentication-store";
@@ -23,10 +24,12 @@ export function useCreateAccountState(): UseCreateAccountStateReturn {
 		(state) => state
 	);
 	const { notify } = useToastContext();
+	const router = useRouter();
 
 	const handleSignUp = async (credentials: AuthInputDTO) => {
 		await signUp(credentials);
 		notify("Conta criada com sucesso", { type: "success" });
+		router.replace({ pathname: "(auth)/email-verification" });
 	};
 
 	const handleAnonymous = async () => {
