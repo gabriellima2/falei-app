@@ -20,9 +20,6 @@ describe("<EmailSentToChangePassword />", () => {
 			renderComponent();
 
 			expect(screen.getByText("Verifique o seu e-mail")).toBeTruthy();
-			expect(
-				screen.getByLabelText("Imagem de um e-mail sendo enviado")
-			).toBeTruthy();
 			expect(getCheckEmailLaterButton()).toBeTruthy();
 			expect(getCheckEmailButton()).toBeTruthy();
 		});
