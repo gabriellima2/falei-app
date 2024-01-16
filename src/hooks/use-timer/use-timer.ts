@@ -16,7 +16,7 @@ export function useTimer(params: UseTimerParams) {
 	const { initialValue = 20 } = params;
 	const [timer, setTimer] = useState(initialValue);
 
-	const defineTimer = () => {
+	const defineTimer = (ms = 1000) => {
 		clearInterval(interval);
 		interval = setInterval(() => {
 			if (timer <= 0) return clearInterval(interval);
@@ -24,7 +24,7 @@ export function useTimer(params: UseTimerParams) {
 				if (prevState === 0) return prevState;
 				return (prevState -= 1);
 			});
-		}, 1000);
+		}, ms);
 	};
 
 	const resetTimer = () => setTimer(initialValue);
