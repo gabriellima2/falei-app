@@ -12,10 +12,13 @@ export function useHandleServiceError() {
 		if (err instanceof FirebaseError) {
 			const firebaseError = err as FirebaseError;
 			const { cause } = refineFirebaseErrorCode(firebaseError.code);
-			const errorMessage = FIREBASE_ERROR_MESSAGES[cause];
-			if (errorMessage) return notify(errorMessage, { type: "alert" });
+			const firebaseErrorMessage = FIREBASE_ERROR_MESSAGES[cause];
+			if (firebaseErrorMessage) {
+				return notify(firebaseErrorMessage, { type: "alert" });
+			}
 		}
-		notify((err as Error).message ?? UNEXPECTED_ERROR, { type: "alert" });
+		const defaultMessage = (err as Error)?.message;
+		notify(defaultMessage || UNEXPECTED_ERROR, { type: "alert" });
 	};
 
 	return {
