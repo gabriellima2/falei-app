@@ -18,12 +18,7 @@ export const CheckYourEmail = (props: CheckYourEmailProps) => {
 				/>
 				<TextContainer>
 					<Title>Verifique o seu e-mail</Title>
-					{description && (
-						<Description>
-							Foi enviado para o seu endereço de e-mail um link para você criar
-							uma nova senha.
-						</Description>
-					)}
+					{description && <Description>{description}</Description>}
 				</TextContainer>
 			</Content>
 			<Footer>{renderActions()}</Footer>
@@ -33,11 +28,11 @@ export const CheckYourEmail = (props: CheckYourEmailProps) => {
 
 const Container = styled(ContainerWithDefaultSpaces)`
 	flex: 1;
+	gap: 64px;
 `;
 
 const Content = styled.View`
 	${({ theme }) => css`
-		flex: 1;
 		align-items: center;
 		gap: ${theme.spaces[3]};
 	`}
@@ -68,6 +63,7 @@ const Description = styled(Typography.Paragraph)`
 const Footer = styled.View`
 	${({ theme }) => css`
 		flex: 1;
+		justify-content: flex-start;
 		align-items: center;
 		gap: ${theme.spaces[2]};
 	`}
