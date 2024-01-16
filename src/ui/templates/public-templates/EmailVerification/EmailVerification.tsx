@@ -10,15 +10,18 @@ export const EmailVerification = () => {
 		useEmailVerificationState();
 	return (
 		<CheckYourEmail
+			description="Enviamos um link para o seu endereço de e-mail para você verificar a sua conta"
 			renderActions={() => (
 				<>
 					<CheckEmailButton
 						disabled={timer > 0 || isSendingTheEmail}
 						accessibilityLabel="Verificar endereço de e-mail"
-						accessibilityHint="Clique para abrir o aplicativo de e-mail padrão do seu dispositivo"
+						accessibilityHint="Um link de verificação foi enviado para o seu e-mail para confirmar a sua conta"
 						onPress={handleSendEmailVerification}
 					>
-						{isSendingTheEmail ? "Enviando..." : "Enviar novamente!"}
+						{isSendingTheEmail
+							? "Aguarde, enviando..."
+							: "Reenviar link de verificação"}
 					</CheckEmailButton>
 					<Typography.Small>
 						Enviar novamente em {timer} segundos
