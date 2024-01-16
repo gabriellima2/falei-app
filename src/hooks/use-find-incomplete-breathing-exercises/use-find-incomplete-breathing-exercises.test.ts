@@ -3,7 +3,7 @@ import { renderHook } from "@testing-library/react-hooks";
 import {
 	useFindIncompleteBreathingExercises,
 	type UseFindIncompleteBreathingExercisesParams,
-} from "./use-find-incomplete-breathing-exercises";
+} from ".";
 
 import { createFakeRoundExercise } from "@/__mocks__/create-fake-round-exercise";
 

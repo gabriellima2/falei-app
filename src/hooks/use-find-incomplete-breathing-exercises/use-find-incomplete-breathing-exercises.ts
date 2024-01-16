@@ -1,5 +1,5 @@
-import { useOrderExercisesByLastProgress } from "./use-order-exercises-by-last-progress";
-import { useGetIncompleteExercises } from "./use-get-incomplete-exercises";
+import { useOrderExercisesByLastProgress } from "../use-order-exercises-by-last-progress";
+import { useGetIncompleteExercises } from "../use-get-incomplete-exercises";
 
 import { hasAppointmentToday } from "@/helpers/has-appointment-today";
 import type {

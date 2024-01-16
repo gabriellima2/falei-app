@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { useGetIncompleteExercises } from "./use-get-incomplete-exercises";
+import { useGetIncompleteExercises } from ".";
 
 import { createFakeRoundExercise } from "@/__mocks__/create-fake-round-exercise";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";

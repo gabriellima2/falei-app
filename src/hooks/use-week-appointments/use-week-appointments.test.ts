@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { useWeekAppointments } from "./use-week-appointments";
+import { useWeekAppointments } from ".";
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 
 const date = new Date();

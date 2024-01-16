@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { useOrderExercisesByLastProgress } from "./use-order-exercises-by-last-progress";
+import { useOrderExercisesByLastProgress } from ".";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 const executeHook = (params: BreathingExerciseEntity[]) =>
