@@ -1,12 +1,14 @@
 import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import { CreateAccount } from "./CreateAccount";
+import * as CreateAccountState from "./hooks/use-create-account-state";
+
 import { ToastProvider } from "@/contexts/ToastContext";
 
-import * as CreateAccountState from "./hooks/use-create-account-state";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { UserEntity } from "@/entities/user.entity";
 import { mockRedirect } from "jest-setup";
+
+import type { UserEntity } from "@/entities/user.entity";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},
