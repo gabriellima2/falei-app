@@ -4,7 +4,13 @@ import { useHandleServiceError } from "@/hooks/use-handle-service-error";
 import { useAuthenticationStore } from "@/store/authentication-store";
 import { useTimer } from "@/hooks/use-timer";
 
-export function useEmailVerificationState() {
+export type UseEmailVerificationStateReturn = {
+	timer: number;
+	isSendingTheEmail: boolean;
+	handleSendEmailVerification: () => Promise<void>;
+};
+
+export function useEmailVerificationState(): UseEmailVerificationStateReturn {
 	const [isSendingTheEmail, setIsSendingTheEmail] = useState(false);
 	const { emailVerification } = useAuthenticationStore((state) => state);
 	const { timer, resetTimer } = useTimer({ initialValue: 60 });
