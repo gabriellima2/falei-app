@@ -14,11 +14,12 @@ export type WithQueryInjectProps<T> = {
 
 export function WithQuery<P extends {}, T>(
 	Component: ComponentType<P & WithQueryInjectProps<T>>,
-	query: Query<T>
+	query: Query<T>,
+	renderLoading: () => JSX.Element = () => <LoadingIndicator />
 ) {
 	return function HOC(props: P) {
 		const { data, error, isLoading } = useQuery<T>(query.name, query.fn);
-		if (isLoading) return <LoadingIndicator />;
+		if (isLoading) return renderLoading();
 		if (error) return <TextError>{(error as Error).message}</TextError>;
 		if ((!error || !isLoading) && !data)
 			return <TextError>Erro inesperado</TextError>;
