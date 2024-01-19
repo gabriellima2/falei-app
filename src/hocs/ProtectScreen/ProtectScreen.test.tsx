@@ -14,7 +14,7 @@ jest.mock("@/lib/firebase-auth", () => ({
 
 const segmentsSpy = jest.spyOn(Router, "useSegments");
 const pathnameSpy = jest.spyOn(Router, "usePathname");
-const authenticationStoreSpy = jest.spyOn(
+const useAuthenticationStoreSpy = jest.spyOn(
 	AuthenticationStore,
 	"useAuthenticationStore"
 );
@@ -29,6 +29,7 @@ describe("<ProtectScreen />", () => {
 		user: {
 			id: "1",
 			email: "any@email.com",
+			emailVerified: true,
 		},
 		checkAuthState: jest.fn(),
 		authHasBeenChecked: true,
@@ -44,10 +45,24 @@ describe("<ProtectScreen />", () => {
 		jest.clearAllMocks();
 	});
 
+	it("should redirect when user is not email verified", () => {
+		segmentsSpy.mockReturnValue(["any"]);
+		pathnameSpy.mockReturnValue("/");
+		useAuthenticationStoreSpy.mockReturnValue({
+			...authenticationStoreMock,
+			user: { ...authenticationStoreMock.user, emailVerified: false },
+		});
+		renderComponent();
+
+		expect(mockReplace).toHaveBeenCalledWith(
+			`/${PUBLIC_GROUP_NAME}/email-verification`
+		);
+	});
+
 	it("should redirect when user is authenticated and access a public route", () => {
 		segmentsSpy.mockReturnValue(["any"]);
 		pathnameSpy.mockReturnValue("/");
-		authenticationStoreSpy.mockReturnValue({ ...authenticationStoreMock });
+		useAuthenticationStoreSpy.mockReturnValue({ ...authenticationStoreMock });
 		renderComponent();
 
 		expect(mockReplace).toHaveBeenCalledWith(`/${PRIVATE_GROUP_NAME}/`);
@@ -55,7 +70,7 @@ describe("<ProtectScreen />", () => {
 	it("should redirect when user is not authenticated and access a private route", () => {
 		segmentsSpy.mockReturnValue([PRIVATE_GROUP_NAME]);
 		pathnameSpy.mockReturnValue("/any");
-		authenticationStoreSpy.mockReturnValue({
+		useAuthenticationStoreSpy.mockReturnValue({
 			...authenticationStoreMock,
 			user: null,
 		});

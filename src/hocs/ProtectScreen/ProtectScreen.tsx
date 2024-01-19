@@ -26,11 +26,17 @@ export function ProtectScreen<P extends {}>(Component: ComponentType<P>) {
 			const inPrivateGroup = segments[0] === PRIVATE_GROUP_NAME;
 			const inRootPath = pathname === "/";
 
-			if (user && inRootPath && !inPrivateGroup)
-				return router.replace(`/${PRIVATE_GROUP_NAME}/`);
+			if (user && !user.emailVerified) {
+				return router.replace(`/${PUBLIC_GROUP_NAME}/email-verification`);
+			}
 
-			if (!user && inPrivateGroup && !inPublicGroup)
+			if (user && inRootPath && !inPrivateGroup) {
+				return router.replace(`/${PRIVATE_GROUP_NAME}/`);
+			}
+
+			if (!user && inPrivateGroup && !inPublicGroup) {
 				return router.replace(`/${PUBLIC_GROUP_NAME}/login`);
+			}
 		};
 
 		useEffect(() => {
