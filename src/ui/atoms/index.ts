@@ -16,3 +16,4 @@ export * from "./Header";
 export * from "./Group";
 export * from "./Errors";
 export * from "./EmptyAppointments";
+export * from "./Skeletons";
