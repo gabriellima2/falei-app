@@ -7,6 +7,7 @@ import {
 	IncompleteExercises,
 	NotificationButton,
 	BreathingAppointments,
+	Skeleton,
 } from "./components";
 import {
 	Group,
@@ -69,7 +70,8 @@ export const Home = WithQuery(
 	{
 		name: "breathing-exercises",
 		fn: () => makeBreathingExerciseService().getAll(),
-	}
+	},
+	() => <Skeleton />
 );
 
 const Container = styled(ContainerWithDefaultSpaces)`
