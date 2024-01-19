@@ -1,4 +1,4 @@
-import { FlatList, FlatListProps } from "react-native";
+import { FlatList, type FlatListProps } from "react-native";
 
 type ListProps = Omit<
 	FlatListProps<unknown>,

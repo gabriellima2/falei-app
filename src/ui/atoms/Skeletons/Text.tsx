@@ -1,5 +1,5 @@
 import { Skeleton } from "moti/skeleton";
-import { SkeletonProps } from "@/@types/skeleton-props";
+import type { SkeletonProps } from "@/@types/skeleton-props";
 
 export type TextProps = SkeletonProps & {
 	variant?: keyof typeof height;

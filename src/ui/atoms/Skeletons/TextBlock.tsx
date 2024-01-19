@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 
-import { Text, TextProps } from "./Text";
+import { Text, type TextProps } from "./Text";
 import { removePercentage } from "@/helpers/remove-percentage";
 
 type TextBlockProps = TextProps & {
