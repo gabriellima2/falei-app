@@ -36,8 +36,11 @@ const exerciseItem = {
 	),
 };
 
-const NUM_COLUMNS = 2;
 const DEFAULT_SPACING = 16;
+const DEFAULT_ITEM_WIDTH = 165;
+const NUM_COLUMNS = Math.floor(
+	(dimensions.window.withMargin.width - DEFAULT_SPACING) / DEFAULT_ITEM_WIDTH
+);
 
 export const ExerciseList = (props: ExerciseListProps) => {
 	const { exercises, category } = props;

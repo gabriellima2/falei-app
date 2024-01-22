@@ -50,15 +50,12 @@ type ContainerProps = { withPreviewForNextItem?: boolean };
 const modifiers: Modifiers<keyof ContainerProps> = {
 	withPreviewForNextItem: () => css`
 		width: ${dimensions.window.withMargin.width - margin.vertical.total}px;
-		min-width: 320px;
 	`,
 };
 
 const Container = styled(BaseLink)<ContainerProps>`
 	${({ theme, withPreviewForNextItem }) => css`
 		width: ${dimensions.window.withMargin.width}px;
-		max-width: 390px;
-		min-width: 330px;
 		padding: ${theme.spaces[3]} ${theme.spaces[4]};
 		border: 1px solid ${theme.colors.overlay};
 		border-radius: ${theme.rounded.md};

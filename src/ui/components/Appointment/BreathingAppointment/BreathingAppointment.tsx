@@ -107,7 +107,7 @@ const CharacterImage = styled.Image`
 	height: 188px;
 	position: absolute;
 	right: -60px;
-	top: -40px;
+	top: -40%;
 `;
 
 const Description = styled.View`

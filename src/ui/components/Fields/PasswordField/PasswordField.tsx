@@ -40,5 +40,5 @@ const Container = styled.View``;
 const RightContent = styled.View`
 	position: absolute;
 	right: 20px;
-	top: 50%;
+	bottom: 40px;
 `;
