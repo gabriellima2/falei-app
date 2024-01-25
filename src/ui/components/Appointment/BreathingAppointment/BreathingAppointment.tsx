@@ -1,3 +1,4 @@
+import { Flower } from "lucide-react-native";
 import styled, { css } from "styled-components/native";
 
 import { Menu } from "./components";
@@ -7,6 +8,9 @@ import { AdditionalExerciseInfo, Typography } from "@/ui/atoms";
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import { dimensions } from "@/constants/dimensions";
 import { formatTime } from "@/helpers/format-time";
+import { isTablet } from "@/constants/is-tablet";
+import { margin } from "@/constants/margin";
+import { theme } from "@/styles/theme";
 
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 import type { Modifiers } from "@/@types/modifiers";
@@ -21,7 +25,8 @@ export type BreathingAppointmentProps = Omit<
 
 export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 	const { title, rounds, scheduledAt, autoSize, color, onPress } = props;
-	const date = `${DAYS_OF_THE_WEEK[scheduledAt.days[0]]} - ${formatTime(
+	const dayAbbr = DAYS_OF_THE_WEEK[scheduledAt.days[0]].slice(0, 3);
+	const date = `${dayAbbr} - ${formatTime(
 		scheduledAt.hour,
 		scheduledAt.minutes
 	)}`;
@@ -37,7 +42,12 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 			color={color}
 		>
 			<Header>
-				<Title>{title}</Title>
+				<HeaderLeft>
+					<Icon>
+						<Flower color={theme.colors.main} size={24} />
+					</Icon>
+					<Title>{title}</Title>
+				</HeaderLeft>
 				<Menu />
 			</Header>
 			<Content>
@@ -63,21 +73,45 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 
 type ContainerProps = { autoSize?: boolean; color?: string };
 
+const defaultContainerMaxWidth = 400;
+const renderItemsTotal =
+	dimensions.window.width > defaultContainerMaxWidth * 2 ? 2 : 1;
+
 const modifiers: Modifiers<keyof Pick<ContainerProps, "autoSize">> = {
 	autoSize: () => css`
-		max-width: auto;
+		max-width: ${isTablet ? `${defaultContainerMaxWidth}px` : "auto"};
 		width: ${dimensions.window.withMargin.width}px;
-		min-width: auto;
 	`,
 };
 
+const Icon = styled.View`
+	${({ theme }) => css`
+		width: 44px;
+		height: 44px;
+		align-items: center;
+		justify-content: center;
+		border-radius: ${theme.rounded.regular};
+		background-color: ${theme.colors.main}1a;
+	`}
+`;
+
+const HeaderLeft = styled.View`
+	${({ theme }) => css`
+		flex-direction: row;
+		align-items: center;
+		gap: ${theme.spaces[4]};
+	`}
+`;
+
 const Container = styled.TouchableOpacity<ContainerProps>`
 	${({ theme, autoSize, color = theme.colors.brand }) => css`
-		max-width: 350px;
-		width: 328px;
+		width: ${(dimensions.window.withMargin.width -
+			margin.vertical.total * renderItemsTotal) /
+		renderItemsTotal}px;
+		min-width: 300px;
 		padding: ${theme.spaces[4]} ${theme.spaces[3]};
 		border-radius: ${theme.rounded.md};
-		gap: ${theme.spaces[4]};
+		gap: ${theme.spaces[5]};
 		background-color: ${color};
 		position: relative;
 		overflow: hidden;
