@@ -2,6 +2,8 @@ import { Tabs } from "expo-router";
 import { LayoutGrid, Dumbbell, PieChart, Settings } from "lucide-react-native";
 
 import { BottomTab, BottomTabElements } from "@/ui/components/BottomTab";
+
+import { isTablet } from "@/constants/is-tablet";
 import { theme } from "@/styles/theme";
 
 export default function Layout() {
@@ -17,7 +19,8 @@ export default function Layout() {
 				tabBarItemStyle: {
 					justifyContent: "center",
 					alignItems: "center",
-					paddingVertical: 12,
+					paddingVertical: isTablet ? 0 : 12,
+					gap: isTablet ? 20 : 0,
 				},
 				headerTitleContainerStyle: {
 					width: "100%",
