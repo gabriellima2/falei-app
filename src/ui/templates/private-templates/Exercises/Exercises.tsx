@@ -46,7 +46,6 @@ export const Exercises = WithQuery(
 					{!!error && !isLoading && (
 						<TextError>{(error as Error).message}</TextError>
 					)}
-
 					{!error && !isLoading && exercises && (
 						<ExerciseList exercises={exercises} category={category} />
 					)}

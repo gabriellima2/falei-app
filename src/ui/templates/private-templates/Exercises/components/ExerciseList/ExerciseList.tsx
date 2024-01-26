@@ -1,4 +1,5 @@
-import { FlatList } from "react-native";
+import { useCallback } from "react";
+import { FlatList, type ListRenderItemInfo } from "react-native";
 import styled, { css } from "styled-components/native";
 
 import {
@@ -37,25 +38,37 @@ const exerciseItem = {
 };
 
 const DEFAULT_SPACING = 16;
-const DEFAULT_ITEM_WIDTH = 165;
-const NUM_COLUMNS = Math.floor(
-	(dimensions.window.withMargin.width - DEFAULT_SPACING) / DEFAULT_ITEM_WIDTH
+const NUM_COLUMNS = Math.round(
+	(dimensions.window.withMargin.width - DEFAULT_SPACING) / 180
 );
 
 export const ExerciseList = (props: ExerciseListProps) => {
 	const { exercises, category } = props;
 	const ExerciseItem = exerciseItem[category];
 	const title = categoriesPortuguese[category];
-	return (
-		<FlatList
-			numColumns={NUM_COLUMNS}
-			data={exercises}
-			ListHeaderComponent={() => <Header title={title} />}
-			renderItem={({ item, index }) => (
-				<ExerciseContainer hasSpacing={index % 2 === 0} testID="exercise">
+
+	const render = useCallback(
+		(params: ListRenderItemInfo<Omit<ExerciseEntity, "category">>) => {
+			const { index, item } = params;
+			const itIsNotInTheLastColumn = (index + 1) % NUM_COLUMNS === 0;
+			return (
+				<ExerciseContainer
+					hasMiddleSpacing={itIsNotInTheLastColumn}
+					testID="exercise"
+				>
 					<ExerciseItem {...(item as ExerciseEntity)} />
 				</ExerciseContainer>
-			)}
+			);
+		},
+		[category]
+	);
+
+	return (
+		<FlatList
+			numColumns={NUM_COLUMNS > 3 ? 3 : NUM_COLUMNS}
+			data={exercises}
+			ListHeaderComponent={() => <Header title={title} />}
+			renderItem={render}
 			contentContainerStyle={{ padding: DEFAULT_SPACING }}
 			keyExtractor={({ id }) => id.toString()}
 			ItemSeparatorComponent={() => <Separator />}
@@ -63,15 +76,14 @@ export const ExerciseList = (props: ExerciseListProps) => {
 	);
 };
 
-const width =
-	(dimensions.window.withMargin.width - DEFAULT_SPACING) / NUM_COLUMNS;
-
-type ExerciseContainerProps = { hasSpacing?: boolean };
+type ExerciseContainerProps = { hasMiddleSpacing?: boolean };
 
 const ExerciseContainer = styled.View<ExerciseContainerProps>`
-	${({ hasSpacing }) => css`
-		width: ${width}px;
-		margin-right: ${hasSpacing ? DEFAULT_SPACING : 0}px;
+	${({ hasMiddleSpacing }) => css`
+		flex: 1;
+		max-width: ${(dimensions.window.withMargin.width - DEFAULT_SPACING) /
+		NUM_COLUMNS}px;
+		margin-right: ${hasMiddleSpacing ? 0 : DEFAULT_SPACING}px;
 	`}
 `;
 
