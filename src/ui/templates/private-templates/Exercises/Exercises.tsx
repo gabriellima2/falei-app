@@ -2,8 +2,8 @@ import styled, { css } from "styled-components/native";
 
 import { useExercisesState } from "./hooks/use-exercises-state";
 
+import { ExerciseList, FilterByCategory, Skeleton } from "./components";
 import { LoadingIndicator, TextError, Header } from "@/ui/atoms";
-import { ExerciseList, FilterByCategory } from "./components";
 import { WithQuery } from "@/hocs";
 
 import { makeBreathingExerciseService } from "@/factories/services/make-breathing-exercise-service";
@@ -56,7 +56,8 @@ export const Exercises = WithQuery(
 	{
 		name: "breathing-exercises",
 		fn: () => makeBreathingExerciseService().getAll(),
-	}
+	},
+	() => <Skeleton />
 );
 
 const Content = styled.View`
