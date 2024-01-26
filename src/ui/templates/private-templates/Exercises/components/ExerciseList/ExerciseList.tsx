@@ -10,7 +10,8 @@ import {
 import { Header } from "./components/Header";
 
 import { categoriesPortuguese } from "@/constants/categories-portuguese";
-import { dimensions } from "@/constants/dimensions";
+import { getTotalColumns } from "./helpers/get-total-columns";
+import { getItemWidth } from "./helpers/get-item-width";
 
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
@@ -37,10 +38,8 @@ const exerciseItem = {
 	),
 };
 
-const DEFAULT_SPACING = 16;
-const NUM_COLUMNS = Math.round(
-	(dimensions.window.withMargin.width - DEFAULT_SPACING) / 180
-);
+const spacing = 16;
+const numColumns = getTotalColumns();
 
 export const ExerciseList = (props: ExerciseListProps) => {
 	const { exercises, category } = props;
@@ -50,7 +49,7 @@ export const ExerciseList = (props: ExerciseListProps) => {
 	const render = useCallback(
 		(params: ListRenderItemInfo<Omit<ExerciseEntity, "category">>) => {
 			const { index, item } = params;
-			const itIsNotInTheLastColumn = (index + 1) % NUM_COLUMNS === 0;
+			const itIsNotInTheLastColumn = (index + 1) % numColumns === 0;
 			return (
 				<ExerciseContainer
 					hasMiddleSpacing={itIsNotInTheLastColumn}
@@ -65,11 +64,11 @@ export const ExerciseList = (props: ExerciseListProps) => {
 
 	return (
 		<FlatList
-			numColumns={NUM_COLUMNS > 3 ? 3 : NUM_COLUMNS}
+			numColumns={numColumns > 3 ? 3 : numColumns}
 			data={exercises}
 			ListHeaderComponent={() => <Header title={title} />}
 			renderItem={render}
-			contentContainerStyle={{ padding: DEFAULT_SPACING }}
+			contentContainerStyle={{ padding: spacing }}
 			keyExtractor={({ id }) => id.toString()}
 			ItemSeparatorComponent={() => <Separator />}
 		/>
@@ -81,12 +80,11 @@ type ExerciseContainerProps = { hasMiddleSpacing?: boolean };
 const ExerciseContainer = styled.View<ExerciseContainerProps>`
 	${({ hasMiddleSpacing }) => css`
 		flex: 1;
-		max-width: ${(dimensions.window.withMargin.width - DEFAULT_SPACING) /
-		NUM_COLUMNS}px;
-		margin-right: ${hasMiddleSpacing ? 0 : DEFAULT_SPACING}px;
+		max-width: ${getItemWidth()}px;
+		margin-right: ${hasMiddleSpacing ? 0 : spacing}px;
 	`}
 `;
 
-const Separator = styled.View`
-	height: ${DEFAULT_SPACING}px;
+export const Separator = styled.View`
+	height: ${spacing}px;
 `;
