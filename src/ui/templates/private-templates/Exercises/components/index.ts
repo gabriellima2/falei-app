@@ -1,3 +1,3 @@
 export { Skeleton } from "./Skeleton";
-export { ExerciseList } from "./ExerciseList";
 export { FilterByCategory } from "./FilterByCategory";
+export { ExerciseList, ExerciseListSkeleton } from "./ExerciseList";

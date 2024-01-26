@@ -2,8 +2,13 @@ import styled, { css } from "styled-components/native";
 
 import { useExercisesState } from "./hooks/use-exercises-state";
 
-import { ExerciseList, FilterByCategory, Skeleton } from "./components";
-import { LoadingIndicator, TextError, Header } from "@/ui/atoms";
+import {
+	ExerciseListSkeleton,
+	FilterByCategory,
+	ExerciseList,
+	Skeleton,
+} from "./components";
+import { TextError, Header } from "@/ui/atoms";
 import { WithQuery } from "@/hocs";
 
 import { makeBreathingExerciseService } from "@/factories/services/make-breathing-exercise-service";
@@ -42,7 +47,7 @@ export const Exercises = WithQuery(
 							handleCategoryChange(category as ExerciseCategoryEntity)
 						}
 					/>
-					{isLoading && <LoadingIndicator />}
+					{isLoading && <ExerciseListSkeleton />}
 					{!!error && !isLoading && (
 						<TextError>{(error as Error).message}</TextError>
 					)}
