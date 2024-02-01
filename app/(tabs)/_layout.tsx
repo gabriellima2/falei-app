@@ -50,7 +50,7 @@ export default function Layout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="(exercises)/index"
+				name="(exercises)"
 				options={{
 					headerShown: false,
 					...BottomTabElements({
