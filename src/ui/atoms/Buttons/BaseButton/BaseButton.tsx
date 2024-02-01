@@ -1,9 +1,11 @@
 import type { TouchableOpacityProps } from "react-native";
 import styled, { css, useTheme } from "styled-components/native";
+import type { FlattenSimpleInterpolation } from "styled-components";
 
 import { Typography } from "../../Typography";
 
 import type { Modifiers } from "@/@types/modifiers";
+import type { Theme } from "@/styles/theme";
 
 type IconProps = { color: string; size: number };
 
@@ -11,6 +13,7 @@ export type BaseButtonProps = TouchableOpacityProps & {
 	bordered?: boolean;
 	secondary?: boolean;
 	onlyText?: boolean;
+	size?: "regular" | "sm";
 	rightIcon?: (props: IconProps) => JSX.Element;
 	leftIcon?: (props: IconProps) => JSX.Element;
 };
@@ -68,7 +71,11 @@ type DefaultProps = {
 	hasContrast?: boolean;
 };
 
-export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
+export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> & {
+	size: {
+		sm: (theme: Theme) => FlattenSimpleInterpolation;
+	};
+} = {
 	bordered: (theme) => css`
 		border: 1.5px solid ${theme.colors.overlay};
 		background-color: transparent;
@@ -95,10 +102,33 @@ export const modifiers: Modifiers<keyof ButtonProps | keyof DefaultProps> = {
 		border: 1px solid ${theme.colors.overlay};
 		background-color: ${theme.colors.utils.darkGray};
 	`,
+	size: {
+		sm: (theme: Theme) => css`
+			width: 44px;
+			max-width: 44px;
+			height: 44px;
+			max-height: 44px;
+			min-height: 44px;
+			align-items: center;
+			justify-content: center;
+			padding: 0px;
+			border-radius: ${theme.rounded.regular};
+		`,
+	},
 };
 
-export const Button = styled.TouchableOpacity<ButtonProps>`
-	${({ theme, alignAtStart, bordered, onlyText, disabled, secondary }) => css`
+export const Button = styled.TouchableOpacity<
+	ButtonProps & Pick<BaseButtonProps, "size">
+>`
+	${({
+		theme,
+		alignAtStart,
+		bordered,
+		onlyText,
+		disabled,
+		secondary,
+		size,
+	}) => css`
 		flex: 1;
 		width: 100%;
 		height: 70px;
@@ -115,6 +145,7 @@ export const Button = styled.TouchableOpacity<ButtonProps>`
 		${onlyText && modifiers.onlyText(theme)}
 		${disabled && modifiers.disabled(theme)}
 		${secondary && modifiers.secondary(theme)}
+		${size === "sm" && modifiers.size.sm(theme)}
 	`}
 `;
 
