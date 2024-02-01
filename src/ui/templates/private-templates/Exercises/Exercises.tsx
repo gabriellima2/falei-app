@@ -4,6 +4,7 @@ import { useExercisesState } from "./hooks/use-exercises-state";
 
 import {
 	ExerciseListSkeleton,
+	AddExerciseButton,
 	FilterByCategory,
 	ExerciseList,
 	Skeleton,
@@ -38,7 +39,7 @@ export const Exercises = WithQuery(
 			});
 		return (
 			<>
-				<Header title="Exercícios" />
+				<Header title="Exercícios" headerRight={() => <AddExerciseButton />} />
 				<Content>
 					<FilterByCategory
 						categories={exerciseCategories}
