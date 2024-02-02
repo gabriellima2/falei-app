@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Check } from "@/ui/components";
+import { Check } from "@/ui/components/Check";
 
 type DayPickerProps = {
 	onDayChange: (selectedDays: string[]) => void;
