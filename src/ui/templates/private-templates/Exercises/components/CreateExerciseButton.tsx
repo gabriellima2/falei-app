@@ -3,14 +3,14 @@ import { Plus } from "lucide-react-native";
 import { ButtonLink } from "@/ui/atoms";
 import { theme } from "@/styles/theme";
 
-export const AddExerciseButton = () => {
+export const CreateExerciseButton = () => {
 	return (
 		<ButtonLink
 			size="sm"
-			href={{ pathname: "/(exercises)/add-exercise" }}
+			href={{ pathname: "/(exercises)/select-exercise-type" }}
 			secondary
-			accessibilityLabel="Adicionar Exercício"
-			accessibilityHint="Adicionar novo exercício"
+			accessibilityLabel="Criar Exercício"
+			accessibilityHint="Criar novo exercício"
 		>
 			<Plus color={theme.colors.font.primary} size={20} />
 		</ButtonLink>

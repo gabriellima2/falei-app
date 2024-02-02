@@ -1,11 +1,11 @@
-import { Typography } from "@/ui/atoms";
 import { Stack } from "expo-router";
+import { SelectExerciseType } from "@/ui/templates/private-templates";
 
 export default function Page() {
 	return (
 		<>
 			<Stack.Screen />
-			<Typography.Title>Adding Exercise</Typography.Title>
+			<SelectExerciseType />
 		</>
 	);
 }
