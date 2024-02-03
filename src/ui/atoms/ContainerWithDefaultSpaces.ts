@@ -3,7 +3,7 @@ import styled, { css } from "styled-components/native";
 
 import type { Modifiers } from "@/@types/modifiers";
 
-type ContainerWithDefaultSpacesProps = {
+export type ContainerWithDefaultSpacesProps = {
 	horizontalSpacing?: boolean;
 	verticalSpacing?: boolean;
 	topSpacing?: boolean;

@@ -6,7 +6,7 @@ import {
 } from "@/ui/components/InputNumber";
 import { Typography } from "@/ui/atoms";
 
-type NumberFieldProps = InputNumberProps & {
+export type NumberFieldProps = InputNumberProps & {
 	label: string;
 };
 
