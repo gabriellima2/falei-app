@@ -46,7 +46,7 @@ export const Exercises = WithQuery(
 				<Content>
 					<FilterByCategory
 						categories={exerciseCategories}
-						values={[INITIAL_CATEGORY]}
+						values={[category]}
 						onChange={([category]) =>
 							handleCategoryChange(category as ExerciseCategoryEntity)
 						}

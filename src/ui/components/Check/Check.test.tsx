@@ -4,7 +4,7 @@ import { Check, type CheckProps } from "./Check";
 import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
 
 const defaultProps: CheckProps = {
-	initialValue: "any_value_1",
+	values: ["any_value_1"],
 	items: [
 		{
 			name: "any_name_1",
@@ -45,7 +45,7 @@ describe("<Check />", () => {
 					expected: [items[0].value],
 				},
 				{
-					props: { ...defaultProps, multipleValues: true },
+					props: { ...defaultProps, withMultipleValues: true },
 					elIndex: 1,
 					expected: [items[0].value, items[1].value],
 				},

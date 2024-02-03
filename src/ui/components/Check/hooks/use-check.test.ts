@@ -1,7 +1,10 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { useCheck, type UseCheckParams } from "./use-check";
 
-const defaultParams: UseCheckParams = { values: ["any_value"] };
+const defaultParams: UseCheckParams = {
+	values: ["any_value"],
+	onChange: jest.fn(),
+};
 const executeHook = (params = defaultParams) =>
 	renderHook(() => useCheck(params));
 
@@ -48,12 +51,9 @@ describe("UseCheck", () => {
 				act(() => {
 					result.current.handlePress(value[0]);
 				});
-				const { withMultipleValues, values, onChange } = params;
+				const { onChange } = params;
 
-				expect(result.current.values).toMatchObject(expected);
-				expect(onChange).toHaveBeenCalledWith(
-					withMultipleValues ? [...values, ...value] : value
-				);
+				expect(onChange).toHaveBeenCalledWith(expected);
 			});
 		});
 		describe("IsChecked", () => {

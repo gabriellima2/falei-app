@@ -1,47 +1,37 @@
-import { useEffect, useState } from "react";
-
 export type UseCheckParams = {
 	values: string[];
 	withMultipleValues?: boolean;
 	withToggle?: boolean;
-	onChange?: (values: string[]) => Promise<void> | void;
+	onChange: (values: string[]) => Promise<void> | void;
 };
 
 type UseCheckReturn = {
-	values: string[];
 	handlePress: (newValue: string) => void;
 	isChecked: (value: string) => boolean;
 };
 
 export function useCheck(params: UseCheckParams): UseCheckReturn {
 	const { values, withMultipleValues, withToggle, onChange } = params;
-	const [currentValues, setCurrentValues] = useState(values);
 
 	const isAlreadyCheckedValue = (value: string) => {
-		return currentValues.includes(value);
+		return values.includes(value);
 	};
 
 	const removeCheckedValue = (checkedValue: string) => {
-		return currentValues.filter((value) => value !== checkedValue);
+		return values.filter((value) => value !== checkedValue);
 	};
 
 	const updateCheckedValues = (newValue: string) => {
 		if (isAlreadyCheckedValue(newValue) && withToggle) {
-			return setCurrentValues(removeCheckedValue(newValue));
+			return onChange(removeCheckedValue(newValue));
 		}
 		if (withMultipleValues) {
-			return setCurrentValues((prevState) => [...prevState, newValue]);
+			return onChange([...values, newValue]);
 		}
-		setCurrentValues([newValue]);
+		onChange([newValue]);
 	};
 
-	useEffect(() => {
-		if (!onChange) return;
-		onChange(currentValues);
-	}, [currentValues]);
-
 	return {
-		values: currentValues,
 		handlePress: updateCheckedValues,
 		isChecked: isAlreadyCheckedValue,
 	};
