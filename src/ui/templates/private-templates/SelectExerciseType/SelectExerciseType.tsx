@@ -7,7 +7,7 @@ import { theme } from "@/styles/theme";
 export const SelectExerciseType = () => {
 	return (
 		<>
-			<Header title="Selecione o tipo do exercício" />
+			<Header title="Selecione o tipo do exercício" withBack />
 			<Container horizontalSpacing>
 				<ButtonLink
 					secondary

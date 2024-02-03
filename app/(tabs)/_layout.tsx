@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, usePathname } from "expo-router";
 import { LayoutGrid, Dumbbell, PieChart, Settings } from "lucide-react-native";
 
 import { BottomTab, BottomTabElements } from "@/ui/components/BottomTab";
@@ -6,10 +6,15 @@ import { BottomTab, BottomTabElements } from "@/ui/components/BottomTab";
 import { isTablet } from "@/constants/is-tablet";
 import { theme } from "@/styles/theme";
 
+const PATHS_WITH_BOTTOM_TAB = ["/", "/analytics"];
+
 export default function Layout() {
+	const path = usePathname();
 	return (
 		<Tabs
-			tabBar={(props) => <BottomTab {...props} />}
+			tabBar={(props) =>
+				PATHS_WITH_BOTTOM_TAB.includes(path) ? <BottomTab {...props} /> : null
+			}
 			sceneContainerStyle={{
 				backgroundColor: "transparent",
 			}}
