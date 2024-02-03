@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 export type UseCheckParams = {
-	initialValue: string;
-	multipleValues?: boolean;
-	toggle?: boolean;
+	values: string[];
+	withMultipleValues?: boolean;
+	withToggle?: boolean;
 	onChange?: (values: string[]) => Promise<void> | void;
 };
 
@@ -14,8 +14,8 @@ type UseCheckReturn = {
 };
 
 export function useCheck(params: UseCheckParams): UseCheckReturn {
-	const { initialValue, multipleValues, toggle, onChange } = params;
-	const [currentValues, setCurrentValues] = useState([initialValue]);
+	const { values, withMultipleValues, withToggle, onChange } = params;
+	const [currentValues, setCurrentValues] = useState(values);
 
 	const isAlreadyCheckedValue = (value: string) => {
 		return currentValues.includes(value);
@@ -26,10 +26,10 @@ export function useCheck(params: UseCheckParams): UseCheckReturn {
 	};
 
 	const updateCheckedValues = (newValue: string) => {
-		if (isAlreadyCheckedValue(newValue) && toggle) {
+		if (isAlreadyCheckedValue(newValue) && withToggle) {
 			return setCurrentValues(removeCheckedValue(newValue));
 		}
-		if (multipleValues) {
+		if (withMultipleValues) {
 			return setCurrentValues((prevState) => [...prevState, newValue]);
 		}
 		setCurrentValues([newValue]);

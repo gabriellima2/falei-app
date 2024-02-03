@@ -1,10 +1,7 @@
 import styled from "styled-components/native";
 import { Check, type CheckProps } from "@/ui/components";
 
-export type FilterByCategoryProps = Pick<
-	CheckProps,
-	"initialValue" | "onChange"
-> & {
+export type FilterByCategoryProps = Pick<CheckProps, "values" | "onChange"> & {
 	categories: Pick<CheckProps, "items">["items"];
 };
 

@@ -1,7 +1,7 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { useCheck, type UseCheckParams } from "./use-check";
 
-const defaultParams: UseCheckParams = { initialValue: "any_value" };
+const defaultParams: UseCheckParams = { values: ["any_value"] };
 const executeHook = (params = defaultParams) =>
 	renderHook(() => useCheck(params));
 
@@ -19,26 +19,26 @@ describe("UseCheck", () => {
 		});
 	});
 	describe("Methods", () => {
-		const OTHER_VALUE = "other_value";
+		const OTHER_VALUE = ["other_value"];
 		describe("HandlePress", () => {
 			const params = { ...defaultParams, onChange: jest.fn() };
 			const cases = [
 				{
-					params: { ...params, toggle: true },
-					value: params.initialValue,
+					params: { ...params, withToggle: true },
+					value: params.values,
 					expected: [],
 					description: "should remove the passed value if it is already added",
 				},
 				{
 					params,
 					value: OTHER_VALUE,
-					expected: [OTHER_VALUE],
+					expected: OTHER_VALUE,
 					description: "should add the new value by removing the previous one",
 				},
 				{
-					params: { ...params, multipleValues: true },
+					params: { ...params, withMultipleValues: true },
 					value: OTHER_VALUE,
-					expected: [params.initialValue, OTHER_VALUE],
+					expected: [...params.values, ...OTHER_VALUE],
 					description: "should add the new value keeping the previous ones",
 				},
 			];
@@ -46,20 +46,20 @@ describe("UseCheck", () => {
 				const { result } = executeHook(params);
 
 				act(() => {
-					result.current.handlePress(value);
+					result.current.handlePress(value[0]);
 				});
-				const { multipleValues, initialValue, onChange } = params;
+				const { withMultipleValues, values, onChange } = params;
 
 				expect(result.current.values).toMatchObject(expected);
 				expect(onChange).toHaveBeenCalledWith(
-					multipleValues ? [initialValue, value] : [value]
+					withMultipleValues ? [...values, ...value] : value
 				);
 			});
 		});
 		describe("IsChecked", () => {
 			const cases = [
 				{
-					value: defaultParams.initialValue,
+					value: defaultParams.values,
 					expected: true,
 					description: "should return true if the value is already added",
 				},
@@ -72,7 +72,7 @@ describe("UseCheck", () => {
 			test.each(cases)("%s", ({ value, expected }) => {
 				const { result } = executeHook();
 
-				const isChecked = result.current.isChecked(value);
+				const isChecked = result.current.isChecked(value[0]);
 
 				expected
 					? expect(isChecked).toBeTruthy()

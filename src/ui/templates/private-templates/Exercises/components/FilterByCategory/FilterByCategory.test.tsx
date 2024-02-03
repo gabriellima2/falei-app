@@ -12,7 +12,7 @@ const defaultProps: FilterByCategoryProps = {
 		{ name: "any_name_1", value: "any_value_1" },
 		{ name: "any_name_2", value: "any_value_2" },
 	],
-	initialValue: "any_name",
+	values: ["any_name"],
 	onChange: jest.fn(),
 };
 
