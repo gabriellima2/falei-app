@@ -27,8 +27,11 @@ describe("<Settings />", () => {
 		it("should render correctly", () => {
 			renderComponent();
 
-			expect(getLogoutButtonEl()).toBeTruthy();
 			expect(screen.getByText("Configurações")).toBeTruthy();
+			expect(screen.getByText("Minha Conta")).toBeTruthy();
+			expect(screen.getByText("Notificações")).toBeTruthy();
+			expect(screen.getByText("Sobre")).toBeTruthy();
+			expect(getLogoutButtonEl()).toBeTruthy();
 			expect(screen.getByText("© Gabriel Lima")).toBeTruthy();
 		});
 	});
