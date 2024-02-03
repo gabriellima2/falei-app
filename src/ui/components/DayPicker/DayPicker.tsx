@@ -1,21 +1,28 @@
 import { View } from "react-native";
-import { Check } from "@/ui/components/Check";
+import { Check, type CheckProps } from "@/ui/components/Check";
 
-type DayPickerProps = {
-	onDayChange: (selectedDays: string[]) => void;
+type DaysOfTheWeek =
+	| "sunday"
+	| "monday"
+	| "tuesday"
+	| "wednesday"
+	| "thursday"
+	| "friday"
+	| "saturday";
+
+export type DayPickerProps = Pick<CheckProps, "onChange"> & {
+	values: DaysOfTheWeek[];
 };
 
 export const DayPicker = (props: DayPickerProps) => {
-	const { onDayChange } = props;
 	return (
 		<View>
 			<View style={{ gap: 16, flexDirection: "row", flexWrap: "wrap" }}>
 				<Check
-					initialValue="sunday"
-					multipleValues
-					toggle
+					{...props}
 					optionStyle={{ maxWidth: 80, minWidth: 80 }}
-					onChange={onDayChange}
+					withMultipleValues
+					withToggle
 					items={[
 						{ name: "Dom", value: "sunday" },
 						{ name: "Seg", value: "monday" },

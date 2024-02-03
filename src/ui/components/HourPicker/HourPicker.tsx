@@ -7,17 +7,17 @@ import styled, { css } from "styled-components/native";
 import { BaseButton } from "../../atoms/Buttons";
 import { Typography } from "../../atoms/Typography";
 
-type HourPickerProps = {
+export type HourPickerProps = {
 	value: Date;
-	onHourChange: (date?: Date) => void;
+	onChange: (date?: Date) => void;
 };
 
 export const HourPicker = (props: HourPickerProps) => {
-	const { value, onHourChange } = props;
+	const { value, onChange } = props;
 	const [showPicker, setShowPicker] = useState(false);
 
 	const handleTimeChange = (_: DateTimePickerEvent, date?: Date) => {
-		onHourChange(date);
+		onChange(date);
 		setShowPicker(false);
 	};
 
