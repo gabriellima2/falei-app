@@ -15,6 +15,7 @@ import { Reminder } from "../Reminder";
 
 import type { HourPickerProps } from "../HourPicker";
 import type { DayPickerProps } from "../DayPicker";
+import { useRouter } from "expo-router";
 
 type ContainerDefaultProps = Omit<
 	ContainerWithDefaultSpacesProps,
@@ -102,14 +103,33 @@ const Schedule = (props: ScheduleProps) => {
 	);
 };
 
-const CancelButton = (props: BaseButtonProps) => (
-	<BaseButton secondary {...props}>
-		{props.children ?? "Cancelar"}
-	</BaseButton>
-);
+const CancelButton = (props: BaseButtonProps) => {
+	const { onPress } = props;
+	const { back } = useRouter();
+	return (
+		<BaseButton
+			accessibilityLabel="Cancelar formulário"
+			accessibilityHint="Cancela e volta para a página anterior"
+			secondary
+			{...props}
+			onPress={(e) => {
+				back();
+				onPress && onPress(e);
+			}}
+		>
+			{props.children ?? "Cancelar"}
+		</BaseButton>
+	);
+};
 
 const SubmitButton = (props: BaseButtonProps) => (
-	<BaseButton {...props}>{props.children ?? "Confirmar"}</BaseButton>
+	<BaseButton
+		accessibilityLabel="Enviar formulário"
+		accessibilityHint="O formulário atual será enviado"
+		{...props}
+	>
+		{props.children ?? "Confirmar"}
+	</BaseButton>
 );
 
 const Container = styled(ContainerWithDefaultSpaces)`
