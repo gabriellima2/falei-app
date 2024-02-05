@@ -24,12 +24,17 @@ export const TimePicker = React.memo((props: TimePickerProps) => {
 				<Label>Hora</Label>
 				<Typography.Paragraph>{TIME_WITHOUT_SECONDS}</Typography.Paragraph>
 			</Description>
-			<Button secondary onPress={showPicker}>
+			<Button
+				secondary
+				onPress={showPicker}
+				accessibilityLabel="Definir horário do lembrete"
+			>
 				Definir Hora
 			</Button>
 			{isShowPicker && (
 				<DateTimePicker
 					mode="time"
+					testID="date-time-picker"
 					value={value}
 					onChange={(_, date) => handleTimeChange(date, onChange)}
 				/>
