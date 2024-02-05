@@ -7,6 +7,16 @@ export type DayPickerProps = Pick<CheckProps, "onChange"> & {
 	values: DaysOfTheWeek[];
 };
 
+const options: Pick<CheckProps, "items">["items"] = [
+	{ name: "Dom", value: "sunday" },
+	{ name: "Seg", value: "monday" },
+	{ name: "Ter", value: "tuesday" },
+	{ name: "Qua", value: "wednesday" },
+	{ name: "Qui", value: "thursday" },
+	{ name: "Sex", value: "friday" },
+	{ name: "Sab", value: "saturday" },
+];
+
 export const DayPicker = (props: DayPickerProps) => {
 	return (
 		<View>
@@ -16,15 +26,7 @@ export const DayPicker = (props: DayPickerProps) => {
 					optionStyle={{ maxWidth: 80, minWidth: 80 }}
 					withMultipleValues
 					withToggle
-					items={[
-						{ name: "Dom", value: "sunday" },
-						{ name: "Seg", value: "monday" },
-						{ name: "Ter", value: "tuesday" },
-						{ name: "Qua", value: "wednesday" },
-						{ name: "Qui", value: "thursday" },
-						{ name: "Sex", value: "friday" },
-						{ name: "Sab", value: "saturday" },
-					]}
+					items={options}
 				/>
 			</View>
 		</View>
