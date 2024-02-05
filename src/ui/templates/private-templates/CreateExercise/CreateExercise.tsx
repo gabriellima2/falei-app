@@ -47,9 +47,9 @@ export const CreateExercise = () => {
 					<BreathingForm.Schedule
 						defaultEnabled
 						days={fields.days}
-						hour={fields.hour}
+						time={fields.time}
 						onDayChange={(days) => setValue("days", days as DaysOfTheWeek[])}
-						onHourChange={(hour) => setValue("hour", hour ?? new Date())}
+						onTimeChange={(date) => setValue("time", date ?? new Date())}
 					/>
 				</BreathingForm.Content>
 				<BreathingForm.Footer>

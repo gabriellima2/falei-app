@@ -17,7 +17,7 @@ import {
 import { Field, type FieldProps } from "../Fields";
 import { Reminder } from "../Reminder";
 
-import type { HourPickerProps } from "../HourPicker";
+import type { TimePickerProps } from "../TimePicker";
 import type { DayPickerProps } from "../DayPicker";
 
 type ContainerDefaultProps = Omit<
@@ -41,8 +41,8 @@ type TimerProps = {
 type ScheduleProps = {
 	defaultEnabled?: boolean;
 	days: Pick<DayPickerProps, "values">["values"];
-	hour: Pick<HourPickerProps, "value">["value"];
-	onHourChange: Pick<HourPickerProps, "onChange">["onChange"];
+	time: Pick<TimePickerProps, "value">["value"];
+	onTimeChange: Pick<TimePickerProps, "onChange">["onChange"];
 	onDayChange: Pick<DayPickerProps, "onChange">["onChange"];
 };
 
@@ -88,7 +88,7 @@ const Timer = (props: TimerProps) => {
 };
 
 const Schedule = (props: ScheduleProps) => {
-	const { defaultEnabled, days, hour, onDayChange, onHourChange } = props;
+	const { defaultEnabled, days, time, onDayChange, onTimeChange } = props;
 	const [isEnabled, setIsEnabled] = useState(defaultEnabled);
 	return (
 		<>
@@ -99,7 +99,7 @@ const Schedule = (props: ScheduleProps) => {
 			{isEnabled && (
 				<Reminder.Root>
 					<Reminder.Day values={days} onChange={onDayChange} />
-					<Reminder.Hour value={hour} onChange={onHourChange} />
+					<Reminder.Time value={time} onChange={onTimeChange} />
 				</Reminder.Root>
 			)}
 		</>

@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-import { HourPicker } from "./HourPicker";
+import { TimePicker } from "./TimePicker";
 import { DayPicker } from "./DayPicker";
 
 const Root = styled.View`
@@ -10,6 +10,6 @@ const Root = styled.View`
 
 export const Reminder = {
 	Root,
-	Hour: HourPicker,
+	Time: TimePicker,
 	Day: DayPicker,
 };

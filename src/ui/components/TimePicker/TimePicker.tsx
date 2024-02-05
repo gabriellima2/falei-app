@@ -7,12 +7,12 @@ import styled, { css } from "styled-components/native";
 import { BaseButton } from "../../atoms/Buttons";
 import { Typography } from "../../atoms/Typography";
 
-export type HourPickerProps = {
+export type TimePickerProps = {
 	value: Date;
 	onChange: (date?: Date) => void;
 };
 
-export const HourPicker = React.memo((props: HourPickerProps) => {
+export const TimePicker = React.memo((props: TimePickerProps) => {
 	const { value, onChange } = props;
 	const [showPicker, setShowPicker] = useState(false);
 
@@ -43,7 +43,7 @@ export const HourPicker = React.memo((props: HourPickerProps) => {
 	);
 });
 
-HourPicker.displayName = "HourPicker";
+TimePicker.displayName = "TimePicker";
 
 const Container = styled.View`
 	${({ theme }) => css`

@@ -15,7 +15,7 @@ export type BreathingFormFields = {
 	rounds: string;
 	timer: Record<BreathingStates, string>;
 	days: DaysOfTheWeek[];
-	hour: Date;
+	time: Date;
 };
 
 export type UseBreathingFormParams = UseFormProps<BreathingFormFields>;
@@ -29,7 +29,7 @@ const defaultValues: BreathingFormFields = {
 	title: "",
 	rounds: "",
 	days: [],
-	hour: new Date(),
+	time: new Date(),
 	timer: { inhale: "1", hold: "1", exhale: "1" },
 };
 
@@ -48,7 +48,7 @@ export function useBreathingForm(
 		register("rounds", { setValueAs: (value) => parseInt(value) });
 		register("timer");
 		register("days");
-		register("hour", { valueAsDate: true });
+		register("time", { valueAsDate: true });
 	}, []);
 
 	const defaultTimerValues = fields.timer && {
@@ -61,7 +61,7 @@ export function useBreathingForm(
 		fields: {
 			title: fields.title || defaultValues.title,
 			rounds: fields.rounds || defaultValues.rounds,
-			hour: fields.hour || defaultValues.hour,
+			time: fields.time || defaultValues.time,
 			timer: defaultTimerValues || defaultValues.timer,
 			days: fields.days || defaultValues.days,
 		},
