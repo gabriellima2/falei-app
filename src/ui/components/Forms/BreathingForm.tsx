@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import styled, { css } from "styled-components/native";
+import { useRouter } from "expo-router";
 
 import {
 	Typography,
@@ -9,13 +10,15 @@ import {
 	type BaseButtonProps,
 	type ContainerWithDefaultSpacesProps,
 } from "@/ui/atoms";
-import { BreathingControl, DefaultControlProps } from "../BreathingControl";
+import {
+	BreathingControl,
+	type DefaultControlProps,
+} from "../BreathingControl";
 import { Field, type FieldProps } from "../Fields";
 import { Reminder } from "../Reminder";
 
 import type { HourPickerProps } from "../HourPicker";
 import type { DayPickerProps } from "../DayPicker";
-import { useRouter } from "expo-router";
 
 type ContainerDefaultProps = Omit<
 	ContainerWithDefaultSpacesProps,
