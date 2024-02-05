@@ -1,60 +1,15 @@
-import { useEffect } from "react";
-import { useController, useForm } from "react-hook-form";
+import { useBreathingForm } from "@/hooks/use-breathing-form";
 
 import { ScrollContainer, Header } from "@/ui/atoms";
-import { BreathingForm, DayPickerProps } from "@/ui/components";
+import { BreathingForm } from "@/ui/components";
 
-type Controls = "inhale" | "hold" | "exhale";
-type Days = Pick<DayPickerProps, "values">["values"];
+import { decrement } from "@/helpers/decrement";
+import { increment } from "@/helpers/increment";
 
-type Timer = Record<Controls, string>;
-
-type Fields = {
-	title: string;
-	rounds: string;
-	timer: Timer;
-	days: Days;
-	hour: Date;
-};
+import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
 
 export const CreateExercise = () => {
-	const { register, setValue, control, handleSubmit } = useForm<Fields>({
-		defaultValues: {
-			days: [],
-			hour: new Date(),
-			timer: { inhale: "1", hold: "1", exhale: "1" },
-		},
-	});
-	const days = useController({ name: "days", control });
-	const hour = useController({ name: "hour", control });
-	const inhale = useController({ name: "timer.inhale", control });
-	const hold = useController({ name: "timer.hold", control });
-	const exhale = useController({ name: "timer.exhale", control });
-
-	const handleDecrement = (value: string) => {
-		let formattedValue = Number(value);
-		if (isNaN(formattedValue) || formattedValue === 1) return value;
-		return (--formattedValue).toString();
-	};
-
-	const handleIncrement = (value: string) => {
-		let formattedValue = Number(value);
-		if (isNaN(formattedValue) || formattedValue === 10) return value;
-		return (++formattedValue).toString();
-	};
-
-	useEffect(() => {
-		register("title");
-		register("rounds", { setValueAs: (value) => parseInt(value) });
-		register("timer");
-		register("days");
-		register("hour", { valueAsDate: true });
-	}, []);
-
-	const onSubmit = (values: Fields) => {
-		console.log(values);
-	};
-
+	const { fields, setValue, handleSubmit } = useBreathingForm();
 	return (
 		<ScrollContainer>
 			<Header title="Exercício de Respiração" />
@@ -68,38 +23,40 @@ export const CreateExercise = () => {
 					/>
 					<BreathingForm.Timer
 						inhale={{
-							value: inhale.field.value,
+							value: fields.timer.inhale,
 							onDecrement: () =>
-								setValue("timer.inhale", handleDecrement(inhale.field.value)),
+								setValue("timer.inhale", decrement(fields.timer.inhale)),
 							onIncrement: () =>
-								setValue("timer.inhale", handleIncrement(inhale.field.value)),
+								setValue("timer.inhale", increment(fields.timer.inhale)),
 						}}
 						hold={{
-							value: hold.field.value,
+							value: fields.timer.hold,
 							onDecrement: () =>
-								setValue("timer.hold", handleDecrement(hold.field.value)),
+								setValue("timer.hold", decrement(fields.timer.hold)),
 							onIncrement: () =>
-								setValue("timer.hold", handleIncrement(hold.field.value)),
+								setValue("timer.hold", increment(fields.timer.hold)),
 						}}
 						exhale={{
-							value: exhale.field.value,
+							value: fields.timer.exhale,
 							onDecrement: () =>
-								setValue("timer.exhale", handleDecrement(exhale.field.value)),
+								setValue("timer.exhale", decrement(fields.timer.exhale)),
 							onIncrement: () =>
-								setValue("timer.exhale", handleIncrement(exhale.field.value)),
+								setValue("timer.exhale", increment(fields.timer.exhale)),
 						}}
 					/>
 					<BreathingForm.Schedule
 						defaultEnabled
-						days={days.field.value}
-						hour={hour.field.value}
-						onDayChange={(days) => setValue("days", days as Days)}
+						days={fields.days}
+						hour={fields.hour}
+						onDayChange={(days) => setValue("days", days as DaysOfTheWeek[])}
 						onHourChange={(hour) => setValue("hour", hour ?? new Date())}
 					/>
 				</BreathingForm.Content>
 				<BreathingForm.Footer>
 					<BreathingForm.CancelButton />
-					<BreathingForm.SubmitButton onPress={handleSubmit(onSubmit)} />
+					<BreathingForm.SubmitButton
+						onPress={handleSubmit((v) => console.log(v))}
+					/>
 				</BreathingForm.Footer>
 			</BreathingForm.Root>
 		</ScrollContainer>

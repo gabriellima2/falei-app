@@ -1,14 +1,7 @@
 import { View } from "react-native";
 import { Check, type CheckProps } from "@/ui/components/Check";
 
-type DaysOfTheWeek =
-	| "sunday"
-	| "monday"
-	| "tuesday"
-	| "wednesday"
-	| "thursday"
-	| "friday"
-	| "saturday";
+import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
 
 export type DayPickerProps = Pick<CheckProps, "onChange"> & {
 	values: DaysOfTheWeek[];
