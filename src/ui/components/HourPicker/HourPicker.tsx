@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import DateTimePicker, {
 	type DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -12,13 +12,13 @@ export type HourPickerProps = {
 	onChange: (date?: Date) => void;
 };
 
-export const HourPicker = (props: HourPickerProps) => {
+export const HourPicker = React.memo((props: HourPickerProps) => {
 	const { value, onChange } = props;
 	const [showPicker, setShowPicker] = useState(false);
 
 	const handleTimeChange = (_: DateTimePickerEvent, date?: Date) => {
-		onChange(date);
 		setShowPicker(false);
+		onChange(date);
 	};
 
 	const handleShow = () => setShowPicker(true);
@@ -41,7 +41,9 @@ export const HourPicker = (props: HourPickerProps) => {
 			)}
 		</Container>
 	);
-};
+});
+
+HourPicker.displayName = "HourPicker";
 
 const Container = styled.View`
 	${({ theme }) => css`
