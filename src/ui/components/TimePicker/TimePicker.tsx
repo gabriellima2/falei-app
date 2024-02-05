@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import DateTimePicker, {
-	type DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
+import React from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import styled, { css } from "styled-components/native";
+
+import { useTimePicker } from "./hooks/use-time-picker";
 
 import { BaseButton } from "../../atoms/Buttons";
 import { Typography } from "../../atoms/Typography";
@@ -14,30 +14,25 @@ export type TimePickerProps = {
 
 export const TimePicker = React.memo((props: TimePickerProps) => {
 	const { value, onChange } = props;
-	const [showPicker, setShowPicker] = useState(false);
-
-	const handleTimeChange = (_: DateTimePickerEvent, date?: Date) => {
-		setShowPicker(false);
-		onChange(date);
-	};
-
-	const handleShow = () => setShowPicker(true);
-
+	const { isShowPicker, showPicker, handleTimeChange } = useTimePicker();
+	const TIME_WITHOUT_SECONDS = value
+		.toLocaleTimeString()
+		.replace(/(.*)\D\d+/, "$1");
 	return (
 		<Container>
 			<Description>
 				<Label>Hora</Label>
-				<Typography.Paragraph>
-					{value
-						? value.toLocaleTimeString().replace(/(.*)\D\d+/, "$1")
-						: "Nenhuma hora definida"}
-				</Typography.Paragraph>
+				<Typography.Paragraph>{TIME_WITHOUT_SECONDS}</Typography.Paragraph>
 			</Description>
-			<Button secondary onPress={handleShow}>
+			<Button secondary onPress={showPicker}>
 				Definir Hora
 			</Button>
-			{showPicker && (
-				<DateTimePicker mode="time" value={value} onChange={handleTimeChange} />
+			{isShowPicker && (
+				<DateTimePicker
+					mode="time"
+					value={value}
+					onChange={(_, date) => handleTimeChange(date, onChange)}
+				/>
 			)}
 		</Container>
 	);
