@@ -1,39 +1,27 @@
 import { useState } from "react";
-import { z } from "zod";
 
 import {
 	BreathingFormFields,
 	useBreathingForm,
 } from "@/hooks/use-breathing-form";
+import { useToastContext } from "@/contexts/ToastContext";
 
 import { ScrollContainer, Header } from "@/ui/atoms";
 import { BreathingForm } from "@/ui/components";
 
+import { createBreathingExerciseSchema } from "@/validations";
 import { decrement } from "@/helpers/decrement";
 import { increment } from "@/helpers/increment";
 
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
-import { useToastContext } from "@/contexts/ToastContext";
-
-const schema = z.object({
-	title: z.string().min(1).max(50),
-	rounds: z.number().int().min(1).max(10),
-	timer: z.object({
-		inhale: z.number().int().min(1).max(10),
-		hold: z.number().int().min(1).max(10),
-		exhale: z.number().int().min(1).max(10),
-	}),
-	days: z.array(z.string()).optional(),
-	time: z.date().optional(),
-});
 
 export const CreateExercise = () => {
 	const { fields, setValue, handleSubmit } = useBreathingForm();
 	const [hasReminder, setHasReminder] = useState(false);
 	const { notify } = useToastContext();
 
-	const onSubmit = (values: BreathingFormFields) => {
-		const result = schema.safeParse({
+	const validate = (values: BreathingFormFields) => {
+		const result = createBreathingExerciseSchema.safeParse({
 			...values,
 			rounds: Number(values.rounds),
 			timer: {
@@ -42,12 +30,13 @@ export const CreateExercise = () => {
 				exhale: Number(values.timer.exhale),
 			},
 		});
-		if (!result.success) {
-			return notify(result.error.errors[0].message, { type: "alert" });
-		}
-		if (hasReminder && !values.days.length) {
-			return notify("Selecione os dias", { type: "alert" });
-		}
+		if (!result.success) return result.error.errors[0].message;
+		if (hasReminder && !values.days.length) return "Selecione os dias";
+	};
+
+	const onSubmit = (values: BreathingFormFields) => {
+		const message = validate(values);
+		if (message) return notify(message, { type: "alert" });
 		console.log(values);
 	};
 
