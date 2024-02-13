@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import styled, { css } from "styled-components/native";
 import { useRouter } from "expo-router";
 
@@ -39,7 +39,8 @@ type TimerProps = {
 };
 
 type ScheduleProps = {
-	defaultEnabled?: boolean;
+	isEnabled?: boolean;
+	onToggle: (value: boolean) => void;
 	days: Pick<DayPickerProps, "values">["values"];
 	time: Pick<TimePickerProps, "value">["value"];
 	onTimeChange: Pick<TimePickerProps, "onChange">["onChange"];
@@ -88,12 +89,11 @@ const Timer = (props: TimerProps) => {
 };
 
 const Schedule = (props: ScheduleProps) => {
-	const { defaultEnabled, days, time, onDayChange, onTimeChange } = props;
-	const [isEnabled, setIsEnabled] = useState(defaultEnabled);
+	const { isEnabled, days, time, onDayChange, onToggle, onTimeChange } = props;
 	return (
 		<>
 			<ScheduleText>
-				<ToggleButton value={isEnabled} onValueChange={setIsEnabled} />
+				<ToggleButton value={isEnabled} onValueChange={onToggle} />
 				<Typography.Paragraph>Definir Lembrete</Typography.Paragraph>
 			</ScheduleText>
 			{isEnabled && (
