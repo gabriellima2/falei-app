@@ -1,1 +1,1 @@
-export * from "./breathing-exercise.validation";
+export * from "./reminder.validation";

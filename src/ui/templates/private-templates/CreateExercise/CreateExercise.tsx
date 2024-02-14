@@ -9,21 +9,22 @@ import { useToastContext } from "@/contexts/ToastContext";
 import { ScrollContainer, Header } from "@/ui/atoms";
 import { BreathingForm } from "@/ui/components";
 
-import { breathingExerciseValidation } from "@/validations";
 import { createBreathingExerciseSchema } from "@/schemas";
+import { reminderValidation } from "@/validations";
 import { decrement } from "@/helpers/decrement";
 import { increment } from "@/helpers/increment";
 
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
 
 export const CreateExercise = () => {
-	const { fields, setValue, handleSubmit } = useBreathingForm();
+	const { fields, errors, setValue, handleSubmit } = useBreathingForm({
+		schema: createBreathingExerciseSchema,
+	});
 	const [hasReminder, setHasReminder] = useState(false);
 	const { notify } = useToastContext();
 
 	const onSubmit = (values: BreathingFormFields) => {
-		const validationMessage = breathingExerciseValidation(values, {
-			schema: createBreathingExerciseSchema,
+		const validationMessage = reminderValidation(values, {
 			hasReminder,
 		});
 		if (validationMessage) return notify(validationMessage, { type: "alert" });
@@ -37,9 +38,11 @@ export const CreateExercise = () => {
 				<BreathingForm.Content>
 					<BreathingForm.TitleField
 						onChangeText={(v) => setValue("title", v)}
+						errorMessage={errors.title?.message}
 					/>
 					<BreathingForm.RoundsField
 						onChangeText={(v) => setValue("rounds", v)}
+						errorMessage={errors.rounds?.message}
 					/>
 					<BreathingForm.Timer
 						inhale={{
@@ -63,6 +66,11 @@ export const CreateExercise = () => {
 							onIncrement: () =>
 								setValue("timer.exhale", increment(fields.timer.exhale)),
 						}}
+						errorMessage={
+							errors.timer?.inhale?.message ||
+							errors.timer?.hold?.message ||
+							errors.timer?.exhale?.message
+						}
 					/>
 					<BreathingForm.Schedule
 						isEnabled={hasReminder}

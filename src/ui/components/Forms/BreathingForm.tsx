@@ -3,6 +3,7 @@ import styled, { css } from "styled-components/native";
 import { useRouter } from "expo-router";
 
 import {
+	TextError,
 	Typography,
 	BaseButton,
 	ToggleButton,
@@ -36,6 +37,7 @@ type TimerProps = {
 	inhale: DefaultControlProps;
 	hold: DefaultControlProps;
 	exhale: DefaultControlProps;
+	errorMessage?: string;
 };
 
 type ScheduleProps = {
@@ -73,7 +75,7 @@ const RoundsField = (props: FieldDefaultProps) => (
 );
 
 const Timer = (props: TimerProps) => {
-	const { inhale, hold, exhale } = props;
+	const { inhale, hold, exhale, errorMessage } = props;
 	return (
 		<Container>
 			<TimerText>
@@ -85,6 +87,7 @@ const Timer = (props: TimerProps) => {
 				<BreathingControl.Hold {...hold} />
 				<BreathingControl.Exhale {...exhale} />
 			</BreathingControl.Root>
+			{errorMessage && <TextError>{errorMessage}</TextError>}
 		</Container>
 	);
 };

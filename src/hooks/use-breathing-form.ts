@@ -5,10 +5,13 @@ import {
 	type UseFormHandleSubmit,
 	type UseFormSetValue,
 	type UseFormProps,
+	FieldErrors,
 } from "react-hook-form";
 
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
 import type { BreathingStates } from "@/@types/breathing-states";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 export type BreathingFormFields = {
 	title: string;
@@ -18,9 +21,12 @@ export type BreathingFormFields = {
 	time: Date;
 };
 
-export type UseBreathingFormParams = UseFormProps<BreathingFormFields>;
+export type UseBreathingFormParams = UseFormProps<BreathingFormFields> & {
+	schema: z.ZodType<BreathingFormFields>;
+};
 export type UseBreathingFormReturn = {
 	fields: BreathingFormFields;
+	errors: FieldErrors<BreathingFormFields>;
 	isSubmitting: boolean;
 	setValue: UseFormSetValue<BreathingFormFields>;
 	handleSubmit: UseFormHandleSubmit<BreathingFormFields, undefined>;
@@ -35,17 +41,19 @@ const defaultValues: BreathingFormFields = {
 };
 
 export function useBreathingForm(
-	params?: UseBreathingFormParams
+	params: UseBreathingFormParams
 ): UseBreathingFormReturn {
+	const { schema, ...rest } = params;
 	const {
-		formState: { isSubmitting },
+		formState: { isSubmitting, errors },
 		register,
 		setValue,
 		control,
 		handleSubmit,
 	} = useForm<BreathingFormFields>({
-		...params,
+		...rest,
 		defaultValues: params?.defaultValues || defaultValues,
+		resolver: zodResolver(schema),
 	});
 	const fields = useWatch({ control });
 
@@ -72,6 +80,7 @@ export function useBreathingForm(
 			days: fields.days || defaultValues.days,
 		},
 		isSubmitting,
+		errors,
 		setValue,
 		handleSubmit,
 	};
