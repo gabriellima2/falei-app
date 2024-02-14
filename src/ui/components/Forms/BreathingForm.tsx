@@ -67,6 +67,7 @@ const RoundsField = (props: FieldDefaultProps) => (
 		labelText="Repetições"
 		labelId="rounds"
 		placeholder="Vezes que você irá repetir a respiração"
+		keyboardType="numeric"
 		{...props}
 	/>
 );
