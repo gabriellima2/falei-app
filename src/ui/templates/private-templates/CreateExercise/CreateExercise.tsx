@@ -21,15 +21,7 @@ export const CreateExercise = () => {
 	const { notify } = useToastContext();
 
 	const validate = (values: BreathingFormFields) => {
-		const result = createBreathingExerciseSchema.safeParse({
-			...values,
-			rounds: Number(values.rounds),
-			timer: {
-				inhale: Number(values.timer.inhale),
-				hold: Number(values.timer.hold),
-				exhale: Number(values.timer.exhale),
-			},
-		});
+		const result = createBreathingExerciseSchema.safeParse(values);
 		if (!result.success) return result.error.errors[0].message;
 		if (hasReminder && !values.days.length) return "Selecione os dias";
 	};

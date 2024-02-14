@@ -21,6 +21,7 @@ export type BreathingFormFields = {
 export type UseBreathingFormParams = UseFormProps<BreathingFormFields>;
 export type UseBreathingFormReturn = {
 	fields: BreathingFormFields;
+	isSubmitting: boolean;
 	setValue: UseFormSetValue<BreathingFormFields>;
 	handleSubmit: UseFormHandleSubmit<BreathingFormFields, undefined>;
 };
@@ -36,16 +37,21 @@ const defaultValues: BreathingFormFields = {
 export function useBreathingForm(
 	params?: UseBreathingFormParams
 ): UseBreathingFormReturn {
-	const { register, setValue, control, handleSubmit } =
-		useForm<BreathingFormFields>({
-			...params,
-			defaultValues: params?.defaultValues || defaultValues,
-		});
+	const {
+		formState: { isSubmitting },
+		register,
+		setValue,
+		control,
+		handleSubmit,
+	} = useForm<BreathingFormFields>({
+		...params,
+		defaultValues: params?.defaultValues || defaultValues,
+	});
 	const fields = useWatch({ control });
 
 	useEffect(() => {
 		register("title");
-		register("rounds", { setValueAs: (value) => parseInt(value) });
+		register("rounds");
 		register("timer");
 		register("days");
 		register("time", { valueAsDate: true });
@@ -65,6 +71,7 @@ export function useBreathingForm(
 			timer: defaultTimerValues || defaultValues.timer,
 			days: fields.days || defaultValues.days,
 		},
+		isSubmitting,
 		setValue,
 		handleSubmit,
 	};
