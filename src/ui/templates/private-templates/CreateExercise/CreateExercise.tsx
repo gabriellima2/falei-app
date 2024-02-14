@@ -9,7 +9,8 @@ import { useToastContext } from "@/contexts/ToastContext";
 import { ScrollContainer, Header } from "@/ui/atoms";
 import { BreathingForm } from "@/ui/components";
 
-import { createBreathingExerciseSchema } from "@/validations";
+import { breathingExerciseValidation } from "@/validations";
+import { createBreathingExerciseSchema } from "@/schemas";
 import { decrement } from "@/helpers/decrement";
 import { increment } from "@/helpers/increment";
 
@@ -20,15 +21,12 @@ export const CreateExercise = () => {
 	const [hasReminder, setHasReminder] = useState(false);
 	const { notify } = useToastContext();
 
-	const validate = (values: BreathingFormFields) => {
-		const result = createBreathingExerciseSchema.safeParse(values);
-		if (!result.success) return result.error.errors[0].message;
-		if (hasReminder && !values.days.length) return "Selecione os dias";
-	};
-
 	const onSubmit = (values: BreathingFormFields) => {
-		const message = validate(values);
-		if (message) return notify(message, { type: "alert" });
+		const validationMessage = breathingExerciseValidation(values, {
+			schema: createBreathingExerciseSchema,
+			hasReminder,
+		});
+		if (validationMessage) return notify(validationMessage, { type: "alert" });
 		console.log(values);
 	};
 

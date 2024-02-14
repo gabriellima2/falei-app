@@ -9,8 +9,7 @@ import {
 
 import { useHandleServiceError } from "@/hooks/use-handle-service-error";
 
-import { userAuthSchema } from "@/validations/user-auth-validation";
-
+import { authenticationSchema } from "@/schemas/authentication.schema";
 import type { AuthInputDTO } from "@/dtos/auth.dto";
 
 export type UseAuthFormStateParams = {
@@ -36,7 +35,7 @@ export function useAuthFormState(
 		handleSubmit,
 		formState: { errors, isSubmitting },
 	} = useForm<AuthInputDTO>({
-		resolver: zodResolver(userAuthSchema),
+		resolver: zodResolver(authenticationSchema),
 	});
 
 	useEffect(() => {

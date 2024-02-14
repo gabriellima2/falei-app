@@ -1,3 +1,5 @@
+import { DaysOfTheWeek } from "@/@types/days-of-the-week";
+import { BreathingFormFields } from "@/hooks/use-breathing-form";
 import { z } from "zod";
 
 function isValidNumberRange(value: string) {
@@ -23,4 +25,4 @@ export const createBreathingExerciseSchema = z.object({
 	}),
 	days: z.array(z.string()).optional(),
 	time: z.date().optional(),
-});
+}) as unknown as z.ZodType<BreathingFormFields>;

@@ -6,10 +6,10 @@ import {
 	UseFormSetValue,
 	UseFormHandleSubmit,
 } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useHandleServiceError } from "@/hooks/use-handle-service-error";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { emailConstraint } from "@/validations/generic-constraints";
+import { emailConstraint } from "@/schemas/generic-constraints";
 
 type Credentials = { email: string };
 
