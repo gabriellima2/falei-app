@@ -1,6 +1,5 @@
-import { DaysOfTheWeek } from "@/@types/days-of-the-week";
-import { BreathingFormFields } from "@/hooks/use-breathing-form";
 import { z } from "zod";
+import type { BreathingFormFields } from "@/hooks/use-breathing-form";
 
 function isValidNumberRange(value: string) {
 	const formattedValue = parseInt(value);
@@ -8,19 +7,28 @@ function isValidNumberRange(value: string) {
 }
 
 export const createBreathingExerciseSchema = z.object({
-	title: z.string().min(1).max(50),
+	title: z
+		.string()
+		.min(1, { message: "O campo de Título é obrigatório" })
+		.max(50, {
+			message: "O campo de Título deve conter no máximo 50 caracteres",
+		}),
 	rounds: z.string().refine(isValidNumberRange, {
-		message: "Insira um valor numérico inteiro entre 1 e 10",
+		message:
+			"O campo de Repetições deve conter um valor numérico inteiro entre 1 e 10",
 	}),
 	timer: z.object({
 		inhale: z.string().refine(isValidNumberRange, {
-			message: "Insira um valor numérico inteiro entre 1 e 10",
+			message:
+				"O campo de Inspirar deve conter um valor numérico inteiro entre 1 e 10",
 		}),
 		hold: z.string().refine(isValidNumberRange, {
-			message: "Insira um valor numérico inteiro entre 1 e 10",
+			message:
+				"O campo de Segurar deve conter um valor numérico inteiro entre 1 e 10",
 		}),
 		exhale: z.string().refine(isValidNumberRange, {
-			message: "Insira um valor numérico inteiro entre 1 e 10",
+			message:
+				"O campo de Expirar deve conter um valor numérico inteiro entre 1 e 10",
 		}),
 	}),
 	days: z.array(z.string()).optional(),
