@@ -29,14 +29,16 @@ describe("<BreathingAppointment />", () => {
 			renderComponent();
 
 			const { title, rounds } = defaultProps;
-			const dateText = "Terça - 17:00";
-			const roundsText = `${rounds.total} Rounds`;
-			const durationText = "30 Seg.";
+			const texts = {
+				date: "Ter - 17:00",
+				rounds: `${rounds.total} Rounds`,
+				duration: "30 Seg.",
+			};
 
 			expect(screen.getByText(title)).toBeTruthy();
-			expect(screen.getByText(dateText)).toBeTruthy();
-			expect(screen.getByText(roundsText)).toBeTruthy();
-			expect(screen.getByText(durationText)).toBeTruthy();
+			expect(screen.getByText(texts.date)).toBeTruthy();
+			expect(screen.getByText(texts.rounds)).toBeTruthy();
+			expect(screen.getByText(texts.duration)).toBeTruthy();
 		});
 	});
 	describe("Interactions", () => {
