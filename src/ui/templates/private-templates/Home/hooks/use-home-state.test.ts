@@ -7,6 +7,16 @@ import * as useWeekAppointments from "@/hooks/use-week-appointments";
 
 import { breathingResponseMock } from "@/__mocks__/breathing-response-mock";
 
+jest.mock("@/hooks/use-week-appointments", () => ({
+	__esModule: true,
+	...jest.requireActual("@/hooks/use-week-appointments"),
+}));
+
+jest.mock("@/hooks/use-find-incomplete-breathing-exercises", () => ({
+	__esModule: true,
+	...jest.requireActual("@/hooks/use-find-incomplete-breathing-exercises"),
+}));
+
 const useWeekAppointmentsSpyOn = jest.spyOn(
 	useWeekAppointments,
 	"useWeekAppointments"

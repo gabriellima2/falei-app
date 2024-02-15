@@ -14,6 +14,16 @@ import { breathingResponseMock } from "@/__mocks__/breathing-response-mock";
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import type { ExerciseEntity } from "@/entities/exercise.entity";
 
+jest.mock("@/hooks/use-get-exercises-by-category", () => ({
+	__esModule: true,
+	...jest.requireActual("@/hooks/use-get-exercises-by-category"),
+}));
+
+jest.mock("@/hooks/use-find-incomplete-breathing-exercises", () => ({
+	__esModule: true,
+	...jest.requireActual("@/hooks/use-find-incomplete-breathing-exercises"),
+}));
+
 const useGetExercisesByCategorySpy = jest.spyOn(
 	GetExercisesByCategory,
 	"useGetExercisesByCategory"
