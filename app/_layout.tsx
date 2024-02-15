@@ -1,4 +1,6 @@
 import "react-native-gesture-handler";
+import "@/config/firebase";
+
 import { useEffect } from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";

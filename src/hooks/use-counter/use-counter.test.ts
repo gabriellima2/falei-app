@@ -1,5 +1,5 @@
 import { act, renderHook } from "@testing-library/react-hooks";
-import { useCounter, type UseCounterParams } from ".";
+import { useCounter, type UseCounterParams } from "./use-counter";
 
 const executeHook = (params?: UseCounterParams) =>
 	renderHook(() => useCounter(params));
