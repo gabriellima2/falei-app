@@ -5,7 +5,7 @@ import {
 	type UseFormHandleSubmit,
 	type UseFormSetValue,
 	type UseFormProps,
-	FieldErrors,
+	type FieldErrors,
 } from "react-hook-form";
 
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
@@ -29,7 +29,7 @@ export type UseBreathingFormReturn = {
 	errors: FieldErrors<BreathingFormFields>;
 	isSubmitting: boolean;
 	setValue: UseFormSetValue<BreathingFormFields>;
-	handleSubmit: UseFormHandleSubmit<BreathingFormFields, undefined>;
+	handleSubmit: UseFormHandleSubmit<BreathingFormFields, BreathingFormFields>;
 };
 
 const defaultValues: BreathingFormFields = {
