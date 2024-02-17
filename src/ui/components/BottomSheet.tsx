@@ -17,18 +17,20 @@ export const BottomSheet = forwardRef<BottomSheetLib, BottomSheetProps>(
 			<BottomSheetLib
 				{...rest}
 				ref={ref}
-				index={0}
+				detached
 				enableDynamicSizing
 				enablePanDownToClose
-				backgroundStyle={{ backgroundColor: `${colors.utils.darkGray}` }}
-				style={{ paddingVertical: 8, paddingHorizontal: 16 }}
+				backgroundStyle={{ backgroundColor: colors.utils.darkGray }}
 				handleIndicatorStyle={{
 					backgroundColor: colors.overlay,
-					width: "40%",
-					height: 8,
+					width: 44,
+					height: 6,
+					marginTop: 4,
 				}}
 			>
-				<BottomSheetScrollView>
+				<BottomSheetScrollView
+					contentContainerStyle={{ paddingHorizontal: 16 }}
+				>
 					<Content>{children as ReactNode}</Content>
 				</BottomSheetScrollView>
 			</BottomSheetLib>

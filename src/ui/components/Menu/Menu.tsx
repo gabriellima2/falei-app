@@ -8,6 +8,7 @@ export const Menu = () => {
 	return (
 		<BottomSheet
 			ref={ref}
+			index={menuOptions.length ? 0 : -1}
 			onChange={(position) => {
 				if (position === -1) return handleClose();
 			}}

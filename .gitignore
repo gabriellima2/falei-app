@@ -18,3 +18,5 @@ web-build/
 
 coverage
 .env
+
+%ProgramData%
