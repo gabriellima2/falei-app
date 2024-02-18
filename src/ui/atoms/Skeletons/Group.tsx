@@ -1,16 +1,16 @@
-import { type PropsWithChildren } from "react";
+import { type ViewProps } from "react-native";
 import styled from "styled-components/native";
 
 import { Text } from "./Text";
 
-type GroupProps = PropsWithChildren & {
+type GroupProps = ViewProps & {
 	withRightText?: boolean;
 };
 
 export const Group = (props: GroupProps) => {
-	const { withRightText, children } = props;
+	const { withRightText, children, ...rest } = props;
 	return (
-		<Container>
+		<Container {...rest}>
 			<Header>
 				<Text width={185} variant="title" />
 				{withRightText && <Text variant="small" width={50} />}

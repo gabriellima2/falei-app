@@ -7,7 +7,7 @@ import { getTotalColumns } from "./helpers/get-total-columns";
 import { getItemWidth } from "./helpers/get-item-width";
 
 export const ExerciseListSkeleton = () => (
-	<Skeletons.Group>
+	<Skeletons.Group testID="loading">
 		<Skeletons.List
 			ItemSeparatorComponent={() => <Separator />}
 			amount={8}

@@ -34,7 +34,7 @@ describe("<Exercises />", () => {
 	});
 
 	const getCategoryOptionEls = () => screen.getAllByTestId("check-option");
-	const getLoadingEl = () => screen.queryByLabelText("Carregando...");
+	const getLoadingEl = () => screen.queryByTestId("loading");
 	const getExercisesEl = () => screen.queryAllByTestId("exercise");
 	const getErrorEl = () => screen.queryByRole("alert");
 
