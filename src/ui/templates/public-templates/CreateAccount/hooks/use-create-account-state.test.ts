@@ -5,7 +5,7 @@ import { useCreateAccountState } from "./use-create-account-state";
 import {
 	mockNotify,
 	ToastContextWrapper,
-} from "@/__mocks__/toast-context-wrapper";
+} from "@/test-utils/toast-context-wrapper";
 import * as AuthenticationStore from "@/store/authentication-store/authentication.store";
 import { mockReplace } from "jest-setup";
 

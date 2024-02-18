@@ -1,7 +1,7 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { Option, type OptionProps } from "./Option";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const defaultProps: OptionProps = { name: "any_name", value: "any_value" };
 const renderComponent = (props = defaultProps) =>

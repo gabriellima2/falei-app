@@ -9,7 +9,7 @@ import {
 import * as FindIncompleteBreathingExercises from "@/hooks/use-find-incomplete-breathing-exercises";
 import * as GetExercisesByCategory from "@/hooks/use-get-exercises-by-category";
 
-import { breathingResponseMock } from "@/__mocks__/breathing-response-mock";
+import { breathingResponseMock } from "@/test-utils/breathing-response-mock";
 
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import type { ExerciseEntity } from "@/entities/exercise.entity";

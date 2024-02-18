@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react-native";
 
 import { Item, type ItemProps } from "./Item";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const defaultProps: ItemProps = {
 	title: "any_title",

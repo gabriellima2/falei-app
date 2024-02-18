@@ -2,7 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { mockPush } from "jest-setup";
 
 import { ButtonLink } from "./ButtonLink";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 type Href = Pick<Parameters<typeof ButtonLink>[0], "href">["href"];
 

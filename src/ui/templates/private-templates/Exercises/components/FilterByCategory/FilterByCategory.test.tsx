@@ -5,7 +5,7 @@ import {
 	type FilterByCategoryProps,
 } from "./FilterByCategory";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const defaultProps: FilterByCategoryProps = {
 	categories: [

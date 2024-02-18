@@ -5,7 +5,7 @@ import {
 	type BreathingAppointmentProps,
 } from "./BreathingAppointment";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const defaultProps: BreathingAppointmentProps = {
 	title: "any_title",

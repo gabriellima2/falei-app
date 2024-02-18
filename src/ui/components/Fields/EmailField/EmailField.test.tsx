@@ -1,7 +1,7 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { EmailField, type EmailFieldProps } from "./EmailField";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const defaultProps: EmailFieldProps = {
 	placeholder: "any_placeholder",

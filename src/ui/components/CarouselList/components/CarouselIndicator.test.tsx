@@ -4,7 +4,7 @@ import {
 	CarouselIndicator,
 	type CarouselIndicatorProps,
 } from "./CarouselIndicator";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const DATA_AMOUNT = 3;
 const CURRENT_POSITION = 0;

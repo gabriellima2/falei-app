@@ -3,7 +3,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { EmailVerification } from "./EmailVerification";
 import * as EmailVerificationState from "./hooks/use-email-verification-state";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},

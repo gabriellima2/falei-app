@@ -5,7 +5,7 @@ import { ProtectScreen } from "./ProtectScreen";
 import { PRIVATE_GROUP_NAME, PUBLIC_GROUP_NAME } from "./constants/group-names";
 
 import * as AuthenticationStore from "@/store/authentication-store/authentication.store";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 import { mockReplace } from "jest-setup";
 
 jest.mock("@/lib/firebase-auth", () => ({

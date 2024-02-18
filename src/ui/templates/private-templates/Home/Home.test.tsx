@@ -4,9 +4,9 @@ import * as ReactQuery from "react-query";
 import { Home } from "./Home";
 import * as useHomeState from "./hooks/use-home-state";
 
-import { breathingResponseMock } from "@/__mocks__/breathing-response-mock";
-import { WithQueryClientProvider } from "@/__mocks__/with-query-client-provider";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { breathingResponseMock } from "@/test-utils/breathing-response-mock";
+import { WithQueryClientProvider } from "@/test-utils/with-query-client-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 import type { TestingLibraryEl } from "@/@types/testing-library-el";
 

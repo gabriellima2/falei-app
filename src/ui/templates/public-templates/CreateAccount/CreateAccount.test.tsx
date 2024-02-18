@@ -5,7 +5,7 @@ import * as CreateAccountState from "./hooks/use-create-account-state";
 
 import { ToastProvider } from "@/contexts/ToastContext";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 import { mockRedirect } from "jest-setup";
 
 import type { UserEntity } from "@/entities/user.entity";

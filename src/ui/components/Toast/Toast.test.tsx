@@ -6,10 +6,10 @@ import {
 	type ToastTypes,
 } from "@/contexts/ToastContext";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { FakeIconComponent } from "@/__mocks__/fake-icon-component";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
+import { FakeIconComponent } from "@/test-utils/fake-icon-component";
 import { ShowToastButton } from "./_mocks_/mock-components";
-import { runTimers } from "@/__mocks__/run-timers";
+import { runTimers } from "@/test-utils/run-timers";
 
 import { capitalizeFirstLetter } from "@/helpers/capitalize-first-letter";
 

@@ -2,7 +2,7 @@ import { renderHook } from "@testing-library/react-hooks";
 
 import { useGetIncompleteExercises } from "./use-get-incomplete-exercises";
 
-import { createFakeRoundExercise } from "@/__mocks__/create-fake-round-exercise";
+import { createFakeRoundExercise } from "@/test-utils/create-fake-round-exercise";
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
 const executeHook = (

@@ -4,9 +4,9 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { Exercises } from "./Exercises";
 import * as ExercisesState from "./hooks/use-exercises-state";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { WithQueryClientProvider } from "@/__mocks__/with-query-client-provider";
-import { breathingResponseMock } from "@/__mocks__/breathing-response-mock";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
+import { WithQueryClientProvider } from "@/test-utils/with-query-client-provider";
+import { breathingResponseMock } from "@/test-utils/breathing-response-mock";
 
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import { categoriesPortuguese } from "@/constants/categories-portuguese";

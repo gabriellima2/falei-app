@@ -5,7 +5,7 @@ import { useHomeState } from "./use-home-state";
 import * as useFindIncompleteBreathingExercises from "@/hooks/use-find-incomplete-breathing-exercises";
 import * as useWeekAppointments from "@/hooks/use-week-appointments";
 
-import { breathingResponseMock } from "@/__mocks__/breathing-response-mock";
+import { breathingResponseMock } from "@/test-utils/breathing-response-mock";
 
 jest.mock("@/hooks/use-week-appointments", () => ({
 	__esModule: true,

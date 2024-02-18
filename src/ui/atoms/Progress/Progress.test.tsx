@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react-native";
 
 import { Progress, type ProgressProps } from "./Progress";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const renderComponent = (props: ProgressProps) =>
 	renderWithThemeProvider(<Progress {...props} />);

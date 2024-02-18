@@ -3,7 +3,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { mockPush } from "jest-setup";
 
 import { BaseLink, type BaseLinkProps } from "./BaseLink";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 type Href<TParams extends object = object> = Pick<
 	BaseLinkProps<TParams>,

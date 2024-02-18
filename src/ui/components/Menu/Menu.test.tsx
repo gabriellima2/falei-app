@@ -3,7 +3,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { MenuContext } from "@/contexts/MenuContext";
 import { Menu } from "./Menu";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 import type { MenuContextProperties } from "@/contexts/MenuContext/@types/menu-context-properties";
 import type { MenuOption } from "@/contexts/MenuContext/@types/menu-option";

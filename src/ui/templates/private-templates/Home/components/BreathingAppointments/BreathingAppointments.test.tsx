@@ -5,7 +5,7 @@ import {
 	type BreathingAppointmentsProps,
 } from "./BreathingAppointments";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 

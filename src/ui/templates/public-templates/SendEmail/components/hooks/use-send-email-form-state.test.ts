@@ -8,7 +8,7 @@ import {
 import {
 	mockNotify,
 	ToastContextWrapper,
-} from "@/__mocks__/toast-context-wrapper";
+} from "@/test-utils/toast-context-wrapper";
 
 const defaultParams: UseSendEmailFormStateParams = {
 	resetPasswordService: jest.fn(),

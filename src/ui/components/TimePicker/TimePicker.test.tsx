@@ -3,7 +3,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { TimePicker, type TimePickerProps } from "./TimePicker";
 import * as UseTimePicker from "./hooks/use-time-picker";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const useTimePickerSpy = jest.spyOn(UseTimePicker, "useTimePicker");
 const useTimePickerDefaultReturn: ReturnType<

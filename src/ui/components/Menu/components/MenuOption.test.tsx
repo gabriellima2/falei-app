@@ -2,8 +2,8 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import { MenuOption, type MenuOptionProps } from "./MenuOption";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { FakeIconComponent } from "@/__mocks__/fake-icon-component";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
+import { FakeIconComponent } from "@/test-utils/fake-icon-component";
 
 const TEXT = "any_text";
 const ICON = "any_icon";

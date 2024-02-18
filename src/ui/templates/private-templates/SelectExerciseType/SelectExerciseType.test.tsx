@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react-native";
 
 import { SelectExerciseType } from "./SelectExerciseType";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const renderComponent = () => renderWithThemeProvider(<SelectExerciseType />);
 

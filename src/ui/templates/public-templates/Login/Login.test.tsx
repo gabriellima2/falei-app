@@ -6,7 +6,7 @@ import { Login } from "./Login";
 import { ToastProvider } from "@/contexts/ToastContext";
 import * as LoginState from "./hooks/use-login-state";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 import { mockPush, mockRedirect } from "jest-setup";
 import { UserEntity } from "@/entities/user.entity";
 

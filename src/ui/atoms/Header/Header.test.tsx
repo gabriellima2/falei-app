@@ -2,8 +2,8 @@ import { screen } from "@testing-library/react-native";
 
 import { Header, type HeaderProps } from "./Header";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { FakeIconComponent } from "@/__mocks__/fake-icon-component";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
+import { FakeIconComponent } from "@/test-utils/fake-icon-component";
 import { mockNavigation } from "jest-setup";
 
 const ICON_TEXT = "any_icon";

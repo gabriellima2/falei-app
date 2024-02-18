@@ -3,8 +3,8 @@ import { screen, waitFor } from "@testing-library/react-native";
 import { AuthForm, type AuthFormProps } from "./AuthForm";
 import { ToastProvider } from "@/contexts/ToastContext";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { simulateFormSubmit } from "@/__mocks__/simulate-form-submit";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
+import { simulateFormSubmit } from "@/test-utils/simulate-form-submit";
 
 type Fields = { email: string; password: string };
 

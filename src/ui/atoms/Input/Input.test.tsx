@@ -2,9 +2,9 @@ import { screen } from "@testing-library/react-native";
 
 import { Input, InputProps } from "./Input";
 
-import { hasTextElement } from "@/__mocks__/has-text-element";
-import { FakeIconComponent } from "@/__mocks__/fake-icon-component";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { hasTextElement } from "@/test-utils/has-text-element";
+import { FakeIconComponent } from "@/test-utils/fake-icon-component";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const renderComponent = (props?: InputProps) =>
 	renderWithThemeProvider(<Input {...props} />);

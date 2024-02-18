@@ -6,7 +6,7 @@ import {
 	START_READ_EXERCISE_PATHNAME,
 } from "./ReadExercise";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 import { mockPush } from "jest-setup";
 
 const defaultProps: ReadExerciseProps = {

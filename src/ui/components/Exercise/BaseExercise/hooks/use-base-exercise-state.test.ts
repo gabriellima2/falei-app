@@ -5,7 +5,7 @@ import {
 	type UseBaseExerciseStateParams,
 } from "./use-base-exercise-state";
 
-import { MenuContextWrapper, mocks } from "@/__mocks__/menu-context-wrapper";
+import { MenuContextWrapper, mocks } from "@/test-utils/menu-context-wrapper";
 import { interactions } from "../constants/interactions";
 
 import type { MenuOption } from "@/contexts/MenuContext";

@@ -5,7 +5,7 @@ import { SendEmail } from "./SendEmail";
 import { ToastProvider } from "@/contexts/ToastContext";
 import * as SendEmailState from "./hooks/use-send-email-state";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 jest.mock("@/lib/firebase-auth", () => ({
 	firebaseAuth: {},

@@ -2,7 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 
 import { Onboarding } from "./Onboarding";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 import { defaultItems } from "./constants/default-items";
 
 const renderComponent = () => renderWithThemeProvider(<Onboarding />);

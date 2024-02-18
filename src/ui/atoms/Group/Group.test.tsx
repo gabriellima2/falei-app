@@ -2,7 +2,7 @@ import { Text } from "react-native";
 import { screen } from "@testing-library/react-native";
 
 import { Group, type GroupProps } from "./Group";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const TITLE = "any_title";
 const CONTENT_TEXT = "any_content";

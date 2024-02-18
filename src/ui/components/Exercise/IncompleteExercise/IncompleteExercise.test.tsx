@@ -5,7 +5,7 @@ import {
 	type IncompleteExerciseProps,
 } from "./IncompleteExercise";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 import { START_EXERCISE_PATHNAME } from "@/constants/start-exercise-pathname";
 import { mockPush } from "jest-setup";
 

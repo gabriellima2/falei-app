@@ -5,7 +5,7 @@ import {
 	type UseFindIncompleteBreathingExercisesParams,
 } from "./use-find-incomplete-breathing-exercises";
 
-import { createFakeRoundExercise } from "@/__mocks__/create-fake-round-exercise";
+import { createFakeRoundExercise } from "@/test-utils/create-fake-round-exercise";
 
 const executeHook = (params: UseFindIncompleteBreathingExercisesParams) =>
 	renderHook(() => useFindIncompleteBreathingExercises(params));

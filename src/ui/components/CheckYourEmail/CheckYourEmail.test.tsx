@@ -2,7 +2,7 @@ import { Text } from "react-native";
 import { screen } from "@testing-library/react-native";
 
 import { CheckYourEmail, type CheckYourEmailProps } from "./CheckYourEmail";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 const defaultProps: CheckYourEmailProps = {
 	renderActions: () => <Text>any_action</Text>,

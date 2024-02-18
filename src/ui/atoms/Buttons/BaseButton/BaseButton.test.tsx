@@ -2,9 +2,9 @@ import { screen } from "@testing-library/react-native";
 
 import { BaseButton, BaseButtonProps } from "./BaseButton";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { FakeIconComponent } from "@/__mocks__/fake-icon-component";
-import { hasTextElement } from "@/__mocks__/has-text-element";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
+import { FakeIconComponent } from "@/test-utils/fake-icon-component";
+import { hasTextElement } from "@/test-utils/has-text-element";
 
 const BUTTON_TEXT = "any_text";
 

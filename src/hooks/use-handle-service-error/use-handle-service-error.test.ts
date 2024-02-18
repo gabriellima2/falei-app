@@ -6,7 +6,7 @@ import { useHandleServiceError } from "./use-handle-service-error";
 import {
 	mockNotify,
 	ToastContextWrapper,
-} from "@/__mocks__/toast-context-wrapper";
+} from "@/test-utils/toast-context-wrapper";
 import { FIREBASE_ERROR_MESSAGES, UNEXPECTED_ERROR } from "@/errors";
 
 const executeHook = () =>

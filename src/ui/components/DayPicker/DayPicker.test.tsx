@@ -1,6 +1,6 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 import { DayPicker, type DayPickerProps } from "./DayPicker";
 
 const defaultProps: DayPickerProps = {

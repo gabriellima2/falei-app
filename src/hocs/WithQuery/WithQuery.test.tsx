@@ -4,8 +4,8 @@ import { screen } from "@testing-library/react-native";
 
 import { WithQuery } from "./WithQuery";
 
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
-import { WithQueryClientProvider } from "@/__mocks__/with-query-client-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
+import { WithQueryClientProvider } from "@/test-utils/with-query-client-provider";
 
 type Data = { name: string };
 

@@ -2,7 +2,7 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
 import { CarouselList } from "./CarouselList";
-import { renderWithThemeProvider } from "@/__mocks__/render-with-theme-provider";
+import { renderWithThemeProvider } from "@/test-utils/render-with-theme-provider";
 
 type Data = { text: string; id: string };
 

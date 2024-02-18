@@ -5,7 +5,7 @@ import { useSettingsState } from "./use-settings-state";
 import {
 	ToastContextWrapper,
 	mockNotify,
-} from "@/__mocks__/toast-context-wrapper";
+} from "@/test-utils/toast-context-wrapper";
 import { firebaseAuth } from "@/lib/firebase-auth";
 
 jest.mock("@/lib/firebase-auth", () => ({
