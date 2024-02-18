@@ -37,4 +37,16 @@ jest.mock("@gorhom/bottom-sheet", () => {
 	};
 });
 
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+);
+
+
+jest.mock("firebase/auth", () => ({
+	...jest.requireActual("firebase/auth"),
+	getAuth: jest.fn(),
+	getReactNativePersistence: jest.fn(),
+	initializeAuth: jest.fn()
+}));
+
 global.setImmediate = (callback) => setTimeout(callback, 0);

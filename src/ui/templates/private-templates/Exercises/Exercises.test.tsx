@@ -12,10 +12,6 @@ import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import { categoriesPortuguese } from "@/constants/categories-portuguese";
 import { exerciseCategories } from "./constants/exercise-categories";
 
-jest.mock("firebase/auth", () => ({
-	getAuth: jest.fn(),
-}));
-
 const useExercisesStateSpy = jest.spyOn(ExercisesState, "useExercisesState");
 
 const renderComponent = () =>
