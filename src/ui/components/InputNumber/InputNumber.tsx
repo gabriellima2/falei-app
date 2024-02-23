@@ -13,13 +13,13 @@ export const InputNumber = (props: InputNumberProps) => {
 	const { value, onDecrement, onIncrement, ...rest } = props;
 	return (
 		<Container>
-			<ControlButton onPress={onDecrement}>
+			<ControlButton accessibilityLabel="Diminuir" onPress={onDecrement}>
 				<ControlButtonText>-</ControlButtonText>
 			</ControlButton>
 			<CurrentValueContainer {...rest}>
 				<CurrentValueText>{value}</CurrentValueText>
 			</CurrentValueContainer>
-			<ControlButton onPress={onIncrement}>
+			<ControlButton accessibilityLabel="Aumentar" onPress={onIncrement}>
 				<ControlButtonText>+</ControlButtonText>
 			</ControlButton>
 		</Container>
