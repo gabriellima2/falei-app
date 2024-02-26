@@ -18,12 +18,14 @@ describe("<BreathingExercisesPreview />", () => {
 				{
 					id: "0",
 					title: "any_title",
-					rounds: { durationPerRoundInSec: 10, total: 10 },
+					rounds: { total: 10 },
+					steps: { inhale: 5, hold: 3, exhale: 5 },
 				} as BreathingExerciseEntity,
 				{
 					id: "1",
 					title: "any_another_title",
-					rounds: { durationPerRoundInSec: 10, total: 10 },
+					rounds: { total: 10 },
+					steps: { inhale: 5, hold: 3, exhale: 5 },
 				} as BreathingExerciseEntity,
 			];
 			renderComponent({ items: FILLED_LIST });

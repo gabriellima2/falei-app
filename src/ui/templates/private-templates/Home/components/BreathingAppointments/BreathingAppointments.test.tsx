@@ -16,9 +16,13 @@ const defaultProps: BreathingAppointmentsProps = {
 			title: "any_title",
 			scheduledAt: { days: [2], hour: 17, minutes: 0 },
 			rounds: {
-				durationPerRoundInSec: 10,
 				completed: 0,
 				total: 3,
+			},
+			steps: {
+				inhale: 5,
+				hold: 3,
+				exhale: 5,
 			},
 		} as BreathingAppointmentEntity,
 	],

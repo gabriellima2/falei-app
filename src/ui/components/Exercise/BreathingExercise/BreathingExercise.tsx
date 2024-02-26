@@ -13,7 +13,11 @@ export type BreathingExerciseProps = BreathingExerciseEntity & {
 };
 
 export const BreathingExercise = (props: BreathingExerciseProps) => {
-	const { id, title, rounds, ...rest } = props;
+	const { id, title, rounds, steps, ...rest } = props;
+	const duration = Object.values(steps).reduce(
+		(acc, value) => (acc += value),
+		0
+	);
 	return (
 		<BaseExercise
 			{...rest}
@@ -31,7 +35,7 @@ export const BreathingExercise = (props: BreathingExerciseProps) => {
 				rounds={{
 					total: rounds.total,
 					completed: rounds.completed,
-					duration: rounds.durationPerRoundInSec,
+					duration,
 				}}
 			/>
 		</BaseExercise>

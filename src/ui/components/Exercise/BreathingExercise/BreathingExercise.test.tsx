@@ -15,9 +15,13 @@ const defaultProps = {
 	id: "1",
 	title: "any_title",
 	rounds: {
-		durationPerRoundInSec: 20,
 		completed: 0,
 		total: 4,
+	},
+	steps: {
+		inhale: 4,
+		hold: 8,
+		exhale: 4,
 	},
 } as BreathingExerciseProps;
 

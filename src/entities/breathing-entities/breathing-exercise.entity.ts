@@ -1,13 +1,19 @@
 import { ExerciseEntity } from "../exercise.entity";
 
-export interface BreathingExerciseRounds {
+export interface BreathingRounds {
 	total: number;
 	completed: number;
-	durationPerRoundInSec: number;
+}
+
+export interface BreathingSteps {
+	inhale: number;
+	hold: number;
+	exhale: number;
 }
 
 export interface BreathingExerciseEntity extends ExerciseEntity {
 	readonly title: string;
-	readonly rounds: BreathingExerciseRounds;
-	readonly lastProgressAt: { nanoseconds: number; seconds: number };
+	readonly rounds: BreathingRounds;
+	readonly steps: BreathingSteps;
+	readonly lastProgressAt: { nanoseconds: number; seconds: number } | null;
 }

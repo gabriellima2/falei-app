@@ -23,6 +23,7 @@ export const BreathingAppointments = (props: BreathingAppointmentsProps) => {
 					title={item.title}
 					rounds={item.rounds}
 					scheduledAt={item.scheduledAt}
+					steps={item.steps}
 					color={Number(index) % 2 === 1 ? colors.utils.blue : colors.brand}
 				/>
 			)}
