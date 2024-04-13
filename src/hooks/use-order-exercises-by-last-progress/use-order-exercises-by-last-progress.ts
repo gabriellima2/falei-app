@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
-type LastProgress = Pick<
-	BreathingExerciseEntity,
-	"lastProgressAt"
->["lastProgressAt"];
+type LastProgress = {
+	seconds: number;
+	nanoseconds: number;
+};
 
 export function useOrderExercisesByLastProgress<
 	T extends BreathingExerciseEntity
@@ -19,6 +19,7 @@ export function useOrderExercisesByLastProgress<
 	return useMemo(() => {
 		if (!exercises.length) return [];
 		return exercises.sort((prev, next) => {
+			if (!prev.lastProgressAt || !next.lastProgressAt) return 0;
 			return getHour(prev.lastProgressAt) - getHour(next.lastProgressAt);
 		});
 	}, [exercises]);
