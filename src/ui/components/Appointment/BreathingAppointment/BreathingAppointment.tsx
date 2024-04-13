@@ -12,24 +12,26 @@ import { isTablet } from "@/constants/is-tablet";
 import { margin } from "@/constants/margin";
 import { theme } from "@/styles/theme";
 
-import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 import type { Modifiers } from "@/@types/modifiers";
 
-export type BreathingAppointmentProps = Omit<
-	BreathingAppointmentEntity,
-	"id" | "exerciseID" | "userID" | "lastProgressAt" | "category"
-> &
-	ContainerProps & {
-		onPress?: () => void | Promise<void>;
-	};
+export type BreathingAppointmentProps = ContainerProps & {
+	title: string;
+	rounds: { total: number; completed: number };
+	steps: { exhale: number; hold: number; inhale: number };
+	scheduledAt: { days: number[]; hour: number; minutes: number };
+	onPress?: () => void | Promise<void>;
+};
 
 export const BreathingAppointment = (props: BreathingAppointmentProps) => {
-	const { title, rounds, scheduledAt, autoSize, color, onPress } = props;
+	const { title, rounds, scheduledAt, autoSize, color, steps, onPress } = props;
 	const dayAbbr = DAYS_OF_THE_WEEK[scheduledAt.days[0]].slice(0, 3);
 	const date = `${dayAbbr} - ${formatTime(
 		scheduledAt.hour,
 		scheduledAt.minutes
 	)}`;
+	const duration = steps
+		? Object.values(steps).reduce((acc, value) => (acc += value), 0)
+		: 0;
 	return (
 		<Container
 			testID="breathing-exercise-appointment"
@@ -58,7 +60,7 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 						rounds={{
 							total: rounds.total,
 							completed: rounds.completed,
-							duration: rounds.durationPerRoundInSec,
+							duration,
 						}}
 					/>
 				</Description>

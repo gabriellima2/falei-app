@@ -1,5 +1,8 @@
 import { AppointmentRepository } from "@/repositories/appointment.repository";
 import { ExerciseRepository } from "@/repositories/exercise.repository";
+import { NotificationAdapter } from "@/adapters/notification.adapter";
+
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 
 import type {
 	BreathingExerciseEntity,
@@ -7,13 +10,11 @@ import type {
 } from "@/entities/breathing-entities";
 import type { GetAllBreathingExerciseOutputDTO } from "@/dtos/breathing-exercise.dto";
 import type { BreathingExerciseService } from "../breathing-exercise.service";
-import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
-import { NotificationAdapter } from "@/adapters/notification.adapter";
 
 type BreathingExerciseServiceParams = {
 	repositories: {
 		exercise: ExerciseRepository;
-		appointment: AppointmentRepository<BreathingAppointmentEntity>;
+		appointment: AppointmentRepository;
 	};
 	notification: NotificationAdapter;
 };
@@ -31,9 +32,10 @@ export class BreathingExerciseServiceImpl implements BreathingExerciseService {
 	async getAll(): GetAllBreathingExerciseOutputDTO {
 		const { repositories } = this.params;
 		return {
-			appointments: await repositories.appointment.getAll({
-				category: ExerciseCategoryEntity.Breathing,
-			}),
+			appointments:
+				await repositories.appointment.getAll<BreathingAppointmentEntity>({
+					category: ExerciseCategoryEntity.Breathing,
+				}),
 			exercises: await repositories.exercise.getAll<BreathingExerciseEntity>({
 				category: ExerciseCategoryEntity.Breathing,
 			}),

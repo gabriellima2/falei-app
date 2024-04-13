@@ -19,11 +19,11 @@ export const BreathingAppointments = (props: BreathingAppointmentsProps) => {
 			keyExtractor={(item) => item.id}
 			renderItem={({ item, index }) => (
 				<BreathingAppointment
-					autoSize={hasOneItem}
 					title={item.title}
 					rounds={item.rounds}
 					scheduledAt={item.scheduledAt}
 					steps={item.steps}
+					autoSize={hasOneItem}
 					color={Number(index) % 2 === 1 ? colors.utils.blue : colors.brand}
 				/>
 			)}
