@@ -1,7 +1,9 @@
 import { ScheduledAtEntity } from "./scheduled-at.entity";
-import { ExerciseEntity } from "./exercise.entity";
 
-export interface AppointmentEntity extends Required<ExerciseEntity> {
+export interface AppointmentEntity {
+	readonly id: string;
+	readonly userID: string;
 	readonly exerciseID: string;
+	readonly notificationID: string;
 	readonly scheduledAt: ScheduledAtEntity;
 }
