@@ -25,7 +25,9 @@ export class NotificationAdapterImpl implements NotificationAdapter {
 		params: ScheduleNotificationInputDTO
 	): ScheduleNotificationOutputDTO {
 		const { title, body, scheduledAt } = params;
-		if (this.status && this.status !== "granted") return [];
+		if (this.status && this.status !== NotificationPermissionStatus.GRANTED) {
+			await this.getPermissions();
+		}
 		const promises = scheduledAt.days.map(async (day) => {
 			const { hour, minutes } = scheduledAt;
 			const seconds = getDiffInSecondsBasedOnDate({ day, hour, minutes });
@@ -68,14 +70,10 @@ export class NotificationAdapterImpl implements NotificationAdapter {
 	public async getPermissions() {
 		if (this.status === NotificationPermissionStatus.GRANTED) return;
 		const { status } = await Notifications.getPermissionsAsync();
-		let finalStatus = status;
+		this.status = status;
 		if (status !== NotificationPermissionStatus.GRANTED) {
 			const { status } = await Notifications.requestPermissionsAsync();
-			finalStatus = status;
+			this.status = status;
 		}
-		if (finalStatus !== NotificationPermissionStatus.GRANTED) {
-			alert("Enable push notifications to use the app!");
-		}
-		this.status = finalStatus;
 	}
 }

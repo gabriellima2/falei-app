@@ -30,7 +30,9 @@ export default function RootLayout() {
 		Roboto_700Bold,
 	});
 	useEffect(() => {
-		notificationAdapter.getPermissions();
+		(async () => {
+			await notificationAdapter.getPermissions();
+		})();
 	}, []);
 	return (
 		<ThemeProvider theme={theme}>
