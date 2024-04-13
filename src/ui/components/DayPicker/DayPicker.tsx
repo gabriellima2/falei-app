@@ -8,13 +8,13 @@ export type DayPickerProps = Pick<CheckProps, "onChange"> & {
 };
 
 const options: Pick<CheckProps, "items">["items"] = [
-	{ name: "Dom", value: "sunday" },
-	{ name: "Seg", value: "monday" },
-	{ name: "Ter", value: "tuesday" },
-	{ name: "Qua", value: "wednesday" },
-	{ name: "Qui", value: "thursday" },
-	{ name: "Sex", value: "friday" },
-	{ name: "Sab", value: "saturday" },
+	{ name: "Dom", value: "0" },
+	{ name: "Seg", value: "1" },
+	{ name: "Ter", value: "2" },
+	{ name: "Qua", value: "3" },
+	{ name: "Qui", value: "4" },
+	{ name: "Sex", value: "5" },
+	{ name: "Sab", value: "6" },
 ];
 
 export const DayPicker = (props: DayPickerProps) => {
