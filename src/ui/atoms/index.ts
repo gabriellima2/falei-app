@@ -15,5 +15,5 @@ export * from "./Progress";
 export * from "./Header";
 export * from "./Group";
 export * from "./Errors";
-export * from "./EmptyAppointments";
+export * from "./EmptyDataMessage";
 export * from "./Skeletons";

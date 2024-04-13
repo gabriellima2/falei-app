@@ -1,7 +1,7 @@
 import { useTheme } from "styled-components/native";
 
 import { BreathingAppointment } from "@/ui/components";
-import { EmptyAppointments, HorizontalList } from "@/ui/atoms";
+import { EmptyDataMessage, HorizontalList } from "@/ui/atoms";
 
 import type { BreathingAppointmentEntity } from "@/entities/breathing-entities";
 
@@ -27,7 +27,9 @@ export const BreathingAppointments = (props: BreathingAppointmentsProps) => {
 					color={Number(index) % 2 === 1 ? colors.utils.blue : colors.brand}
 				/>
 			)}
-			ListEmptyComponent={EmptyAppointments}
+			ListEmptyComponent={() => (
+				<EmptyDataMessage message="Você está livre de lembretes" />
+			)}
 		/>
 	);
 };

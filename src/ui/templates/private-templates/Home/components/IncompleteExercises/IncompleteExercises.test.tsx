@@ -22,8 +22,7 @@ const defaultProps: IncompleteExercisesProps<BreathingExerciseEntity> = {
 const renderComponent = (props = defaultProps) =>
 	renderWithThemeProvider(<IncompleteExercises {...props} />);
 
-const getMessage = () =>
-	screen.queryByLabelText(/Não há exercícios em progresso/);
+const getMessage = () => screen.queryByTestId("empty-data-message");
 const getAllExercises = () => screen.queryAllByLabelText(/Continuar exercício/);
 
 describe("<IncompleteExercises", () => {

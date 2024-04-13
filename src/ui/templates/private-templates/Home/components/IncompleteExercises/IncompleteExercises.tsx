@@ -1,5 +1,5 @@
 import { Exercise, type ExerciseProps } from "./components/Exercise";
-import { HorizontalList, Typography } from "@/ui/atoms";
+import { EmptyDataMessage, HorizontalList } from "@/ui/atoms";
 
 import type { BreathingExerciseEntity } from "@/entities/breathing-entities";
 
@@ -38,9 +38,7 @@ export const IncompleteExercises = <T extends Params>(
 				/>
 			)}
 			ListEmptyComponent={() => (
-				<Typography.Title accessibilityLabel="Não há exercícios em progresso">
-					Nenhum exercício em progresso
-				</Typography.Title>
+				<EmptyDataMessage message="Não há exercícios em progresso" />
 			)}
 		/>
 	);

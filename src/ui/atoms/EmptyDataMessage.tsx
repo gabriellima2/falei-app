@@ -3,11 +3,14 @@ import styled, { css } from "styled-components/native";
 import { Typography } from "@/ui/atoms/Typography";
 import { dimensions } from "@/constants/dimensions";
 
-export const EmptyAppointments = () => {
+export type EmptyDataMessageProps = { message?: string };
+
+export const EmptyDataMessage = (props: EmptyDataMessageProps) => {
+	const { message } = props;
 	return (
 		<Container>
 			<Message testID="empty-data-message">
-				Você está livre de lembretes para essa semana
+				{message || "Nenhuma informação encontrada"}
 			</Message>
 		</Container>
 	);
@@ -28,5 +31,6 @@ const Message = styled(Typography.Paragraph)`
 	${({ theme }) => css`
 		color: ${theme.colors.font.primary};
 		font-size: ${theme.fontSizes.regular};
+		text-align: center;
 	`}
 `;
