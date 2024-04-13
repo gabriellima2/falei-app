@@ -46,30 +46,30 @@ export const CreateExercise = () => {
 					/>
 					<BreathingForm.Timer
 						inhale={{
-							value: fields.timer.inhale,
+							value: fields.steps.inhale,
 							onDecrement: () =>
-								setValue("timer.inhale", decrement(fields.timer.inhale)),
+								setValue("steps.inhale", decrement(fields.steps.inhale)),
 							onIncrement: () =>
-								setValue("timer.inhale", increment(fields.timer.inhale)),
+								setValue("steps.inhale", increment(fields.steps.inhale)),
 						}}
 						hold={{
-							value: fields.timer.hold,
+							value: fields.steps.hold,
 							onDecrement: () =>
-								setValue("timer.hold", decrement(fields.timer.hold)),
+								setValue("steps.hold", decrement(fields.steps.hold)),
 							onIncrement: () =>
-								setValue("timer.hold", increment(fields.timer.hold)),
+								setValue("steps.hold", increment(fields.steps.hold)),
 						}}
 						exhale={{
-							value: fields.timer.exhale,
+							value: fields.steps.exhale,
 							onDecrement: () =>
-								setValue("timer.exhale", decrement(fields.timer.exhale)),
+								setValue("steps.exhale", decrement(fields.steps.exhale)),
 							onIncrement: () =>
-								setValue("timer.exhale", increment(fields.timer.exhale)),
+								setValue("steps.exhale", increment(fields.steps.exhale)),
 						}}
 						errorMessage={
-							errors.timer?.inhale?.message ||
-							errors.timer?.hold?.message ||
-							errors.timer?.exhale?.message
+							errors.steps?.inhale?.message ||
+							errors.steps?.hold?.message ||
+							errors.steps?.exhale?.message
 						}
 					/>
 					<BreathingForm.Schedule

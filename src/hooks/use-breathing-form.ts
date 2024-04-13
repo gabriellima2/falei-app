@@ -7,16 +7,16 @@ import {
 	type UseFormProps,
 	type FieldErrors,
 } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
 import type { BreathingStates } from "@/@types/breathing-states";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 
 export type BreathingFormFields = {
 	title: string;
 	rounds: string;
-	timer: Record<BreathingStates, string>;
+	steps: Record<BreathingStates, string>;
 	days: DaysOfTheWeek[];
 	time: Date;
 };
@@ -37,7 +37,7 @@ const defaultValues: BreathingFormFields = {
 	rounds: "",
 	days: [],
 	time: new Date(),
-	timer: { inhale: "1", hold: "1", exhale: "1" },
+	steps: { inhale: "1", hold: "1", exhale: "1" },
 };
 
 export function useBreathingForm(
@@ -60,15 +60,15 @@ export function useBreathingForm(
 	useEffect(() => {
 		register("title");
 		register("rounds");
-		register("timer");
+		register("steps");
 		register("days");
 		register("time", { valueAsDate: true });
 	}, []);
 
-	const defaultTimerValues = fields.timer && {
-		inhale: fields.timer.inhale || defaultValues.timer.inhale,
-		hold: fields.timer.hold || defaultValues.timer.hold,
-		exhale: fields.timer.exhale || defaultValues.timer.exhale,
+	const defaultSteps = fields.steps && {
+		inhale: fields.steps.inhale || defaultValues.steps.inhale,
+		hold: fields.steps.hold || defaultValues.steps.hold,
+		exhale: fields.steps.exhale || defaultValues.steps.exhale,
 	};
 
 	return {
@@ -76,7 +76,7 @@ export function useBreathingForm(
 			title: fields.title || defaultValues.title,
 			rounds: fields.rounds || defaultValues.rounds,
 			time: fields.time || defaultValues.time,
-			timer: defaultTimerValues || defaultValues.timer,
+			steps: defaultSteps || defaultValues.steps,
 			days: fields.days || defaultValues.days,
 		},
 		isSubmitting,

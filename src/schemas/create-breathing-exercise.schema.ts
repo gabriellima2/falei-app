@@ -17,7 +17,7 @@ export const createBreathingExerciseSchema = z.object({
 		message:
 			"O campo de Repetições deve conter um valor numérico inteiro entre 1 e 10",
 	}),
-	timer: z.object({
+	steps: z.object({
 		inhale: z.string().refine(isValidNumberRange, {
 			message:
 				"O campo de Inspirar deve conter um valor numérico inteiro entre 1 e 10",
