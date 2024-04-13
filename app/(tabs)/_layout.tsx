@@ -1,5 +1,5 @@
 import { Tabs, usePathname } from "expo-router";
-import { LayoutGrid, Dumbbell, PieChart, Settings } from "lucide-react-native";
+import { LayoutGrid, Dumbbell, Settings } from "lucide-react-native";
 
 import { BottomTab, BottomTabElements } from "@/ui/components/BottomTab";
 
@@ -61,16 +61,6 @@ export default function Layout() {
 					...BottomTabElements({
 						label: "Exercícios",
 						Icon: (props) => <Dumbbell {...props} />,
-					}),
-				}}
-			/>
-			<Tabs.Screen
-				name="analytics"
-				options={{
-					headerShown: false,
-					...BottomTabElements({
-						label: "Trajetória",
-						Icon: (props) => <PieChart {...props} />,
 					}),
 				}}
 			/>
