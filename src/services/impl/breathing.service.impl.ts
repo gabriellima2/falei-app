@@ -4,6 +4,9 @@ import { NotificationAdapter } from "@/adapters/notification.adapter";
 
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 
+import { NotificationPermissionStatus } from "@/constants/notification-permission-status";
+import { CREATE_EXERCISE_ERROR, UNEXPECTED_ERROR } from "@/errors";
+
 import type {
 	BreathingExerciseEntity,
 	BreathingAppointmentEntity,
@@ -57,9 +60,7 @@ export class BreathingServiceImpl implements BreathingService {
 				},
 			});
 		if (hasAppointment) {
-			if (!createdExercise) {
-				throw new Error("Não foi possível adicionar o lembrete ao exercício");
-			}
+			if (!createdExercise) throw new Error(CREATE_EXERCISE_ERROR);
 			const date = new Date(params.time);
 			const scheduledAt = {
 				days: params.days.reduce((acc, day) => {
@@ -72,21 +73,26 @@ export class BreathingServiceImpl implements BreathingService {
 				hour: date.getUTCHours(),
 				minutes: date.getUTCMinutes(),
 			};
-			const createdNotification = await notification.schedule({
-				title: "Hora do exercício",
-				body: `Exercício ${createdExercise.title}`,
-				scheduledAt,
-			});
-			if (!createdNotification || !createdNotification.length) {
-				throw new Error("Não foi possível adicionar o lembrete ao exercício");
+			if (notification.status !== NotificationPermissionStatus.GRANTED) {
+				await notification.getPermissions();
 			}
-			await repositories.appointment.create({
-				userID,
-				exerciseID: createdExercise.id,
-				notificationID: createdNotification[0].id,
-				category: ExerciseCategoryEntity.Breathing,
-				scheduledAt,
-			});
+			if (notification.status === NotificationPermissionStatus.GRANTED) {
+				const createdNotification = await notification.schedule({
+					title: "Prepare-se para o seu próximo exercício!",
+					body: `Prepare-se para o exercício ${createdExercise.title}. Lembre-se, cada passo conta!`,
+					scheduledAt,
+				});
+				if (!createdNotification || !createdNotification.length) {
+					throw new Error(UNEXPECTED_ERROR);
+				}
+				await repositories.appointment.create({
+					userID,
+					exerciseID: createdExercise.id,
+					notificationID: createdNotification[0].id,
+					category: ExerciseCategoryEntity.Breathing,
+					scheduledAt,
+				});
+			}
 		}
 	}
 }

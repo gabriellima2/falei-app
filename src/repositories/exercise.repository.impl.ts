@@ -10,6 +10,7 @@ import {
 import Constants from "expo-constants";
 
 import { db } from "@/config/firebase";
+import { EXERCISE_NOT_FOUND_ERROR } from "@/errors";
 
 import type { ExerciseRepository } from "./exercise.repository";
 import type { ExerciseEntity } from "@/entities/exercise.entity";
@@ -35,7 +36,7 @@ export class ExerciseRepositoryImpl implements ExerciseRepository {
 		const { id, category } = params;
 		const docRef = doc(db, this.collection, this.document, category, id);
 		const docSnap = await getDoc(docRef);
-		if (!docSnap.exists()) throw new Error("Exercício não encontrado");
+		if (!docSnap.exists()) throw new Error(EXERCISE_NOT_FOUND_ERROR);
 		return { ...(docSnap.data() as T), id: docSnap.id };
 	}
 	async create<T extends ExerciseEntity>(
