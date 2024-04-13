@@ -10,6 +10,7 @@ import {
 	ContainerWithDefaultSpaces,
 	type BaseButtonProps,
 	type ContainerWithDefaultSpacesProps,
+	Form,
 } from "@/ui/atoms";
 import {
 	BreathingControl,
@@ -129,14 +130,14 @@ const CancelButton = (props: BaseButtonProps) => {
 	);
 };
 
-const SubmitButton = (props: BaseButtonProps) => (
-	<BaseButton
+const SubmitButton = (props: Parameters<typeof Form.Button>[0]) => (
+	<Form.Button
 		accessibilityLabel="Enviar formulário"
 		accessibilityHint="O formulário atual será enviado"
 		{...props}
 	>
 		{props.children ?? "Confirmar"}
-	</BaseButton>
+	</Form.Button>
 );
 
 const Container = styled(ContainerWithDefaultSpaces)`

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Redirect } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 
 import {
 	useBreathingForm,
@@ -16,27 +16,38 @@ import { reminderValidation } from "@/validations";
 import { decrement } from "@/helpers/decrement";
 import { increment } from "@/helpers/increment";
 
+import { UNEXPECTED_ERROR } from "@/errors";
+
 import { makeBreathingService } from "@/factories/services/make-breathing-service";
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
 
 const service = makeBreathingService();
 
 export const CreateExercise = () => {
-	const { fields, errors, setValue, handleSubmit } = useBreathingForm({
-		schema: createBreathingExerciseSchema,
-	});
+	const { fields, errors, setValue, isSubmitting, handleSubmit } =
+		useBreathingForm({
+			schema: createBreathingExerciseSchema,
+		});
 	const [hasReminder, setHasReminder] = useState(false);
 	const { user } = useAuthenticationStore();
 	const { notify } = useToastContext();
+	const router = useRouter();
 
 	if (!user) return <Redirect href="/(auth)/login" />;
 
-	const onSubmit = (values: BreathingFormFields) => {
+	const onSubmit = async (values: BreathingFormFields) => {
 		const validationMessage = reminderValidation(values, {
 			hasReminder,
 		});
 		if (validationMessage) return notify(validationMessage, { type: "alert" });
-		service.create(user.id, values);
+		try {
+			await service.create(user.id, values);
+			notify("Exercício criado com sucesso", { type: "success" });
+			router.push("/(tabs)/(exercises)");
+		} catch (error) {
+			const _error = (error as Error).message || UNEXPECTED_ERROR;
+			notify(_error, { type: "alert" });
+		}
 	};
 
 	return (
@@ -91,7 +102,10 @@ export const CreateExercise = () => {
 				</BreathingForm.Content>
 				<BreathingForm.Footer>
 					<BreathingForm.CancelButton />
-					<BreathingForm.SubmitButton onPress={handleSubmit(onSubmit)} />
+					<BreathingForm.SubmitButton
+						isSubmitting={isSubmitting}
+						onPress={handleSubmit(onSubmit)}
+					/>
 				</BreathingForm.Footer>
 			</BreathingForm.Root>
 		</ScrollContainer>
