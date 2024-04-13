@@ -16,10 +16,10 @@ import { reminderValidation } from "@/validations";
 import { decrement } from "@/helpers/decrement";
 import { increment } from "@/helpers/increment";
 
+import { makeBreathingService } from "@/factories/services/make-breathing-service";
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
-import { makeBreathingExerciseService } from "@/factories/services/make-breathing-exercise-service";
 
-const service = makeBreathingExerciseService();
+const service = makeBreathingService();
 
 export const CreateExercise = () => {
 	const { fields, errors, setValue, handleSubmit } = useBreathingForm({

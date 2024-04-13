@@ -16,7 +16,7 @@ import type { ExerciseRepository } from "./exercise.repository";
 import type * as DTO from "@/dtos/appointment.dto";
 
 export class AppointmentRepositoryImpl<T extends AppointmentEntity>
-	implements AppointmentRepository<T>
+	implements AppointmentRepository
 {
 	private readonly collection: string;
 	private readonly document: string;
@@ -31,7 +31,7 @@ export class AppointmentRepositoryImpl<T extends AppointmentEntity>
 		const docRef = doc(db, this.collection, this.document, category, id);
 		await deleteDoc(docRef);
 	}
-	async create(
+	async create<T extends AppointmentEntity>(
 		params: DTO.CreateAppointmentInputDTO<T>
 	): DTO.CreateAppointmentOutputDTO<T> {
 		const { category, ...appointment } = params;
@@ -49,7 +49,7 @@ export class AppointmentRepositoryImpl<T extends AppointmentEntity>
 		const docRef = doc(db, this.collection, this.document, category, id);
 		await updateDoc(docRef, params);
 	}
-	async getAll(
+	async getAll<T extends AppointmentEntity>(
 		params: DTO.GetAllAppointmentsInputDTO
 	): DTO.GetAllAppointmentsOutputDTO<T> {
 		const { category } = params;

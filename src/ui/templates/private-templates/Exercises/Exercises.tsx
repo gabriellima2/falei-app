@@ -12,7 +12,7 @@ import {
 import { TextError, Header } from "@/ui/atoms";
 import { WithQuery } from "@/hocs";
 
-import { makeBreathingExerciseService } from "@/factories/services/make-breathing-exercise-service";
+import { makeBreathingService } from "@/factories/services/make-breathing-service";
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 
 import type {
@@ -64,7 +64,7 @@ export const Exercises = WithQuery(
 	},
 	{
 		name: "breathing-exercises",
-		fn: () => makeBreathingExerciseService().getAll(),
+		fn: () => makeBreathingService().getAll(),
 	},
 	() => <Skeleton />
 );

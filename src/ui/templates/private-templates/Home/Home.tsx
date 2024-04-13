@@ -17,7 +17,7 @@ import {
 } from "@/ui/atoms";
 import { WithQuery, type WithQueryInjectProps } from "@/hocs/WithQuery";
 
-import { makeBreathingExerciseService } from "@/factories/services/make-breathing-exercise-service";
+import { makeBreathingService } from "@/factories/services/make-breathing-service";
 
 import type {
 	BreathingExerciseEntity,
@@ -69,7 +69,7 @@ export const Home = WithQuery(
 	},
 	{
 		name: "breathing-exercises",
-		fn: () => makeBreathingExerciseService().getAll(),
+		fn: () => makeBreathingService().getAll(),
 	},
 	() => <Skeleton />
 );

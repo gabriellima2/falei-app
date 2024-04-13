@@ -8,8 +8,12 @@ import type {
 	BreathingExerciseEntity,
 	BreathingAppointmentEntity,
 } from "@/entities/breathing-entities";
-import type { GetAllBreathingExerciseOutputDTO } from "@/dtos/breathing-exercise.dto";
-import type { BreathingExerciseService } from "../breathing-exercise.service";
+import type {
+	CreateBreathingInputDTO,
+	CreateBreathingOutputDTO,
+	GetAllBreathingOutputDTO,
+} from "@/dtos/breathing.dto";
+import type { BreathingService } from "../breathing.service";
 
 type BreathingExerciseServiceParams = {
 	repositories: {
@@ -19,17 +23,9 @@ type BreathingExerciseServiceParams = {
 	notification: NotificationAdapter;
 };
 
-type Exercise = {
-	days: string[];
-	rounds: string;
-	steps: { exhale: string; hold: string; inhale: string };
-	time: Date;
-	title: string;
-};
-
-export class BreathingExerciseServiceImpl implements BreathingExerciseService {
+export class BreathingServiceImpl implements BreathingService {
 	constructor(private readonly params: BreathingExerciseServiceParams) {}
-	async getAll(): GetAllBreathingExerciseOutputDTO {
+	async getAll(): GetAllBreathingOutputDTO {
 		const { repositories } = this.params;
 		return {
 			appointments:
@@ -41,7 +37,10 @@ export class BreathingExerciseServiceImpl implements BreathingExerciseService {
 			}),
 		};
 	}
-	async create(userID: string, params: Exercise) {
+	async create(
+		userID: string,
+		params: CreateBreathingInputDTO
+	): CreateBreathingOutputDTO {
 		const { repositories, notification } = this.params;
 		const hasAppointment = params.days && params.days.length && params.time;
 		const createdExercise =
