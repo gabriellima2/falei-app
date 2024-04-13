@@ -34,10 +34,10 @@ export class AppointmentRepositoryImpl<T extends AppointmentEntity>
 	async create(
 		params: DTO.CreateAppointmentInputDTO<T>
 	): DTO.CreateAppointmentOutputDTO<T> {
-		const { category } = params;
+		const { category, ...appointment } = params;
 		const docRef = doc(db, this.collection, this.document);
 		const subCollectionRef = collection(docRef, category);
-		const createdExercise = await addDoc(subCollectionRef, params);
+		const createdExercise = await addDoc(subCollectionRef, appointment);
 		return {
 			...createdExercise,
 		} as unknown as T;
@@ -66,7 +66,7 @@ export class AppointmentRepositoryImpl<T extends AppointmentEntity>
 		const promises = appointments.map(async (appointment) => {
 			const exercise = await this.repository.getById({
 				id: appointment.exerciseID,
-				category: appointment.category,
+				category,
 			});
 			return { ...exercise, ...appointment };
 		});

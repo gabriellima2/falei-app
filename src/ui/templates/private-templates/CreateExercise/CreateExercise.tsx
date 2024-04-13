@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { Redirect } from "expo-router";
 
 import {
-	BreathingFormFields,
 	useBreathingForm,
+	type BreathingFormFields,
 } from "@/hooks/use-breathing-form";
 import { useToastContext } from "@/contexts/ToastContext";
+import { useAuthenticationStore } from "@/store/authentication-store";
 
 import { ScrollContainer, Header } from "@/ui/atoms";
 import { BreathingForm } from "@/ui/components";
@@ -15,20 +17,26 @@ import { decrement } from "@/helpers/decrement";
 import { increment } from "@/helpers/increment";
 
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
+import { makeBreathingExerciseService } from "@/factories/services/make-breathing-exercise-service";
+
+const service = makeBreathingExerciseService();
 
 export const CreateExercise = () => {
 	const { fields, errors, setValue, handleSubmit } = useBreathingForm({
 		schema: createBreathingExerciseSchema,
 	});
 	const [hasReminder, setHasReminder] = useState(false);
+	const { user } = useAuthenticationStore();
 	const { notify } = useToastContext();
+
+	if (!user) return <Redirect href="/(auth)/login" />;
 
 	const onSubmit = (values: BreathingFormFields) => {
 		const validationMessage = reminderValidation(values, {
 			hasReminder,
 		});
 		if (validationMessage) return notify(validationMessage, { type: "alert" });
-		console.log(values);
+		service.create(user.id, values);
 	};
 
 	return (

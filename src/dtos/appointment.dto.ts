@@ -1,6 +1,9 @@
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import { ExerciseEntity } from "@/entities/exercise.entity";
 
-export type CreateAppointmentInputDTO<T> = Omit<T, "id">;
+export type CreateAppointmentInputDTO<T> = Omit<T, "id"> & {
+	category: ExerciseCategoryEntity;
+};
 export type CreateAppointmentOutputDTO<T> = Promise<T>;
 
 export type DeleteAppointmentInputDTO = Pick<ExerciseEntity, "id" | "category">;
@@ -15,9 +18,10 @@ export type GetAppointmentByIdInputDTO = Pick<
 >;
 export type GetAppointmentByIdOutputDTO<T> = Promise<T | undefined>;
 
-export type UpdateAppointmentInputDTO<T extends ExerciseEntity> = Pick<
+export type UpdateAppointmentInputDTO<T extends { id: string }> = Pick<
 	T,
-	"id" | "category"
-> &
-	Partial<Omit<T, "id" | "category">>;
+	"id"
+> & {
+	category: ExerciseCategoryEntity;
+};
 export type UpdateAppointmentOutputDTO = Promise<void>;

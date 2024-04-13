@@ -10,7 +10,7 @@ export type GetAllExercisesInputDTO = Pick<ExerciseEntity, "category">;
 export type GetAllExercisesOutputDTO<T> = Promise<T[]>;
 
 export type GetExerciseByIdInputDTO = Pick<ExerciseEntity, "id" | "category">;
-export type GetExerciseByIdOutputDTO<T> = Promise<T | undefined>;
+export type GetExerciseByIdOutputDTO<T> = Promise<T>;
 
 export type UpdateExerciseInputDTO<T extends ExerciseEntity> = Pick<
 	T,

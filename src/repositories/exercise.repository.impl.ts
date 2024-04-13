@@ -35,7 +35,7 @@ export class ExerciseRepositoryImpl implements ExerciseRepository {
 		const { id, category } = params;
 		const docRef = doc(db, this.collection, this.document, category, id);
 		const docSnap = await getDoc(docRef);
-		if (!docSnap.exists()) return;
+		if (!docSnap.exists()) throw new Error("Exercício não encontrado");
 		return { ...(docSnap.data() as T), id: docSnap.id };
 	}
 	async create<T extends ExerciseEntity>(
@@ -45,9 +45,7 @@ export class ExerciseRepositoryImpl implements ExerciseRepository {
 		const docRef = doc(db, this.collection, this.document);
 		const subCollectionRef = collection(docRef, category);
 		const createdExercise = await addDoc(subCollectionRef, rest);
-		return {
-			...createdExercise,
-		} as unknown as T;
+		return this.getById({ id: createdExercise.id, category: params.category });
 	}
 	async update<T extends ExerciseEntity>(
 		params: DTO.UpdateExerciseInputDTO<T>
