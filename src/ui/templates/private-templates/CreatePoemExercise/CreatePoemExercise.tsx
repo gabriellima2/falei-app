@@ -9,10 +9,12 @@ import { ScrollContainer, Header, Form } from "@/ui/atoms";
 import { UNEXPECTED_ERROR } from "@/errors";
 import type { CreatePoemFields } from "@/schemas";
 
-// import { makePoemService } from "@/factories/services/make-poem-service";
+import { makePoemService } from "@/factories/services/make-poem-service";
 import { Field } from "@/ui/components";
 
-// const service = makePoemService();
+import { createPoemFormMapper } from "./mappers/create-poem-form.mapper";
+
+const service = makePoemService();
 
 export const CreatePoemExercise = () => {
 	const { isSubmitting, handleSubmit, errors, setValue } = usePoemForm();
@@ -24,8 +26,7 @@ export const CreatePoemExercise = () => {
 
 	const onSubmit = async (values: CreatePoemFields) => {
 		try {
-			console.log(values);
-			// await service.create(user.id, values);
+			await service.create(user.id, createPoemFormMapper(values));
 			notify("Poema criado com sucesso", { type: "success" });
 			router.push("/(tabs)/(exercises)");
 		} catch (error) {

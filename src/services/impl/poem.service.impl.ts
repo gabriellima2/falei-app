@@ -1,6 +1,8 @@
+import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 import { ExerciseRepository } from "@/repositories/exercise.repository";
 
 import type { CreatePoemInputDTO, CreatePoemOutputDTO } from "@/dtos/poem.dto";
+import type { ReadExerciseEntity } from "@/entities/read-entities";
 import type { PoemService } from "../poem.service";
 
 export class PoemServiceImpl implements PoemService {
@@ -9,6 +11,14 @@ export class PoemServiceImpl implements PoemService {
 		userID: string,
 		params: CreatePoemInputDTO
 	): CreatePoemOutputDTO {
-		await new Promise((resolve) => resolve({}));
+		await this.repository.create<ReadExerciseEntity>({
+			userID,
+			category: ExerciseCategoryEntity.Poem,
+			credits: {
+				author: params.credits.author,
+				workName: params.credits.workName,
+			},
+			content: params.content,
+		});
 	}
 }
