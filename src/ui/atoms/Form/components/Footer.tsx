@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components/native";
 
-export const Root = styled.View`
+export const Footer = styled.View`
 	${({ theme }) => css`
-		gap: ${theme.spaces[5]};
+		flex-direction: row;
+		gap: ${theme.spaces[3]};
 	`}
 `;

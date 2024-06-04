@@ -4,17 +4,12 @@ import {
 	useWatch,
 	type UseFormHandleSubmit,
 	type UseFormSetValue,
-	type UseFormProps,
 	type FieldErrors,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 
-import type { CreatePoemFields } from "@/schemas";
+import { createPoemSchema, type CreatePoemFields } from "@/schemas";
 
-export type UsePoemFormParams = UseFormProps<CreatePoemFields> & {
-	schema: z.ZodType<CreatePoemFields>;
-};
 export type UsePoemFormReturn = {
 	fields: CreatePoemFields;
 	errors: FieldErrors<CreatePoemFields>;
@@ -23,27 +18,34 @@ export type UsePoemFormReturn = {
 	handleSubmit: UseFormHandleSubmit<CreatePoemFields, CreatePoemFields>;
 };
 
-const defaultValues: CreatePoemFields = {};
+const defaultValues: CreatePoemFields = {
+	content: "",
+	credits: { author: "", workName: "" },
+};
 
-export function usePoemForm(params: UsePoemFormParams): UsePoemFormReturn {
-	const { schema, ...rest } = params;
+export function usePoemForm(): UsePoemFormReturn {
 	const {
 		formState: { isSubmitting, errors },
 		register,
-		setValue,
 		control,
+		setValue,
 		handleSubmit,
 	} = useForm<CreatePoemFields>({
-		...rest,
-		defaultValues: params?.defaultValues || defaultValues,
-		resolver: zodResolver(schema),
+		defaultValues,
+		resolver: zodResolver(createPoemSchema),
 	});
 	const fields = useWatch({ control });
 
-	// useEffect(() => {}, []);
+	useEffect(() => {
+		register("content");
+		register("credits");
+	}, []);
 
 	return {
-		fields: {},
+		fields: {
+			content: fields.content || defaultValues.content,
+			credits: fields.credits || defaultValues.credits,
+		},
 		isSubmitting,
 		errors,
 		setValue,

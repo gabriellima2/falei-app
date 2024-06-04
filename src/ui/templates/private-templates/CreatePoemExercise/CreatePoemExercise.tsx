@@ -1,23 +1,21 @@
 import { Redirect, useRouter } from "expo-router";
 
-import { usePoemForm } from "@/hooks/use-poem-form";
+import { usePoemForm } from "./hooks/use-poem-form";
 import { useToastContext } from "@/contexts/ToastContext";
 import { useAuthenticationStore } from "@/store/authentication-store";
 
-import { ScrollContainer, Header } from "@/ui/atoms";
-import { PoemForm } from "@/ui/components";
+import { ScrollContainer, Header, Form } from "@/ui/atoms";
 
-import { createPoemSchema, type CreatePoemFields } from "@/schemas";
 import { UNEXPECTED_ERROR } from "@/errors";
+import type { CreatePoemFields } from "@/schemas";
 
-import { makePoemService } from "@/factories/services/make-poem-service";
+// import { makePoemService } from "@/factories/services/make-poem-service";
+import { Field } from "@/ui/components";
 
-const service = makePoemService();
+// const service = makePoemService();
 
 export const CreatePoemExercise = () => {
-	const { isSubmitting, handleSubmit } = usePoemForm({
-		schema: createPoemSchema,
-	});
+	const { isSubmitting, handleSubmit, errors, setValue } = usePoemForm();
 	const { user } = useAuthenticationStore();
 	const { notify } = useToastContext();
 	const router = useRouter();
@@ -26,7 +24,8 @@ export const CreatePoemExercise = () => {
 
 	const onSubmit = async (values: CreatePoemFields) => {
 		try {
-			await service.create(user.id, values);
+			console.log(values);
+			// await service.create(user.id, values);
 			notify("Poema criado com sucesso", { type: "success" });
 			router.push("/(tabs)/(exercises)");
 		} catch (error) {
@@ -38,16 +37,39 @@ export const CreatePoemExercise = () => {
 	return (
 		<ScrollContainer>
 			<Header title="Poema" />
-			<PoemForm.Root>
-				<PoemForm.Content></PoemForm.Content>
-				<PoemForm.Footer>
-					<PoemForm.CancelButton />
-					<PoemForm.SubmitButton
+			<Form.Root>
+				<Form.Content>
+					<Field
+						labelText="Título"
+						labelId="title"
+						placeholder="Ex: Autopsicografia"
+						onChangeText={(v) => setValue("credits.workName", v)}
+						errorMessage={errors.credits?.workName?.message}
+					/>
+					<Field
+						labelText="Poema"
+						labelId="content"
+						placeholder="Digite o poema..."
+						multiline
+						onChangeText={(v) => setValue("content", v)}
+						errorMessage={errors.content?.message}
+					/>
+					<Field
+						labelText="Autor"
+						labelId="author"
+						placeholder="Ex: Fernando Pessoa"
+						onChangeText={(v) => setValue("credits.author", v)}
+						errorMessage={errors.credits?.author?.message}
+					/>
+				</Form.Content>
+				<Form.Footer>
+					<Form.Buttons.Cancel />
+					<Form.Buttons.Submit
 						isSubmitting={isSubmitting}
 						onPress={handleSubmit(onSubmit)}
 					/>
-				</PoemForm.Footer>
-			</PoemForm.Root>
+				</Form.Footer>
+			</Form.Root>
 		</ScrollContainer>
 	);
 };
