@@ -8,6 +8,7 @@ import {
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { getDefaultValues } from "../utils/get-default-values";
 import {
 	createBreathingExerciseSchema,
 	type CreateBreathingExerciseFields,
@@ -24,15 +25,8 @@ export type UseBreathingFormReturn = {
 	>;
 };
 
-const defaultValues: CreateBreathingExerciseFields = {
-	title: "",
-	rounds: "",
-	days: [],
-	time: new Date(),
-	steps: { inhale: "1", hold: "1", exhale: "1" },
-};
-
 export function useBreathingForm(): UseBreathingFormReturn {
+	const defaultValues = getDefaultValues();
 	const {
 		formState: { isSubmitting, errors },
 		register,

@@ -8,6 +8,7 @@ import {
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { getDefaultValues } from "../utils/get-default-values";
 import { createPoemSchema, type CreatePoemFields } from "@/schemas";
 
 export type UsePoemFormReturn = {
@@ -18,12 +19,8 @@ export type UsePoemFormReturn = {
 	handleSubmit: UseFormHandleSubmit<CreatePoemFields, CreatePoemFields>;
 };
 
-const defaultValues: CreatePoemFields = {
-	content: "",
-	credits: { author: "", workName: "" },
-};
-
 export function usePoemForm(): UsePoemFormReturn {
+	const defaultValues = getDefaultValues();
 	const {
 		formState: { isSubmitting, errors },
 		register,
