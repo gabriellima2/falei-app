@@ -8,28 +8,23 @@ import {
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { createBreathingExerciseSchema } from "@/schemas";
-
-import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
-import type { BreathingStates } from "@/@types/breathing-states";
-
-export type BreathingFormFields = {
-	title: string;
-	rounds: string;
-	steps: Record<BreathingStates, string>;
-	days: DaysOfTheWeek[];
-	time: Date;
-};
+import {
+	createBreathingExerciseSchema,
+	type CreateBreathingExerciseFields,
+} from "@/schemas";
 
 export type UseBreathingFormReturn = {
-	fields: BreathingFormFields;
-	errors: FieldErrors<BreathingFormFields>;
+	fields: CreateBreathingExerciseFields;
+	errors: FieldErrors<CreateBreathingExerciseFields>;
 	isSubmitting: boolean;
-	setValue: UseFormSetValue<BreathingFormFields>;
-	handleSubmit: UseFormHandleSubmit<BreathingFormFields, BreathingFormFields>;
+	setValue: UseFormSetValue<CreateBreathingExerciseFields>;
+	handleSubmit: UseFormHandleSubmit<
+		CreateBreathingExerciseFields,
+		CreateBreathingExerciseFields
+	>;
 };
 
-const defaultValues: BreathingFormFields = {
+const defaultValues: CreateBreathingExerciseFields = {
 	title: "",
 	rounds: "",
 	days: [],
@@ -44,7 +39,7 @@ export function useBreathingForm(): UseBreathingFormReturn {
 		setValue,
 		control,
 		handleSubmit,
-	} = useForm<BreathingFormFields>({
+	} = useForm<CreateBreathingExerciseFields>({
 		defaultValues,
 		resolver: zodResolver(createBreathingExerciseSchema),
 	});

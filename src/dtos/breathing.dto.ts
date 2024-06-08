@@ -9,10 +9,10 @@ export type GetAllBreathingOutputDTO = Promise<{
 }>;
 
 export type CreateBreathingInputDTO = {
-	days: string[];
+	days?: string[];
 	rounds: string;
 	steps: { exhale: string; hold: string; inhale: string };
-	time: Date;
+	time?: Date;
 	title: string;
 };
 export type CreateBreathingOutputDTO = Promise<void>;

@@ -45,7 +45,6 @@ export class BreathingServiceImpl implements BreathingService {
 		params: CreateBreathingInputDTO
 	): CreateBreathingOutputDTO {
 		const { repositories, notification } = this.params;
-		const hasAppointment = params.days && params.days.length && params.time;
 		const createdExercise =
 			await repositories.exercise.create<BreathingExerciseEntity>({
 				userID,
@@ -59,7 +58,7 @@ export class BreathingServiceImpl implements BreathingService {
 					exhale: Number(params.steps.exhale),
 				},
 			});
-		if (hasAppointment) {
+		if (params.days && params.days.length && params.time) {
 			if (!createdExercise) throw new Error(CREATE_EXERCISE_ERROR);
 			const date = new Date(params.time);
 			const scheduledAt = {

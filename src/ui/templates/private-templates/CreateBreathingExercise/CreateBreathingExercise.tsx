@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Redirect, useRouter } from "expo-router";
 import styled, { css } from "styled-components/native";
 
-import {
-	useBreathingForm,
-	type BreathingFormFields,
-} from "@/hooks/use-breathing-form";
+import { useBreathingForm } from "./hooks/use-breathing-form";
 import { useAuthenticationStore } from "@/store/authentication-store";
 import { useToastContext } from "@/contexts/ToastContext";
 
@@ -20,14 +17,16 @@ import {
 } from "@/ui/atoms";
 import { BreathingControl, Field, Reminder } from "@/ui/components";
 
+import { makeBreathingService } from "@/factories/services/make-breathing-service";
 import { reminderValidation } from "@/validations";
+
 import { decrement } from "@/helpers/decrement";
 import { increment } from "@/helpers/increment";
 
 import { UNEXPECTED_ERROR } from "@/errors";
 
-import { makeBreathingService } from "@/factories/services/make-breathing-service";
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
+import type { CreateBreathingExerciseFields } from "@/schemas";
 
 const service = makeBreathingService();
 
@@ -41,7 +40,7 @@ export const CreateBreathingExercise = () => {
 
 	if (!user) return <Redirect href="/(auth)/login" />;
 
-	const onSubmit = async (values: BreathingFormFields) => {
+	const onSubmit = async (values: CreateBreathingExerciseFields) => {
 		const validationMessage = reminderValidation(values, {
 			hasReminder,
 		});
@@ -81,7 +80,6 @@ export const CreateBreathingExercise = () => {
 						onChangeText={(v) => setValue("rounds", v)}
 						errorMessage={errors.rounds?.message}
 					/>
-
 					<Section>
 						<SectionContainerTitle>
 							<SectionTitle>Temporizadores</SectionTitle>
@@ -125,11 +123,11 @@ export const CreateBreathingExercise = () => {
 					{hasReminder && (
 						<Reminder.Root>
 							<Reminder.Day
-								values={fields.days}
+								values={(fields.days || []) as DaysOfTheWeek[]}
 								onChange={(days) => setValue("days", days as DaysOfTheWeek[])}
 							/>
 							<Reminder.Time
-								value={fields.time}
+								value={fields.time || new Date()}
 								onChange={(date) => setValue("time", date ?? new Date())}
 							/>
 						</Reminder.Root>

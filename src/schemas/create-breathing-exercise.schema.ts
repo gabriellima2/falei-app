@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { BreathingFormFields } from "@/hooks/use-breathing-form";
 
 function isValidNumberRange(value: string) {
 	const formattedValue = parseInt(value);
@@ -33,4 +32,8 @@ export const createBreathingExerciseSchema = z.object({
 	}),
 	days: z.array(z.string()).optional(),
 	time: z.date().optional(),
-}) as unknown as z.ZodType<BreathingFormFields>;
+});
+
+export type CreateBreathingExerciseFields = z.infer<
+	typeof createBreathingExerciseSchema
+>;
