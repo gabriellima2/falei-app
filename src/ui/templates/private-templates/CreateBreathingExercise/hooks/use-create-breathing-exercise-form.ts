@@ -14,7 +14,7 @@ import {
 	type CreateBreathingExerciseFields,
 } from "@/schemas";
 
-export type UseBreathingFormReturn = {
+export type UseCreateBreathingExerciseFormReturn = {
 	fields: CreateBreathingExerciseFields;
 	errors: FieldErrors<CreateBreathingExerciseFields>;
 	isSubmitting: boolean;
@@ -25,7 +25,7 @@ export type UseBreathingFormReturn = {
 	>;
 };
 
-export function useBreathingForm(): UseBreathingFormReturn {
+export function useCreateBreathingExerciseForm(): UseCreateBreathingExerciseFormReturn {
 	const defaultValues = getDefaultValues();
 	const {
 		formState: { isSubmitting, errors },

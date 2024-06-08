@@ -1,7 +1,7 @@
 import type { CreatePoemInputDTO } from "@/dtos/poem.dto";
 import type { CreatePoemFields } from "@/schemas";
 
-export function createPoemFormMapper(
+export function createPoemExerciseMapper(
 	fields: CreatePoemFields
 ): CreatePoemInputDTO {
 	return {

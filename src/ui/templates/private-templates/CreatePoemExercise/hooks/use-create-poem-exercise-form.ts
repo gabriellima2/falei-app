@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getDefaultValues } from "../utils/get-default-values";
 import { createPoemSchema, type CreatePoemFields } from "@/schemas";
 
-export type UsePoemFormReturn = {
+export type UseCreatePoemExerciseFormReturn = {
 	fields: CreatePoemFields;
 	errors: FieldErrors<CreatePoemFields>;
 	isSubmitting: boolean;
@@ -19,7 +19,7 @@ export type UsePoemFormReturn = {
 	handleSubmit: UseFormHandleSubmit<CreatePoemFields, CreatePoemFields>;
 };
 
-export function usePoemForm(): UsePoemFormReturn {
+export function useCreatePoemExerciseForm(): UseCreatePoemExerciseFormReturn {
 	const defaultValues = getDefaultValues();
 	const {
 		formState: { isSubmitting, errors },

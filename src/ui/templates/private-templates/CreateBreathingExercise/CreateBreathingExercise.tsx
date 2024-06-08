@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Redirect, useRouter } from "expo-router";
 import styled, { css } from "styled-components/native";
 
-import { useBreathingForm } from "./hooks/use-breathing-form";
+import { useCreateBreathingExerciseForm } from "./hooks/use-create-breathing-exercise-form";
 import { useAuthenticationStore } from "@/store/authentication-store";
 import { useToastContext } from "@/contexts/ToastContext";
 
@@ -17,6 +17,7 @@ import {
 } from "@/ui/atoms";
 import { BreathingControl, Field, Reminder } from "@/ui/components";
 
+import { createBreathingExerciseMapper } from "./mappers/create-breathing-exercise.mapper";
 import { makeBreathingService } from "@/factories/services/make-breathing-service";
 import { reminderValidation } from "@/validations";
 
@@ -32,7 +33,7 @@ const service = makeBreathingService();
 
 export const CreateBreathingExercise = () => {
 	const { fields, errors, setValue, isSubmitting, handleSubmit } =
-		useBreathingForm();
+		useCreateBreathingExerciseForm();
 	const [hasReminder, setHasReminder] = useState(false);
 	const { user } = useAuthenticationStore();
 	const { notify } = useToastContext();
@@ -46,7 +47,7 @@ export const CreateBreathingExercise = () => {
 		});
 		if (validationMessage) return notify(validationMessage, { type: "alert" });
 		try {
-			await service.create(user.id, values);
+			await service.create(user.id, createBreathingExerciseMapper(values));
 			notify("Exercício criado com sucesso", { type: "success" });
 			router.push("/(tabs)/(exercises)");
 		} catch (error) {
