@@ -1,41 +1,19 @@
-import { Redirect, useRouter } from "expo-router";
+import { Redirect } from "expo-router";
 
 import { useCreatePoemExerciseForm } from "./hooks/use-create-poem-exercise-form";
 import { useAuthenticationStore } from "@/store/authentication-store";
-import { useToastContext } from "@/contexts/ToastContext";
 
 import { ScrollContainer, Header, Form } from "@/ui/atoms";
 import { Field } from "@/ui/components";
 
-import { UNEXPECTED_ERROR } from "@/errors";
-
-import { createPoemExerciseMapper } from "./mappers/create-poem-exercise.mapper";
-import { makePoemService } from "@/factories/services/make-poem-service";
-
-import type { CreatePoemFields } from "@/schemas";
-
-const service = makePoemService();
+import { useCreatePoemExercise } from "./hooks/use-create-poem-exercise";
 
 export const CreatePoemExercise = () => {
+	const { user } = useAuthenticationStore();
+	const { handleCreate } = useCreatePoemExercise();
 	const { isSubmitting, handleSubmit, errors, setValue } =
 		useCreatePoemExerciseForm();
-	const { user } = useAuthenticationStore();
-	const { notify } = useToastContext();
-	const router = useRouter();
-
 	if (!user) return <Redirect href="/(auth)/login" />;
-
-	const onSubmit = async (values: CreatePoemFields) => {
-		try {
-			await service.create(user.id, createPoemExerciseMapper(values));
-			notify("Poema criado com sucesso", { type: "success" });
-			router.push("/(tabs)/(exercises)");
-		} catch (error) {
-			const _error = (error as Error).message || UNEXPECTED_ERROR;
-			notify(_error, { type: "alert" });
-		}
-	};
-
 	return (
 		<ScrollContainer>
 			<Header title="Poema" />
@@ -68,7 +46,7 @@ export const CreatePoemExercise = () => {
 					<Form.Buttons.Cancel />
 					<Form.Buttons.Submit
 						isSubmitting={isSubmitting}
-						onPress={handleSubmit(onSubmit)}
+						onPress={handleSubmit((values) => handleCreate(user.id, values))}
 					/>
 				</Form.Footer>
 			</Form.Root>
