@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Redirect, useRouter } from "expo-router";
+import { Redirect } from "expo-router";
 import styled, { css } from "styled-components/native";
 
 import { useCreateBreathingExerciseForm } from "./hooks/use-create-breathing-exercise-form";
+import { useCreateBreathingExercise } from "./hooks/use-create-breathing-exercise";
 import { useAuthenticationStore } from "@/store/authentication-store";
-import { useToastContext } from "@/contexts/ToastContext";
 
 import {
 	ScrollContainer,
@@ -17,44 +17,19 @@ import {
 } from "@/ui/atoms";
 import { BreathingControl, Field, Reminder } from "@/ui/components";
 
-import { createBreathingExerciseMapper } from "./mappers/create-breathing-exercise.mapper";
-import { makeBreathingService } from "@/factories/services/make-breathing-service";
-import { reminderValidation } from "@/validations";
-
 import { decrement } from "@/helpers/decrement";
 import { increment } from "@/helpers/increment";
 
-import { UNEXPECTED_ERROR } from "@/errors";
-
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
-import type { CreateBreathingExerciseFields } from "@/schemas";
-
-const service = makeBreathingService();
 
 export const CreateBreathingExercise = () => {
+	const { user } = useAuthenticationStore();
+	const { handleCreate } = useCreateBreathingExercise();
+	const [hasReminder, setHasReminder] = useState(false);
 	const { fields, errors, setValue, isSubmitting, handleSubmit } =
 		useCreateBreathingExerciseForm();
-	const [hasReminder, setHasReminder] = useState(false);
-	const { user } = useAuthenticationStore();
-	const { notify } = useToastContext();
-	const router = useRouter();
 
 	if (!user) return <Redirect href="/(auth)/login" />;
-
-	const onSubmit = async (values: CreateBreathingExerciseFields) => {
-		const validationMessage = reminderValidation(values, {
-			hasReminder,
-		});
-		if (validationMessage) return notify(validationMessage, { type: "alert" });
-		try {
-			await service.create(user.id, createBreathingExerciseMapper(values));
-			notify("Exercício criado com sucesso", { type: "success" });
-			router.push("/(tabs)/(exercises)");
-		} catch (error) {
-			const _error = (error as Error).message || UNEXPECTED_ERROR;
-			notify(_error, { type: "alert" });
-		}
-	};
 
 	const stepsError =
 		errors.steps?.inhale?.message ||
@@ -138,7 +113,9 @@ export const CreateBreathingExercise = () => {
 					<Form.Buttons.Cancel />
 					<Form.Buttons.Submit
 						isSubmitting={isSubmitting}
-						onPress={handleSubmit(onSubmit)}
+						onPress={handleSubmit((values) =>
+							handleCreate(user.id, hasReminder, values)
+						)}
 					/>
 				</Form.Footer>
 			</Form.Root>
