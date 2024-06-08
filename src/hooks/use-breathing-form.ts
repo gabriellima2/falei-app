@@ -4,11 +4,11 @@ import {
 	useWatch,
 	type UseFormHandleSubmit,
 	type UseFormSetValue,
-	type UseFormProps,
 	type FieldErrors,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+
+import { createBreathingExerciseSchema } from "@/schemas";
 
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
 import type { BreathingStates } from "@/@types/breathing-states";
@@ -21,9 +21,6 @@ export type BreathingFormFields = {
 	time: Date;
 };
 
-export type UseBreathingFormParams = UseFormProps<BreathingFormFields> & {
-	schema: z.ZodType<BreathingFormFields>;
-};
 export type UseBreathingFormReturn = {
 	fields: BreathingFormFields;
 	errors: FieldErrors<BreathingFormFields>;
@@ -40,10 +37,7 @@ const defaultValues: BreathingFormFields = {
 	steps: { inhale: "1", hold: "1", exhale: "1" },
 };
 
-export function useBreathingForm(
-	params: UseBreathingFormParams
-): UseBreathingFormReturn {
-	const { schema, ...rest } = params;
+export function useBreathingForm(): UseBreathingFormReturn {
 	const {
 		formState: { isSubmitting, errors },
 		register,
@@ -51,9 +45,8 @@ export function useBreathingForm(
 		control,
 		handleSubmit,
 	} = useForm<BreathingFormFields>({
-		...rest,
-		defaultValues: params?.defaultValues || defaultValues,
-		resolver: zodResolver(schema),
+		defaultValues,
+		resolver: zodResolver(createBreathingExerciseSchema),
 	});
 	const fields = useWatch({ control });
 
