@@ -31,7 +31,7 @@ export const SelectExerciseType = () => {
 					href={{ pathname: "/(exercises)/create-tongue-twister-exercise" }}
 					leftIcon={(props) => <Book {...props} color={colors.font.primary} />}
 				>
-					Trava-Língua
+					Trava-língua
 				</ButtonLink>
 			</Container>
 		</>
