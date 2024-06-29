@@ -12,6 +12,7 @@ import type { MenuOption } from "@/contexts/MenuContext";
 
 const defaultParams: UseBaseExerciseStateParams = {
 	id: "1",
+	title: "any_title",
 };
 
 const executeHook = (params = defaultParams) =>
@@ -59,7 +60,6 @@ describe("useBaseExerciseState", () => {
 
 				expectHandleExpandToHaveBeenCalled([
 					interactions.create,
-					interactions.edit,
 					interactions.remove,
 				]);
 			});
@@ -74,7 +74,10 @@ describe("useBaseExerciseState", () => {
 				expect(mocks.handleClose).not.toBeCalled();
 
 				jest.clearAllMocks();
-				const { result: newResult } = executeHook({ id: "2" });
+				const { result: newResult } = executeHook({
+					id: "2",
+					title: "any_title_2",
+				});
 
 				newResult.current.handleLongPress();
 

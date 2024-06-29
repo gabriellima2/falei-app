@@ -23,10 +23,6 @@ export function useGetExerciseInteractions(
 		handleExpand({ id, title });
 	}
 
-	function handleEditReminder() {
-		console.log("Editing");
-	}
-
 	function handleRemoveReminder() {
 		console.log("Removing");
 	}
@@ -34,7 +30,6 @@ export function useGetExerciseInteractions(
 	function getInteractions() {
 		if (withCustomOptions) {
 			return [
-				{ ...interactions.edit, onPress: handleEditReminder },
 				{ ...interactions.remove, onPress: handleRemoveReminder },
 				{ ...interactions.create, onPress: handleDefineReminder },
 			];

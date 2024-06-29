@@ -1,4 +1,4 @@
-import { Clock, BellOff, Trash2 } from "lucide-react-native";
+import { BellOff, Trash2 } from "lucide-react-native";
 
 import { useMenuContext } from "@/contexts/MenuContext";
 import { MenuButton } from "@/ui/atoms";
@@ -6,11 +6,6 @@ import { MenuButton } from "@/ui/atoms";
 import type { MenuOption } from "@/contexts/MenuContext/@types/menu-option";
 
 const options: MenuOption[] = [
-	{
-		text: "Editar lembrete",
-		onPress: () => console.log("Editando..."),
-		icon: (props) => <Clock {...props} />,
-	},
 	{
 		text: "Desativar notificações",
 		onPress: () => console.log("Silenciando..."),
