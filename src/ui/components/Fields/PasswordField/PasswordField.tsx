@@ -1,5 +1,5 @@
 import { forwardRef, useState } from "react";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 
 import { Field, type FieldProps } from "../Field";
 import { ToggleVisibiltyButton } from "./components";
@@ -12,6 +12,7 @@ export type PasswordFieldRef = InputRef;
 export const PasswordField = forwardRef<PasswordFieldRef, PasswordFieldProps>(
 	(props, ref) => {
 		const [isVisible, setIsVisible] = useState(false);
+		const hasError = !!props.errorMessage;
 		return (
 			<Container>
 				<Field
@@ -22,7 +23,7 @@ export const PasswordField = forwardRef<PasswordFieldRef, PasswordFieldProps>(
 					ref={ref}
 					secureTextEntry={!isVisible}
 				/>
-				<RightContent>
+				<RightContent hasError={hasError}>
 					<ToggleVisibiltyButton
 						onPress={() => setIsVisible((prevState) => !prevState)}
 						isVisible={isVisible}
@@ -37,8 +38,10 @@ PasswordField.displayName = "PasswordField";
 
 const Container = styled.View``;
 
-const RightContent = styled.View`
-	position: absolute;
-	right: 20px;
-	bottom: 40px;
+const RightContent = styled.View<{ hasError?: boolean }>`
+	${({ hasError }) => css`
+		position: absolute;
+		right: ${hasError ? 50 : 20}px;
+		bottom: ${hasError ? 60 : 40}px;
+	`}
 `;
