@@ -12,6 +12,7 @@ export default function Layout() {
 	const path = usePathname();
 	return (
 		<Tabs
+			initialRouteName="index"
 			tabBar={(props) =>
 				PATHS_WITH_BOTTOM_TAB.includes(path) ? <BottomTab {...props} /> : null
 			}
@@ -55,7 +56,7 @@ export default function Layout() {
 				}}
 			/>
 			<Tabs.Screen
-				name="(exercises)"
+				name="(exercises)/index"
 				options={{
 					headerShown: false,
 					...BottomTabElements({

@@ -1,5 +1,5 @@
 import { Redirect } from "expo-router";
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 
 import { useLoginState } from "./hooks/use-login-state";
 
@@ -8,7 +8,6 @@ import {
 	AuthLink,
 	ButtonLink,
 	KeyboardAvoidingWrapper,
-	ContainerWithDefaultSpaces,
 } from "@/ui/atoms";
 import { AuthForm } from "@/ui/components";
 
@@ -23,12 +22,11 @@ export function Login() {
 				)}
 			/>
 			<KeyboardAvoidingWrapper>
-				<Container bottomSpacing horizontalSpacing verticalSpacing>
-					<AuthForm
-						title="Olá, novamente! Entre para continuar"
-						button={{ text: "Entrar" }}
-						authenticationService={handleSignIn}
-					/>
+				<AuthForm
+					title="Olá, novamente! Entre para continuar"
+					button={{ text: "Entrar" }}
+					authenticationService={handleSignIn}
+				>
 					<ForgotPasswordLink
 						onlyText
 						href={{
@@ -37,17 +35,10 @@ export function Login() {
 					>
 						Esqueceu a senha?
 					</ForgotPasswordLink>
-				</Container>
+				</AuthForm>
 			</KeyboardAvoidingWrapper>
 		</>
 	);
 }
-
-const Container = styled(ContainerWithDefaultSpaces)`
-	${({ theme }) => css`
-		flex: 1;
-		gap: ${theme.spaces[2]};
-	`}
-`;
 
 const ForgotPasswordLink = styled(ButtonLink)``;

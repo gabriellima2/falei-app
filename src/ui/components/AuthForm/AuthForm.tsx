@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { PropsWithChildren, useRef } from "react";
 import { TextInput, type TouchableOpacityProps } from "react-native";
 
 import { EmailField, PasswordField } from "../Fields";
@@ -16,14 +16,16 @@ type ButtonProps = Pick<
 	"accessibilityHint" | "accessibilityLabel"
 > & { text: string };
 
-export type AuthFormProps = UseAuthFormStateParams & {
-	title: string;
-	button: ButtonProps;
-};
+export type AuthFormProps = UseAuthFormStateParams &
+	PropsWithChildren & {
+		title: string;
+		button: ButtonProps;
+	};
 
 export const AuthForm = (props: AuthFormProps) => {
 	const {
 		title,
+		children,
 		button: { text, ...buttonRest },
 		authenticationService,
 	} = props;
@@ -60,6 +62,7 @@ export const AuthForm = (props: AuthFormProps) => {
 			>
 				{text}
 			</Form.Button>
+			{children}
 		</Form.Root>
 	);
 };

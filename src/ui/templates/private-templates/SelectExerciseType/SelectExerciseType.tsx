@@ -12,7 +12,7 @@ export const SelectExerciseType = () => {
 				<ButtonLink
 					secondary
 					withArrowRight
-					href={{ pathname: "/(exercises)/create-breathing-exercise" }}
+					href={{ pathname: "/create-breathing-exercise" }}
 					leftIcon={(props) => <Shell {...props} color={colors.font.primary} />}
 				>
 					Respiração
@@ -20,7 +20,7 @@ export const SelectExerciseType = () => {
 				<ButtonLink
 					secondary
 					withArrowRight
-					href={{ pathname: "/(exercises)/create-poem-exercise" }}
+					href={{ pathname: "/create-poem-exercise" }}
 					leftIcon={(props) => <Book {...props} color={colors.font.primary} />}
 				>
 					Poema
@@ -28,7 +28,7 @@ export const SelectExerciseType = () => {
 				<ButtonLink
 					secondary
 					withArrowRight
-					href={{ pathname: "/(exercises)/create-tongue-twister-exercise" }}
+					href={{ pathname: "/create-tongue-twister-exercise" }}
 					leftIcon={(props) => <Book {...props} color={colors.font.primary} />}
 				>
 					Trava-língua

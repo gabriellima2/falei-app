@@ -7,7 +7,7 @@ export const CreateExerciseButton = () => {
 	return (
 		<ButtonLink
 			size="sm"
-			href={{ pathname: "/(exercises)/select-exercise-type" }}
+			href={{ pathname: "/select-exercise-type" }}
 			secondary
 			accessibilityLabel="Criar Exercício"
 			accessibilityHint="Criar novo exercício"

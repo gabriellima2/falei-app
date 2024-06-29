@@ -35,19 +35,20 @@ export function CreateAccount() {
 						title="Bem-vindo! Crie uma conta para continuar"
 						button={{ text: "Criar conta" }}
 						authenticationService={handleSignUp}
-					/>
-					<Footer>
-						<AnonymousButton
-							disabled={isLoadingAsAnonymous}
-							onlyText
-							onPress={handleAnonymous}
-							accessibilityLabel="Continuar sem conta"
-							accessibilityHint="Comecará a usar o aplicativo como anônimo"
-						>
-							Continuar sem conta
-						</AnonymousButton>
-						{isLoadingAsAnonymous && <LoadingIndicator size="small" />}
-					</Footer>
+					>
+						<Footer>
+							<AnonymousButton
+								disabled={isLoadingAsAnonymous}
+								onlyText
+								onPress={handleAnonymous}
+								accessibilityLabel="Continuar sem conta"
+								accessibilityHint="Comecará a usar o aplicativo como anônimo"
+							>
+								Continuar sem conta
+							</AnonymousButton>
+							{isLoadingAsAnonymous && <LoadingIndicator size="small" />}
+						</Footer>
+					</AuthForm>
 				</Container>
 			</KeyboardAvoidingWrapper>
 		</>

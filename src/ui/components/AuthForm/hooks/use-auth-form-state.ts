@@ -20,7 +20,7 @@ type UseAuthFormStateReturn = {
 	isAuthenticating: boolean;
 	errors: FieldErrors<AuthInputDTO>;
 	setValue: UseFormSetValue<AuthInputDTO>;
-	handleSubmit: UseFormHandleSubmit<AuthInputDTO, undefined>;
+	handleSubmit: UseFormHandleSubmit<AuthInputDTO>;
 	handleAuthentication: (credentials: AuthInputDTO) => Promise<void>;
 };
 

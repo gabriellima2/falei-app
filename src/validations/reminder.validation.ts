@@ -5,7 +5,7 @@ type ReminderValidationOptions = {
 };
 
 export function reminderValidation(
-	values: Pick<CreateReminderFields, "days" | "time">,
+	values: Partial<Pick<CreateReminderFields, "days" | "time">>,
 	options: ReminderValidationOptions
 ) {
 	const { hasReminder } = options;
