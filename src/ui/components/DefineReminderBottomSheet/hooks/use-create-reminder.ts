@@ -1,33 +1,36 @@
-import { useRouter } from "expo-router";
-
+import { useDefineReminderBottomSheetContext } from "@/contexts/DefineReminderBottomSheetContext/hooks/use-reminder-bottom-sheet-context";
 import { useToastContext } from "@/contexts/ToastContext";
 
-import { makeBreathingService } from "@/factories/services/make-breathing-service";
+import { makeReminderService } from "@/factories/services/make-reminder-service";
 
 import { createReminderMapper } from "../mappers/create-reminder.mapper";
 import { reminderValidation } from "@/validations";
+
+import { DEFINE_REMINDER_WITHOUT_EXERCISE_ERROR } from "@/errors/define-reminder-without-exercise-error";
 import { UNEXPECTED_ERROR } from "@/errors";
 
 import type { CreateReminderFields } from "@/schemas";
 
-type UseCreateReminderParams = {
-	onSuccess?: () => void;
-};
+const service = makeReminderService();
 
-const service = makeBreathingService();
-
-export function useCreateReminder(params: UseCreateReminderParams) {
-	const { onSuccess } = params;
+export function useCreateReminder() {
 	const { notify } = useToastContext();
+	const { selectedExercise, handleClose } =
+		useDefineReminderBottomSheetContext();
 
 	const handleCreate = async (userId: string, values: CreateReminderFields) => {
-		const result = reminderValidation(values, { hasReminder: true });
-		if (result) return notify(result, { type: "alert" });
 		try {
-			console.log(createReminderMapper(values));
-			// await service.create(userId, createReminderMapper(values));
+			const result = reminderValidation(values, { hasReminder: true });
+			if (result) throw new Error(result);
+			if (!selectedExercise) {
+				throw new Error(DEFINE_REMINDER_WITHOUT_EXERCISE_ERROR);
+			}
+			await service.create(
+				userId,
+				createReminderMapper(selectedExercise, values)
+			);
 			notify("Lembrete definido com sucesso", { type: "success" });
-			onSuccess && onSuccess();
+			handleClose();
 		} catch (error) {
 			const _error = (error as Error).message || UNEXPECTED_ERROR;
 			notify(_error, { type: "alert" });

@@ -3,6 +3,7 @@ import { interactions } from "../constants/interactions";
 
 type UseGetExerciseInteractionsParams = {
 	id: string;
+	title: string;
 	withCustomOptions?: boolean;
 };
 
@@ -11,7 +12,7 @@ let lastId = "";
 export function useGetExerciseInteractions(
 	params: UseGetExerciseInteractionsParams
 ) {
-	const { id, withCustomOptions } = params;
+	const { id, title, withCustomOptions } = params;
 	const { handleExpand, handleClose } = useDefineReminderBottomSheetContext();
 
 	function handleDefineReminder() {
@@ -19,7 +20,7 @@ export function useGetExerciseInteractions(
 			handleClose();
 		}
 		lastId = id;
-		handleExpand();
+		handleExpand({ id, title });
 	}
 
 	function handleEditReminder() {

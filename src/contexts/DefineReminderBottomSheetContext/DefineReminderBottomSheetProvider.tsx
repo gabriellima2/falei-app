@@ -14,6 +14,8 @@ export const DefineReminderBottomSheetProvider = (
 ) => {
 	const { children } = props;
 	const ref = useRef<BottomSheetEl>(null);
+	const [selectedExercise, setSelectedExercise] =
+		useState<SelectedExercise | null>(null);
 	const [isVisible, setIsVisible] = useState(false);
 
 	const handleClose = () => {
@@ -22,20 +24,22 @@ export const DefineReminderBottomSheetProvider = (
 		clearStates();
 	};
 
-	const handleExpand = () => {
+	const handleExpand = (exercise: SelectedExercise) => {
 		if (!ref.current) return;
 		ref.current.expand();
+		setSelectedExercise(exercise);
 		setIsVisible(true);
 	};
 
-	const handleToggle = () => {
+	const handleToggle = (exercise: SelectedExercise) => {
 		if (!ref.current) return;
-		if (!isVisible) return handleExpand();
+		if (!isVisible) return handleExpand(exercise);
 		handleClose();
 	};
 
 	const clearStates = () => {
 		setIsVisible(false);
+		setSelectedExercise(null);
 	};
 
 	useEffect(() => {
@@ -44,10 +48,10 @@ export const DefineReminderBottomSheetProvider = (
 
 	return (
 		<DefineReminderBottomSheetContext.Provider
-			value={{ ref, handleClose, handleExpand, handleToggle }}
+			value={{ ref, selectedExercise, handleClose, handleExpand, handleToggle }}
 		>
 			{children}
-			<DefineReminderBottomSheet ref={ref} onClose={handleClose} />
+			<DefineReminderBottomSheet />
 		</DefineReminderBottomSheetContext.Provider>
 	);
 };

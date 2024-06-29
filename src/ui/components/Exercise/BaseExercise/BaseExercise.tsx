@@ -23,7 +23,11 @@ export const BaseExercise = <TParams extends object>(
 	props: BaseExerciseProps<TParams>
 ) => {
 	const { title, icon, children, id, withCustomOptions, ...rest } = props;
-	const { handleLongPress } = useBaseExerciseState({ id, withCustomOptions });
+	const { handleLongPress } = useBaseExerciseState({
+		id,
+		title,
+		withCustomOptions,
+	});
 	return (
 		<Container {...rest} onLongPress={handleLongPress}>
 			<Icon>{icon({ color: theme.colors.utils.white, size: 24 })}</Icon>
