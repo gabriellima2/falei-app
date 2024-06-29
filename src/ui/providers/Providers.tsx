@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { QueryClientProvider } from "react-query";
 
+import { DefineReminderBottomSheetProvider } from "@/contexts/DefineReminderBottomSheetContext";
 import { ToastProvider } from "@/contexts/ToastContext";
 import { MenuProvider } from "@/contexts/MenuContext";
 
@@ -11,12 +12,12 @@ type ProvidersProps = { children: ReactNode };
 export const Providers = (props: ProvidersProps) => {
 	const { children } = props;
 	return (
-		<ToastProvider>
-			<MenuProvider>
-				<QueryClientProvider client={queryClient}>
-					{children}
-				</QueryClientProvider>
-			</MenuProvider>
-		</ToastProvider>
+		<QueryClientProvider client={queryClient}>
+			<ToastProvider>
+				<DefineReminderBottomSheetProvider>
+					<MenuProvider>{children}</MenuProvider>
+				</DefineReminderBottomSheetProvider>
+			</ToastProvider>
+		</QueryClientProvider>
 	);
 };

@@ -47,7 +47,7 @@ describe("useBaseExerciseState", () => {
 
 				result.current.handleLongPress();
 
-				expectHandleExpandToHaveBeenCalled(interactions.default);
+				expectHandleExpandToHaveBeenCalled([interactions.create]);
 			});
 			it("should call the 'handleExpand' function correctly when 'handleLongPress' is called with custom options", () => {
 				const { result } = executeHook({
@@ -57,7 +57,11 @@ describe("useBaseExerciseState", () => {
 
 				result.current.handleLongPress();
 
-				expectHandleExpandToHaveBeenCalled(interactions.custom);
+				expectHandleExpandToHaveBeenCalled([
+					interactions.create,
+					interactions.edit,
+					interactions.remove,
+				]);
 			});
 		});
 		describe("HandleClose", () => {

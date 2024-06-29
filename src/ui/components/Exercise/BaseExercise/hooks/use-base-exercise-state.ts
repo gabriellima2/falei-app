@@ -11,7 +11,7 @@ let lastId = "";
 export function useBaseExerciseState(params: UseBaseExerciseStateParams) {
 	const { id, withCustomOptions } = params;
 	const { handleExpand, handleClose } = useMenuContext();
-	const interactions = useGetExerciseInteractions({ withCustomOptions });
+	const interactions = useGetExerciseInteractions({ id, withCustomOptions });
 
 	const handleMenuState = () => {
 		if (id !== lastId) {

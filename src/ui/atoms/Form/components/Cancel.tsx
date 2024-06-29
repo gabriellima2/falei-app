@@ -11,12 +11,14 @@ export const Cancel = (props: BaseButtonProps) => {
 	return (
 		<BaseButton
 			accessibilityLabel="Cancelar formulário"
-			accessibilityHint="Cancela e volta para a página anterior"
 			secondary
 			{...props}
 			onPress={(e) => {
-				back();
-				onPress && onPress(e);
+				if (!onPress) {
+					back();
+					return;
+				}
+				onPress(e);
 			}}
 		>
 			{props.children ?? "Cancelar"}

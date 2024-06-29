@@ -1,12 +1,12 @@
-import type { CreateBreathingExerciseFields } from "@/schemas";
+import type { CreateReminderFields } from "@/schemas";
 
-type BreathingExerciseValidationOptions = {
+type ReminderValidationOptions = {
 	hasReminder?: boolean;
 };
 
 export function reminderValidation(
-	values: Pick<CreateBreathingExerciseFields, "days" | "time">,
-	options: BreathingExerciseValidationOptions
+	values: Pick<CreateReminderFields, "days" | "time">,
+	options: ReminderValidationOptions
 ) {
 	const { hasReminder } = options;
 	if (hasReminder && !values.days?.length) return "Selecione os dias";

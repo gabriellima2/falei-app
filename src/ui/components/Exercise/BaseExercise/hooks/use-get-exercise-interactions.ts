@@ -1,16 +1,25 @@
+import { useDefineReminderBottomSheetContext } from "@/contexts/DefineReminderBottomSheetContext";
 import { interactions } from "../constants/interactions";
 
 type UseGetExerciseInteractionsParams = {
+	id: string;
 	withCustomOptions?: boolean;
 };
+
+let lastId = "";
 
 export function useGetExerciseInteractions(
 	params: UseGetExerciseInteractionsParams
 ) {
-	const { withCustomOptions } = params;
+	const { id, withCustomOptions } = params;
+	const { handleExpand, handleClose } = useDefineReminderBottomSheetContext();
 
 	function handleDefineReminder() {
-		console.log("Defining");
+		if (id !== lastId) {
+			handleClose();
+		}
+		lastId = id;
+		handleExpand();
 	}
 
 	function handleEditReminder() {
