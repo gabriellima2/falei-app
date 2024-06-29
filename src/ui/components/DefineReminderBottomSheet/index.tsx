@@ -12,14 +12,21 @@ import { useCreateReminder } from "./hooks/use-create-reminder";
 import type { DaysOfTheWeek } from "@/@types/days-of-the-week";
 
 export function DefineReminderBottomSheet() {
-	const { ref, handleClose } = useDefineReminderBottomSheetContext();
+	const { ref, selectedExercise, handleClose } =
+		useDefineReminderBottomSheetContext();
 	const user = useAuthenticationStore((state) => state.user);
 	const { handleCreate } = useCreateReminder();
 	const { fields, isSubmitting, setValue, handleSubmit } =
 		useCreateReminderForm();
 	if (!user) return <Redirect href="/(auth)/login" />;
 	return (
-		<BottomSheet ref={ref}>
+		<BottomSheet
+			ref={ref}
+			index={selectedExercise ? 0 : -1}
+			onChange={(position) => {
+				if (position === -1) return handleClose();
+			}}
+		>
 			<Form.Root>
 				<Form.Content>
 					<Reminder.Root>
