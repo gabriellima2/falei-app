@@ -1,11 +1,10 @@
 import { AppointmentRepository } from "@/repositories/appointment.repository";
 import { ExerciseRepository } from "@/repositories/exercise.repository";
-import { NotificationAdapter } from "@/adapters/notification.adapter";
+import { ReminderService } from "../reminder.service";
 
 import { ExerciseCategoryEntity } from "@/entities/exercise-category.entity";
 
-import { NotificationPermissionStatus } from "@/constants/notification-permission-status";
-import { CREATE_EXERCISE_ERROR, UNEXPECTED_ERROR } from "@/errors";
+import { CREATE_EXERCISE_ERROR } from "@/errors";
 
 import type {
 	BreathingExerciseEntity,
@@ -23,7 +22,7 @@ type BreathingExerciseServiceParams = {
 		exercise: ExerciseRepository;
 		appointment: AppointmentRepository;
 	};
-	notification: NotificationAdapter;
+	reminder: ReminderService;
 };
 
 export class BreathingServiceImpl implements BreathingService {
@@ -44,7 +43,7 @@ export class BreathingServiceImpl implements BreathingService {
 		userID: string,
 		params: CreateBreathingInputDTO
 	): CreateBreathingOutputDTO {
-		const { repositories, notification } = this.params;
+		const { repositories, reminder } = this.params;
 		const createdExercise =
 			await repositories.exercise.create<BreathingExerciseEntity>({
 				userID,
@@ -60,38 +59,12 @@ export class BreathingServiceImpl implements BreathingService {
 			});
 		if (params.days && params.days.length && params.time) {
 			if (!createdExercise) throw new Error(CREATE_EXERCISE_ERROR);
-			const date = new Date(params.time);
-			const scheduledAt = {
-				days: params.days.reduce((acc, day) => {
-					const dayNumber = Number(day);
-					if (!isNaN(dayNumber)) {
-						acc.push(dayNumber);
-					}
-					return acc;
-				}, [] as number[]),
-				hour: date.getUTCHours(),
-				minutes: date.getUTCMinutes(),
-			};
-			if (notification.status !== NotificationPermissionStatus.GRANTED) {
-				await notification.getPermissions();
-			}
-			if (notification.status === NotificationPermissionStatus.GRANTED) {
-				const createdNotification = await notification.schedule({
-					title: "Prepare-se para o seu próximo exercício!",
-					body: `Prepare-se para o exercício ${createdExercise.title}. Lembre-se, cada passo conta!`,
-					scheduledAt,
-				});
-				if (!createdNotification || !createdNotification.length) {
-					throw new Error(UNEXPECTED_ERROR);
-				}
-				await repositories.appointment.create({
-					userID,
-					exerciseID: createdExercise.id,
-					notificationID: createdNotification[0].id,
-					category: ExerciseCategoryEntity.Breathing,
-					scheduledAt,
-				});
-			}
+			await reminder.create(userID, {
+				id: createdExercise.id,
+				title: params.title,
+				days: params.days,
+				time: params.time,
+			});
 		}
 	}
 }
