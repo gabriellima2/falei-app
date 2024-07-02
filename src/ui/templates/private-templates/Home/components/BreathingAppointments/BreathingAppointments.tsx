@@ -20,6 +20,8 @@ export const BreathingAppointments = (props: BreathingAppointmentsProps) => {
 			renderItem={({ item, index }) => (
 				<BreathingAppointment
 					title={item.title}
+					appointmentId={item.id}
+					notificationId={item.notificationID}
 					rounds={item.rounds}
 					scheduledAt={item.scheduledAt}
 					steps={item.steps}

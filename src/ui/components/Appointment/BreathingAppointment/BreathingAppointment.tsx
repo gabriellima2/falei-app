@@ -1,9 +1,9 @@
 import { Flower } from "lucide-react-native";
 import styled, { css } from "styled-components/native";
 
-import { Menu } from "./components";
 import { ExerciseInformation } from "../../ExerciseInformation";
 import { AdditionalExerciseInfo, Typography } from "@/ui/atoms";
+import { Menu } from "./components/Menu";
 
 import { DAYS_OF_THE_WEEK } from "@/constants/days-of-the-week";
 import { dimensions } from "@/constants/dimensions";
@@ -16,6 +16,8 @@ import type { Modifiers } from "@/@types/modifiers";
 
 export type BreathingAppointmentProps = ContainerProps & {
 	title: string;
+	appointmentId: string;
+	notificationId: string;
 	rounds: { total: number; completed: number };
 	steps: { exhale: number; hold: number; inhale: number };
 	scheduledAt: { days: number[]; hour: number; minutes: number };
@@ -23,7 +25,17 @@ export type BreathingAppointmentProps = ContainerProps & {
 };
 
 export const BreathingAppointment = (props: BreathingAppointmentProps) => {
-	const { title, rounds, scheduledAt, autoSize, color, steps, onPress } = props;
+	const {
+		appointmentId,
+		notificationId,
+		title,
+		rounds,
+		scheduledAt,
+		autoSize,
+		color,
+		steps,
+		onPress,
+	} = props;
 	const dayAbbr = DAYS_OF_THE_WEEK[scheduledAt.days[0]].slice(0, 3);
 	const date = `${dayAbbr} - ${formatTime(
 		scheduledAt.hour,
@@ -50,7 +62,7 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 					</Icon>
 					<Title>{title}</Title>
 				</HeaderLeft>
-				<Menu />
+				<Menu notificationId={notificationId} appointmentId={appointmentId} />
 			</Header>
 			<Content>
 				<Description>

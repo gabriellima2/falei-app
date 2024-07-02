@@ -8,4 +8,5 @@ export interface ReminderService {
 		userID: string,
 		params: CreateReminderInputDTO
 	) => CreateReminderOutputDTO;
+	delete: (appointmentId: string, notificationId: string) => Promise<void>;
 }

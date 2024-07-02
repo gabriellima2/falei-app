@@ -54,4 +54,11 @@ export class ReminderServiceImpl implements ReminderService {
 			});
 		}
 	}
+	async delete(appointmentId: string, notificationId: string): Promise<void> {
+		await this.appointment.delete({
+			id: appointmentId,
+			category: ExerciseCategoryEntity.Breathing,
+		});
+		await this.notification.cancel(notificationId);
+	}
 }
