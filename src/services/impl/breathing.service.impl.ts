@@ -67,4 +67,11 @@ export class BreathingServiceImpl implements BreathingService {
 			});
 		}
 	}
+	async delete(id: string): Promise<void> {
+		const { repositories } = this.params;
+		return await repositories.exercise.delete({
+			id,
+			category: ExerciseCategoryEntity.Breathing,
+		});
+	}
 }

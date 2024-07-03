@@ -10,4 +10,5 @@ export interface BreathingService {
 		userID: string,
 		params: CreateBreathingInputDTO
 	): CreateBreathingOutputDTO;
+	delete(id: string): Promise<void>;
 }

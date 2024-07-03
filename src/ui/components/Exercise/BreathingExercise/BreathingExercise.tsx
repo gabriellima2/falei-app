@@ -21,6 +21,7 @@ export const BreathingExercise = (props: BreathingExerciseProps) => {
 		<BaseExercise
 			{...rest}
 			id={id}
+			withCustomOptions={!!rest.userID}
 			title={title}
 			icon={(props) => <Shell {...props} />}
 			href={{

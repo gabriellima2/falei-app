@@ -1,5 +1,9 @@
 import { useDefineReminderBottomSheetContext } from "@/contexts/DefineReminderBottomSheetContext";
 import { interactions } from "../constants/interactions";
+import { makeBreathingService } from "@/factories/services/make-breathing-service";
+import { useToastContext } from "@/contexts/ToastContext";
+import { queryClient } from "@/lib/query-client";
+import { UNEXPECTED_ERROR } from "@/errors";
 
 type UseGetExerciseInteractionsParams = {
 	id: string;
@@ -9,11 +13,14 @@ type UseGetExerciseInteractionsParams = {
 
 let lastId = "";
 
+const service = makeBreathingService();
+
 export function useGetExerciseInteractions(
 	params: UseGetExerciseInteractionsParams
 ) {
 	const { id, title, withCustomOptions } = params;
 	const { handleExpand, handleClose } = useDefineReminderBottomSheetContext();
+	const { notify } = useToastContext();
 
 	function handleDefineReminder() {
 		if (id !== lastId) {
@@ -23,8 +30,15 @@ export function useGetExerciseInteractions(
 		handleExpand({ id, title });
 	}
 
-	function handleRemoveReminder() {
-		console.log("Removing");
+	async function handleRemoveReminder() {
+		try {
+			await service.delete(id);
+			notify("Exercício deletado com sucesso", { type: "success" });
+			queryClient.invalidateQueries({ queryKey: ["breathing-exercises"] });
+		} catch (error) {
+			const _error = (error as Error).message || UNEXPECTED_ERROR;
+			notify(_error, { type: "alert" });
+		}
 	}
 
 	function getInteractions() {

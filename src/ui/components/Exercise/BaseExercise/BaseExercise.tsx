@@ -17,6 +17,7 @@ export type BaseExerciseProps<TParams extends object> = BaseLinkProps<TParams> &
 		title: string;
 		children?: ReactNode;
 		icon: (props: IconStyles) => JSX.Element;
+		isCreatedByUser?: boolean;
 	};
 
 export const BaseExercise = <TParams extends object>(

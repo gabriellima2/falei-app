@@ -68,12 +68,16 @@ export class NotificationAdapterImpl implements NotificationAdapter {
 		HAS_NOTIFICATION_CONFIG = true;
 	}
 	public async getPermissions() {
-		if (this.status === NotificationPermissionStatus.GRANTED) return;
-		const { status } = await Notifications.getPermissionsAsync();
-		this.status = status;
-		if (status !== NotificationPermissionStatus.GRANTED) {
-			const { status } = await Notifications.requestPermissionsAsync();
+		try {
+			if (this.status === NotificationPermissionStatus.GRANTED) return;
+			const { status } = await Notifications.getPermissionsAsync();
 			this.status = status;
+			if (status !== NotificationPermissionStatus.GRANTED) {
+				const { status } = await Notifications.requestPermissionsAsync();
+				this.status = status;
+			}
+		} catch (err) {
+			console.error((err as Error).message);
 		}
 	}
 }
