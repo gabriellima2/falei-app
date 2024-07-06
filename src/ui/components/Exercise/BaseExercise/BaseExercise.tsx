@@ -1,4 +1,5 @@
 import { type ReactNode } from "react";
+import { type TouchableOpacityProps } from "react-native";
 import styled, { css } from "styled-components/native";
 
 import {
@@ -13,6 +14,14 @@ import { theme } from "@/styles/theme";
 import type { IconStyles } from "@/@types/icon-styles";
 
 export type BaseExerciseProps<TParams extends object> = BaseLinkProps<TParams> &
+	UseBaseExerciseStateParams & {
+		title: string;
+		children?: ReactNode;
+		icon: (props: IconStyles) => JSX.Element;
+		isCreatedByUser?: boolean;
+	};
+
+export type BaseExerciseButtonProps = TouchableOpacityProps &
 	UseBaseExerciseStateParams & {
 		title: string;
 		children?: ReactNode;
@@ -40,7 +49,37 @@ export const BaseExercise = <TParams extends object>(
 	);
 };
 
+export const BaseExerciseButton = (props: BaseExerciseButtonProps) => {
+	const { title, icon, children, id, withCustomOptions, ...rest } = props;
+	const { handleLongPress } = useBaseExerciseState({
+		id,
+		title,
+		withCustomOptions,
+	});
+	return (
+		<ContainerButton {...rest} onLongPress={handleLongPress}>
+			<Icon>{icon({ color: theme.colors.utils.white, size: 24 })}</Icon>
+			<Content>
+				<Title numberOfLines={7}>{title}</Title>
+				{children}
+			</Content>
+		</ContainerButton>
+	);
+};
+
 const Container = styled(BaseLink)`
+	${({ theme }) => css`
+		flex: 1;
+		max-height: 243px;
+		gap: ${theme.spaces[4]};
+		padding: ${theme.spaces[4]} ${theme.spaces[3]};
+		border: 1px solid ${theme.colors.overlay};
+		border-radius: ${theme.rounded.md};
+		background-color: ${theme.colors.utils.darkGray};
+	`}
+`;
+
+const ContainerButton = styled.TouchableOpacity`
 	${({ theme }) => css`
 		flex: 1;
 		max-height: 243px;

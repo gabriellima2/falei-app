@@ -31,10 +31,16 @@ const exerciseItem = {
 		<BreathingExercise {...(props as BreathingExerciseEntity)} />
 	),
 	[ExerciseCategoryEntity.TongueTwister]: (props: ExerciseEntity) => (
-		<ReadExercise {...(props as ReadExerciseEntity)} />
+		<ReadExercise
+			{...(props as ReadExerciseEntity)}
+			category={ExerciseCategoryEntity.TongueTwister}
+		/>
 	),
 	[ExerciseCategoryEntity.Poem]: (props: ExerciseEntity) => (
-		<ReadExercise {...(props as ReadExerciseEntity)} />
+		<ReadExercise
+			{...(props as ReadExerciseEntity)}
+			category={ExerciseCategoryEntity.Poem}
+		/>
 	),
 };
 

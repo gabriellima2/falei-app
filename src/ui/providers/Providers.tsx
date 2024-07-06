@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { QueryClientProvider } from "react-query";
 
 import { DefineReminderBottomSheetProvider } from "@/contexts/DefineReminderBottomSheetContext";
+import { ViewReadExerciseProvider } from "@/contexts/ViewReadExerciseContext";
 import { ToastProvider } from "@/contexts/ToastContext";
 import { MenuProvider } from "@/contexts/MenuContext";
 
@@ -14,9 +15,11 @@ export const Providers = (props: ProvidersProps) => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ToastProvider>
-				<DefineReminderBottomSheetProvider>
-					<MenuProvider>{children}</MenuProvider>
-				</DefineReminderBottomSheetProvider>
+				<MenuProvider>
+					<DefineReminderBottomSheetProvider>
+						<ViewReadExerciseProvider>{children}</ViewReadExerciseProvider>
+					</DefineReminderBottomSheetProvider>
+				</MenuProvider>
 			</ToastProvider>
 		</QueryClientProvider>
 	);

@@ -42,6 +42,7 @@ BottomSheet.displayName = "BottomSheet";
 
 const Content = styled.View`
 	${({ theme }) => css`
+		padding-top: ${theme.spaces[2]};
 		padding-bottom: ${theme.spaces[2]};
 	`}
 `;

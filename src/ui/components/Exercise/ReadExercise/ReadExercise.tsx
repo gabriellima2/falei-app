@@ -1,26 +1,33 @@
 import { Book } from "lucide-react-native";
 import styled from "styled-components/native";
 
-import { BaseExercise } from "../BaseExercise";
+import { BaseExerciseButton } from "../BaseExercise";
+
+import { useViewReadExerciseContext } from "@/contexts/ViewReadExerciseContext";
+
 import type { ReadExerciseEntity } from "@/entities/read-entities";
+import type { ReadExerciseCategory } from "@/@types/exercise-type-categories";
 
 export const START_READ_EXERCISE_PATHNAME = "/read";
 
-export type ReadExerciseProps = Pick<ReadExerciseEntity, "content" | "id">;
+export type ReadExerciseProps = Pick<ReadExerciseEntity, "content" | "id"> & {
+	category: ReadExerciseCategory;
+};
 
 export const ReadExercise = (props: ReadExerciseProps) => {
-	const { id, content } = props;
+	const { id, category, content } = props;
+	const { handleExpand } = useViewReadExerciseContext();
 	return (
 		<Exercise
 			title={content}
 			id={id}
 			icon={(props) => <Book {...props} />}
-			href={{ pathname: START_READ_EXERCISE_PATHNAME, params: { id } }}
+			onPress={() => handleExpand(id, category)}
 			accessibilityHint="Abrirá uma tela para a leitura completa"
 		/>
 	);
 };
 
-const Exercise = styled(BaseExercise)`
+const Exercise = styled(BaseExerciseButton)`
 	height: 243px;
 `;
