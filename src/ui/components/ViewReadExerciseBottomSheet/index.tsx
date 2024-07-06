@@ -4,7 +4,7 @@ import { Skeleton } from "./components/Skeleton";
 import { BottomSheet } from "../BottomSheet";
 import { Typography } from "../../atoms";
 
-import { useViewReadExerciseContext } from "@/contexts/ViewReadExerciseContext";
+import { useViewReadExerciseContext } from "@/contexts/ViewReadExerciseContext/hooks/use-view-read-exercise-context";
 import { useGetReadExerciseById } from "./hooks/use-get-read-exercise-by-id";
 
 import * as S from "./styles";
