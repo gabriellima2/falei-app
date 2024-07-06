@@ -30,7 +30,7 @@ export function CreateAccount() {
 				)}
 			/>
 			<KeyboardAvoidingWrapper>
-				<Container bottomSpacing horizontalSpacing verticalSpacing>
+				<Container bottomSpacing verticalSpacing>
 					<AuthForm
 						title="Bem-vindo! Crie uma conta para continuar"
 						button={{ text: "Criar conta" }}

@@ -8,7 +8,7 @@ export const SmallButton = styled(BaseButton)`
 		width: ${DEFAULT_SIZE};
 		max-width: ${DEFAULT_SIZE};
 		height: ${DEFAULT_SIZE};
-		max-height: auto;
+		max-height: ${DEFAULT_SIZE};
 		min-height: auto;
 		align-items: center;
 		justify-content: center;

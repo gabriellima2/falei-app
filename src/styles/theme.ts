@@ -10,6 +10,7 @@ export const theme = {
 		font: {
 			primary: "#F6F7F7",
 			secondary: "#A2A6A6",
+			transparent: "#ffffff4a",
 		},
 		utils: {
 			blue: "#93C4FF",
