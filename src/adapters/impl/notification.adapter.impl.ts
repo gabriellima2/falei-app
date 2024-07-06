@@ -19,7 +19,6 @@ export class NotificationAdapterImpl implements NotificationAdapter {
 	public status: string;
 	constructor() {
 		this.status = NotificationPermissionStatus.UNDETERMINED;
-		this.setDefaultConfig();
 	}
 	public async schedule(
 		params: ScheduleNotificationInputDTO
@@ -48,7 +47,7 @@ export class NotificationAdapterImpl implements NotificationAdapter {
 	public async cancelAll() {
 		await Notifications.cancelAllScheduledNotificationsAsync();
 	}
-	public setDefaultConfig() {
+	public async setDefaultConfig() {
 		if (HAS_NOTIFICATION_CONFIG) return;
 		Notifications.setNotificationHandler({
 			handleNotification: async () => ({
@@ -58,7 +57,7 @@ export class NotificationAdapterImpl implements NotificationAdapter {
 			}),
 		});
 		if (Platform.OS === "android") {
-			Notifications.setNotificationChannelAsync("default", {
+			await Notifications.setNotificationChannelAsync("default", {
 				name: "default",
 				importance: Notifications.AndroidImportance.MAX,
 				vibrationPattern: [0, 250, 250, 250],
@@ -69,6 +68,7 @@ export class NotificationAdapterImpl implements NotificationAdapter {
 	}
 	public async getPermissions() {
 		try {
+			await this.setDefaultConfig();
 			if (this.status === NotificationPermissionStatus.GRANTED) return;
 			const { status } = await Notifications.getPermissionsAsync();
 			this.status = status;
