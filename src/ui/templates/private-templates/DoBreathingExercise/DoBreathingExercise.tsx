@@ -2,6 +2,7 @@ import { useLocalSearchParams } from "expo-router";
 import styled, { css } from "styled-components/native";
 
 import { ContainerWithDefaultSpaces, Header, Typography } from "@/ui/atoms";
+import { BreathingIndicator } from "./components/BreathingIndicator";
 import { PauseButton } from "./components/PauseButton";
 
 export function DoBreathingExercise() {
@@ -14,7 +15,7 @@ export function DoBreathingExercise() {
 					<ActionText>Inspire</ActionText>
 					<Status>00:12</Status>
 				</Box>
-				<BreathingControlIndicator />
+				<BreathingIndicator />
 				<Box>
 					<Status>1/3</Status>
 					<PauseButton />
@@ -33,15 +34,6 @@ const Container = styled(ContainerWithDefaultSpaces)`
 const ActionText = styled(Typography.Title)`
 	${({ theme }) => css`
 		font-family: ${theme.fontFamily.main.regular};
-	`}
-`;
-
-const BreathingControlIndicator = styled.View`
-	${({ theme }) => css`
-		width: 180px;
-		height: 180px;
-		border-radius: 9999px;
-		background-color: ${theme.colors.brand};
 	`}
 `;
 
