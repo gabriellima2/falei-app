@@ -14,6 +14,7 @@ import type {
 	CreateBreathingInputDTO,
 	CreateBreathingOutputDTO,
 	GetAllBreathingOutputDTO,
+	GetBreathingByIdOutputDTO,
 } from "@/dtos/breathing.dto";
 import type { BreathingService } from "../breathing.service";
 
@@ -38,6 +39,13 @@ export class BreathingServiceImpl implements BreathingService {
 				category: ExerciseCategoryEntity.Breathing,
 			}),
 		};
+	}
+	async getById(id: string): GetBreathingByIdOutputDTO {
+		const { repositories } = this.params;
+		return await repositories.exercise.getById<BreathingExerciseEntity>({
+			id,
+			category: ExerciseCategoryEntity.Breathing,
+		});
 	}
 	async create(
 		userID: string,

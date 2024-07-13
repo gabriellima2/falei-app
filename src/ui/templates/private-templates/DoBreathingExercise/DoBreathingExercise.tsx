@@ -1,25 +1,47 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import styled, { css } from "styled-components/native";
 
-import { ContainerWithDefaultSpaces, Header, Typography } from "@/ui/atoms";
+import {
+	ContainerWithDefaultSpaces,
+	Header,
+	LoadingIndicator,
+	Typography,
+} from "@/ui/atoms";
 import { BreathingIndicator } from "./components/BreathingIndicator";
 import { PauseButton } from "./components/PauseButton";
 
+import { useGetBreathingExerciseById } from "@/hooks/use-get-breathing-exercise-by-id";
+import type { BreathingSteps } from "@/entities/breathing-entities";
+
+type Steps = keyof BreathingSteps;
+
 export function DoBreathingExercise() {
 	const { id } = useLocalSearchParams<ViewRouteParams>();
+	const { breathing, isLoading } = useGetBreathingExerciseById(id!);
+	const [step, setStep] = useState<Steps>("inhale");
 	return (
 		<>
 			<Header withBack />
 			<Container horizontalSpacing bottomSpacing>
-				<Box>
-					<ActionText>Inspire</ActionText>
-					<Status>00:12</Status>
-				</Box>
-				<BreathingIndicator />
-				<Box>
-					<Status>1/3</Status>
-					<PauseButton />
-				</Box>
+				{isLoading && <LoadingIndicator />}
+				{breathing && (
+					<>
+						<Box>
+							<ActionText>Inspire</ActionText>
+							<Status>{breathing.steps[step]}</Status>
+						</Box>
+						<BreathingIndicator
+							steps={breathing.steps}
+							rounds={breathing.rounds.total}
+						/>
+						<Box>
+							<Status>1/{breathing.rounds.total}</Status>
+							<PauseButton />
+						</Box>
+					</>
+				)}
 			</Container>
 		</>
 	);

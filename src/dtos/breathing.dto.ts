@@ -15,4 +15,7 @@ export type CreateBreathingInputDTO = {
 	time?: Date;
 	title: string;
 };
+
 export type CreateBreathingOutputDTO = Promise<void>;
+
+export type GetBreathingByIdOutputDTO = Promise<BreathingExerciseEntity>;
