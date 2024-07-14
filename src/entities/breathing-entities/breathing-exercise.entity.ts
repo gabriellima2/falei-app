@@ -11,6 +11,8 @@ export interface BreathingSteps {
 	exhale: number;
 }
 
+export type BreathingStepNames = keyof BreathingSteps;
+
 export interface BreathingExerciseEntity extends ExerciseEntity {
 	readonly title: string;
 	readonly rounds: BreathingRounds;

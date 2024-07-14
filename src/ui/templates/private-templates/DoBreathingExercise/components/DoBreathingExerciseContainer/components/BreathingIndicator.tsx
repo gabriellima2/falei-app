@@ -1,36 +1,32 @@
 import { useEffect, useRef } from "react";
 import { Animated, StyleSheet } from "react-native";
 
+import { useDoBreathingExerciseContext } from "../../../contexts/DoBreathingExerciseContext";
 import { theme } from "@/styles/theme";
-import { BreathingSteps } from "@/entities/breathing-entities";
 
-type BreathingIndicatorProps = {
-	steps: BreathingSteps;
-	rounds: number;
-};
-
-export function BreathingIndicator(props: BreathingIndicatorProps) {
+export function BreathingIndicator() {
+	const { breathing } = useDoBreathingExerciseContext();
 	const scale = useRef(new Animated.Value(1)).current;
 
 	const inhale = Animated.timing(scale, {
 		toValue: 2,
 		useNativeDriver: true,
-		duration: props.steps.inhale * 1000,
+		duration: breathing!.steps.inhale * 1000,
 	});
 	const hold = Animated.timing(scale, {
 		toValue: 2,
 		useNativeDriver: true,
-		duration: props.steps.hold * 1000,
+		duration: breathing!.steps.hold * 1000,
 	});
 	const exhale = Animated.timing(scale, {
 		toValue: 1,
 		useNativeDriver: true,
-		duration: props.steps.exhale * 1000,
+		duration: breathing!.steps.exhale * 1000,
 	});
 	const sequence = Animated.sequence([inhale, hold, exhale]);
 
 	useEffect(() => {
-		Animated.loop(sequence, { iterations: props.rounds }).start(
+		Animated.loop(sequence, { iterations: breathing!.rounds.total }).start(
 			({ finished }) => console.log(finished)
 		);
 	}, [scale]);
