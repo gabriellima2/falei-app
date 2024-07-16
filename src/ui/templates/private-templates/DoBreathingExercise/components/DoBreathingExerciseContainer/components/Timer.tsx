@@ -4,33 +4,48 @@ import { View } from "react-native";
 import { Typography } from "@/ui/atoms";
 import { useDoBreathingExerciseContext } from "../../../contexts/DoBreathingExerciseContext";
 
+import { ONE_SECOND_IN_MS } from "@/constants/utils";
+
 export function Timer() {
-	const { breathing, currentStep, handleChangeCurrentStep } =
-		useDoBreathingExerciseContext();
+	const {
+		breathing,
+		currentStep,
+		currentRound,
+		handleChangeCurrentStep,
+		handleIncrementToggleStepCount,
+	} = useDoBreathingExerciseContext();
 	const [timer, setTimer] = useState(breathing!.steps.inhale);
+
+	function handleToggleCurrentStep() {
+		if (currentRound === breathing!.rounds.total) return;
+		if (currentStep === "inhale") {
+			setTimer(breathing!.steps.hold);
+			handleChangeCurrentStep("hold");
+			handleIncrementToggleStepCount();
+		}
+		if (currentStep === "hold") {
+			setTimer(breathing!.steps.exhale);
+			handleChangeCurrentStep("exhale");
+			handleIncrementToggleStepCount();
+		}
+		if (currentStep === "exhale") {
+			setTimer(breathing!.steps.inhale);
+			handleChangeCurrentStep("inhale");
+			handleIncrementToggleStepCount();
+		}
+	}
 
 	useEffect(() => {
 		// eslint-disable-next-line prefer-const
 		let interval;
 		clearInterval(interval);
-		if (timer === -1) {
-			clearInterval(interval);
-			if (currentStep === "inhale") {
-				setTimer(breathing!.steps.hold);
-				handleChangeCurrentStep("hold");
-			}
-			if (currentStep === "hold") {
-				setTimer(breathing!.steps.exhale);
-				handleChangeCurrentStep("exhale");
-			}
-			if (currentStep === "exhale") {
-				setTimer(breathing!.steps.inhale);
-				handleChangeCurrentStep("inhale");
-			}
+		const isFinished = timer === -1;
+		if (isFinished) {
+			handleToggleCurrentStep();
 		}
 		interval = setInterval(() => {
 			setTimer((prevState) => --prevState);
-		}, 1000);
+		}, ONE_SECOND_IN_MS);
 		return () => clearInterval(interval);
 	}, [timer]);
 

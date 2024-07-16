@@ -10,7 +10,10 @@ export type DoBreathingExerciseContextProperties = {
 	handleChangeCurrentStep: (step: BreathingStepNames) => void;
 
 	currentRound: number;
-	handleChangeCurrentRound: (round: number) => void;
+	handleIncrementCurrentRound: () => void;
+
+	toggleStepCount: number;
+	handleIncrementToggleStepCount: () => void;
 
 	breathing: BreathingExerciseEntity | undefined;
 	isLoading: boolean;
