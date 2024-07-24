@@ -3,14 +3,17 @@ import { Animated, StyleSheet } from "react-native";
 
 import { useDoBreathingExerciseContext } from "../../../contexts/DoBreathingExerciseContext";
 
+import { BREATHING_STATUS } from "../../../constants/breathing-status";
 import { ONE_SECOND_IN_MS } from "@/constants/utils";
+
 import { theme } from "@/styles/theme";
 
 const ANIMATION_DELAY = 200;
 const ANIMATION_DURATION = ONE_SECOND_IN_MS + ANIMATION_DELAY;
 
 export function BreathingIndicator() {
-	const { breathing } = useDoBreathingExerciseContext();
+	const { breathing, status, handleChangeStatus } =
+		useDoBreathingExerciseContext();
 	const scale = useRef(new Animated.Value(1)).current;
 
 	const inhale = Animated.timing(scale, {
@@ -31,8 +34,14 @@ export function BreathingIndicator() {
 	const sequence = Animated.sequence([inhale, hold, exhale]);
 
 	useEffect(() => {
-		Animated.loop(sequence, { iterations: breathing!.rounds.total }).start();
-	}, [scale]);
+		if (status !== BREATHING_STATUS.started) return;
+		Animated.loop(sequence, { iterations: breathing!.rounds.total }).start(
+			({ finished }) => {
+				if (!finished) return;
+				handleChangeStatus(BREATHING_STATUS.finished);
+			}
+		);
+	}, [scale, status]);
 
 	return (
 		<Animated.View style={[styles.container, { transform: [{ scale }] }]} />

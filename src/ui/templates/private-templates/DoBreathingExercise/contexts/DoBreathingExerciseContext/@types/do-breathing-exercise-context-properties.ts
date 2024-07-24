@@ -12,6 +12,9 @@ export type DoBreathingExerciseContextProperties = {
 	currentRound: number;
 	handleIncrementCurrentRound: () => void;
 
+	status: BreathingStatus;
+	handleChangeStatus: (newStatus: BreathingStatus) => void;
+
 	toggleStepCount: number;
 	handleIncrementToggleStepCount: () => void;
 

@@ -2,7 +2,7 @@ import styled, { css } from "styled-components/native";
 
 import { BreathingIndicator } from "./components/BreathingIndicator";
 import { CurrentStepName } from "./components/CurrentStepName";
-import { PauseButton } from "./components/PauseButton";
+import { StartButton } from "./components/StartButton";
 import { LoadingIndicator } from "@/ui/atoms";
 import { Round } from "./components/Round";
 import { Timer } from "./components/Timer";
@@ -23,7 +23,7 @@ export function DoBreathingExerciseContainer() {
 					<BreathingIndicator />
 					<Box>
 						<Round />
-						<PauseButton />
+						<StartButton />
 					</Box>
 				</>
 			)}
