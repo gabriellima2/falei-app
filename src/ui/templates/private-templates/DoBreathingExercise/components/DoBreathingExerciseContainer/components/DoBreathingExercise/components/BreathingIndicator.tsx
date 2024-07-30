@@ -1,15 +1,14 @@
 import { useEffect, useRef } from "react";
 import { Animated, StyleSheet } from "react-native";
 
-import { useDoBreathingExerciseContext } from "../../../contexts/DoBreathingExerciseContext";
+import { useDoBreathingExerciseContext } from "../../../../../contexts/DoBreathingExerciseContext";
 
-import { BREATHING_STATUS } from "../../../constants/breathing-status";
+import { BREATHING_STATUS } from "../../../../../constants/breathing-status";
 import { ONE_SECOND_IN_MS } from "@/constants/utils";
 
 import { theme } from "@/styles/theme";
 
-const ANIMATION_DELAY = 200;
-const ANIMATION_DURATION = ONE_SECOND_IN_MS + ANIMATION_DELAY;
+const ANIMATION_DURATION = ONE_SECOND_IN_MS;
 
 export function BreathingIndicator() {
 	const { breathing, status, handleChangeStatus } =

@@ -3,8 +3,8 @@ import { Play } from "lucide-react-native";
 
 import { SmallButton } from "@/ui/atoms";
 
-import { useDoBreathingExerciseContext } from "../../../contexts/DoBreathingExerciseContext";
-import { BREATHING_STATUS } from "../../../constants/breathing-status";
+import { useDoBreathingExerciseContext } from "../../../../../contexts/DoBreathingExerciseContext";
+import { BREATHING_STATUS } from "../../../../../constants/breathing-status";
 
 export function StartButton() {
 	const { status, handleChangeStatus } = useDoBreathingExerciseContext();

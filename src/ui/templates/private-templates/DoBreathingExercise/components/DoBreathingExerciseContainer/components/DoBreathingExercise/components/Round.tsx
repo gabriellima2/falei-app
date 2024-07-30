@@ -1,5 +1,5 @@
 import { Typography } from "@/ui/atoms";
-import { useDoBreathingExerciseContext } from "../../../contexts/DoBreathingExerciseContext";
+import { useDoBreathingExerciseContext } from "../../../../../contexts/DoBreathingExerciseContext";
 
 export function Round() {
 	const { breathing, currentRound } = useDoBreathingExerciseContext();

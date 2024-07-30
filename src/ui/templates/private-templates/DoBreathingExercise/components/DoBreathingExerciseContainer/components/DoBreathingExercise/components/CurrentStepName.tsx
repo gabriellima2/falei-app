@@ -2,7 +2,7 @@ import styled, { css } from "styled-components/native";
 
 import { Typography } from "@/ui/atoms";
 
-import { useDoBreathingExerciseContext } from "../../../contexts/DoBreathingExerciseContext";
+import { useDoBreathingExerciseContext } from "../../../../../contexts/DoBreathingExerciseContext";
 import type { BreathingStepNames } from "@/entities/breathing-entities";
 
 const names: { [key in BreathingStepNames]: string } = {

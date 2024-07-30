@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
 
-import { Typography } from "@/ui/atoms";
-import { useDoBreathingExerciseContext } from "../../../contexts/DoBreathingExerciseContext";
+import { useDoBreathingExerciseContext } from "@/ui/templates/private-templates/DoBreathingExercise/contexts/DoBreathingExerciseContext";
 
-import { BREATHING_STATUS } from "../../../constants/breathing-status";
+import { BREATHING_STATUS } from "@/ui/templates/private-templates/DoBreathingExercise/constants/breathing-status";
 import { ONE_SECOND_IN_MS } from "@/constants/utils";
 
-export function Timer() {
+export function useRegisterTimer() {
 	const {
 		status,
 		breathing,
@@ -47,7 +45,7 @@ export function Timer() {
 		let interval;
 		clearInterval(interval);
 		if (status !== BREATHING_STATUS.started) return;
-		const isFinished = timer <= -1;
+		const isFinished = timer <= 0;
 		if (isFinished) {
 			handleToggleCurrentStep();
 		}
@@ -56,10 +54,4 @@ export function Timer() {
 		}, ONE_SECOND_IN_MS);
 		return () => clearInterval(interval);
 	}, [timer, status]);
-
-	return (
-		<View>
-			<Typography.Small>{timer}</Typography.Small>
-		</View>
-	);
 }
