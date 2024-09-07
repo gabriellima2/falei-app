@@ -1,12 +1,9 @@
-import { Stack } from "expo-router";
-
-import { CreateAccount } from "@/ui/templates";
+import { Stack } from 'expo-router'
 
 export default function Page() {
 	return (
 		<>
-			<Stack.Screen options={{ animation: "slide_from_right" }} />
-			<CreateAccount />
+			<Stack.Screen options={{ animation: 'slide_from_right' }} />
 		</>
-	);
+	)
 }

@@ -1,8 +1,14 @@
-import { Dimensions } from "react-native";
-import { margin } from "./margin";
+import { Dimensions } from 'react-native'
 
-const screen = Dimensions.get("screen");
-const window = Dimensions.get("window");
+const screen = Dimensions.get('screen')
+const window = Dimensions.get('window')
+
+export const margin = {
+	vertical: {
+		value: 16,
+		total: 32,
+	},
+}
 
 export const dimensions = {
 	window: {
@@ -19,4 +25,4 @@ export const dimensions = {
 			width: screen.width - margin.vertical.total,
 		},
 	},
-};
+}

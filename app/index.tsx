@@ -1,21 +1,13 @@
-import { Stack } from "expo-router";
-import styled from "styled-components/native";
-
-import { ContainerWithDefaultSpaces } from "@/ui/atoms";
-import { Onboarding } from "@/ui/templates";
-import { ProtectScreen } from "@/hocs";
+import { Stack } from 'expo-router'
+import { ProtectScreen } from '@/ui/components/protect-screen'
 
 function Page() {
 	return (
-		<Container topSpacing bottomSpacing>
+		<>
 			<Stack.Screen />
-			<Onboarding />
-		</Container>
-	);
+			<></>
+		</>
+	)
 }
 
-export default ProtectScreen(Page);
-
-const Container = styled(ContainerWithDefaultSpaces)`
-	flex: 1;
-`;
+export default ProtectScreen(Page)

@@ -1,3 +1,0 @@
-type ViewRouteParams = {
-	id: string;
-};

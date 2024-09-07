@@ -1,8 +1,7 @@
-import { Home } from "@/ui/templates";
-import { ProtectScreen } from "@/hocs";
+import { ProtectScreen } from '@/ui/components/protect-screen'
 
 function Page() {
-	return <Home data={{ appointments: [], exercises: [] }} />;
+	return <></>
 }
 
-export default ProtectScreen(Page);
+export default ProtectScreen(Page)

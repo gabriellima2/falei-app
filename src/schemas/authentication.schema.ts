@@ -1,10 +1,18 @@
-import * as z from "zod";
+import { z } from 'zod'
 
-import { emailConstraint, passwordConstraint } from "./generic-constraints";
+export const signInSchema = z.object({
+	email: z.string().email(),
+	password: z.string(),
+})
+export const signUpSchema = z.object({
+	email: z.string().email(),
+	password: z.string(),
+})
+export const resetPasswordSchema = z.object({
+	email: z.string().email(),
+	password: z.string(),
+})
 
-import type { AuthInputDTO } from "@/dtos/auth.dto";
-
-export const authenticationSchema: z.ZodType<AuthInputDTO> = z.object({
-	email: emailConstraint,
-	password: passwordConstraint,
-});
+export type SignInFields = z.infer<typeof signInSchema>
+export type SignUpFields = z.infer<typeof signUpSchema>
+export type ResetPasswordFields = z.infer<typeof resetPasswordSchema>

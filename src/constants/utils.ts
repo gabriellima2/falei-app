@@ -1,1 +1,9 @@
-export const ONE_SECOND_IN_MS = 1000;
+export const DAYS_OF_THE_WEEK = [
+	'Domingo',
+	'Segunda',
+	'Terça-Feira',
+	'Quarta-Feira',
+	'Quinta-Feira',
+	'Sexta-Feira',
+	'Sábado',
+]

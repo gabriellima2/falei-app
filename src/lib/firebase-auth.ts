@@ -1,3 +1,3 @@
-import { getAuth } from "firebase/auth";
+import { getAuth } from 'firebase/auth'
 
-export const firebaseAuth = getAuth();
+export const firebaseAuth = getAuth()

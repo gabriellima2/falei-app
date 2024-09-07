@@ -1,11 +1,11 @@
 {
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "strict": true,
+	"extends": "expo/tsconfig.base",
+	"compilerOptions": {
+		"strict": true,
 		"baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
+		"paths": {
+			"@/*": ["./src/*"],
 			"@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
-    },
-  }
+		}
+	}
 }
