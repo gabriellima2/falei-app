@@ -16,6 +16,7 @@ import type { Modifiers } from "@/@types/modifiers";
 
 export type BreathingAppointmentProps = ContainerProps & {
 	title: string;
+	exerciseId: string;
 	appointmentId: string;
 	notificationId: string;
 	rounds: { total: number; completed: number };
@@ -34,7 +35,6 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 		autoSize,
 		color,
 		steps,
-		onPress,
 	} = props;
 	const dayAbbr = DAYS_OF_THE_WEEK[scheduledAt.days[0]].slice(0, 3);
 	const date = `${dayAbbr} - ${formatTime(
@@ -44,13 +44,16 @@ export const BreathingAppointment = (props: BreathingAppointmentProps) => {
 	const duration = steps
 		? Object.values(steps).reduce((acc, value) => (acc += value), 0)
 		: 0;
+	function handlePress() {
+		console.log(scheduledAt);
+	}
 	return (
 		<Container
 			testID="breathing-exercise-appointment"
 			accessibilityLabel="Fazer exercício"
 			accessibilityHint="Navegará para a tela de realização do exercício"
 			activeOpacity={0.8}
-			onPress={onPress}
+			onPress={handlePress}
 			accessibilityRole="link"
 			autoSize={autoSize}
 			color={color}
