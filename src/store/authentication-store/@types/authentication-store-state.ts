@@ -12,7 +12,6 @@ export type AuthenticationStoreState = {
 	isNewUser: boolean
 	authHasBeenChecked: boolean
 	signOut: () => Promise<void>
-	anonymous: () => Promise<void>
 	signIn: (credentials: SignInFields) => Promise<void>
 	signUp: (credentials: SignUpFields) => Promise<void>
 	resetPassword: (params: ResetPasswordFields) => Promise<void>

@@ -5,8 +5,6 @@ import * as Notifications from 'expo-notifications'
 import { NOTIFICATION_PERMISSION_STATUS } from '@/constants/status'
 
 import type {
-	CancelNotificationInputDTO,
-	CancelNotificationOutputDTO,
 	ScheduleNotificationInputDTO,
 	ScheduleNotificationOutputDTO,
 } from '@/dtos/notification.dto'
@@ -14,7 +12,7 @@ import type {
 export interface NotificationAdapter {
 	status: string
 	schedule(params: ScheduleNotificationInputDTO): ScheduleNotificationOutputDTO
-	cancel(id: CancelNotificationInputDTO): CancelNotificationOutputDTO
+	cancel(id: string): Promise<void>
 	cancelAll(): Promise<void>
 	setDefaultConfig(): void
 	getPermissions(): Promise<void>
@@ -45,10 +43,9 @@ class NotificationAdapterImpl implements NotificationAdapter {
 		})
 		const notifications = Promise.all(promises)
 		return notifications*/
+		return []
 	}
-	public async cancel(
-		id: CancelNotificationInputDTO
-	): CancelNotificationOutputDTO {
+	public async cancel(id: string): Promise<void> {
 		await Notifications.cancelScheduledNotificationAsync(id)
 	}
 	public async cancelAll() {
