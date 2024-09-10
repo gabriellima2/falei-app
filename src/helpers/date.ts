@@ -10,3 +10,10 @@ export function formatTime(hour: number, minutes: number) {
 		.toString()
 		.padStart(2, '0')}`
 }
+
+export function timestampToDate(timestamp: {
+	seconds: number
+	nanoseconds: number
+}): Date {
+	return new Date(timestamp.seconds * 1000)
+}

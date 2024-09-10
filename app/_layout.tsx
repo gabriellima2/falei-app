@@ -2,7 +2,6 @@ import 'react-native-gesture-handler'
 import '@/config/firebase'
 
 import { SafeAreaView, View } from 'react-native'
-import { useEffect } from 'react'
 import {
 	useFonts,
 	Roboto_400Regular,
@@ -15,10 +14,7 @@ import { Stack } from 'expo-router'
 import { Providers } from '@/ui/providers'
 import { Splash } from '@/ui/atoms/splash'
 
-import { makeNotificationAdapter } from '@/adapters/notification.adapter'
 import { useAuthenticationStore } from '@/store/authentication-store'
-
-const notificationAdapter = makeNotificationAdapter()
 
 export default function RootLayout() {
 	const { authHasBeenChecked } = useAuthenticationStore()
@@ -26,11 +22,6 @@ export default function RootLayout() {
 		Roboto_400Regular,
 		Roboto_500Medium,
 	})
-
-	useEffect(() => {
-		notificationAdapter.getPermissions()
-	}, [])
-
 	return (
 		<>
 			<StatusBar style="light" />
