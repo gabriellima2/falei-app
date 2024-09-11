@@ -1,21 +1,23 @@
 import type { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore'
 
 import { timestampToDate } from '@/helpers/date'
+
 import type { BreathingExerciseEntity } from '@/entities/breathing-exercise.entity'
+import type { BreathingExerciseDTO } from '@/dtos/breathing-exercise.dto'
 
 export class FirebaseBreathingExerciseMapper {
 	static toEntity(
 		dto: QueryDocumentSnapshot<DocumentData, DocumentData>
 	): BreathingExerciseEntity {
-		const data = dto.data()
+		const data = dto.data() as BreathingExerciseDTO
 		return {
 			id: dto.id,
-			roundsTotal: data.roundsTotal,
+			roundsTotal: data.rounds_total,
 			steps: data.steps,
 			title: data.title,
-			userId: data.userId,
-			createdAt: timestampToDate(data.createdAt).toISOString(),
-			updatedAt: timestampToDate(data.updatedAt).toISOString(),
+			userId: data.user_id,
+			createdAt: timestampToDate(data.created_at).toISOString(),
+			updatedAt: timestampToDate(data.updated_at).toISOString(),
 		}
 	}
 	static toEntityList(

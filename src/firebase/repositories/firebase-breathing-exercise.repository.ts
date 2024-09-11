@@ -13,7 +13,7 @@ class FirebaseBreathingExerciseRepository
 {
 	private readonly collection
 	constructor() {
-		this.collection = 'breathingExercises'
+		this.collection = 'breathing_exercises'
 	}
 	async getById(id: string): Promise<BreathingExerciseEntity> {
 		const docRef = doc(db, this.collection, id)

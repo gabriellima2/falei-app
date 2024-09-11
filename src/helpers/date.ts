@@ -11,9 +11,6 @@ export function formatTime(hour: number, minutes: number) {
 		.padStart(2, '0')}`
 }
 
-export function timestampToDate(timestamp: {
-	seconds: number
-	nanoseconds: number
-}): Date {
+export function timestampToDate(timestamp: Timestamp): Date {
 	return new Date(timestamp.seconds * 1000)
 }
