@@ -2,7 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { create } from 'zustand'
 
 import { makeAuthenticationAdapter } from '@/adapters/authentication.adapter'
-import { firebaseAuth } from '@/lib/firebase-auth'
+import { auth } from '@/config/firebase'
 
 import type {
 	SignInFields,
@@ -36,7 +36,7 @@ export const useAuthenticationStore = create<AuthenticationStoreState>(
 			await authenticationAdapter.emailVerification()
 		},
 		checkAuthState: () =>
-			onAuthStateChanged(firebaseAuth, (credentials) => {
+			onAuthStateChanged(auth, (credentials) => {
 				const user = credentials && {
 					id: credentials.uid,
 					email: credentials.email,

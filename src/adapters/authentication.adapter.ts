@@ -7,8 +7,8 @@ import {
 	type UserCredential,
 } from 'firebase/auth'
 
-import { firebaseAuth } from '@/lib/firebase-auth'
 import { DEFAULT_ERROR_MESSAGES } from '@/errors/default-error-messages'
+import { auth } from '@/config/firebase'
 
 import type {
 	SignInFields,
@@ -27,21 +27,21 @@ export interface AuthenticationAdapter {
 class AuthenticationAdapterImpl implements AuthenticationAdapter {
 	async signIn(credentials: SignInFields): Promise<UserCredential> {
 		const { email, password } = credentials
-		return await signInWithEmailAndPassword(firebaseAuth, email, password)
+		return await signInWithEmailAndPassword(auth, email, password)
 	}
 	async signUp(credentials: SignUpFields): Promise<UserCredential> {
 		const { email, password } = credentials
-		return await createUserWithEmailAndPassword(firebaseAuth, email, password)
+		return await createUserWithEmailAndPassword(auth, email, password)
 	}
 	async resetPassword(params: ResetPasswordFields): Promise<void> {
 		const { email } = params
-		return await sendPasswordResetEmail(firebaseAuth, email)
+		return await sendPasswordResetEmail(auth, email)
 	}
 	async signOut(): Promise<void> {
-		await signOut(firebaseAuth)
+		await signOut(auth)
 	}
 	async emailVerification(): Promise<void> {
-		const user = firebaseAuth.currentUser
+		const user = auth.currentUser
 		if (!user) throw new Error(DEFAULT_ERROR_MESSAGES.NO_USER_AUTHENTICATED)
 		await sendEmailVerification(user)
 	}
