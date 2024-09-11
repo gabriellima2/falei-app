@@ -11,8 +11,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { StatusBar } from 'expo-status-bar'
 import { Stack } from 'expo-router'
 
+import { LoadingIndicator } from '@/ui/atoms/loading-indicator'
 import { Providers } from '@/ui/providers'
-import { Splash } from '@/ui/atoms/splash'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
 
@@ -26,7 +26,7 @@ export default function RootLayout() {
 		<>
 			<StatusBar style="light" />
 			{!fontsLoaded && !authHasBeenChecked ? (
-				<Splash />
+				<LoadingIndicator />
 			) : (
 				<GestureHandlerRootView style={{ flex: 1 }}>
 					<Providers>

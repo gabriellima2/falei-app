@@ -7,9 +7,9 @@ import {
 } from 'expo-router'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
-import { Splash } from '@/ui/atoms/splash'
 
 import { PRIVATE_GROUP_NAME, PUBLIC_GROUP_NAME } from './constants/group-names'
+import { LoadingIndicator } from '@/ui/atoms/loading-indicator'
 
 export function ProtectScreen<P extends {}>(Component: ComponentType<P>) {
 	return function HOC(props: P) {
@@ -45,7 +45,7 @@ export function ProtectScreen<P extends {}>(Component: ComponentType<P>) {
 			handleRedirect()
 		}, [authHasBeenChecked])
 
-		if (!authHasBeenChecked) return <Splash />
+		if (!authHasBeenChecked) return <LoadingIndicator />
 		return <Component {...props} />
 	}
 }
