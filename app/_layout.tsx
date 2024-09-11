@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler'
 import '@/config/firebase'
 
-import { SafeAreaView, View } from 'react-native'
+import { SafeAreaView } from 'react-native'
 import {
 	useFonts,
 	Roboto_400Regular,
@@ -31,15 +31,13 @@ export default function RootLayout() {
 				<GestureHandlerRootView style={{ flex: 1 }}>
 					<Providers>
 						<SafeAreaView>
-							<View>
-								<Stack
-									screenOptions={{
-										headerShown: false,
-										animation: 'fade',
-										contentStyle: { backgroundColor: '#ffffff' },
-									}}
-								/>
-							</View>
+							<Stack
+								screenOptions={{
+									headerShown: false,
+									animation: 'fade',
+									contentStyle: { backgroundColor: '#ffffff' },
+								}}
+							/>
 						</SafeAreaView>
 					</Providers>
 				</GestureHandlerRootView>

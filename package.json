@@ -11,10 +11,8 @@
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.3",
-    "@gorhom/bottom-sheet": "^4.4.7",
     "@hookform/resolvers": "^3.1.1",
     "@react-native-async-storage/async-storage": "1.17.11",
-    "@react-native-community/datetimepicker": "6.7.3",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@tanstack/react-query": "^5.55.4",
     "dotenv": "^16.3.1",
@@ -23,16 +21,11 @@
     "expo-constants": "~14.2.1",
     "expo-device": "~5.2.1",
     "expo-font": "~11.1.1",
-    "expo-linear-gradient": "~12.1.2",
     "expo-linking": "~4.0.1",
-    "expo-notifications": "~0.18.1",
     "expo-router": "^1.5.3",
     "expo-status-bar": "~1.4.4",
     "firebase": "^10.0.0",
-    "jest": "^29.2.1",
-    "jest-expo": "^48.0.2",
     "lucide-react-native": "^0.274.0",
-    "moti": "^0.27.2",
     "react": "18.2.0",
     "react-hook-form": "^7.45.1",
     "react-native": "0.71.14",
@@ -41,17 +34,13 @@
     "react-native-safe-area-context": "4.5.0",
     "react-native-screens": "~3.20.0",
     "react-native-svg": "13.4.0",
-    "styled-components": "^5.3.11",
     "zod": "^3.21.4",
     "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/react-native": "^12.1.2",
     "@types/jest": "^29.5.2",
     "@types/react": "~18.0.14",
-    "@types/styled-components-react-native": "^5.2.1",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
     "babel-plugin-module-resolver": "^5.0.0",
@@ -64,24 +53,6 @@
   },
   "moduleNameMapper": {
     "^@/(.*)$": "<rootDir>/src/$1"
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "preset": "jest-expo",
-    "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|moti/.*|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!**/coverage/**",
-      "!**/node_modules/**",
-      "!**/babel.config.js",
-      "!**/jest-setup.js"
-    ],
-    "setupFiles": [
-      "<rootDir>/jest-setup.js"
-    ]
   },
   "private": true
 }
