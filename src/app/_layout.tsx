@@ -1,10 +1,10 @@
-import 'react-native-reanimated';
-import * as SplashScreen from 'expo-splash-screen';
+import 'react-native-reanimated'
+import * as SplashScreen from 'expo-splash-screen'
 
-export { ErrorBoundary } from 'expo-router';
+export { ErrorBoundary } from 'expo-router'
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
-  return <></>
+	return <></>
 }
