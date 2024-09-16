@@ -2,7 +2,7 @@ import 'react-native-gesture-handler'
 import 'react-native-reanimated'
 import '@/config/firebase'
 
-import { ActivityIndicator, SafeAreaView } from 'react-native'
+import { ActivityIndicator, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { StatusBar } from 'expo-status-bar'
 import { Stack } from 'expo-router'
@@ -13,6 +13,7 @@ import {
 } from '@expo-google-fonts/roboto'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
+import { STATUS_BAR_HEIGHT } from '@/constants/general'
 
 export { ErrorBoundary } from 'expo-router'
 
@@ -22,20 +23,31 @@ export default function RootLayout() {
 		Roboto_400Regular,
 		Roboto_500Medium,
 	})
-	return (
-		<>
-			<StatusBar style="light" />
-			{!fontsLoaded || !authHasBeenChecked ? (
+
+	if (!fontsLoaded && !authHasBeenChecked) {
+		return (
+			<View className="flex-1 items-center justify-center">
 				<ActivityIndicator />
-			) : (
-				<GestureHandlerRootView style={{ flex: 1 }}>
-					<SafeAreaView>
-						<Stack>
-							<Stack.Screen name="index" />
-						</Stack>
-					</SafeAreaView>
-				</GestureHandlerRootView>
-			)}
-		</>
+			</View>
+		)
+	}
+
+	return (
+		<GestureHandlerRootView className="flex-1">
+			<StatusBar style="light" />
+			<SafeAreaView
+				className="flex-1 bg-layout-background"
+				style={{ paddingTop: STATUS_BAR_HEIGHT }}
+			>
+				<Stack
+					screenOptions={{
+						headerShown: false,
+						contentStyle: { backgroundColor: '#111212' },
+					}}
+				>
+					<Stack.Screen name="index" />
+				</Stack>
+			</SafeAreaView>
+		</GestureHandlerRootView>
 	)
 }

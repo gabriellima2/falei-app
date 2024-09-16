@@ -22,7 +22,7 @@ export function ProtectScreen<P extends {}>(Component: ComponentType<P>) {
 		const navigationState = useRootNavigationState()
 
 		const handleRedirect = () => {
-			const inPublicGroup = segments[0] === PUBLIC_GROUP_NAME
+			/*const inPublicGroup = segments[0] === PUBLIC_GROUP_NAME
 			const inPrivateGroup = segments[0] === PRIVATE_GROUP_NAME
 			const inRootPath = pathname === '/'
 
@@ -32,7 +32,7 @@ export function ProtectScreen<P extends {}>(Component: ComponentType<P>) {
 
 			if (!user && inPrivateGroup && !inPublicGroup) {
 				return router.replace(`/${PUBLIC_GROUP_NAME}/login`)
-			}
+			}*/
 		}
 
 		// biome-ignore lint/correctness/useExhaustiveDependencies:
