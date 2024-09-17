@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth'
 import { create } from 'zustand'
 
-import { makeAuthenticationAdapter } from '@/adapters/authentication.adapter'
+import { makeFirebaseAuthenticationAdapter } from '@/firebase/adapters/firebase-authentication.adapter'
 import { auth } from '@/config/firebase'
 
 import type {
@@ -11,7 +11,7 @@ import type {
 } from '@/schemas/authentication.schema'
 import type { AuthenticationStoreState } from './@types/authentication-store-state'
 
-const authenticationAdapter = makeAuthenticationAdapter()
+const authenticationAdapter = makeFirebaseAuthenticationAdapter()
 
 export const useAuthenticationStore = create<AuthenticationStoreState>(
 	(set) => ({
