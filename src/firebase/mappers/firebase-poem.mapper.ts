@@ -2,19 +2,18 @@ import type { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore'
 
 import { parseTimestamp } from '@/helpers/date'
 
-import type { BreathingExerciseEntity } from '@/entities/breathing-exercise.entity'
-import type { BreathingExerciseDTO } from '@/dtos/breathing-exercise.dto'
+import type { PoemEntity } from '@/entities/poem.entity'
+import type { PoemDTO } from '@/dtos/poem.dto'
 
-export class FirebaseBreathingExerciseMapper {
+export class FirebasePoemMapper {
 	static toEntity(
 		dto: QueryDocumentSnapshot<DocumentData, DocumentData>,
-	): BreathingExerciseEntity {
-		const data = dto.data() as BreathingExerciseDTO
+	): PoemEntity {
+		const data = dto.data() as PoemDTO
 		return {
 			id: dto.id,
-			roundsTotal: data.rounds_total,
-			steps: data.steps,
-			title: data.title,
+			body: data.body,
+			authorName: data.author_name || null,
 			userId: data.user_id || null,
 			createdAt: parseTimestamp(data.created_at).toISOString(),
 			updatedAt: parseTimestamp(data.updated_at).toISOString(),
@@ -22,7 +21,7 @@ export class FirebaseBreathingExerciseMapper {
 	}
 	static toEntityList(
 		dtos: QueryDocumentSnapshot<DocumentData, DocumentData>[],
-	): BreathingExerciseEntity[] {
-		return dtos.map((dto) => FirebaseBreathingExerciseMapper.toEntity(dto))
+	): PoemEntity[] {
+		return dtos.map((dto) => FirebasePoemMapper.toEntity(dto))
 	}
 }
