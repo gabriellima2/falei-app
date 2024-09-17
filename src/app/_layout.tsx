@@ -12,6 +12,8 @@ import {
 	Roboto_500Medium,
 } from '@expo-google-fonts/roboto'
 
+import { Providers } from '@/providers'
+
 import { useAuthenticationStore } from '@/store/authentication-store'
 import { STATUS_BAR_HEIGHT } from '@/constants/general'
 
@@ -35,19 +37,21 @@ export default function RootLayout() {
 	return (
 		<GestureHandlerRootView className="flex-1">
 			<StatusBar style="light" />
-			<SafeAreaView
-				className="flex-1 bg-layout-background"
-				style={{ paddingTop: STATUS_BAR_HEIGHT }}
-			>
-				<Stack
-					screenOptions={{
-						headerShown: false,
-						contentStyle: { backgroundColor: '#111212' },
-					}}
+			<Providers>
+				<SafeAreaView
+					className="flex-1 bg-layout-background"
+					style={{ paddingTop: STATUS_BAR_HEIGHT }}
 				>
-					<Stack.Screen name="index" />
-				</Stack>
-			</SafeAreaView>
+					<Stack
+						screenOptions={{
+							headerShown: false,
+							contentStyle: { backgroundColor: '#111212' },
+						}}
+					>
+						<Stack.Screen name="index" />
+					</Stack>
+				</SafeAreaView>
+			</Providers>
 		</GestureHandlerRootView>
 	)
 }
