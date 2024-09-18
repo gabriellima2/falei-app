@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 
 import { db } from '@/config/firebase'
+import { env } from '@/env'
 
 import { TongueTwisterNotFoundException } from '@/exceptions/tongue-twister-not-found.exception'
 import { FirebaseTongueTwisterMapper } from '../mappers/firebase-tongue-twister.mapper'
@@ -11,7 +12,7 @@ import type { TongueTwisterEntity } from '@/entities/tongue-twister.entity'
 class FirebaseTongueTwister implements TongueTwisterRepository {
 	private readonly collection
 	constructor() {
-		this.collection = 'tongue_twister'
+		this.collection = env.TONGUE_TWISTER_COLLECTION_NAME
 	}
 	async getById(id: string): Promise<TongueTwisterEntity> {
 		const docRef = doc(db, this.collection, id)

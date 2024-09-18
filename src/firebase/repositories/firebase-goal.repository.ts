@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 
 import { db } from '@/config/firebase'
+import { env } from '@/env'
 
 import { GoalNotFoundException } from '@/exceptions/goal-not-found.exception'
 import { FirebaseGoalMapper } from '../mappers/firebase-goal.mapper'
@@ -11,7 +12,7 @@ import type { GoalEntity } from '@/entities/goal.entity'
 class FirebaseGoal implements GoalRepository {
 	private readonly collection
 	constructor() {
-		this.collection = 'goals'
+		this.collection = env.GOALS_COLLECTION_NAME
 	}
 	async getById(id: string): Promise<GoalEntity> {
 		const docRef = doc(db, this.collection, id)

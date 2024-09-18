@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 
 import { db } from '@/config/firebase'
+import { env } from '@/env'
 
 import { BreathingExerciseFoundException } from '@/exceptions/breathing-exercise-not-found.exception'
 import { FirebaseBreathingExerciseMapper } from '../mappers/firebase-breathing-exercise.mapper'
@@ -13,7 +14,7 @@ class FirebaseBreathingExerciseRepository
 {
 	private readonly collection
 	constructor() {
-		this.collection = 'breathing_exercises'
+		this.collection = env.BREATHING_EXERCISES_COLLECTION_NAME
 	}
 	async getById(id: string): Promise<BreathingExerciseEntity> {
 		const docRef = doc(db, this.collection, id)

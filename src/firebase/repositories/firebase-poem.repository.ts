@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 
 import { db } from '@/config/firebase'
+import { env } from '@/env'
 
 import { PoemNotFoundException } from '@/exceptions/poem-not-found.exception'
 import { FirebasePoemMapper } from '../mappers/firebase-poem.mapper'
@@ -11,7 +12,7 @@ import type { PoemEntity } from '@/entities/poem.entity'
 class FirebasePoem implements PoemRepository {
 	private readonly collection
 	constructor() {
-		this.collection = 'poems'
+		this.collection = env.POEMS_COLLECTION_NAME
 	}
 	async getById(id: string): Promise<PoemEntity> {
 		const docRef = doc(db, this.collection, id)
