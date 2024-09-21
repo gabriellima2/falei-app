@@ -30,6 +30,7 @@ module.exports = {
 				base: {
 					text: '#F6F7F7',
 					'text-muted': '#B3B3B3',
+					'text-foreground': '#111212',
 					primary: '#DD9EF3',
 					'primary-foreground': '#DD9EF312',
 					success: '#45D483',
