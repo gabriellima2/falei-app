@@ -1,14 +1,7 @@
-import { Container } from '@/ui/atoms/container'
-import { Header } from '@/ui/components/header'
+import { HomeTemplate } from '@/ui/templates/home.template'
 
 function Page() {
-	return (
-		<Container className="p-0">
-			<Header.Root>
-				<Header.Title>Início</Header.Title>
-			</Header.Root>
-		</Container>
-	)
+	return <HomeTemplate />
 }
 
 export default Page // ProtectScreen(Page)
