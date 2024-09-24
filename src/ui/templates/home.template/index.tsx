@@ -1,3 +1,6 @@
+import { Flame } from 'lucide-react-native'
+
+import { BaseExercise } from '@/ui/components/base-exercise'
 import { Container } from '@/ui/atoms/container'
 import { Header } from '@/ui/components/header'
 
@@ -7,6 +10,19 @@ export function HomeTemplate() {
 			<Header.Root>
 				<Header.Title>Início</Header.Title>
 			</Header.Root>
+			<BaseExercise.Root variant="default" onMenuPress={console.log}>
+				<BaseExercise.Header>
+					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
+					<BaseExercise.Menu />
+				</BaseExercise.Header>
+				<BaseExercise.Content>
+					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
+					<BaseExercise.InformationRoot>
+						<BaseExercise.InformationItem text="4 Rounds" />
+						<BaseExercise.InformationItem text="18 min." />
+					</BaseExercise.InformationRoot>
+				</BaseExercise.Content>
+			</BaseExercise.Root>
 		</Container>
 	)
 }

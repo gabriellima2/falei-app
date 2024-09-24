@@ -20,12 +20,16 @@ module.exports = {
 				entity: {
 					goal: '#DD9EF3',
 					'goal-foreground': '#DD9EF312',
+					'goal-background': '#231E25',
 					'breathing-exercise': '#73CEF2',
 					'breathing-exercise-foreground': '#73CEF212',
+					'breathing-exercise-background': '#201C21',
 					poem: '#73F299',
 					'poem-foreground': '#73F29912',
+					'poem-background': '#1A221C',
 					'tongue-twister': '#73F299',
 					'tongue-twister-foreground': '#73F29912',
+					'tongue-twister-background': '#1A221C',
 				},
 				base: {
 					text: '#F6F7F7',
