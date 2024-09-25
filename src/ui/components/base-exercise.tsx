@@ -25,20 +25,23 @@ type DefaultVariants = {
 	}
 }
 
-const rootVariants = cva<DefaultVariants>('', {
-	variants: {
-		variant: {
-			default: 'bg-layout-foreground',
-			'breathing-exercise': 'bg-entity-breathing-exercise-background',
-			goal: 'bg-entity-goal-background',
-			poem: 'bg-entity-poem-background',
-			'tongue-twister': 'bg-entity-tongue-twister-background',
+const rootVariants = cva<DefaultVariants>(
+	'w-full max-w-[164px] rounded-xl overflow-hidden',
+	{
+		variants: {
+			variant: {
+				default: 'bg-layout-foreground',
+				'breathing-exercise': 'bg-entity-breathing-exercise-background',
+				goal: 'bg-entity-goal-background',
+				poem: 'bg-entity-poem-background',
+				'tongue-twister': 'bg-entity-tongue-twister-background',
+			},
+		},
+		defaultVariants: {
+			variant: 'default',
 		},
 	},
-	defaultVariants: {
-		variant: 'default',
-	},
-})
+)
 
 type BaseExerciseContextValues = VariantProps<typeof rootVariants> & {
 	onMenuPress?: () => void
@@ -68,7 +71,6 @@ function Root(props: RootProps) {
 				onPress={onPress}
 				activeOpacity={0.9}
 				className={cn(
-					'w-full max-w-[164px] rounded-xl overflow-hidden',
 					rootVariants({
 						variant,
 						className,
@@ -93,7 +95,7 @@ function Header(props: ViewProps) {
 
 function Content(props: ViewProps) {
 	const { className, ...rest } = props
-	return <View className={cn('p-4', className)} {...rest} />
+	return <View className={cn('px-4 pb-4', className)} {...rest} />
 }
 
 const foregroundVariants = cva<DefaultVariants>('', {
@@ -131,7 +133,7 @@ function Icon(props: IconProps) {
 	return (
 		<View
 			className={cn(
-				'p-4 rounded-full -translate-y-2 -translate-x-2 w-16 h-16 justify-center items-center',
+				'p-4 rounded-full -translate-y-1.5 -translate-x-1.5 w-16 h-16 justify-center items-center',
 				foregroundVariants({
 					variant,
 					className,
@@ -146,6 +148,18 @@ function Icon(props: IconProps) {
 function Title(props: TextProps) {
 	const { className, ...rest } = props
 	return <Typography.Title className={cn('text-base', className)} {...rest} />
+}
+
+function Paragraph(props: TextProps) {
+	const { className, ...rest } = props
+	return (
+		<Typography.Paragraph
+			numberOfLines={4}
+			ellipsizeMode="tail"
+			className={cn('text-base', className)}
+			{...rest}
+		/>
+	)
 }
 
 function Menu() {
@@ -173,7 +187,7 @@ function InformationItem(props: InformationProps) {
 	return (
 		<View
 			className={cn(
-				'w-full max-w-[95px] mt-2 py-3 px-2 rounded-lg items-center justify-center',
+				'w-full max-w-[95px] mt-2 h-[32px] px-2 rounded-lg items-center justify-center',
 				foregroundVariants({
 					variant,
 					className,
@@ -197,6 +211,7 @@ export const BaseExercise = {
 	Menu,
 	Content,
 	Title,
+	Paragraph,
 	InformationRoot,
 	InformationItem,
 }

@@ -1,6 +1,5 @@
-import { Flame } from 'lucide-react-native'
-
-import { BaseExercise } from '@/ui/components/base-exercise'
+import { BreathingExercise } from '@/ui/components/breathing-exercise'
+import { PoemExercise } from '@/ui/components/poem-exercise'
 import { Container } from '@/ui/atoms/container'
 import { Header } from '@/ui/components/header'
 
@@ -10,75 +9,16 @@ export function HomeTemplate() {
 			<Header.Root>
 				<Header.Title>Início</Header.Title>
 			</Header.Root>
-			<BaseExercise.Root variant="default" onMenuPress={console.log}>
-				<BaseExercise.Header>
-					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
-					<BaseExercise.Menu />
-				</BaseExercise.Header>
-				<BaseExercise.Content>
-					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
-					<BaseExercise.InformationRoot>
-						<BaseExercise.InformationItem text="4 Rounds" />
-						<BaseExercise.InformationItem text="18 min." />
-					</BaseExercise.InformationRoot>
-				</BaseExercise.Content>
-			</BaseExercise.Root>
-
-			<BaseExercise.Root variant="breathing-exercise" onMenuPress={console.log}>
-				<BaseExercise.Header>
-					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
-					<BaseExercise.Menu />
-				</BaseExercise.Header>
-				<BaseExercise.Content>
-					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
-					<BaseExercise.InformationRoot>
-						<BaseExercise.InformationItem text="4 Rounds" />
-						<BaseExercise.InformationItem text="18 min." />
-					</BaseExercise.InformationRoot>
-				</BaseExercise.Content>
-			</BaseExercise.Root>
-
-			<BaseExercise.Root variant="goal" onMenuPress={console.log}>
-				<BaseExercise.Header>
-					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
-					<BaseExercise.Menu />
-				</BaseExercise.Header>
-				<BaseExercise.Content>
-					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
-					<BaseExercise.InformationRoot>
-						<BaseExercise.InformationItem text="4 Rounds" />
-						<BaseExercise.InformationItem text="18 min." />
-					</BaseExercise.InformationRoot>
-				</BaseExercise.Content>
-			</BaseExercise.Root>
-
-			<BaseExercise.Root variant="poem" onMenuPress={console.log}>
-				<BaseExercise.Header>
-					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
-					<BaseExercise.Menu />
-				</BaseExercise.Header>
-				<BaseExercise.Content>
-					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
-					<BaseExercise.InformationRoot>
-						<BaseExercise.InformationItem text="4 Rounds" />
-						<BaseExercise.InformationItem text="18 min." />
-					</BaseExercise.InformationRoot>
-				</BaseExercise.Content>
-			</BaseExercise.Root>
-
-			<BaseExercise.Root variant="tongue-twister" onMenuPress={console.log}>
-				<BaseExercise.Header>
-					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
-					<BaseExercise.Menu />
-				</BaseExercise.Header>
-				<BaseExercise.Content>
-					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
-					<BaseExercise.InformationRoot>
-						<BaseExercise.InformationItem text="4 Rounds" />
-						<BaseExercise.InformationItem text="18 min." />
-					</BaseExercise.InformationRoot>
-				</BaseExercise.Content>
-			</BaseExercise.Root>
+			<BreathingExercise
+				id="1"
+				title="Respiração lenta"
+				roundsTotal={3}
+				steps={{ exhale: 3000, hold: 4000, inhale: 5000 }}
+			/>
+			<PoemExercise
+				id="1"
+				body="No meio do caminho tinha uma pedra tinha uma pedra no meio do caminho tinha uma pedra no meio do caminho tinha uma pedra."
+			/>
 		</Container>
 	)
 }
