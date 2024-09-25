@@ -1,12 +1,12 @@
 import { NotebookText } from 'lucide-react-native'
 import { BaseExercise } from './base-exercise'
 
-type PoemProps = {
+type TongueTwisterProps = {
 	id: string
 	body: string
 }
 
-export function PoemExercise(props: PoemProps) {
+export function TongueTwister(props: TongueTwisterProps) {
 	const { body } = props
 	return (
 		<BaseExercise.Root variant="poem" onMenuPress={console.log}>

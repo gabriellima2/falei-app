@@ -1,7 +1,8 @@
 import { BreathingExercise } from '@/ui/components/breathing-exercise'
-import { PoemExercise } from '@/ui/components/poem-exercise'
+import { TongueTwister } from '@/ui/components/tongue-twister'
 import { Container } from '@/ui/atoms/container'
 import { Header } from '@/ui/components/header'
+import { Poem } from '@/ui/components/poem'
 
 export function HomeTemplate() {
 	return (
@@ -15,9 +16,13 @@ export function HomeTemplate() {
 				roundsTotal={3}
 				steps={{ exhale: 3000, hold: 4000, inhale: 5000 }}
 			/>
-			<PoemExercise
+			<Poem
 				id="1"
 				body="No meio do caminho tinha uma pedra tinha uma pedra no meio do caminho tinha uma pedra no meio do caminho tinha uma pedra."
+			/>
+			<TongueTwister
+				id="1"
+				body="Trazei três pratos de trigo para três tigres tristes comerem."
 			/>
 		</Container>
 	)
