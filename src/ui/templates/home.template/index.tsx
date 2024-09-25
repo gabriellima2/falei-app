@@ -23,6 +23,62 @@ export function HomeTemplate() {
 					</BaseExercise.InformationRoot>
 				</BaseExercise.Content>
 			</BaseExercise.Root>
+
+			<BaseExercise.Root variant="breathing-exercise" onMenuPress={console.log}>
+				<BaseExercise.Header>
+					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
+					<BaseExercise.Menu />
+				</BaseExercise.Header>
+				<BaseExercise.Content>
+					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
+					<BaseExercise.InformationRoot>
+						<BaseExercise.InformationItem text="4 Rounds" />
+						<BaseExercise.InformationItem text="18 min." />
+					</BaseExercise.InformationRoot>
+				</BaseExercise.Content>
+			</BaseExercise.Root>
+
+			<BaseExercise.Root variant="goal" onMenuPress={console.log}>
+				<BaseExercise.Header>
+					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
+					<BaseExercise.Menu />
+				</BaseExercise.Header>
+				<BaseExercise.Content>
+					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
+					<BaseExercise.InformationRoot>
+						<BaseExercise.InformationItem text="4 Rounds" />
+						<BaseExercise.InformationItem text="18 min." />
+					</BaseExercise.InformationRoot>
+				</BaseExercise.Content>
+			</BaseExercise.Root>
+
+			<BaseExercise.Root variant="poem" onMenuPress={console.log}>
+				<BaseExercise.Header>
+					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
+					<BaseExercise.Menu />
+				</BaseExercise.Header>
+				<BaseExercise.Content>
+					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
+					<BaseExercise.InformationRoot>
+						<BaseExercise.InformationItem text="4 Rounds" />
+						<BaseExercise.InformationItem text="18 min." />
+					</BaseExercise.InformationRoot>
+				</BaseExercise.Content>
+			</BaseExercise.Root>
+
+			<BaseExercise.Root variant="tongue-twister" onMenuPress={console.log}>
+				<BaseExercise.Header>
+					<BaseExercise.Icon renderIcon={(props) => <Flame {...props} />} />
+					<BaseExercise.Menu />
+				</BaseExercise.Header>
+				<BaseExercise.Content>
+					<BaseExercise.Title>Respiração lenta</BaseExercise.Title>
+					<BaseExercise.InformationRoot>
+						<BaseExercise.InformationItem text="4 Rounds" />
+						<BaseExercise.InformationItem text="18 min." />
+					</BaseExercise.InformationRoot>
+				</BaseExercise.Content>
+			</BaseExercise.Root>
 		</Container>
 	)
 }

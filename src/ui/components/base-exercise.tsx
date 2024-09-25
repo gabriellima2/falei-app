@@ -4,6 +4,7 @@ import {
 	TouchableHighlight,
 	type TextProps,
 	type ViewProps,
+	TouchableOpacity,
 } from 'react-native'
 import { EllipsisVertical, type LucideProps } from 'lucide-react-native'
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -27,11 +28,11 @@ type DefaultVariants = {
 const rootVariants = cva<DefaultVariants>('', {
 	variants: {
 		variant: {
-			default: '',
-			'breathing-exercise': '',
-			goal: '',
-			poem: '',
-			'tongue-twister': '',
+			default: 'bg-layout-foreground',
+			'breathing-exercise': 'bg-entity-breathing-exercise-background',
+			goal: 'bg-entity-goal-background',
+			poem: 'bg-entity-poem-background',
+			'tongue-twister': 'bg-entity-tongue-twister-background',
 		},
 	},
 	defaultVariants: {
@@ -56,35 +57,53 @@ export function useBaseExerciseContext() {
 type RootProps = PropsWithChildren &
 	Pick<BaseExerciseContextValues, 'onMenuPress' | 'variant'> & {
 		className?: string
+		onPress?: () => void
 	}
 
 function Root(props: RootProps) {
-	const { className, children, variant, onMenuPress } = props
+	const { className, children, variant, onPress, onMenuPress } = props
 	return (
 		<BaseExerciseContext.Provider value={{ variant, onMenuPress }}>
-			<View className={cn('', className)}>{children}</View>
+			<TouchableOpacity
+				onPress={onPress}
+				activeOpacity={0.9}
+				className={cn(
+					'w-full max-w-[164px] rounded-xl overflow-hidden',
+					rootVariants({
+						variant,
+						className,
+					}),
+				)}
+			>
+				{children}
+			</TouchableOpacity>
 		</BaseExerciseContext.Provider>
 	)
 }
 
 function Header(props: ViewProps) {
 	const { className, ...rest } = props
-	return <View className={cn('', className)} {...rest} />
+	return (
+		<View
+			className={cn('flex-row justify-between items-center pr-4', className)}
+			{...rest}
+		/>
+	)
 }
 
 function Content(props: ViewProps) {
 	const { className, ...rest } = props
-	return <View className={cn('', className)} {...rest} />
+	return <View className={cn('p-4', className)} {...rest} />
 }
 
 const foregroundVariants = cva<DefaultVariants>('', {
 	variants: {
 		variant: {
-			default: '',
-			'breathing-exercise': '',
-			goal: '',
-			poem: '',
-			'tongue-twister': '',
+			default: 'bg-common-white/5',
+			'breathing-exercise': 'bg-entity-breathing-exercise/5',
+			goal: 'bg-entity-goal/5',
+			poem: 'bg-entity-poem/5',
+			'tongue-twister': 'bg-entity-tongue-twister/5',
 		},
 	},
 	defaultVariants: {
@@ -98,11 +117,11 @@ type IconProps = {
 }
 
 const ICON_COLORS: Pick<DefaultVariants, 'variant'>['variant'] = {
-	default: '',
-	'breathing-exercise': '',
-	goal: '',
-	poem: '',
-	'tongue-twister': '',
+	default: '#F6F7F7',
+	'breathing-exercise': '#73CEF2',
+	goal: '#DD9EF3',
+	poem: '#73F299',
+	'tongue-twister': '#73F299',
 }
 
 function Icon(props: IconProps) {
@@ -112,20 +131,21 @@ function Icon(props: IconProps) {
 	return (
 		<View
 			className={cn(
+				'p-4 rounded-full -translate-y-2 -translate-x-2 w-16 h-16 justify-center items-center',
 				foregroundVariants({
 					variant,
 					className,
 				}),
 			)}
 		>
-			{renderIcon({ color: iconColor, size: 20 })}
+			{renderIcon({ color: iconColor, size: 24 })}
 		</View>
 	)
 }
 
 function Title(props: TextProps) {
 	const { className, ...rest } = props
-	return <Typography.Title className={cn('text-sm', className)} {...rest} />
+	return <Typography.Title className={cn('text-base', className)} {...rest} />
 }
 
 function Menu() {
@@ -139,18 +159,7 @@ function Menu() {
 
 function InformationRoot(props: ViewProps) {
 	const { className, ...rest } = props
-	const { variant } = useBaseExerciseContext()
-	return (
-		<View
-			className={cn(
-				foregroundVariants({
-					variant,
-					className,
-				}),
-			)}
-			{...rest}
-		/>
-	)
+	return <View className={cn('mt-2', className)} {...rest} />
 }
 
 type InformationProps = {
@@ -160,9 +169,23 @@ type InformationProps = {
 
 function InformationItem(props: InformationProps) {
 	const { className, text } = props
+	const { variant } = useBaseExerciseContext()
 	return (
-		<View className={cn('text-xs', className)}>
-			<Typography.Paragraph className="text-xs">{text}</Typography.Paragraph>
+		<View
+			className={cn(
+				'w-full max-w-[95px] mt-2 py-3 px-2 rounded-lg items-center justify-center',
+				foregroundVariants({
+					variant,
+					className,
+				}),
+			)}
+		>
+			<Typography.Paragraph
+				ellipsizeMode="tail"
+				className="text-xs text-center"
+			>
+				{text}
+			</Typography.Paragraph>
 		</View>
 	)
 }
