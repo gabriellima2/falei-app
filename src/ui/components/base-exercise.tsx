@@ -1,10 +1,9 @@
 import { createContext, useContext, type PropsWithChildren } from 'react'
 import {
 	View,
-	TouchableHighlight,
+	TouchableOpacity,
 	type TextProps,
 	type ViewProps,
-	TouchableOpacity,
 } from 'react-native'
 import { EllipsisVertical, type LucideProps } from 'lucide-react-native'
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -165,9 +164,9 @@ function Paragraph(props: TextProps) {
 function Menu() {
 	const { onMenuPress } = useBaseExerciseContext()
 	return (
-		<TouchableHighlight onPress={onMenuPress}>
+		<TouchableOpacity onPress={onMenuPress} activeOpacity={0.8}>
 			<EllipsisVertical color={colors.white} />
-		</TouchableHighlight>
+		</TouchableOpacity>
 	)
 }
 

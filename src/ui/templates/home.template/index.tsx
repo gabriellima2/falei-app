@@ -6,6 +6,8 @@ import { Section } from '@/ui/components/section'
 import { ScrollContainer } from '@/ui/atoms/scroll-container'
 import { Header } from '@/ui/components/header'
 import { Poem } from '@/ui/components/poem'
+import { Goal } from '@/ui/components/goal'
+import { addDays } from 'date-fns'
 
 export function HomeTemplate() {
 	return (
@@ -14,11 +16,25 @@ export function HomeTemplate() {
 				<Header.Title>Início</Header.Title>
 			</Header.Root>
 			<View>
+				<Section title="Metas">
+					<Goal
+						id="1"
+						title="Respiração lenta"
+						roundsTotal={4}
+						steps={{ exhale: 3000, hold: 4000, inhale: 5000 }}
+						frequencyPerWeek={3}
+						activityHistory={[
+							{ createdAt: new Date().toISOString() },
+							{ createdAt: addDays(new Date(), -1).toISOString() },
+							{ createdAt: addDays(new Date(), -5).toISOString() },
+						]}
+					/>
+				</Section>
 				<Section title="Exercícios de respiração">
 					<BreathingExercise
 						id="1"
 						title="Respiração lenta"
-						roundsTotal={3}
+						roundsTotal={4}
 						steps={{ exhale: 3000, hold: 4000, inhale: 5000 }}
 					/>
 				</Section>
