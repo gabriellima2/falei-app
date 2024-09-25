@@ -1,4 +1,4 @@
-import { NotebookText } from 'lucide-react-native'
+import { BookOpenText } from 'lucide-react-native'
 import { BaseExercise } from './base-exercise'
 
 type PoemProps = {
@@ -12,7 +12,7 @@ export function Poem(props: PoemProps) {
 		<BaseExercise.Root variant="poem" onMenuPress={console.log}>
 			<BaseExercise.Header>
 				<BaseExercise.Icon
-					renderIcon={(props) => <NotebookText {...props} />}
+					renderIcon={(props) => <BookOpenText {...props} />}
 				/>
 			</BaseExercise.Header>
 			<BaseExercise.Content className="min-h-[114px]">
