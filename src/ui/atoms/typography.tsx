@@ -14,7 +14,10 @@ function Title(props: TextProps) {
 function Subtitle(props: TextProps) {
 	const { className, ...rest } = props
 	return (
-		<Text className={cn(className, 'font-heading text-base-text')} {...rest} />
+		<Text
+			className={cn(className, 'font-heading text-base-text text-base')}
+			{...rest}
+		/>
 	)
 }
 

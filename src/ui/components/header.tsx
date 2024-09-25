@@ -11,7 +11,7 @@ function Root(props: RootProps) {
 	return (
 		<View
 			className={cn(
-				'p-4 flex-row items-center justify-between gap-x-2',
+				'mb-8 flex-row items-center justify-between gap-x-2',
 				className,
 			)}
 			{...rest}
