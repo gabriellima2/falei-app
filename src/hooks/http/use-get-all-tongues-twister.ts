@@ -4,13 +4,20 @@ import { makeTongueTwisterService } from '@/services/tongue-twister.service'
 import { QUERY_KEYS } from '@/constants/keys'
 
 import type { QueryOptions } from '@/@types/general'
+import type { TongueTwisterEntity } from '@/entities/tongue-twister.entity'
 
 const tongueTwisterService = makeTongueTwisterService()
 
-export function useGetAllTonguesTwister(options?: QueryOptions) {
-	const { data, ...rest } = useQuery({
+type TongueTwisters = TongueTwisterEntity[] | undefined
+
+export function useGetAllTonguesTwister(
+	options?: QueryOptions<TongueTwisters>,
+) {
+	const { data, ...rest } = useQuery<TongueTwisters>({
 		queryFn: tongueTwisterService.getAll,
 		queryKey: [QUERY_KEYS.GET_TONGUES_TWISTER],
+		throwOnError: true,
+		refetchOnWindowFocus: false,
 		...options,
 	})
 	return { tonguesTwister: data, ...rest }

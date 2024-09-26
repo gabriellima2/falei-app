@@ -4,16 +4,21 @@ import { makeBreathingExerciseService } from '@/services/breathing-exercise.serv
 import { QUERY_KEYS } from '@/constants/keys'
 
 import type { QueryOptions } from '@/@types/general'
+import type { BreathingExerciseEntity } from '@/entities/breathing-exercise.entity'
 
 const breathingExerciseService = makeBreathingExerciseService()
 
+type BreathingExercise = BreathingExerciseEntity | undefined
+
 export function useGetBreathingExerciseById(
 	id: string,
-	options?: QueryOptions,
+	options?: QueryOptions<BreathingExercise>,
 ) {
-	const { data, ...rest } = useQuery({
+	const { data, ...rest } = useQuery<BreathingExercise>({
 		queryFn: () => breathingExerciseService.getById(id),
 		queryKey: [QUERY_KEYS.GET_BREATHING_EXERCISE, id],
+		throwOnError: true,
+		refetchOnWindowFocus: false,
 		...options,
 	})
 	return { breathingExercise: data, ...rest }
