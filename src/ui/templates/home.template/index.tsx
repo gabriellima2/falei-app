@@ -1,13 +1,12 @@
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 
 import { BreathingExercise } from '@/ui/components/breathing-exercise'
 import { TongueTwister } from '@/ui/components/tongue-twister'
-import { Section } from '@/ui/components/section'
 import { ScrollContainer } from '@/ui/atoms/scroll-container'
+import { Section } from '@/ui/components/section'
 import { Header } from '@/ui/components/header'
 import { Poem } from '@/ui/components/poem'
-import { Goal } from '@/ui/components/goal'
-import { addDays } from 'date-fns'
+import { Goals } from './components/goals'
 
 export function HomeTemplate() {
 	return (
@@ -17,18 +16,7 @@ export function HomeTemplate() {
 			</Header.Root>
 			<View>
 				<Section title="Metas">
-					<Goal
-						id="1"
-						title="Respiração lenta"
-						roundsTotal={4}
-						steps={{ exhale: 3000, hold: 4000, inhale: 5000 }}
-						frequencyPerWeek={3}
-						activityHistory={[
-							{ createdAt: new Date().toISOString() },
-							{ createdAt: addDays(new Date(), -1).toISOString() },
-							{ createdAt: addDays(new Date(), -5).toISOString() },
-						]}
-					/>
+					<Goals />
 				</Section>
 				<Section title="Exercícios de respiração">
 					<BreathingExercise
