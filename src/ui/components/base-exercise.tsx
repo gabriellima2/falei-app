@@ -94,7 +94,7 @@ function Header(props: ViewProps) {
 
 function Content(props: ViewProps) {
 	const { className, ...rest } = props
-	return <View className={cn('px-4 pb-4', className)} {...rest} />
+	return <View className={cn('px-4 pb-4 justify-between flex-1', className)} {...rest} />
 }
 
 const foregroundVariants = cva<DefaultVariants>('', {
