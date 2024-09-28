@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 
 import { BreathingExercises } from './components/breathing-exercises'
-import { TongueTwister } from '@/ui/components/tongue-twister'
+import { TonguesTwister } from './components/tongues-twister'
 import { ScrollContainer } from '@/ui/atoms/scroll-container'
 import { Section } from '@/ui/components/section'
 import { Header } from '@/ui/components/header'
@@ -22,10 +22,7 @@ export function HomeTemplate() {
 					<BreathingExercises />
 				</Section>
 				<Section title="Trava-línguas">
-					<TongueTwister
-						id="1"
-						body="Trazei três pratos de trigo para três tigres tristes comerem."
-					/>
+					<TonguesTwister />
 				</Section>
 				<Section title="Poemas">
 					<Poem
