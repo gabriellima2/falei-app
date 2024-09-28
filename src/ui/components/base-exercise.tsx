@@ -25,7 +25,7 @@ type DefaultVariants = {
 }
 
 const rootVariants = cva<DefaultVariants>(
-	'w-full max-w-[164px] rounded-xl overflow-hidden',
+	'w-full w-[164px] rounded-xl overflow-hidden',
 	{
 		variants: {
 			variant: {
@@ -146,7 +146,7 @@ function Icon(props: IconProps) {
 
 function Title(props: TextProps) {
 	const { className, ...rest } = props
-	return <Typography.Title className={cn('text-base', className)} {...rest} />
+	return <Typography.Title numberOfLines={2} className={cn('text-base', className)} {...rest} />
 }
 
 function Paragraph(props: TextProps) {
