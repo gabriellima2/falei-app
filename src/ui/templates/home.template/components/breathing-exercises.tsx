@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
-import { FlatList, View, type ListRenderItemInfo } from 'react-native'
+import type { ListRenderItemInfo } from 'react-native'
 
 import { BreathingExercise } from '@/ui/components/breathing-exercise'
+import { HorizontalList } from '@/ui/components/horizontal-list'
 import { Typography } from '@/ui/atoms/typography'
 
 import { useGetAllBreathingExercises } from '@/hooks/http/use-get-all-breathing-exercises'
@@ -25,16 +26,11 @@ export function BreathingExercises() {
 		[],
 	)
 
-	const renderItemSeparatorComponent = useCallback(() => <View className="w-4" />, [])
-
 	return (
-		<FlatList
+		<HorizontalList
 			data={breathingExercises}
 			renderItem={renderItem}
 			keyExtractor={keyExtractor}
-			horizontal
-			showsHorizontalScrollIndicator={false}
-			ItemSeparatorComponent={renderItemSeparatorComponent}
 			ListEmptyComponent={() => (
 				<>
 					{isLoading || isFetching ? (

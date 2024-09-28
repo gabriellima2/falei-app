@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
-import { FlatList, View, type ListRenderItemInfo } from 'react-native'
+import type { ListRenderItemInfo } from 'react-native'
 
+import { HorizontalList } from '@/ui/components/horizontal-list'
 import { TongueTwister } from '@/ui/components/tongue-twister'
 import { Typography } from '@/ui/atoms/typography'
 
@@ -23,16 +24,11 @@ export function TonguesTwister() {
 		[],
 	)
 
-	const renderItemSeparatorComponent = useCallback(() => <View className="w-4" />, [])
-
 	return (
-		<FlatList
+		<HorizontalList
 			data={tonguesTwister}
 			renderItem={renderItem}
 			keyExtractor={keyExtractor}
-			horizontal
-			showsHorizontalScrollIndicator={false}
-			ItemSeparatorComponent={renderItemSeparatorComponent}
 			ListEmptyComponent={() => (
 				<>
 					{isLoading || isFetching ? (

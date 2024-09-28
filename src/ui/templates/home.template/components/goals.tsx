@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
-import { FlatList, View, type ListRenderItemInfo } from 'react-native'
+import type { ListRenderItemInfo } from 'react-native'
 
+import { HorizontalList } from '@/ui/components/horizontal-list'
 import { Typography } from '@/ui/atoms/typography'
 import { Goal } from '@/ui/components/goal'
 
@@ -27,16 +28,11 @@ export function Goals() {
 		[],
 	)
 
-	const renderItemSeparatorComponent = useCallback(() => <View className="w-4" />, [])
-
 	return (
-		<FlatList
+		<HorizontalList
 			data={goals}
 			renderItem={renderItem}
 			keyExtractor={keyExtractor}
-			horizontal
-			showsHorizontalScrollIndicator={false}
-			ItemSeparatorComponent={renderItemSeparatorComponent}
 			ListEmptyComponent={() => (
 				<>
 					{isLoading || isFetching ? (
