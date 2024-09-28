@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 
-import { BreathingExercise } from '@/ui/components/breathing-exercise'
+import { BreathingExercises } from './components/breathing-exercises'
 import { TongueTwister } from '@/ui/components/tongue-twister'
 import { ScrollContainer } from '@/ui/atoms/scroll-container'
 import { Section } from '@/ui/components/section'
@@ -19,12 +19,7 @@ export function HomeTemplate() {
 					<Goals />
 				</Section>
 				<Section title="Exercícios de respiração">
-					<BreathingExercise
-						id="1"
-						title="Respiração lenta"
-						roundsTotal={4}
-						steps={{ exhale: 3000, hold: 4000, inhale: 5000 }}
-					/>
+					<BreathingExercises />
 				</Section>
 				<Section title="Trava-línguas">
 					<TongueTwister
