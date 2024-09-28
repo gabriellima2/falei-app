@@ -14,7 +14,7 @@ export function useGetAllBreathingExercises(
 	options?: QueryOptions<BreathingExercises>,
 ) {
 	const { data, ...rest } = useQuery<BreathingExercises>({
-		queryFn: breathingExerciseService.getAll,
+		queryFn: () => breathingExerciseService.getAll(),
 		queryKey: [QUERY_KEYS.GET_BREATHING_EXERCISES],
 		throwOnError: true,
 		refetchOnWindowFocus: false,

@@ -14,7 +14,7 @@ export function useGetAllTonguesTwister(
 	options?: QueryOptions<TongueTwisters>,
 ) {
 	const { data, ...rest } = useQuery<TongueTwisters>({
-		queryFn: tongueTwisterService.getAll,
+		queryFn: () => tongueTwisterService.getAll(),
 		queryKey: [QUERY_KEYS.GET_TONGUES_TWISTER],
 		throwOnError: true,
 		refetchOnWindowFocus: false,
