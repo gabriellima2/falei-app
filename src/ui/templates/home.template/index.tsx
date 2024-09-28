@@ -5,8 +5,8 @@ import { TonguesTwister } from './components/tongues-twister'
 import { ScrollContainer } from '@/ui/atoms/scroll-container'
 import { Section } from '@/ui/components/section'
 import { Header } from '@/ui/components/header'
-import { Poem } from '@/ui/components/poem'
 import { Goals } from './components/goals'
+import { Poems } from './components/poems'
 
 export function HomeTemplate() {
 	return (
@@ -25,10 +25,7 @@ export function HomeTemplate() {
 					<TonguesTwister />
 				</Section>
 				<Section title="Poemas">
-					<Poem
-						id="1"
-						body="No meio do caminho tinha uma pedra tinha uma pedra no meio do caminho tinha uma pedra no meio do caminho tinha uma pedra."
-					/>
+					<Poems />
 				</Section>
 			</View>
 		</ScrollContainer>
