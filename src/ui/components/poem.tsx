@@ -15,7 +15,7 @@ export function Poem(props: PoemProps) {
 					renderIcon={(props) => <BookOpenText {...props} />}
 				/>
 			</BaseExercise.Header>
-			<BaseExercise.Content className="min-h-[114px]">
+			<BaseExercise.Content>
 				<BaseExercise.Paragraph>{body}</BaseExercise.Paragraph>
 			</BaseExercise.Content>
 		</BaseExercise.Root>

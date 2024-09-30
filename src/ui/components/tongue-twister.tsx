@@ -15,7 +15,7 @@ export function TongueTwister(props: TongueTwisterProps) {
 					renderIcon={(props) => <NotebookText {...props} />}
 				/>
 			</BaseExercise.Header>
-			<BaseExercise.Content className="min-h-[114px]">
+			<BaseExercise.Content>
 				<BaseExercise.Paragraph>{body}</BaseExercise.Paragraph>
 			</BaseExercise.Content>
 		</BaseExercise.Root>
