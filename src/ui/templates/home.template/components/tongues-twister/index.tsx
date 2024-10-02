@@ -5,12 +5,14 @@ import { HorizontalList } from '@/ui/components/horizontal-list'
 import { TongueTwister } from '@/ui/components/tongue-twister'
 import { Typography } from '@/ui/atoms/typography'
 
+import { useTonguesTwisterContext } from './contexts/tongues-twister.context/hooks/use-tongues-twister-context'
 import { useGetAllTonguesTwister } from '@/hooks/http/use-get-all-tongues-twister'
 
 import type { TongueTwisterEntity } from '@/entities/tongue-twister.entity'
 
 export function TonguesTwister() {
 	const { tonguesTwister, isLoading, isFetching } = useGetAllTonguesTwister()
+	const { handleOpenReadTongueTwisterBottomSheet } = useTonguesTwisterContext()
 
 	const keyExtractor = useCallback((item: TongueTwisterEntity) => item.id, [])
 
@@ -19,9 +21,10 @@ export function TonguesTwister() {
 			<TongueTwister
 				id={item.id}
 				body={item.body}
+				onPress={handleOpenReadTongueTwisterBottomSheet}
 			/>
 		),
-		[],
+		[handleOpenReadTongueTwisterBottomSheet],
 	)
 
 	return (

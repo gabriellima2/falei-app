@@ -4,12 +4,20 @@ import { BaseExercise } from './base-exercise'
 type TongueTwisterProps = {
 	id: string
 	body: string
+	onPress?: (id: string) => void
 }
 
 export function TongueTwister(props: TongueTwisterProps) {
-	const { body } = props
+	const { id, body, onPress } = props
+
+	function handlePress() {
+		if (onPress) {
+			onPress(id)
+		}
+	}
+
 	return (
-		<BaseExercise.Root variant="poem" onMenuPress={console.log}>
+		<BaseExercise.Root variant="poem" onPress={handlePress}>
 			<BaseExercise.Header>
 				<BaseExercise.Icon
 					renderIcon={(props) => <NotebookText {...props} />}
