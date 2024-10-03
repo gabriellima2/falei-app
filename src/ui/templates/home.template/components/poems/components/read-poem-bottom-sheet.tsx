@@ -20,18 +20,24 @@ export function ReadPoemBottomSheet() {
 
 	return (
 		<BottomSheetScrollViewModal ref={readPoemBottomSheetRef}>
+			<Typography.Title>
+				{poem?.title}
+			</Typography.Title>
+			<Typography.Paragraph className="text-base-text-muted mt-1">
+				Autor: {poem?.authorName || 'Não informado'}
+			</Typography.Paragraph>
 			{poemStanzas.map((stanza, index) => (
-				<View key={index} className='mb-4'>
+				<View key={index} className="mt-4">
 					{stanza.map((verse, index) => (
-						<Typography.Paragraph key={`${verse}-${index}`} className="text-base">
+						<Typography.Paragraph
+							key={`${verse}-${index}`}
+							className="text-base"
+						>
 							{verse.trim()}
 						</Typography.Paragraph>
 					))}
 				</View>
 			))}
-			<Typography.Small className="text-base-text-muted mt-2">
-				Autor: {poem?.authorName || 'Desconhecido'}
-			</Typography.Small>
 		</BottomSheetScrollViewModal>
 	)
 }

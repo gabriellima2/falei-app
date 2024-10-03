@@ -24,9 +24,9 @@ export function ReadTongueTwisterBottomSheet() {
 					{sentence.trim()}
 				</Typography.Paragraph>
 			))}
-			<Typography.Small className="text-base-text-muted mt-2">
-				Autor: {tongueTwister?.authorName || 'Desconhecido'}
-			</Typography.Small>
+			<Typography.Paragraph className="text-base-text-muted mt-4">
+				Autor: {tongueTwister?.authorName || 'Não informado'}
+			</Typography.Paragraph>
 		</BottomSheetScrollViewModal>
 	)
 }

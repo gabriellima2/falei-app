@@ -13,6 +13,7 @@ export class FirebasePoemMapper {
 		return {
 			id: dto.id,
 			body: data.body,
+			title: data.title,
 			authorName: data.author_name || null,
 			userId: data.user_id || null,
 			createdAt: parseTimestamp(data.created_at).toISOString(),
