@@ -13,3 +13,7 @@ export function getPoemStanzas(text: string) {
 	)
 	return stanzasWithVerses
 }
+
+export function removeLastDot(text: string) {
+	return text.replace(/\.(?=[^.]*$)/, '').trim()
+}
