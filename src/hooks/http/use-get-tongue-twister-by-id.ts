@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { skipToken, useQuery } from '@tanstack/react-query'
 
 import { makeTongueTwisterService } from '@/services/tongue-twister.service'
 import { QUERY_KEYS } from '@/constants/keys'
@@ -11,14 +11,15 @@ const tongueTwisterService = makeTongueTwisterService()
 type TongueTwister = TongueTwisterEntity | undefined
 
 export function useGetTongueTwisterById(
-	id: string,
+	id: string | null,
 	options?: QueryOptions<TongueTwister>,
 ) {
 	const { data, ...rest } = useQuery<TongueTwister>({
-		queryFn: () => tongueTwisterService.getById(id),
+		queryFn: id ? () => tongueTwisterService.getById(id) : skipToken,
 		queryKey: [QUERY_KEYS.GET_TONGUE_TWISTER, id],
 		throwOnError: true,
 		refetchOnWindowFocus: false,
+		enabled: !!id,
 		...options,
 	})
 	return { tongueTwister: data, ...rest }
