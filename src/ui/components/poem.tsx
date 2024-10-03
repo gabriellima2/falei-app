@@ -4,12 +4,20 @@ import { BaseExercise } from './base-exercise'
 type PoemProps = {
 	id: string
 	body: string
+	onPress?: (id: string) => void
 }
 
 export function Poem(props: PoemProps) {
-	const { body } = props
+	const { id, body, onPress } = props
+
+	function handlePress() {
+		if (onPress) {
+			onPress(id)
+		}
+	}
+
 	return (
-		<BaseExercise.Root variant="poem" onMenuPress={console.log}>
+		<BaseExercise.Root variant="poem" onPress={handlePress}>
 			<BaseExercise.Header>
 				<BaseExercise.Icon
 					renderIcon={(props) => <BookOpenText {...props} />}

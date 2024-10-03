@@ -20,7 +20,7 @@ export function ReadTongueTwisterBottomSheet() {
 	return (
 		<BottomSheetScrollViewModal ref={readTongueTwisterBottomSheetRef}>
 			{sentences.map((sentence, index) => (
-				<Typography.Paragraph key={index} className="mb-2 text-base">
+				<Typography.Paragraph key={index} className="text-base">
 					{sentence.trim()}
 				</Typography.Paragraph>
 			))}

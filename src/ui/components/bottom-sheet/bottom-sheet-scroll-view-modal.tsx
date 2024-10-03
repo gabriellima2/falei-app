@@ -15,7 +15,7 @@ export const BottomSheetScrollViewModal = forwardRef<
 	BottomSheetModalElementRef,
 	BottomSheetScrollViewModalProps
 >((props, ref) => {
-	const snapPoints = useMemo(() => ['50%', '75%'], [])
+	const snapPoints = useMemo(() => ['50%', '75%', '90%'], [])
 	return (
 		<BaseBottomSheetModal
 			ref={ref}

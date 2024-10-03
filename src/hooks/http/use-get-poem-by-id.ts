@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { skipToken, useQuery } from '@tanstack/react-query'
 
 import { makePoemService } from '@/services/poem.service'
 import { QUERY_KEYS } from '@/constants/keys'
@@ -10,12 +10,13 @@ const poemService = makePoemService()
 
 type Poem = PoemEntity | undefined
 
-export function useGetPoemById(id: string, options?: QueryOptions<Poem>) {
+export function useGetPoemById(id: string | null, options?: QueryOptions<Poem>) {
 	const { data, ...rest } = useQuery<Poem>({
-		queryFn: () => poemService.getById(id),
+		queryFn: id ? () => poemService.getById(id) : skipToken,
 		queryKey: [QUERY_KEYS.GET_POEM, id],
 		throwOnError: true,
 		refetchOnWindowFocus: false,
+		enabled: !!id,
 		...options,
 	})
 	return { poem: data, ...rest }

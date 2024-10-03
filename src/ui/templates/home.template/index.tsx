@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { TextInput, View } from 'react-native'
 
 import { BreathingExercises } from './components/breathing-exercises'
 import { TonguesTwister } from './components/tongues-twister'
