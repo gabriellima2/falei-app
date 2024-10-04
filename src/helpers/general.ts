@@ -14,6 +14,8 @@ export function getPoemStanzas(text: string) {
 	return stanzasWithVerses
 }
 
-export function removeLastDot(text: string) {
-	return text.replace(/\.(?=[^.]*$)/, '').trim()
+export function removeCustomBreakLinesAndWhiteSpaces(text: string) {
+	return text
+		.replaceAll(CUSTOM_CODE_FOR_BREAK_LINE, '')
+		.replaceAll(CUSTOM_CODE_FOR_WHITE_SPACE, '')
 }

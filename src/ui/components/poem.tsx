@@ -1,5 +1,7 @@
 import { BookOpenText } from 'lucide-react-native'
+
 import { BaseExercise } from './base-exercise'
+import { removeCustomBreakLinesAndWhiteSpaces } from '@/helpers/general'
 
 type PoemProps = {
 	id: string
@@ -24,7 +26,7 @@ export function Poem(props: PoemProps) {
 				/>
 			</BaseExercise.Header>
 			<BaseExercise.Content>
-				<BaseExercise.Paragraph>{body}</BaseExercise.Paragraph>
+				<BaseExercise.Paragraph>{removeCustomBreakLinesAndWhiteSpaces(body)}</BaseExercise.Paragraph>
 			</BaseExercise.Content>
 		</BaseExercise.Root>
 	)
