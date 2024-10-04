@@ -1,17 +1,13 @@
 import { Typography } from './typography'
-import { cn } from '@/helpers/cn'
 
-type AuthorNameProps = {
+type AuthorNameProps = Omit<Parameters<typeof Typography.Paragraph>[0], 'children'> & {
 	name: string | null | undefined
-	className?: string
 }
 
 export function AuthorName(props: AuthorNameProps) {
-	const { name, className } = props
+	const { name, className, ...rest } = props
 	return (
-		<Typography.Paragraph
-			className={cn(className, 'text-base-text-muted')}
-		>
+		<Typography.Paragraph className="text-base-text-muted" {...rest}>
 			Autor: {name || 'Não informado'}
 		</Typography.Paragraph>
 	)
