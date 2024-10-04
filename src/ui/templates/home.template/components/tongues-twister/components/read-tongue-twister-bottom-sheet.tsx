@@ -6,7 +6,7 @@ import { useGetTongueTwisterById } from '@/hooks/http/use-get-tongue-twister-by-
 
 import { BottomSheetScrollViewModal } from '@/ui/components/bottom-sheet/bottom-sheet-scroll-view-modal'
 import { Paragraphs } from '@/ui/components/paragraphs'
-import { Typography } from '@/ui/atoms/typography'
+import { AuthorName } from '@/ui/atoms/author-name'
 
 import { getSentencesWithBreakLine } from '@/helpers/general'
 
@@ -19,16 +19,15 @@ export function ReadTongueTwisterBottomSheet() {
 		return getSentencesWithBreakLine(tongueTwister.body)
 	}, [tongueTwister])
 
-	const hasTongueTwisterSentences = !!tongueTwisterSentences.length
+	const hasTongueTwisterSentences =
+		!!tongueTwisterSentences.length && !!tongueTwister
 
 	return (
 		<BottomSheetScrollViewModal ref={readTongueTwisterBottomSheetRef}>
 			{hasTongueTwisterSentences && (
 				<>
 					<Paragraphs paragraphs={tongueTwisterSentences} />
-					<Typography.Paragraph className="text-base-text-muted mt-4">
-						Autor: {tongueTwister?.authorName || 'Não informado'}
-					</Typography.Paragraph>
+					<AuthorName name={tongueTwister.authorName} className='mt-4' />
 				</>
 			)}
 			{!hasTongueTwisterSentences && isLoading && <ActivityIndicator />}
