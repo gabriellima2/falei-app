@@ -1,4 +1,5 @@
 import { CUSTOM_CODE_FOR_BREAK_LINE, CUSTOM_CODE_FOR_WHITE_SPACE } from '@/constants/general'
+import { Dimensions } from 'react-native'
 
 export function getSentencesWithBreakLine(text: string) {
 	if (!text) return []
@@ -18,4 +19,9 @@ export function removeCustomBreakLinesAndWhiteSpaces(text: string) {
 	return text
 		.replaceAll(CUSTOM_CODE_FOR_BREAK_LINE, '')
 		.replaceAll(CUSTOM_CODE_FOR_WHITE_SPACE, '')
+}
+
+export function getWindowDimensions() {
+	const { width, height } = Dimensions.get('window')
+	return { width, height }
 }
