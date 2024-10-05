@@ -2,7 +2,6 @@ import type { PropsWithChildren } from 'react'
 import { View } from 'react-native'
 
 import { Typography } from '../atoms/typography'
-import { cn } from '@/helpers/cn'
 
 type SectionProps = PropsWithChildren & {
 	title: string
@@ -10,9 +9,9 @@ type SectionProps = PropsWithChildren & {
 }
 
 export function Section(props: SectionProps) {
-	const { title, className, children } = props
+	const { title, children, ...rest } = props
 	return (
-		<View className={cn('mb-8', className)}>
+		<View className="mb-8" {...rest}>
 			<Typography.Subtitle className="mb-5">{title}</Typography.Subtitle>
 			{children}
 		</View>

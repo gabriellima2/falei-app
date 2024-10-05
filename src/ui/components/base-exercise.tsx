@@ -63,7 +63,7 @@ type RootProps = PropsWithChildren &
 	}
 
 function Root(props: RootProps) {
-	const { className, children, variant, onPress, onMenuPress } = props
+	const { children, variant, onPress, onMenuPress, ...rest } = props
 	return (
 		<BaseExerciseContext.Provider value={{ variant, onMenuPress }}>
 			<TouchableOpacity
@@ -72,9 +72,9 @@ function Root(props: RootProps) {
 				className={cn(
 					rootVariants({
 						variant,
-						className,
 					}),
 				)}
+				{...rest}
 			>
 				{children}
 			</TouchableOpacity>
@@ -83,18 +83,13 @@ function Root(props: RootProps) {
 }
 
 function Header(props: ViewProps) {
-	const { className, ...rest } = props
 	return (
-		<View
-			className={cn('flex-row justify-between items-center pr-4', className)}
-			{...rest}
-		/>
+		<View className="flex-row justify-between items-center pr-4" {...props} />
 	)
 }
 
 function Content(props: ViewProps) {
-	const { className, ...rest } = props
-	return <View className={cn('px-4 pb-4 justify-between', className)} {...rest} />
+	return <View className="px-4 pb-4 justify-between" {...props} />
 }
 
 const foregroundVariants = cva<DefaultVariants>('', {
@@ -126,7 +121,7 @@ const ICON_COLORS: Pick<DefaultVariants, 'variant'>['variant'] = {
 }
 
 function Icon(props: IconProps) {
-	const { className, renderIcon } = props
+	const { renderIcon, ...rest } = props
 	const { variant } = useBaseExerciseContext()
 	const iconColor = ICON_COLORS[variant || 'default']
 	return (
@@ -135,9 +130,9 @@ function Icon(props: IconProps) {
 				'p-4 rounded-full -translate-y-1.5 -translate-x-1.5 w-16 h-16 justify-center items-center',
 				foregroundVariants({
 					variant,
-					className,
 				}),
 			)}
+			{...rest}
 		>
 			{renderIcon({ color: iconColor, size: 24 })}
 		</View>
@@ -145,18 +140,16 @@ function Icon(props: IconProps) {
 }
 
 function Title(props: TextProps) {
-	const { className, ...rest } = props
-	return <Typography.Title numberOfLines={2} className={cn('text-base', className)} {...rest} />
+	return <Typography.Title numberOfLines={2} className="text-base" {...props} />
 }
 
 function Paragraph(props: TextProps) {
-	const { className, ...rest } = props
 	return (
 		<Typography.Paragraph
 			numberOfLines={4}
 			ellipsizeMode="tail"
-			className={cn('text-base', className)}
-			{...rest}
+			className="text-base"
+			{...props}
 		/>
 	)
 }
@@ -171,8 +164,7 @@ function Menu() {
 }
 
 function InformationRoot(props: ViewProps) {
-	const { className, ...rest } = props
-	return <View className={cn('mt-2', className)} {...rest} />
+	return <View className="mt-2" {...props} />
 }
 
 type InformationProps = {
@@ -181,7 +173,7 @@ type InformationProps = {
 }
 
 function InformationItem(props: InformationProps) {
-	const { className, text } = props
+	const { text, ...rest } = props
 	const { variant } = useBaseExerciseContext()
 	return (
 		<View
@@ -189,9 +181,9 @@ function InformationItem(props: InformationProps) {
 				'w-full max-w-[95px] mt-2 h-[32px] px-2 rounded-lg items-center justify-center',
 				foregroundVariants({
 					variant,
-					className,
 				}),
 			)}
+			{...rest}
 		>
 			<Typography.Paragraph
 				ellipsizeMode="tail"

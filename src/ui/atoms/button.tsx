@@ -45,7 +45,6 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
 		const {
 			variant,
 			size,
-			className,
 			children,
 			label,
 			isLoading,
@@ -68,7 +67,6 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
 					variants({
 						variant,
 						size,
-						className,
 						'not-allowed': notAllowed,
 					}),
 				)}
