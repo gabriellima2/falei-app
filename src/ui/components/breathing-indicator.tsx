@@ -9,7 +9,14 @@ const circleSize = width / 2
 
 const layers = [0, 1, 2, 3, 4, 5, 6, 7]
 
-export function BreathingIndicator() {
+type BreathingIndicatorProps = {
+	inhale: number
+	hold: number
+	exhale: number
+}
+
+export function BreathingIndicator(props: BreathingIndicatorProps) {
+	const { inhale, hold, exhale } = props
 	const move = useRef(new Animated.Value(0)).current
 
 	useEffect(() => {
@@ -17,19 +24,20 @@ export function BreathingIndicator() {
 			Animated.sequence([
 				Animated.timing(move, {
 					toValue: 1,
-					duration: 4000,
+					duration: inhale,
 					useNativeDriver: true,
 				}),
 				Animated.timing(move, {
 					toValue: 0,
-					duration: 4000,
+					duration: exhale,
+					delay: hold,
 					useNativeDriver: true,
 				}),
 			]),
 		)
 		animation.start()
 		return () => animation.stop()
-	}, [move])
+	}, [move, inhale, hold, exhale])
 
 
 	const translate = move.interpolate({

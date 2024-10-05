@@ -13,7 +13,7 @@ export function DoBreathingExerciseTemplate(props: DoBreathingExerciseTemplatePr
 	const hasBreathingExercise = !!breathingExercise
 	return (
 		<>
-			{hasBreathingExercise && <BreathingIndicator />}
+			{hasBreathingExercise && <BreathingIndicator {...breathingExercise.steps} />}
 			{!hasBreathingExercise && isLoading && (
 				<View className='flex-1 items-center justify-center'>
 					<ActivityIndicator />
