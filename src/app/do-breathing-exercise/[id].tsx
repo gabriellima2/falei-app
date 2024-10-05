@@ -1,9 +1,9 @@
-import { Typography } from '@/ui/atoms/typography'
 import { useLocalSearchParams } from 'expo-router'
+import { DoBreathingExerciseTemplate } from '@/ui/templates/do-breathing-exercise.template'
 
 function Page() {
 	const { id } = useLocalSearchParams()
-	return <Typography.Title>{id as string}</Typography.Title>
+	return <DoBreathingExerciseTemplate breathingExerciseId={id as string} />
 }
 
 export default Page
