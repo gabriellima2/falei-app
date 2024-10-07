@@ -13,10 +13,12 @@ type BreathingIndicatorProps = {
 	inhale: number
 	hold: number
 	exhale: number
+	iterations: number
+	onFinish?: () => unknown
 }
 
 export function BreathingIndicator(props: BreathingIndicatorProps) {
-	const { inhale, hold, exhale } = props
+	const { inhale, hold, exhale, iterations, onFinish } = props
 	const move = useRef(new Animated.Value(0)).current
 
 	useEffect(() => {
@@ -34,10 +36,15 @@ export function BreathingIndicator(props: BreathingIndicatorProps) {
 					useNativeDriver: true,
 				}),
 			]),
+			{ iterations },
 		)
-		animation.start()
+		animation.start(({ finished }) => {
+			if (finished && onFinish) {
+				onFinish()
+			}
+		})
 		return () => animation.stop()
-	}, [move, inhale, hold, exhale])
+	}, [move, inhale, hold, exhale, iterations, onFinish])
 
 
 	const translate = move.interpolate({
