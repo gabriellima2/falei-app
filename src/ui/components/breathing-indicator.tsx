@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useRef } from 'react'
-import { Animated, View } from 'react-native'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Animated, Easing, View } from 'react-native'
+
+import { Typography } from '../atoms/typography'
 
 import { getWindowDimensions } from '@/helpers/general'
 import { colors } from '@/styles/theme'
@@ -19,20 +21,39 @@ type BreathingIndicatorProps = {
 
 export function BreathingIndicator(props: BreathingIndicatorProps) {
 	const { inhale, hold, exhale, iterations, onFinish } = props
+	const [text, setText] = useState('Inspirar')
 	const move = useRef(new Animated.Value(0)).current
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies:
 	useEffect(() => {
+		const listener = move.addListener(({ value }) => {
+			if (value === 0) {
+				setText('Inspirar')
+			} else if (value === 1) {
+				setText('Expirar')
+			} else if (value === 2) {
+				setText('Segurar')
+			}
+		})
+
 		const animation = Animated.loop(
 			Animated.sequence([
 				Animated.timing(move, {
-					toValue: 1,
+					toValue: 2,
 					duration: inhale,
+					easing: Easing.in(Easing.ease),
+					useNativeDriver: true,
+				}),
+				Animated.timing(move, {
+					toValue: 1,
+					duration: hold,
+					easing: Easing.inOut(Easing.ease),
 					useNativeDriver: true,
 				}),
 				Animated.timing(move, {
 					toValue: 0,
 					duration: exhale,
-					delay: hold,
+					easing: Easing.in(Easing.ease),
 					useNativeDriver: true,
 				}),
 			]),
@@ -43,23 +64,29 @@ export function BreathingIndicator(props: BreathingIndicatorProps) {
 				onFinish()
 			}
 		})
-		return () => animation.stop()
-	}, [move, inhale, hold, exhale, iterations, onFinish])
-
+		return () => {
+			animation.stop()
+			move.removeListener(listener)
+		}
+	}, [])
 
 	const translate = move.interpolate({
-		inputRange: [0, 1],
-		outputRange: [0, circleSize / 6]
+		inputRange: [0, 1, 2],
+		outputRange: [0, circleSize / 6, circleSize / 6],
 	})
 
 	const getRotation = useCallback(
 		(layer: number) => {
 			return move.interpolate({
-				inputRange: [0, 1],
-				outputRange: [`${layer * 45}deg`, `${layer * 45 + 180}deg`],
+				inputRange: [0, 1, 2],
+				outputRange: [
+					`${layer * 45}deg`,
+					`${layer * 45 + 180}deg`,
+					`${layer * 45 + 180}deg`,
+				],
 			})
 		},
-		[move]
+		[move],
 	)
 
 	return (
@@ -82,6 +109,7 @@ export function BreathingIndicator(props: BreathingIndicatorProps) {
 					}}
 				/>
 			))}
+			<Typography.Title>{text}</Typography.Title>
 		</View>
 	)
 }
