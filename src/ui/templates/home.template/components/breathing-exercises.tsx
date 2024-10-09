@@ -6,18 +6,21 @@ import { HorizontalList } from '@/ui/components/horizontal-list'
 import { Typography } from '@/ui/atoms/typography'
 
 import { useGetAllBreathingExercises } from '@/hooks/http/use-get-all-breathing-exercises'
-import { usePush } from '@/hooks/use-push'
+import { useNavigation } from '@/hooks/use-navigation'
 
 import { ROUTES } from '@/constants/routes'
 import type { BreathingExerciseEntity } from '@/entities/breathing-exercise.entity'
 
 export function BreathingExercises() {
-	const push = usePush()
+	const navigation = useNavigation()
 	const { breathingExercises, isLoading, isFetching } = useGetAllBreathingExercises()
 
-	const handleDoBreathingExercise = useCallback((id: string) => {
-		push(ROUTES.DO_BREATHING_EXERCISE(id))
-	}, [push])
+	const handleDoBreathingExercise = useCallback(
+		(id: string) => {
+			navigation.push(ROUTES.DO_BREATHING_EXERCISE(id))
+		},
+		[navigation],
+	)
 
 	const keyExtractor = useCallback((item: BreathingExerciseEntity) => item.id, [])
 
