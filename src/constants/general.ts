@@ -5,3 +5,9 @@ export const STATUS_BAR_HEIGHT =
 
 export const CUSTOM_CODE_FOR_BREAK_LINE = '/n'
 export const CUSTOM_CODE_FOR_WHITE_SPACE = '/w'
+
+export const BREATHING_STEPS_TEXT = {
+	INHALE: 'Inspirar',
+	HOLD: 'Segurar',
+	EXHALE: 'Expirar'
+}

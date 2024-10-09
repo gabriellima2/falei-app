@@ -3,6 +3,7 @@ import { Animated, Easing, View } from 'react-native'
 
 import { Typography } from '../atoms/typography'
 
+import { BREATHING_STEPS_TEXT } from '@/constants/general'
 import { getWindowDimensions } from '@/helpers/general'
 import { colors } from '@/styles/theme'
 
@@ -21,21 +22,27 @@ type BreathingIndicatorProps = {
 
 export function BreathingIndicator(props: BreathingIndicatorProps) {
 	const { inhale, hold, exhale, iterations, onFinish } = props
-	const [text, setText] = useState('Inspirar')
+	const [stepText, setStepText] = useState(BREATHING_STEPS_TEXT.INHALE)
 	const move = useRef(new Animated.Value(0)).current
+
+	const handleStepTextChange = useCallback((step: number) => {
+		if (step === 0) {
+			setStepText(BREATHING_STEPS_TEXT.INHALE)
+			return
+		}
+		if (step === 1) {
+			setStepText(BREATHING_STEPS_TEXT.EXHALE)
+			return
+		}
+		if (step === 2) {
+			setStepText(BREATHING_STEPS_TEXT.HOLD)
+			return
+		}
+	}, [])
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies:
 	useEffect(() => {
-		const listener = move.addListener(({ value }) => {
-			if (value === 0) {
-				setText('Inspirar')
-			} else if (value === 1) {
-				setText('Expirar')
-			} else if (value === 2) {
-				setText('Segurar')
-			}
-		})
-
+		const listener = move.addListener(({ value }) => handleStepTextChange(value))
 		const animation = Animated.loop(
 			Animated.sequence([
 				Animated.timing(move, {
@@ -91,8 +98,8 @@ export function BreathingIndicator(props: BreathingIndicatorProps) {
 
 	return (
 		<View className="flex-1 items-center justify-around">
-			<View className='mt-4'>
-				<Typography.Title>{text}</Typography.Title>
+			<View className="mt-4">
+				<Typography.Title>{stepText}</Typography.Title>
 			</View>
 			<View className="flex-1 items-center justify-center">
 				{layers.map((layer) => (
