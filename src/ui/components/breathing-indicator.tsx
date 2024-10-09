@@ -90,26 +90,30 @@ export function BreathingIndicator(props: BreathingIndicatorProps) {
 	)
 
 	return (
-		<View className="flex-1 items-center justify-center">
-			{layers.map((layer) => (
-				<Animated.View
-					key={layer}
-					style={{
-						opacity: 0.1,
-						backgroundColor: colors.base.primary,
-						width: circleSize,
-						height: circleSize,
-						borderRadius: circleSize / 2,
-						position: 'absolute',
-						transform: [
-							{ rotateZ: getRotation(layer) },
-							{ translateX: translate },
-							{ translateY: translate },
-						],
-					}}
-				/>
-			))}
-			<Typography.Title>{text}</Typography.Title>
+		<View className="flex-1 items-center justify-around">
+			<View className='mt-4'>
+				<Typography.Title>{text}</Typography.Title>
+			</View>
+			<View className="flex-1 items-center justify-center">
+				{layers.map((layer) => (
+					<Animated.View
+						key={layer}
+						style={{
+							opacity: 0.1,
+							backgroundColor: colors.base.primary,
+							width: circleSize,
+							height: circleSize,
+							borderRadius: circleSize / 2,
+							position: 'absolute',
+							transform: [
+								{ rotateZ: getRotation(layer) },
+								{ translateX: translate },
+								{ translateY: translate },
+							],
+						}}
+					/>
+				))}
+			</View>
 		</View>
 	)
 }

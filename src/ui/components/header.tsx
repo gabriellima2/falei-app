@@ -1,14 +1,21 @@
 import { View, type ViewProps } from 'react-native'
-import { Typography } from '../atoms/typography'
 
-type RootProps = ViewProps
+import { Typography } from '../atoms/typography'
+import { cn } from '@/helpers/cn'
+
+type RootProps = ViewProps & {
+	spacing?: boolean
+}
 type TitleProps = Parameters<typeof Typography.Title>[0]
 
 function Root(props: RootProps) {
+	const { spacing, ...rest } = props
 	return (
 		<View
-			className="mb-8 flex-row items-center justify-between gap-x-2"
-			{...props}
+			className={cn('mb-8 flex-row items-center justify-between', {
+				'px-4': spacing,
+			})}
+			{...rest}
 		/>
 	)
 }

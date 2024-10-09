@@ -6,13 +6,14 @@ import {
 } from 'react-native'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { Typography } from './typography'
+import { Typography } from '../typography'
 import { cn } from '@/helpers/cn'
 
 const variants = cva('w-full items-center justify-center rounded-xl', {
 	variants: {
 		variant: {
 			default: 'bg-base-primary',
+			secondary: 'bg-layout-foreground',
 			outline: 'bg-none border-2 border-base-primary',
 			destructive: 'bg-base-danger',
 			text: 'bg-none',
@@ -56,8 +57,8 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
 		const shouldRenderLabel = !isLoading && !children && !!label
 		const shouldRenderChildren = !isLoading && !label && !!children
 
-		const isOutlineOrText = variant === 'outline' || variant === 'text'
-		const isDestructiveText = variant === 'destructive-text'
+		const shouldRenderWhiteText = variant === 'outline' || variant === 'text' || variant === 'secondary'
+		const shouldRenderRedText = variant === 'destructive-text'
 
 		const notAllowed = isLoading || disabled
 
@@ -80,8 +81,8 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
 				{shouldRenderLabel && (
 					<Typography.Label
 						className={cn('text-base-text-foreground', {
-							'text-base-text': isOutlineOrText,
-							'text-base-danger': isDestructiveText,
+							'text-base-text': shouldRenderWhiteText,
+							'text-base-danger': shouldRenderRedText,
 						})}
 					>
 						{label}
