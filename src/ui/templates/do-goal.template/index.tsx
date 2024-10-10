@@ -6,6 +6,9 @@ import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
 import { Header } from '@/ui/components/header'
 
 import { useGetGoalById } from '@/hooks/http/use-get-goal-by-id'
+import { useNavigation } from '@/hooks/use-navigation'
+
+import { ROUTES } from '@/constants/routes'
 
 type DoGoalTemplateProps = {
 	goalId: string
@@ -13,12 +16,13 @@ type DoGoalTemplateProps = {
 
 export function DoGoalTemplate(props: DoGoalTemplateProps) {
 	const { goalId } = props
+	const navigation = useNavigation()
 	const { goal, isLoading } = useGetGoalById(goalId)
 	const hasGoal = !!goal
 
 	const handleExerciseFinish = useCallback(() => {
-		console.log('Finish')
-	}, [])
+		navigation.replace(ROUTES.BREATHING_EXERCISE_COMPLETED)
+	}, [navigation])
 
 	return (
 		<>
