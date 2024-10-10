@@ -4,6 +4,7 @@ import { Medal } from 'lucide-react-native'
 
 import { Button } from '@/ui/atoms/buttons/button'
 import { Typography } from '@/ui/atoms/typography'
+import { Container } from '@/ui/atoms/container'
 
 import { useNavigation } from '@/hooks/use-navigation'
 
@@ -18,7 +19,7 @@ export function BreathingExerciseCompletedTemplate() {
 	}, [navigation])
 
 	return (
-		<View className="flex-1 p-4">
+		<Container>
 			<View className="flex-1 items-center justify-center">
 				<View className="items-center justify-center">
 					<Medal size={40} color={colors.base.primary} strokeWidth={1.3} />
@@ -32,6 +33,6 @@ export function BreathingExerciseCompletedTemplate() {
 				</Typography.Paragraph>
 			</View>
 			<Button label="Confirmar" onPress={handleConfirm} />
-		</View>
+		</Container>
 	)
 }
