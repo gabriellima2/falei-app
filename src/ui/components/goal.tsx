@@ -18,10 +18,19 @@ type GoalProps = {
 	}
 	frequencyPerWeek: number
 	activityHistory: ActivityHistoryEntity[]
+	onPress?: (id: string) => void
 }
 
 export function Goal(props: GoalProps) {
-	const { title, roundsTotal, steps, frequencyPerWeek, activityHistory } = props
+	const {
+		id,
+		title,
+		roundsTotal,
+		steps,
+		frequencyPerWeek,
+		activityHistory,
+		onPress,
+	} = props
 
 	const durationTime = useMemo(() => {
 		const _durationTotal = steps.exhale + steps.hold + steps.inhale
@@ -35,8 +44,14 @@ export function Goal(props: GoalProps) {
 		return exercisesCompletedThisWeek.length
 	}, [activityHistory])
 
+	function handlePress() {
+		if (onPress) {
+			onPress(id)
+		}
+	}
+
 	return (
-		<BaseExercise.Root variant="goal" onMenuPress={console.log}>
+		<BaseExercise.Root variant="goal" onPress={handlePress}>
 			<BaseExercise.Header>
 				<BaseExercise.Icon renderIcon={(_props) => <Flame {..._props} />} />
 				<BaseExercise.Menu />

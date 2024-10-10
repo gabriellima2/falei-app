@@ -13,7 +13,8 @@ type BreathingExerciseProps = {
 		hold: number
 		inhale: number
 	}
-	onPress?: (id: string) => void}
+	onPress?: (id: string) => void
+}
 
 export function BreathingExercise(props: BreathingExerciseProps) {
 	const { id, title, roundsTotal, steps, onPress } = props

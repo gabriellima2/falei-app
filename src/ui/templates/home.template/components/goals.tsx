@@ -6,11 +6,21 @@ import { Typography } from '@/ui/atoms/typography'
 import { Goal } from '@/ui/components/goal'
 
 import { useGetAllGoals } from '@/hooks/http/use-get-all-goals'
+import { useNavigation } from '@/hooks/use-navigation'
 
+import { ROUTES } from '@/constants/routes'
 import type { GoalEntity } from '@/entities/goal.entity'
 
 export function Goals() {
+	const navigation = useNavigation()
 	const { goals, isLoading, isFetching } = useGetAllGoals()
+
+	const handleDoGoal = useCallback(
+		(id: string) => {
+			navigation.push(ROUTES.DO_GOAL(id))
+		},
+		[navigation],
+	)
 
 	const keyExtractor = useCallback((item: GoalEntity) => item.id, [])
 
@@ -23,9 +33,10 @@ export function Goals() {
 				roundsTotal={item.roundsTotal}
 				activityHistory={item.activityHistory}
 				frequencyPerWeek={item.frequencyPerWeek}
+				onPress={handleDoGoal}
 			/>
 		),
-		[],
+		[handleDoGoal],
 	)
 
 	return (
