@@ -1,7 +1,7 @@
-import { Typography } from '@/ui/atoms/typography'
+import { BreathingExerciseCompletedTemplate } from '@/ui/templates/breathing-exercise-completed.template'
 
 function Page() {
-	return <Typography.Title>Exercício completado com sucesso!</Typography.Title>
+	return <BreathingExerciseCompletedTemplate />
 }
 
 export default Page
