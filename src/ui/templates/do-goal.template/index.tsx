@@ -5,6 +5,7 @@ import { BreathingIndicator } from '@/ui/components/breathing-indicator'
 import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
 import { Header } from '@/ui/components/header'
 
+import { useSaveGoalProgress } from './hooks/use-save-goal-progress'
 import { useGetGoalById } from '@/hooks/http/use-get-goal-by-id'
 import { useNavigation } from '@/hooks/use-navigation'
 
@@ -17,12 +18,18 @@ type DoGoalTemplateProps = {
 export function DoGoalTemplate(props: DoGoalTemplateProps) {
 	const { goalId } = props
 	const navigation = useNavigation()
+	const { handleSaveGoalProgress } = useSaveGoalProgress(goalId)
 	const { goal, isLoading } = useGetGoalById(goalId)
 	const hasGoal = !!goal
 
-	const handleExerciseFinish = useCallback(() => {
-		navigation.replace(ROUTES.BREATHING_EXERCISE_COMPLETED)
-	}, [navigation])
+	const handleExerciseFinish = useCallback(async () => {
+		try {
+			await handleSaveGoalProgress()
+			navigation.replace(ROUTES.BREATHING_EXERCISE_COMPLETED)
+		} catch (err) {
+			console.error(err)
+		}
+	}, [navigation, handleSaveGoalProgress])
 
 	return (
 		<>
