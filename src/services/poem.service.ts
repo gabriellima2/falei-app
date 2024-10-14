@@ -1,4 +1,4 @@
-import { makeFirebasePoem } from '@/firebase/repositories/firebase-poem.repository'
+import { makeFirebasePoemRepository } from '@/firebase/repositories/firebase-poem.repository'
 import { UnexpectedException } from '@/exceptions/unexpected.exception'
 
 import type { PoemRepository } from '@/repositories/poem.repository'
@@ -19,6 +19,6 @@ class PoemService {
 }
 
 export const makePoemService = () => {
-	const poemRepository = makeFirebasePoem()
+	const poemRepository = makeFirebasePoemRepository()
 	return new PoemService(poemRepository)
 }

@@ -1,6 +1,7 @@
-import { makeFirebaseGoal } from '@/firebase/repositories/firebase-goal.repository'
+import { makeFirebaseGoalRepository } from '@/firebase/repositories/firebase-goal.repository'
 import { UnexpectedException } from '@/exceptions/unexpected.exception'
 
+import type { ActivityHistoryEntity } from '@/entities/activity-history.entity'
 import type { GoalRepository } from '@/repositories/goal.repository'
 import type { GoalEntity } from '@/entities/goal.entity'
 
@@ -16,9 +17,16 @@ class GoalService {
 		const data = await this.goalRepository.getAll()
 		return data
 	}
+	async updateProgress(id: string): Promise<void> {
+		if (!id) throw new UnexpectedException()
+		const payload: ActivityHistoryEntity = {
+			createdAt: new Date().toISOString(),
+		}
+		await this.goalRepository.addActivityToHistory(id, payload)
+	}
 }
 
 export const makeGoalService = () => {
-	const goalRepository = makeFirebaseGoal()
+	const goalRepository = makeFirebaseGoalRepository()
 	return new GoalService(goalRepository)
 }

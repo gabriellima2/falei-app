@@ -9,7 +9,7 @@ import { FirebasePoemMapper } from '../mappers/firebase-poem.mapper'
 import type { PoemRepository } from '@/repositories/poem.repository'
 import type { PoemEntity } from '@/entities/poem.entity'
 
-class FirebasePoem implements PoemRepository {
+class FirebasePoemRepository implements PoemRepository {
 	private readonly collection
 	constructor() {
 		this.collection = env.POEMS_COLLECTION_NAME
@@ -27,4 +27,4 @@ class FirebasePoem implements PoemRepository {
 	}
 }
 
-export const makeFirebasePoem = () => new FirebasePoem()
+export const makeFirebasePoemRepository = () => new FirebasePoemRepository()

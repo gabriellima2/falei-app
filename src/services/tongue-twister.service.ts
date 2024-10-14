@@ -1,4 +1,4 @@
-import { makeFirebaseTongueTwister } from '@/firebase/repositories/firebase-tongue-twister.repository'
+import { makeFirebaseTongueTwisterRepository } from '@/firebase/repositories/firebase-tongue-twister.repository'
 import { UnexpectedException } from '@/exceptions/unexpected.exception'
 
 import type { TongueTwisterRepository } from '@/repositories/tongue-twister.repository'
@@ -21,6 +21,6 @@ class TongueTwisterService {
 }
 
 export const makeTongueTwisterService = () => {
-	const tongueTwisterRepository = makeFirebaseTongueTwister()
+	const tongueTwisterRepository = makeFirebaseTongueTwisterRepository()
 	return new TongueTwisterService(tongueTwisterRepository)
 }

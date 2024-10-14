@@ -9,7 +9,7 @@ import { FirebaseTongueTwisterMapper } from '../mappers/firebase-tongue-twister.
 import type { TongueTwisterRepository } from '@/repositories/tongue-twister.repository'
 import type { TongueTwisterEntity } from '@/entities/tongue-twister.entity'
 
-class FirebaseTongueTwister implements TongueTwisterRepository {
+class FirebaseTongueTwisterRepository implements TongueTwisterRepository {
 	private readonly collection
 	constructor() {
 		this.collection = env.TONGUE_TWISTER_COLLECTION_NAME
@@ -27,4 +27,4 @@ class FirebaseTongueTwister implements TongueTwisterRepository {
 	}
 }
 
-export const makeFirebaseTongueTwister = () => new FirebaseTongueTwister()
+export const makeFirebaseTongueTwisterRepository = () => new FirebaseTongueTwisterRepository()
