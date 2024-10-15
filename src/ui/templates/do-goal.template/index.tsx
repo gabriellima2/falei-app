@@ -30,7 +30,7 @@ export function DoGoalTemplate(props: DoGoalTemplateProps) {
 					onFinish={handleSaveGoalProgress}
 				/>
 			)}
-			{isPendingSaveGoalProgress || (!hasGoal && isLoading) && (
+			{((!hasGoal && isLoading) || isPendingSaveGoalProgress) && (
 				<View className="flex-1 items-center justify-center">
 					<ActivityIndicator />
 				</View>
