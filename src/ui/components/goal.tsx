@@ -33,9 +33,10 @@ export function Goal(props: GoalProps) {
 	} = props
 
 	const durationTime = useMemo(() => {
-		const _durationTotal = steps.exhale + steps.hold + steps.inhale
-		return formatDurationTime(_durationTotal)
-	}, [steps])
+		const totalStepsDuration = steps.exhale + steps.hold + steps.inhale
+		const _durationTime = totalStepsDuration * roundsTotal
+		return formatDurationTime(_durationTime)
+	}, [steps, roundsTotal])
 
 	const amountOfExercisesCompletedThisWeek = useMemo(() => {
 		const exercisesCompletedThisWeek = activityHistory.filter((activity) =>

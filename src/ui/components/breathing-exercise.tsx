@@ -20,9 +20,10 @@ export function BreathingExercise(props: BreathingExerciseProps) {
 	const { id, title, roundsTotal, steps, onPress } = props
 
 	const durationTime = useMemo(() => {
-		const _durationTotal = steps.exhale + steps.hold + steps.inhale
-		return formatDurationTime(_durationTotal)
-	}, [steps])
+		const totalStepsDuration = steps.exhale + steps.hold + steps.inhale
+		const _durationTime = totalStepsDuration * roundsTotal
+		return formatDurationTime(_durationTime)
+	}, [steps, roundsTotal])
 
 	function handlePress() {
 		if (onPress) {
