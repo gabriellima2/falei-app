@@ -16,8 +16,8 @@ export class FirebasePoemMapper {
 			title: data.title,
 			authorName: data.author_name || null,
 			userId: data.user_id || null,
-			createdAt: parseTimestamp(data.created_at).toISOString(),
-			updatedAt: parseTimestamp(data.updated_at).toISOString(),
+			createdAt: parseTimestamp(data.created_at),
+			updatedAt: parseTimestamp(data.updated_at),
 		}
 	}
 	static toEntityList(

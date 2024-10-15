@@ -16,8 +16,8 @@ export class FirebaseBreathingExerciseMapper {
 			steps: data.steps,
 			title: data.title,
 			userId: data.user_id || null,
-			createdAt: parseTimestamp(data.created_at).toISOString(),
-			updatedAt: parseTimestamp(data.updated_at).toISOString(),
+			createdAt: parseTimestamp(data.created_at),
+			updatedAt: parseTimestamp(data.updated_at),
 		}
 	}
 	static toEntityList(

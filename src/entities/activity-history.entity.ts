@@ -1,3 +1,3 @@
 export interface ActivityHistoryEntity {
-	createdAt: string
+	createdAt: Date
 }

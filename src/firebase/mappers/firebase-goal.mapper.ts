@@ -21,8 +21,8 @@ export class FirebaseGoalMapper {
 			activityHistory: FirebaseActivityHistoryMapper.toEntityList(
 				data.activity_history,
 			),
-			createdAt: parseTimestamp(data.created_at).toISOString(),
-			updatedAt: parseTimestamp(data.updated_at).toISOString(),
+			createdAt: parseTimestamp(data.created_at),
+			updatedAt: parseTimestamp(data.updated_at),
 		}
 	}
 	static toEntityList(

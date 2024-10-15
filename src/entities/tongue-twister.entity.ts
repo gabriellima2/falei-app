@@ -3,6 +3,6 @@ export interface TongueTwisterEntity {
 	body: string
 	authorName?: string | null
 	userId?: string | null
-	createdAt: string
-	updatedAt: string
+	createdAt: Date
+	updatedAt: Date
 }

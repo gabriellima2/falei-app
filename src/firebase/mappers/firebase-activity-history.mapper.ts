@@ -6,7 +6,7 @@ import type { ActivityHistoryDTO, AddActivityHistoryDTO } from '@/dtos/activity-
 export class FirebaseActivityHistoryMapper {
 	static toEntity(dto: ActivityHistoryDTO): ActivityHistoryEntity {
 		return {
-			createdAt: parseTimestamp(dto.created_at).toISOString(),
+			createdAt: parseTimestamp(dto.created_at),
 		}
 	}
 	static toEntityList(dtos: ActivityHistoryDTO[]): ActivityHistoryEntity[] {
@@ -14,7 +14,7 @@ export class FirebaseActivityHistoryMapper {
 	}
 	static toAddDTO(entity: ActivityHistoryEntity): AddActivityHistoryDTO {
 		return {
-			created_at: new Date(entity.createdAt)
+			created_at: entity.createdAt,
 		}
 	}
 }

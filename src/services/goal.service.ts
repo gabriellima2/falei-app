@@ -20,7 +20,7 @@ class GoalService {
 	async updateProgress(id: string): Promise<void> {
 		if (!id) throw new UnexpectedException()
 		const payload: ActivityHistoryEntity = {
-			createdAt: new Date().toISOString(),
+			createdAt: new Date(),
 		}
 		await this.goalRepository.addActivityToHistory(id, payload)
 	}

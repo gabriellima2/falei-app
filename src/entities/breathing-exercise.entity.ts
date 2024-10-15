@@ -8,6 +8,6 @@ export interface BreathingExerciseEntity {
 		inhale: number
 	}
 	userId?: string | null
-	createdAt: string
-	updatedAt: string
+	createdAt: Date
+	updatedAt: Date
 }
