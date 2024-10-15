@@ -19,7 +19,7 @@ export function useSaveGoalProgress(goalId: string) {
 		mutationFn: async () => await service.updateProgress(goalId),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_GOALS] })
-			navigation.replace(ROUTES.BREATHING_EXERCISE_COMPLETED)
+			navigation.replace(ROUTES.EXERCISE_COMPLETED)
 		},
 		onError: () => {
 			toast.notify({

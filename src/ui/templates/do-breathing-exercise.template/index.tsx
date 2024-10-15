@@ -21,7 +21,7 @@ export function DoBreathingExerciseTemplate(props: DoBreathingExerciseTemplatePr
 	const hasBreathingExercise = !!breathingExercise
 
 	const handleExerciseFinish = useCallback(() => {
-		navigation.replace(ROUTES.BREATHING_EXERCISE_COMPLETED)
+		navigation.replace(ROUTES.EXERCISE_COMPLETED)
 	}, [navigation])
 
 	return (

@@ -11,7 +11,7 @@ import { useNavigation } from '@/hooks/use-navigation'
 import { ROUTES } from '@/constants/routes'
 import { colors } from '@/styles/theme'
 
-export function BreathingExerciseCompletedTemplate() {
+export function ExerciseCompletedTemplate() {
 	const navigation = useNavigation()
 
 	const handleConfirm = useCallback(() => {
