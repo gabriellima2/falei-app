@@ -4,6 +4,7 @@ import '@/config/firebase'
 
 import { ActivityIndicator, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import ToastManager from 'toastify-react-native'
 import { StatusBar } from 'expo-status-bar'
 import { Stack } from 'expo-router'
 import {
@@ -16,6 +17,7 @@ import { Providers } from '@/providers'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
 import { STATUS_BAR_HEIGHT } from '@/constants/general'
+import { colors } from '@/styles/theme'
 
 export { ErrorBoundary } from 'expo-router'
 
@@ -38,6 +40,18 @@ export default function RootLayout() {
 		<GestureHandlerRootView className="flex-1">
 			<StatusBar style="light" />
 			<Providers>
+				<ToastManager
+					duration={5000}
+					hasBackdrop
+					position="top"
+					showCloseIcon={false}
+					textStyle={{
+						color: colors.base.text,
+						fontSize: 16,
+					}}
+					height={60}
+					style={{ backgroundColor: colors.layout.foreground }}
+				/>
 				<SafeAreaView
 					className="flex-1 bg-layout-background"
 					style={{ paddingTop: STATUS_BAR_HEIGHT }}
