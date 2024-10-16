@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
-import type { ListRenderItemInfo } from 'react-native'
+import { ActivityIndicator, type ListRenderItemInfo } from 'react-native'
 
 import { HorizontalList } from '@/ui/components/horizontal-list'
-import { Typography } from '@/ui/atoms/typography'
+import { EmptyMessage } from '@/ui/atoms/empty-message'
 import { Poem } from '@/ui/components/poem'
 
 import { usePoemsContext } from '../contexts/poems.context/hooks'
@@ -35,9 +35,9 @@ export function PoemsContainer() {
 			ListEmptyComponent={() => (
 				<>
 					{isLoading || isFetching ? (
-						<Typography.Label>Loading...</Typography.Label>
+						<ActivityIndicator />
 					) : (
-						<Typography.Label>Empty...</Typography.Label>
+						<EmptyMessage />
 					)}
 				</>
 			)}

@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
-import type { ListRenderItemInfo } from 'react-native'
+import { ActivityIndicator, type ListRenderItemInfo } from 'react-native'
 
 import { BreathingExercise } from '@/ui/components/breathing-exercise'
 import { HorizontalList } from '@/ui/components/horizontal-list'
-import { Typography } from '@/ui/atoms/typography'
+import { EmptyMessage } from '@/ui/atoms/empty-message'
 
 import { useGetAllBreathingExercises } from '@/hooks/http/use-get-all-breathing-exercises'
 import { useNavigation } from '@/hooks/use-navigation'
@@ -45,9 +45,9 @@ export function BreathingExercises() {
 			ListEmptyComponent={() => (
 				<>
 					{isLoading || isFetching ? (
-						<Typography.Label>Loading...</Typography.Label>
+						<ActivityIndicator />
 					) : (
-						<Typography.Label>Empty...</Typography.Label>
+						<EmptyMessage />
 					)}
 				</>
 			)}

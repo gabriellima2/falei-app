@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import { ActivityIndicator, View } from 'react-native'
 
 import { BreathingIndicator } from '@/ui/components/breathing-indicator'
