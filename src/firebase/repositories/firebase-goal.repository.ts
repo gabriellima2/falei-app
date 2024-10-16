@@ -16,8 +16,8 @@ class FirebaseGoalRepository implements GoalRepository {
 	constructor() {
 		this.collection = env.GOALS_COLLECTION_NAME
 	}
-	async getById(goalId: string): Promise<GoalEntity> {
-		const docRef = doc(db, this.collection, goalId)
+	async getById(id: string): Promise<GoalEntity> {
+		const docRef = doc(db, this.collection, id)
 		const docSnap = await getDoc(docRef)
 		if (!docSnap.exists()) throw new GoalNotFoundException()
 		return FirebaseGoalMapper.toEntity(docSnap)
@@ -28,10 +28,10 @@ class FirebaseGoalRepository implements GoalRepository {
 		return FirebaseGoalMapper.toEntityList(docSnap.docs)
 	}
 	async addActivityToHistory(
-		goalId: string,
+		id: string,
 		payload: ActivityHistoryEntity,
 	): Promise<void> {
-		const docRef = doc(db, this.collection, goalId)
+		const docRef = doc(db, this.collection, id)
 		await updateDoc(docRef, {
 			activity_history: arrayUnion(
 				FirebaseActivityHistoryMapper.toAddDTO(payload),
