@@ -5,7 +5,7 @@ import { HorizontalList } from '@/ui/components/horizontal-list'
 import { EmptyMessage } from '@/ui/atoms/empty-message'
 import { Goal } from '@/ui/components/goal'
 
-import { useGetAllGoals } from '@/hooks/http/use-get-all-goals'
+import { useGetAllPendingGoals } from '@/hooks/http/use-get-all-pending-goals'
 import { useNavigation } from '@/hooks/use-navigation'
 
 import { ROUTES } from '@/constants/routes'
@@ -13,7 +13,7 @@ import type { GoalEntity } from '@/entities/goal.entity'
 
 export function Goals() {
 	const navigation = useNavigation()
-	const { goals, isLoading, isFetching } = useGetAllGoals()
+	const { goals, isLoading, isFetching } = useGetAllPendingGoals()
 
 	const handleDoGoal = useCallback(
 		(id: string) => {
@@ -49,7 +49,7 @@ export function Goals() {
 					{isLoading || isFetching ? (
 						<ActivityIndicator />
 					) : (
-						<EmptyMessage />
+						<EmptyMessage text="Você não tem metas pendentes para essa semana 🥳" />
 					)}
 				</>
 			)}

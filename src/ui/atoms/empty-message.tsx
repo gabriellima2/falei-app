@@ -1,7 +1,12 @@
 import { Typography } from './typography'
 
-export function EmptyMessage() {
+type EmptyMessageProps = {
+	text?: string
+}
+
+export function EmptyMessage(props: EmptyMessageProps) {
+	const { text = 'Nenhum resultado encontrado 😔' } = props
 	return (
-		<Typography.Paragraph>Nenhum resultado encontrado 😔</Typography.Paragraph>
+		<Typography.Paragraph>{text}</Typography.Paragraph>
 	)
 }

@@ -1,5 +1,6 @@
 export const QUERY_KEYS = {
 	GET_GOALS: 'goals',
+	GET_PENDING_GOALS: 'pending-goals',
 	GET_GOAL: 'goal',
 	GET_BREATHING_EXERCISES: 'breathing-exercises',
 	GET_BREATHING_EXERCISE: 'breathing-exercise',
