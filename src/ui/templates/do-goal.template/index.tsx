@@ -6,6 +6,10 @@ import { Header } from '@/ui/components/header'
 
 import { useSaveGoalProgress } from './hooks/use-save-goal-progress'
 import { useGetGoalById } from '@/hooks/http/use-get-goal-by-id'
+import { useNavigation } from '@/hooks/use-navigation'
+import { useToast } from '@/hooks/use-toast'
+
+import { ROUTES } from '@/constants/routes'
 
 type DoGoalTemplateProps = {
 	goalId: string
@@ -15,7 +19,15 @@ export function DoGoalTemplate(props: DoGoalTemplateProps) {
 	const { goalId } = props
 	const { isPendingSaveGoalProgress, handleSaveGoalProgress } = useSaveGoalProgress(goalId)
 	const { goal, isLoading } = useGetGoalById(goalId)
+	const navigation = useNavigation()
+	const toast = useToast()
 	const hasGoal = !!goal
+
+	if (goal?.currentWeekProgress === goal?.frequencyPerWeek) {
+		toast.notify({ type: 'error', message: 'Você já completou a frequência semanal dessa meta.' })
+		navigation.replace(ROUTES.HOME)
+		return null
+	}
 
 	return (
 		<>

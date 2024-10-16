@@ -31,7 +31,7 @@ export function Goals() {
 				title={item.title}
 				steps={item.steps}
 				roundsTotal={item.roundsTotal}
-				activityHistory={item.activityHistory}
+				currentWeekProgress={item.currentWeekProgress}
 				frequencyPerWeek={item.frequencyPerWeek}
 				onPress={handleDoGoal}
 			/>

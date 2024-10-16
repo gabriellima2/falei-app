@@ -1,4 +1,5 @@
 import type { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore'
+import { isThisWeek } from 'date-fns'
 
 import { FirebaseActivityHistoryMapper } from './firebase-activity-history.mapper'
 import { parseTimestamp } from '@/helpers/date'
@@ -11,6 +12,14 @@ export class FirebaseGoalMapper {
 		dto: QueryDocumentSnapshot<DocumentData, DocumentData>,
 	): GoalEntity {
 		const data = dto.data() as GoalDTO
+
+		const activityHistoryEntity = FirebaseActivityHistoryMapper.toEntityList(
+			data.activity_history,
+		)
+		const completedThisWeekAmount = activityHistoryEntity.filter((activityHistory) =>
+			isThisWeek(activityHistory.createdAt),
+		)
+
 		return {
 			id: dto.id,
 			roundsTotal: data.rounds_total,
@@ -18,9 +27,8 @@ export class FirebaseGoalMapper {
 			title: data.title,
 			userId: data.user_id || null,
 			frequencyPerWeek: data.frequency_per_week,
-			activityHistory: FirebaseActivityHistoryMapper.toEntityList(
-				data.activity_history,
-			),
+			currentWeekProgress: completedThisWeekAmount.length,
+			activityHistory: activityHistoryEntity,
 			createdAt: parseTimestamp(data.created_at),
 			updatedAt: parseTimestamp(data.updated_at),
 		}

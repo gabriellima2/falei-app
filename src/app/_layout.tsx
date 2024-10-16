@@ -42,7 +42,6 @@ export default function RootLayout() {
 			<Providers>
 				<ToastManager
 					duration={5000}
-					hasBackdrop
 					position="top"
 					showCloseIcon={false}
 					textStyle={{

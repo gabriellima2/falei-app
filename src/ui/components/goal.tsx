@@ -1,11 +1,8 @@
 import { useMemo } from 'react'
 import { Flame } from 'lucide-react-native'
-import { isThisWeek } from 'date-fns'
 
 import { formatDurationTime } from '@/helpers/date'
 import { BaseExercise } from './base-exercise'
-
-import type { ActivityHistoryEntity } from '@/entities/activity-history.entity'
 
 type GoalProps = {
 	id: string
@@ -17,7 +14,7 @@ type GoalProps = {
 		inhale: number
 	}
 	frequencyPerWeek: number
-	activityHistory: ActivityHistoryEntity[]
+	currentWeekProgress: number
 	onPress?: (id: string) => void
 }
 
@@ -28,7 +25,7 @@ export function Goal(props: GoalProps) {
 		roundsTotal,
 		steps,
 		frequencyPerWeek,
-		activityHistory,
+		currentWeekProgress,
 		onPress,
 	} = props
 
@@ -37,13 +34,6 @@ export function Goal(props: GoalProps) {
 		const _durationTime = totalStepsDuration * roundsTotal
 		return formatDurationTime(_durationTime)
 	}, [steps, roundsTotal])
-
-	const amountOfExercisesCompletedThisWeek = useMemo(() => {
-		const exercisesCompletedThisWeek = activityHistory.filter((activity) =>
-			isThisWeek(activity.createdAt),
-		)
-		return exercisesCompletedThisWeek.length
-	}, [activityHistory])
 
 	function handlePress() {
 		if (onPress) {
@@ -61,7 +51,7 @@ export function Goal(props: GoalProps) {
 				<BaseExercise.Title>{title}</BaseExercise.Title>
 				<BaseExercise.InformationRoot>
 					<BaseExercise.InformationItem
-						text={`${amountOfExercisesCompletedThisWeek} de ${frequencyPerWeek}`}
+						text={`${currentWeekProgress} de ${frequencyPerWeek}`}
 					/>
 					<BaseExercise.InformationItem text={`${roundsTotal}x`} />
 					<BaseExercise.InformationItem text={durationTime} />

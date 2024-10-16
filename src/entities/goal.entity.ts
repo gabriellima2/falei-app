@@ -10,6 +10,7 @@ export interface GoalEntity {
 		inhale: number
 	}
 	frequencyPerWeek: number
+	currentWeekProgress: number
 	activityHistory: ActivityHistoryEntity[]
 	userId?: string | null
 	createdAt: Date
