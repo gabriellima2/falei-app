@@ -12,7 +12,7 @@ import type { PoemEntity } from '@/entities/poem.entity'
 
 export function PoemsContainer() {
 	const { poems, isLoading, isFetching } = useGetAllPoems()
-	const { handleOpenReadPoemBottomSheet } = usePoemsContext()
+	const { handleReadPoem } = usePoemsContext()
 
 	const keyExtractor = useCallback((item: PoemEntity) => item.id, [])
 
@@ -21,10 +21,10 @@ export function PoemsContainer() {
 			<Poem
 				id={item.id}
 				body={item.body}
-				onPress={handleOpenReadPoemBottomSheet}
+				onPress={handleReadPoem}
 			/>
 		),
-		[handleOpenReadPoemBottomSheet],
+		[handleReadPoem],
 	)
 
 	return (

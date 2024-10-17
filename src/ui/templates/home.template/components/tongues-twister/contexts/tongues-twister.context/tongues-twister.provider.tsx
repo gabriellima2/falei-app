@@ -9,7 +9,7 @@ export function TonguesTwisterProvider(props: PropsWithChildren) {
 	const readTongueTwisterBottomSheetRef = useRef<BottomSheetModalElementRef>(null)
 	const [tongueTwisterId, setTongueTwisterId] = useState<string | null>(null)
 
-	const handleOpenReadTongueTwisterBottomSheet = useCallback(
+	const handleReadTongueTwister = useCallback(
 		(id: string | null) => {
 			readTongueTwisterBottomSheetRef.current?.present()
 			setTongueTwisterId(id)
@@ -23,7 +23,7 @@ export function TonguesTwisterProvider(props: PropsWithChildren) {
 				tongueTwisterId,
 				readTongueTwisterBottomSheetRef,
 
-				handleOpenReadTongueTwisterBottomSheet,
+				handleReadTongueTwister,
 			}}
 		>
 			<ReadTongueTwisterBottomSheet />

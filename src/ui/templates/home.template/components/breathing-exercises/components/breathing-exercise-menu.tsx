@@ -4,9 +4,9 @@ import { BottomSheetScrollViewModal } from '@/ui/components/bottom-sheet/bottom-
 import { useBreathingExercisesContext } from '../contexts/breathing-exercises.context/hooks'
 
 export function BreathingExerciseMenu() {
-	const { breathingExerciseMenuRef } = useBreathingExercisesContext()
+	const { breathingExerciseMenuBottomSheetRef } = useBreathingExercisesContext()
 	return (
-		<BottomSheetScrollViewModal ref={breathingExerciseMenuRef}>
+		<BottomSheetScrollViewModal ref={breathingExerciseMenuBottomSheetRef}>
 			<ActivityIndicator />
 		</BottomSheetScrollViewModal>
 	)

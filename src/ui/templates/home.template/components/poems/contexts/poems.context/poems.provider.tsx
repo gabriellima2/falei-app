@@ -9,7 +9,7 @@ export function PoemsProvider(props: PropsWithChildren) {
 	const readPoemBottomSheetRef = useRef<BottomSheetModalElementRef>(null)
 	const [poemId, setPoemId] = useState<string | null>(null)
 
-	const handleOpenReadPoemBottomSheet = useCallback(
+	const handleReadPoem = useCallback(
 		(id: string | null) => {
 			readPoemBottomSheetRef.current?.present()
 			setPoemId(id)
@@ -23,7 +23,7 @@ export function PoemsProvider(props: PropsWithChildren) {
 				poemId,
 				readPoemBottomSheetRef,
 
-				handleOpenReadPoemBottomSheet,
+				handleReadPoem,
 			}}
 		>
 			<ReadPoemBottomSheet />

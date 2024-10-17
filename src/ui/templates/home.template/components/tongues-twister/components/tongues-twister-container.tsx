@@ -12,7 +12,7 @@ import type { TongueTwisterEntity } from '@/entities/tongue-twister.entity'
 
 export function TonguesTwisterContainer() {
 	const { tonguesTwister, isLoading, isFetching } = useGetAllTonguesTwister()
-	const { handleOpenReadTongueTwisterBottomSheet } = useTonguesTwisterContext()
+	const { handleReadTongueTwister } = useTonguesTwisterContext()
 
 	const keyExtractor = useCallback((item: TongueTwisterEntity) => item.id, [])
 
@@ -21,10 +21,10 @@ export function TonguesTwisterContainer() {
 			<TongueTwister
 				id={item.id}
 				body={item.body}
-				onPress={handleOpenReadTongueTwisterBottomSheet}
+				onPress={handleReadTongueTwister}
 			/>
 		),
-		[handleOpenReadTongueTwisterBottomSheet],
+		[handleReadTongueTwister],
 	)
 
 	return (

@@ -4,5 +4,5 @@ export type TonguesTwisterContextValues = {
 	readTongueTwisterBottomSheetRef: BottomSheetModalRef | null
 	tongueTwisterId: string | null
 
-	handleOpenReadTongueTwisterBottomSheet: (id: string | null) => void
+	handleReadTongueTwister: (id: string | null) => void
 }

@@ -6,12 +6,12 @@ import { BreathingExercisesContext } from './breathing-exercises.context'
 import type { BottomSheetModalElementRef } from '@/@types/general'
 
 export function BreathingExercisesProvider(props: PropsWithChildren) {
-	const breathingExerciseMenuRef = useRef<BottomSheetModalElementRef>(null)
+	const breathingExerciseMenuBottomSheetRef = useRef<BottomSheetModalElementRef>(null)
 	const [breathingExerciseId, setBreathingExerciseId] = useState<string | null>(null)
 
 	const handleOpenBreathingExerciseMenu = useCallback(
 		(id: string | null) => {
-			breathingExerciseMenuRef.current?.present()
+			breathingExerciseMenuBottomSheetRef.current?.present()
 			setBreathingExerciseId(id)
 		},
 		[],
@@ -20,7 +20,7 @@ export function BreathingExercisesProvider(props: PropsWithChildren) {
 	return (
 		<BreathingExercisesContext.Provider
 			value={{
-				breathingExerciseMenuRef,
+				breathingExerciseMenuBottomSheetRef,
 
 				breathingExerciseId,
 				handleOpenBreathingExerciseMenu,
