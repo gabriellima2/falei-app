@@ -5,15 +5,18 @@ import { BreathingExercise } from '@/ui/components/breathing-exercise'
 import { HorizontalList } from '@/ui/components/horizontal-list'
 import { EmptyMessage } from '@/ui/atoms/empty-message'
 
+import { useBreathingExercisesContext } from '../contexts/breathing-exercises.context/hooks'
 import { useGetAllBreathingExercises } from '@/hooks/http/use-get-all-breathing-exercises'
 import { useNavigation } from '@/hooks/use-navigation'
 
 import { ROUTES } from '@/constants/routes'
 import type { BreathingExerciseEntity } from '@/entities/breathing-exercise.entity'
 
-export function BreathingExercises() {
+export function BreathingExercisesContainer() {
 	const navigation = useNavigation()
-	const { breathingExercises, isLoading, isFetching } = useGetAllBreathingExercises()
+	const { handleOpenBreathingExerciseMenu } = useBreathingExercisesContext()
+	const { breathingExercises, isLoading, isFetching } =
+		useGetAllBreathingExercises()
 
 	const handleDoBreathingExercise = useCallback(
 		(id: string) => {
@@ -22,7 +25,10 @@ export function BreathingExercises() {
 		[navigation],
 	)
 
-	const keyExtractor = useCallback((item: BreathingExerciseEntity) => item.id, [])
+	const keyExtractor = useCallback(
+		(item: BreathingExerciseEntity) => item.id,
+		[],
+	)
 
 	const renderItem = useCallback(
 		({ item }: ListRenderItemInfo<BreathingExerciseEntity>) => (
@@ -32,9 +38,10 @@ export function BreathingExercises() {
 				steps={item.steps}
 				roundsTotal={item.roundsTotal}
 				onPress={handleDoBreathingExercise}
+				onMenuPress={handleOpenBreathingExerciseMenu}
 			/>
 		),
-		[handleDoBreathingExercise],
+		[handleDoBreathingExercise, handleOpenBreathingExerciseMenu],
 	)
 
 	return (
@@ -44,11 +51,7 @@ export function BreathingExercises() {
 			keyExtractor={keyExtractor}
 			ListEmptyComponent={() => (
 				<>
-					{isLoading || isFetching ? (
-						<ActivityIndicator />
-					) : (
-						<EmptyMessage />
-					)}
+					{isLoading || isFetching ? <ActivityIndicator /> : <EmptyMessage />}
 				</>
 			)}
 		/>

@@ -14,10 +14,11 @@ type BreathingExerciseProps = {
 		inhale: number
 	}
 	onPress?: (id: string) => void
+	onMenuPress?: (id: string) => void
 }
 
 export function BreathingExercise(props: BreathingExerciseProps) {
-	const { id, title, roundsTotal, steps, onPress } = props
+	const { id, title, roundsTotal, steps, onPress, onMenuPress } = props
 
 	const durationTime = useMemo(() => {
 		const totalStepsDuration = steps.exhale + steps.hold + steps.inhale
@@ -31,8 +32,18 @@ export function BreathingExercise(props: BreathingExerciseProps) {
 		}
 	}
 
+	function handleMenuPress() {
+		if (onMenuPress) {
+			onMenuPress(id)
+		}
+	}
+
 	return (
-		<BaseExercise.Root variant="breathing-exercise" onPress={handlePress}>
+		<BaseExercise.Root
+			variant="breathing-exercise"
+			onPress={handlePress}
+			onMenuPress={handleMenuPress}
+		>
 			<BaseExercise.Header>
 				<BaseExercise.Icon renderIcon={(_props) => <Shell {..._props} />} />
 				<BaseExercise.Menu />
