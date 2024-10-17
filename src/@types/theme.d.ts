@@ -25,8 +25,14 @@ type Colors = {
 		'text-muted': string
 		'text-foreground': string
 		primary: string
+		'primary-foreground': string
 		success: string
+		'success-foreground': string
+		info: string
+		'info-foreground': string
 		warning: string
+		'warning-foreground': string
 		danger: string
+		'danger-foreground': string
 	}
 }
