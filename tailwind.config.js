@@ -32,6 +32,7 @@ module.exports = {
 					'text-muted': '#B3B3B3',
 					'text-foreground': '#111212',
 					primary: '#DD9EF3',
+					'primary-foreground': '#231E25',
 					success: '#45D483',
 					warning: '#F7B750',
 					danger: '#e16161',
