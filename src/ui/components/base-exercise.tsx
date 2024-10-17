@@ -157,7 +157,7 @@ function Paragraph(props: TextProps) {
 function Menu() {
 	const { onMenuPress } = useBaseExerciseContext()
 	return (
-		<TouchableOpacity onPress={onMenuPress} activeOpacity={0.8}>
+		<TouchableOpacity onPress={onMenuPress} activeOpacity={0.8} hitSlop={10}>
 			<EllipsisVertical color={colors.white} />
 		</TouchableOpacity>
 	)
