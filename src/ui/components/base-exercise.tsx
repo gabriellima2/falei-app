@@ -48,7 +48,7 @@ type BaseExerciseContextValues = VariantProps<typeof rootVariants> & {
 
 const BaseExerciseContext = createContext({} as BaseExerciseContextValues)
 
-export function useBaseExerciseContext() {
+function useBaseExerciseContext() {
 	const context = useContext(BaseExerciseContext)
 	if (!context) {
 		throw new ContextWithoutProviderException('BaseExerciseContext', 'Root')
