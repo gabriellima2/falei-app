@@ -1,7 +1,5 @@
 import { forwardRef, useMemo, type ReactNode } from 'react'
-import { BottomSheetModal as BaseBottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-
-import { Overlay } from '@/ui/atoms/overlay'
+import { BottomSheetModal as BaseBottomSheetModal, BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 
 import { colors } from '@/styles/theme'
 import type { BottomSheetModalElementRef } from '@/@types/general'
@@ -24,7 +22,16 @@ export const BottomSheetScrollViewModal = forwardRef<
 			enableDynamicSizing
 			enablePanDownToClose
 			backgroundStyle={{ backgroundColor: colors.layout.foreground }}
-			backdropComponent={(props) => <Overlay {...props} />}
+			backdropComponent={(_props) => (
+				<BottomSheetBackdrop
+					{..._props}
+					style={[_props.style]}
+					disappearsOnIndex={-1}
+					appearsOnIndex={0}
+					opacity={0.5}
+					pressBehavior="close"
+				/>
+			)}
 			handleIndicatorStyle={{
 				backgroundColor: colors.layout.divider,
 				width: 52,
