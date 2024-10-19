@@ -4,6 +4,7 @@ import { UnexpectedException } from '@/exceptions/unexpected.exception'
 import type { ActivityHistoryEntity } from '@/entities/activity-history.entity'
 import type { GoalRepository } from '@/repositories/goal.repository'
 import type { GoalEntity } from '@/entities/goal.entity'
+import type { CreateGoalDTO } from '@/dtos/goal.dto'
 
 class GoalService {
 	constructor(private readonly goalRepository: GoalRepository) {}
@@ -23,6 +24,10 @@ class GoalService {
 			createdAt: new Date(),
 		}
 		await this.goalRepository.addActivityToHistory(id, payload)
+	}
+	async create(payload: CreateGoalDTO): Promise<void> {
+		if (!payload) throw new UnexpectedException()
+		await this.goalRepository.create(payload)
 	}
 }
 

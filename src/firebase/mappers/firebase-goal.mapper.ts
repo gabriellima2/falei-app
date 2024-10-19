@@ -5,7 +5,7 @@ import { FirebaseActivityHistoryMapper } from './firebase-activity-history.mappe
 import { parseTimestamp } from '@/helpers/date'
 
 import type { GoalEntity } from '@/entities/goal.entity'
-import type { GoalDTO } from '@/dtos/goal.dto'
+import type { CreateGoalDTO, GoalDTO } from '@/dtos/goal.dto'
 
 export class FirebaseGoalMapper {
 	static toEntity(
@@ -37,5 +37,17 @@ export class FirebaseGoalMapper {
 		dtos: QueryDocumentSnapshot<DocumentData, DocumentData>[],
 	): GoalEntity[] {
 		return dtos.map((dto) => FirebaseGoalMapper.toEntity(dto))
+	}
+	static toDB(dto: CreateGoalDTO) {
+		return {
+			title: dto.title,
+			activity_history: [],
+			frequency_per_week: dto.frequency_per_week,
+			rounds_total: dto.rounds_total,
+			steps: dto.steps,
+			user_id: null,
+			created_at: new Date(),
+			updated_at: new Date()
+		}
 	}
 }

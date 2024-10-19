@@ -14,3 +14,14 @@ export interface GoalDTO {
 	created_at: Timestamp
 	updated_at: Timestamp
 }
+
+export interface CreateGoalDTO {
+	title: string
+	rounds_total: number
+	steps: {
+		exhale: number
+		hold: number
+		inhale: number
+	}
+	frequency_per_week: number
+}

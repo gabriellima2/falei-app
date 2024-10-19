@@ -12,7 +12,7 @@ type BottomSheetScrollViewModalProps = {
 export const BottomSheetScrollViewModal = forwardRef<
 	BottomSheetModalElementRef,
 	BottomSheetScrollViewModalProps
->((props, ref) => {
+>(({ children, ...rest }, ref) => {
 	const snapPoints = useMemo(() => ['50%', '75%', '90%'], [])
 	return (
 		<BaseBottomSheetModal
@@ -38,7 +38,7 @@ export const BottomSheetScrollViewModal = forwardRef<
 				height: 6,
 				marginTop: 8,
 			}}
-			{...props}
+			{...rest}
 		>
 			<BottomSheetScrollView
 				contentContainerStyle={{
@@ -47,7 +47,7 @@ export const BottomSheetScrollViewModal = forwardRef<
 					paddingTop: 4,
 				}}
 			>
-				{props.children}
+				{children}
 			</BottomSheetScrollView>
 		</BaseBottomSheetModal>
 	)

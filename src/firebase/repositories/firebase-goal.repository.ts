@@ -1,4 +1,4 @@
-import { arrayUnion, collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
+import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 
 import { db } from '@/config/firebase'
 import { env } from '@/env'
@@ -10,6 +10,7 @@ import { FirebaseGoalMapper } from '../mappers/firebase-goal.mapper'
 import type { ActivityHistoryEntity } from '@/entities/activity-history.entity'
 import type { GoalRepository } from '@/repositories/goal.repository'
 import type { GoalEntity } from '@/entities/goal.entity'
+import type { CreateGoalDTO } from '@/dtos/goal.dto'
 
 class FirebaseGoalRepository implements GoalRepository {
 	private readonly collection
@@ -37,6 +38,11 @@ class FirebaseGoalRepository implements GoalRepository {
 				FirebaseActivityHistoryMapper.toAddDTO(payload),
 			),
 		})
+	}
+	async create(payload: CreateGoalDTO): Promise<void> {
+		const raw = FirebaseGoalMapper.toDB(payload)
+		const ref = collection(db, this.collection)
+		await addDoc(ref, raw)
 	}
 }
 

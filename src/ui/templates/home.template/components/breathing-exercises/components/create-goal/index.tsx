@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { View } from 'react-native'
 
 import { BottomSheetScrollViewModal } from '@/ui/components/bottom-sheet/bottom-sheet-scroll-view-modal'
@@ -7,17 +7,42 @@ import { Button } from '@/ui/atoms/buttons/button'
 import { Radio } from '@/ui/atoms/radio'
 
 import { useBreathingExercisesContext } from '../../contexts/breathing-exercises.context/hooks'
+import { useCreateGoal } from './hooks/use-create-goal'
 
 export function CreateGoal() {
-	const { createGoalBottomSheetRef } = useBreathingExercisesContext()
-	const [value, setValue] = useState('1')
+	const { isCreating, handleCreate } = useCreateGoal()
+	const { breathingExerciseId, createGoalBottomSheetRef } =
+		useBreathingExercisesContext()
+	const [frequencyPerWeek, setFrequencyPerWeek] = useState(1)
+
+	async function handleSubmit() {
+		if (!breathingExerciseId) return
+		await handleCreate({ breathingExerciseId, frequencyPerWeek })
+	}
+
+	const handleCancel = useCallback(() => {
+		createGoalBottomSheetRef?.current?.close()
+	}, [createGoalBottomSheetRef])
+
+	const handleFrequencyPerWeekChange = useCallback(
+		(value?: string | number) => {
+			const formattedValue = Number(value)
+			if (Number.isNaN(formattedValue)) return
+			setFrequencyPerWeek(formattedValue)
+		},
+		[],
+	)
+
 	return (
 		<BottomSheetScrollViewModal ref={createGoalBottomSheetRef}>
 			<View>
 				<Typography.Title>Qual será a sua meta semanal?</Typography.Title>
-				<Radio.Group defaultValue={1} onValueChange={console.log}>
-					{options.map((option, index) => (
-						<Radio.Item key={option} value={index + 1} label={option} />
+				<Radio.Group
+					defaultValue={1}
+					onValueChange={handleFrequencyPerWeekChange}
+				>
+					{frequencyPerWeekOptions.map((option) => (
+						<Radio.Item key={option} value={option} label={`${option}x`} />
 					))}
 				</Radio.Group>
 			</View>
@@ -25,12 +50,19 @@ export function CreateGoal() {
 				<Button
 					variant="destructive-text"
 					label="Cancelar"
+					onPress={handleCancel}
+					disabled={isCreating}
 					className="flex-1 mr-4"
 				/>
-				<Button label="Confirmar" className="flex-1" />
+				<Button
+					label="Confirmar"
+					onPress={handleSubmit}
+					isLoading={isCreating}
+					className="flex-1"
+				/>
 			</View>
 		</BottomSheetScrollViewModal>
 	)
 }
 
-const options = ['1x', '2x', '3x', '4x', '5x', '6x', '7x']
+const frequencyPerWeekOptions = [1, 2, 3, 4, 5, 6, 7]
