@@ -1,57 +1,40 @@
-import { useCallback, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 
+import {
+	useCreateBreathingExerciseGoalMutation,
+	type CreateBreathingExerciseGoalParams,
+} from '@/hooks/mutations/use-create-breathing-exercise-goal'
 import { useBreathingExercisesContext } from '../../../contexts/breathing-exercises.context/hooks'
+import { useToast } from '@/hooks/use-toast'
 
-import { makeBreathingExerciseService } from '@/services/breathing-exercise.service'
-import { makeGoalService } from '@/services/goal.service'
-
-import { BreathingExerciseFoundException } from '@/exceptions/breathing-exercise-not-found.exception'
+import { DEFAULT_ERROR_MESSAGES } from '@/constants/default-error-messages'
 import { QUERY_KEYS } from '@/constants/keys'
 
-type CreateGoalFields = {
-	breathingExerciseId: string
-	frequencyPerWeek: number
+type UseCreateGoalReturn = {
+	isCreating: boolean
+	handleCreate: (params: CreateBreathingExerciseGoalParams) => void
 }
 
-const services = {
-	goal: makeGoalService(),
-	breathingExercise: makeBreathingExerciseService()
-}
-
-export function useCreateGoal() {
-	const queryClient = useQueryClient()
-	const [isCreating, setIsCreating] = useState(false)
+export function useCreateGoal():UseCreateGoalReturn {
 	const { createGoalBottomSheetRef } = useBreathingExercisesContext()
+	const queryClient = useQueryClient()
+	const { notify } = useToast()
 
-	const handleCreate = useCallback(
-		async (params: CreateGoalFields) => {
-			setIsCreating(true)
-			try {
-				const { breathingExerciseId, frequencyPerWeek } = params
-
-				const breathingExercise =
-					await services.breathingExercise.getById(breathingExerciseId)
-				if (!breathingExercise) throw new BreathingExerciseFoundException()
-
-				await services.goal.create({
-					title: breathingExercise.title,
-					frequency_per_week: frequencyPerWeek,
-					rounds_total: breathingExercise.roundsTotal,
-					steps: breathingExercise.steps,
-				})
-				await queryClient.invalidateQueries({
-					queryKey: [QUERY_KEYS.GET_PENDING_GOALS],
-				})
-				createGoalBottomSheetRef?.current?.close()
-			} catch (err) {
-				console.log(err)
-			} finally {
-				setIsCreating(false)
-			}
+	const { mutate, isPending } = useCreateBreathingExerciseGoalMutation({
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({
+				queryKey: [QUERY_KEYS.GET_PENDING_GOALS],
+			})
+			notify({ type: 'success', message: 'Meta criada com sucesso!' })
+			createGoalBottomSheetRef?.current?.close()
 		},
-		[queryClient, createGoalBottomSheetRef],
-	)
+		onError: () => {
+			notify({
+				type: 'error',
+				message: DEFAULT_ERROR_MESSAGES.UNEXPECTED_ERROR,
+			})
+		},
+	})
 
-	return { isCreating, handleCreate }
+	return { isCreating: isPending, handleCreate: mutate }
 }

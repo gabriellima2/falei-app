@@ -15,9 +15,9 @@ export function CreateGoal() {
 		useBreathingExercisesContext()
 	const [frequencyPerWeek, setFrequencyPerWeek] = useState(1)
 
-	async function handleSubmit() {
+	function handleSubmit() {
 		if (!breathingExerciseId) return
-		await handleCreate({ breathingExerciseId, frequencyPerWeek })
+		handleCreate({ breathingExerciseId, frequencyPerWeek })
 	}
 
 	const handleCancel = useCallback(() => {
