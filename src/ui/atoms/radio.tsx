@@ -7,8 +7,8 @@ import { ContextWithoutProviderException } from '@/exceptions/context-without-pr
 import { cn } from '@/helpers/cn'
 
 type RadioContextValues = {
-	currentValue?: string | number
-	onCurrentValueChange: (value: string | number) => void
+	value?: string | number
+	onValueChange?: (value: string | number) => void
 }
 
 const RadioContext = createContext<RadioContextValues>({} as RadioContextValues)
@@ -21,29 +21,16 @@ function useRadioContext() {
 	return context
 }
 
-type GroupProps = ViewProps & {
-	defaultValue?: string | number
-	onValueChange?: (value?: string | number) => void
-}
+type GroupProps = ViewProps & RadioContextValues
 
 function Group(props: GroupProps) {
-	const { defaultValue, onValueChange, ...rest } = props
-	const [currentValue, setCurrentValue] = useState(defaultValue)
-
-	const handleSetCurrentValue = useCallback(
-		(_value: string | number) => {
-			if (_value === currentValue) return
-			setCurrentValue(_value)
-			onValueChange && onValueChange(_value)
-		},
-		[currentValue, onValueChange],
-	)
+	const { value, onValueChange, ...rest } = props
 
 	return (
 		<RadioContext.Provider
 			value={{
-				currentValue,
-				onCurrentValueChange: handleSetCurrentValue,
+				value,
+				onValueChange,
 			}}
 		>
 			<View className="flex-row flex-wrap gap-x-4" {...rest} />
@@ -59,15 +46,14 @@ type ItemProps = {
 }
 
 function Item(props: ItemProps) {
-	const { currentValue, onCurrentValueChange } = useRadioContext()
-	const { label, classNameLabel, value, ...rest } = props
+	const { value, onValueChange } = useRadioContext()
+	const { label, classNameLabel, value: itemValue, ...rest } = props
 
-	const hasCurrentValue = typeof currentValue !== 'undefined'
-	const isSelected = hasCurrentValue && value === currentValue
+	const isSelected = itemValue === value
 
 	const handleOnPress = useCallback(() => {
-		onCurrentValueChange(value)
-	}, [value, onCurrentValueChange])
+		onValueChange && onValueChange(itemValue)
+	}, [itemValue, onValueChange])
 
 	return (
 		<TouchableOpacity

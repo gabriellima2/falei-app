@@ -38,7 +38,7 @@ export function CreateGoal() {
 			<View>
 				<Typography.Title>Qual será a sua meta semanal?</Typography.Title>
 				<Radio.Group
-					defaultValue={1}
+					value={frequencyPerWeek}
 					onValueChange={handleFrequencyPerWeekChange}
 				>
 					{frequencyPerWeekOptions.map((option) => (
