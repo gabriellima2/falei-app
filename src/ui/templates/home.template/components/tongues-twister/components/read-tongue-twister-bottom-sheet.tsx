@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 import { ActivityIndicator } from 'react-native'
 
-import { useTonguesTwisterContext } from '../contexts/tongues-twister.context/hooks'
-import { useGetTongueTwisterById } from '@/hooks/http/use-get-tongue-twister-by-id'
-
 import { BottomSheetScrollViewModal } from '@/ui/components/bottom-sheet/bottom-sheet-scroll-view-modal'
 import { Paragraphs } from '@/ui/components/paragraphs'
 import { AuthorName } from '@/ui/atoms/author-name'
+
+import { useGetTongueTwisterById } from '@/hooks/queries/use-get-tongue-twister-by-id'
+import { useTonguesTwisterContext } from '../contexts/tongues-twister.context/hooks'
 
 import { getSentencesWithBreakLine } from '@/helpers/general'
 

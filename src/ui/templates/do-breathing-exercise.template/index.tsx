@@ -5,7 +5,7 @@ import { BreathingIndicator } from '@/ui/components/breathing-indicator'
 import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
 import { Header } from '@/ui/components/header'
 
-import { useGetBreathingExerciseById } from '@/hooks/http/use-get-breathing-exercise-by-id'
+import { useGetBreathingExerciseById } from '@/hooks/queries/use-get-breathing-exercise-by-id'
 import { useNavigation } from '@/hooks/use-navigation'
 
 import { ROUTES } from '@/constants/routes'

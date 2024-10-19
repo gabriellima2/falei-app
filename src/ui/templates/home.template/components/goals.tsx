@@ -5,7 +5,7 @@ import { HorizontalList } from '@/ui/components/horizontal-list'
 import { EmptyMessage } from '@/ui/atoms/empty-message'
 import { Goal } from '@/ui/components/goal'
 
-import { useGetAllPendingGoals } from '@/hooks/http/use-get-all-pending-goals'
+import { useGetAllPendingGoals } from '@/hooks/queries/use-get-all-pending-goals'
 import { useNavigation } from '@/hooks/use-navigation'
 
 import { ROUTES } from '@/constants/routes'

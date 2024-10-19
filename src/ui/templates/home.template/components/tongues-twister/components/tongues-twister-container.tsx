@@ -5,8 +5,8 @@ import { HorizontalList } from '@/ui/components/horizontal-list'
 import { TongueTwister } from '@/ui/components/tongue-twister'
 import { EmptyMessage } from '@/ui/atoms/empty-message'
 
+import { useGetAllTonguesTwister } from '@/hooks/queries/use-get-all-tongues-twister'
 import { useTonguesTwisterContext } from '../contexts/tongues-twister.context/hooks'
-import { useGetAllTonguesTwister } from '@/hooks/http/use-get-all-tongues-twister'
 
 import type { TongueTwisterEntity } from '@/entities/tongue-twister.entity'
 

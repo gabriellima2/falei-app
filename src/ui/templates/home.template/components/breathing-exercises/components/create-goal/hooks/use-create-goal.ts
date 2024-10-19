@@ -1,18 +1,14 @@
 import { useQueryClient } from '@tanstack/react-query'
 
-import {
-	useCreateBreathingExerciseGoalMutation,
-	type CreateBreathingExerciseGoalParams,
-} from '@/hooks/mutations/use-create-breathing-exercise-goal'
 import { useBreathingExercisesContext } from '../../../contexts/breathing-exercises.context/hooks'
+import { useCreateGoalMutation, type CreateGoalParams } from '@/hooks/mutations/use-create-goal'
 import { useToast } from '@/hooks/use-toast'
 
-import { DEFAULT_ERROR_MESSAGES } from '@/constants/default-error-messages'
 import { QUERY_KEYS } from '@/constants/keys'
 
 type UseCreateGoalReturn = {
 	isCreating: boolean
-	handleCreate: (params: CreateBreathingExerciseGoalParams) => void
+	handleCreate: (params: CreateGoalParams) => void
 }
 
 export function useCreateGoal():UseCreateGoalReturn {
@@ -20,7 +16,7 @@ export function useCreateGoal():UseCreateGoalReturn {
 	const queryClient = useQueryClient()
 	const { notify } = useToast()
 
-	const { mutate, isPending } = useCreateBreathingExerciseGoalMutation({
+	const { mutate, isPending } = useCreateGoalMutation({
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({
 				queryKey: [QUERY_KEYS.GET_PENDING_GOALS],
@@ -31,7 +27,7 @@ export function useCreateGoal():UseCreateGoalReturn {
 		onError: () => {
 			notify({
 				type: 'error',
-				message: DEFAULT_ERROR_MESSAGES.UNEXPECTED_ERROR,
+				message: 'Não foi possível criar a meta. Por favor, tente novamente.',
 			})
 		},
 	})

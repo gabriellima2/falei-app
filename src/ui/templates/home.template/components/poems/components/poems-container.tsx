@@ -5,8 +5,8 @@ import { HorizontalList } from '@/ui/components/horizontal-list'
 import { EmptyMessage } from '@/ui/atoms/empty-message'
 import { Poem } from '@/ui/components/poem'
 
+import { useGetAllPoems } from '@/hooks/queries/use-get-all-poems'
 import { usePoemsContext } from '../contexts/poems.context/hooks'
-import { useGetAllPoems } from '@/hooks/http/use-get-all-poems'
 
 import type { PoemEntity } from '@/entities/poem.entity'
 

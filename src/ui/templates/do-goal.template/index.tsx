@@ -5,7 +5,7 @@ import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
 import { Header } from '@/ui/components/header'
 
 import { useSaveGoalProgress } from './hooks/use-save-goal-progress'
-import { useGetGoalById } from '@/hooks/http/use-get-goal-by-id'
+import { useGetGoalById } from '@/hooks/queries/use-get-goal-by-id'
 import { useNavigation } from '@/hooks/use-navigation'
 import { useToast } from '@/hooks/use-toast'
 

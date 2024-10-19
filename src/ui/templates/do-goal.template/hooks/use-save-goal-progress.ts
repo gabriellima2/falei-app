@@ -25,7 +25,7 @@ export function useSaveGoalProgress(goalId: string) {
 			toast.notify({
 				type: 'error',
 				message:
-					'Não conseguimos salvar o progresso da meta. Por favor, tente novamente.',
+					'Não foi possível salvar o progresso da meta. Por favor, tente novamente.',
 			})
 			navigation.replace(ROUTES.HOME)
 		},

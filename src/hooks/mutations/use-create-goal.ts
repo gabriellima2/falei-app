@@ -10,16 +10,16 @@ const services = {
 	breathingExercise: makeBreathingExerciseService(),
 }
 
-export type CreateBreathingExerciseGoalParams = {
-	breathingExerciseId: string
-	frequencyPerWeek: number
-}
+export type CreateGoalParams = {
+		breathingExerciseId: string
+		frequencyPerWeek: number
+	}
 
-export function useCreateBreathingExerciseGoalMutation(
+export function useCreateGoalMutation(
 	params: MutationParams
-): MutationReturn<CreateBreathingExerciseGoalParams> {
+): MutationReturn<CreateGoalParams> {
 	const { mutate, isPending } = useMutation({
-		mutationFn: async (params: CreateBreathingExerciseGoalParams) => {
+		mutationFn: async (params: CreateGoalParams) => {
 			const { breathingExerciseId, frequencyPerWeek } = params
 
 			const breathingExercise =
@@ -34,7 +34,7 @@ export function useCreateBreathingExerciseGoalMutation(
 			})
 		},
 		onError: params.onError,
-		onSuccess: params.onSuccess
+		onSuccess: params.onSuccess,
 	})
 
 	return { mutate, isPending }
