@@ -33,7 +33,7 @@ function Group(props: GroupProps) {
 				onValueChange,
 			}}
 		>
-			<View className="flex-row flex-wrap gap-x-4" {...rest} />
+			<View className="flex-row flex-wrap items-center mt-3 gap-x-4" {...rest} />
 		</RadioContext.Provider>
 	)
 }
