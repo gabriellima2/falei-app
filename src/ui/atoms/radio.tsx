@@ -63,7 +63,7 @@ function Item(props: ItemProps) {
 			aria-checked={isSelected}
 			accessibilityState={{ checked: isSelected }}
 			className={cn(
-				'bg-base-primary-foreground min-w-[64px] max-w-[70px] h-10 items-center justify-center rounded-xl mt-4 flex-1',
+				'bg-base-primary-foreground min-w-[60px] max-w-[60px] h-10 items-center justify-center rounded-xl mt-4 flex-1',
 				{ 'bg-base-primary': isSelected },
 			)}
 			{...rest}

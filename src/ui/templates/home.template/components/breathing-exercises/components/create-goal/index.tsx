@@ -27,7 +27,10 @@ export function CreateGoal() {
 
 
 	return (
-		<BottomSheetScrollViewModal ref={createGoalBottomSheetRef}>
+		<BottomSheetScrollViewModal
+			ref={createGoalBottomSheetRef}
+			disableClose={isCreating}
+		>
 			<View>
 				<Typography.Title>Qual será a sua meta semanal?</Typography.Title>
 				<Radio.Group

@@ -7,12 +7,14 @@ import type { BottomSheetModalElementRef } from '@/@types/general'
 type BottomSheetScrollViewModalProps = {
 	children: ReactNode
 	snapPoints?: (number | string)[]
+	disableClose?: boolean
 }
 
 export const BottomSheetScrollViewModal = forwardRef<
 	BottomSheetModalElementRef,
 	BottomSheetScrollViewModalProps
->(({ children, ...rest }, ref) => {
+>((props, ref) => {
+	const { children, disableClose = false, ...rest } = props
 	const snapPoints = useMemo(() => ['50%', '75%', '90%'], [])
 	return (
 		<BaseBottomSheetModal
@@ -20,7 +22,7 @@ export const BottomSheetScrollViewModal = forwardRef<
 			snapPoints={snapPoints}
 			detached
 			enableDynamicSizing
-			enablePanDownToClose
+			enablePanDownToClose={!disableClose}
 			backgroundStyle={{ backgroundColor: colors.layout.foreground }}
 			backdropComponent={(_props) => (
 				<BottomSheetBackdrop
@@ -29,7 +31,7 @@ export const BottomSheetScrollViewModal = forwardRef<
 					disappearsOnIndex={-1}
 					appearsOnIndex={0}
 					opacity={0.5}
-					pressBehavior="close"
+					pressBehavior={disableClose ? 'none' : 'close'}
 				/>
 			)}
 			handleIndicatorStyle={{
