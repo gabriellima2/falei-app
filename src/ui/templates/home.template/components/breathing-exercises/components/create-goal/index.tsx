@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { View } from 'react-native'
 
 import { BottomSheetScrollViewModal } from '@/ui/components/bottom-sheet/bottom-sheet-scroll-view-modal'
@@ -7,13 +7,14 @@ import { Button } from '@/ui/atoms/buttons/button'
 import { Radio } from '@/ui/atoms/radio'
 
 import { useBreathingExercisesContext } from '../../contexts/breathing-exercises.context/hooks'
+import { useFrequencyPerWeek } from './hooks/use-frequency-per-week'
 import { useCreateGoal } from './hooks/use-create-goal'
 
 export function CreateGoal() {
 	const { isCreating, handleCreate } = useCreateGoal()
+	const { frequencyPerWeek, handleSetFrequencyPerWeek } = useFrequencyPerWeek()
 	const { breathingExerciseId, createGoalBottomSheetRef } =
 		useBreathingExercisesContext()
-	const [frequencyPerWeek, setFrequencyPerWeek] = useState(1)
 
 	function handleSubmit() {
 		if (!breathingExerciseId) return
@@ -24,14 +25,6 @@ export function CreateGoal() {
 		createGoalBottomSheetRef?.current?.close()
 	}, [createGoalBottomSheetRef])
 
-	const handleFrequencyPerWeekChange = useCallback(
-		(value?: string | number) => {
-			const formattedValue = Number(value)
-			if (Number.isNaN(formattedValue)) return
-			setFrequencyPerWeek(formattedValue)
-		},
-		[],
-	)
 
 	return (
 		<BottomSheetScrollViewModal ref={createGoalBottomSheetRef}>
@@ -39,7 +32,7 @@ export function CreateGoal() {
 				<Typography.Title>Qual será a sua meta semanal?</Typography.Title>
 				<Radio.Group
 					value={frequencyPerWeek}
-					onValueChange={handleFrequencyPerWeekChange}
+					onValueChange={handleSetFrequencyPerWeek}
 				>
 					{frequencyPerWeekOptions.map((option) => (
 						<Radio.Item key={option} value={option} label={`${option}x`} />
