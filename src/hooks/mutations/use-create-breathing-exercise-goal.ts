@@ -28,9 +28,9 @@ export function useCreateBreathingExerciseGoalMutation(
 
 			await services.goal.create({
 				title: breathingExercise.title,
-				frequency_per_week: frequencyPerWeek,
-				rounds_total: breathingExercise.roundsTotal,
+				roundsTotal: breathingExercise.roundsTotal,
 				steps: breathingExercise.steps,
+				frequencyPerWeek,
 			})
 		},
 		onError: params.onError,

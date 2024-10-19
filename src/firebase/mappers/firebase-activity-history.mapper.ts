@@ -1,20 +1,21 @@
 import { parseTimestamp } from '@/helpers/date'
 
+import type { FirebaseActivityHistoryDTO, FirebaseCreateActivityHistoryDTO } from '../dtos/firebase-activity-history.dto'
 import type { ActivityHistoryEntity } from '@/entities/activity-history.entity'
-import type { ActivityHistoryDTO, AddActivityHistoryDTO } from '@/dtos/activity-history.dto'
+import type { CreateActivityHistoryDTO } from '@/dtos/activity-history.dto'
 
 export class FirebaseActivityHistoryMapper {
-	static toEntity(dto: ActivityHistoryDTO): ActivityHistoryEntity {
+	static toEntity(dto: FirebaseActivityHistoryDTO): ActivityHistoryEntity {
 		return {
 			createdAt: parseTimestamp(dto.created_at),
 		}
 	}
-	static toEntityList(dtos: ActivityHistoryDTO[]): ActivityHistoryEntity[] {
+	static toEntityList(dtos: FirebaseActivityHistoryDTO[]): ActivityHistoryEntity[] {
 		return dtos.map((dto) => FirebaseActivityHistoryMapper.toEntity(dto))
 	}
-	static toAddDTO(entity: ActivityHistoryEntity): AddActivityHistoryDTO {
+	static toFirebase(dto: CreateActivityHistoryDTO): FirebaseCreateActivityHistoryDTO {
 		return {
-			created_at: entity.createdAt,
+			created_at: dto.createdAt,
 		}
 	}
 }

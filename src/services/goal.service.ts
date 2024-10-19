@@ -1,10 +1,9 @@
 import { makeFirebaseGoalRepository } from '@/firebase/repositories/firebase-goal.repository'
 import { UnexpectedException } from '@/exceptions/unexpected.exception'
 
-import type { ActivityHistoryEntity } from '@/entities/activity-history.entity'
+import type { CreateGoalDTO, UpdateGoalProgressDTO } from '@/dtos/goal.dto'
 import type { GoalRepository } from '@/repositories/goal.repository'
 import type { GoalEntity } from '@/entities/goal.entity'
-import type { CreateGoalDTO } from '@/dtos/goal.dto'
 
 class GoalService {
 	constructor(private readonly goalRepository: GoalRepository) {}
@@ -20,10 +19,12 @@ class GoalService {
 	}
 	async updateProgress(id: string): Promise<void> {
 		if (!id) throw new UnexpectedException()
-		const payload: ActivityHistoryEntity = {
-			createdAt: new Date(),
+		const payload: UpdateGoalProgressDTO = {
+			activityHistory: {
+				createdAt: new Date(),
+			},
 		}
-		await this.goalRepository.addActivityToHistory(id, payload)
+		await this.goalRepository.updateProgress(id, payload)
 	}
 	async create(payload: CreateGoalDTO): Promise<void> {
 		if (!payload) throw new UnexpectedException()

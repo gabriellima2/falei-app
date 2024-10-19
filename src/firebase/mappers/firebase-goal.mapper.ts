@@ -4,14 +4,15 @@ import { isThisWeek } from 'date-fns'
 import { FirebaseActivityHistoryMapper } from './firebase-activity-history.mapper'
 import { parseTimestamp } from '@/helpers/date'
 
+import type { FirebaseCreateGoalDTO, FirebaseGoalDTO } from '../dtos/firebase-goal.dto'
 import type { GoalEntity } from '@/entities/goal.entity'
-import type { CreateGoalDTO, GoalDTO } from '@/dtos/goal.dto'
+import type { CreateGoalDTO } from '@/dtos/goal.dto'
 
 export class FirebaseGoalMapper {
 	static toEntity(
 		dto: QueryDocumentSnapshot<DocumentData, DocumentData>,
 	): GoalEntity {
-		const data = dto.data() as GoalDTO
+		const data = dto.data() as FirebaseGoalDTO
 
 		const activityHistoryEntity = FirebaseActivityHistoryMapper.toEntityList(
 			data.activity_history,
@@ -38,16 +39,20 @@ export class FirebaseGoalMapper {
 	): GoalEntity[] {
 		return dtos.map((dto) => FirebaseGoalMapper.toEntity(dto))
 	}
-	static toDB(dto: CreateGoalDTO) {
+	static toFirebase(dto: CreateGoalDTO): FirebaseCreateGoalDTO {
 		return {
 			title: dto.title,
 			activity_history: [],
-			frequency_per_week: dto.frequency_per_week,
-			rounds_total: dto.rounds_total,
-			steps: dto.steps,
+			frequency_per_week: dto.frequencyPerWeek,
+			rounds_total: dto.roundsTotal,
+			steps: {
+				inhale: dto.steps.inhale,
+				hold: dto.steps.hold,
+				exhale: dto.steps.exhale,
+			},
 			user_id: null,
 			created_at: new Date(),
-			updated_at: new Date()
+			updated_at: new Date(),
 		}
 	}
 }

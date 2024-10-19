@@ -7,15 +7,19 @@ import { FirebaseActivityHistoryMapper } from '../mappers/firebase-activity-hist
 import { GoalNotFoundException } from '@/exceptions/goal-not-found.exception'
 import { FirebaseGoalMapper } from '../mappers/firebase-goal.mapper'
 
-import type { ActivityHistoryEntity } from '@/entities/activity-history.entity'
+import type { CreateGoalDTO, UpdateGoalProgressDTO } from '@/dtos/goal.dto'
 import type { GoalRepository } from '@/repositories/goal.repository'
 import type { GoalEntity } from '@/entities/goal.entity'
-import type { CreateGoalDTO } from '@/dtos/goal.dto'
 
 class FirebaseGoalRepository implements GoalRepository {
 	private readonly collection
 	constructor() {
 		this.collection = env.GOALS_COLLECTION_NAME
+	}
+	async create(payload: CreateGoalDTO): Promise<void> {
+		const raw = FirebaseGoalMapper.toFirebase(payload)
+		const ref = collection(db, this.collection)
+		await addDoc(ref, raw)
 	}
 	async getById(id: string): Promise<GoalEntity> {
 		const docRef = doc(db, this.collection, id)
@@ -28,21 +32,16 @@ class FirebaseGoalRepository implements GoalRepository {
 		const docSnap = await getDocs(ref)
 		return FirebaseGoalMapper.toEntityList(docSnap.docs)
 	}
-	async addActivityToHistory(
+	async updateProgress(
 		id: string,
-		payload: ActivityHistoryEntity,
+		payload: UpdateGoalProgressDTO,
 	): Promise<void> {
 		const docRef = doc(db, this.collection, id)
 		await updateDoc(docRef, {
 			activity_history: arrayUnion(
-				FirebaseActivityHistoryMapper.toAddDTO(payload),
+				FirebaseActivityHistoryMapper.toFirebase(payload.activityHistory),
 			),
 		})
-	}
-	async create(payload: CreateGoalDTO): Promise<void> {
-		const raw = FirebaseGoalMapper.toDB(payload)
-		const ref = collection(db, this.collection)
-		await addDoc(ref, raw)
 	}
 }
 

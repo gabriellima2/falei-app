@@ -2,14 +2,14 @@ import type { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore'
 
 import { parseTimestamp } from '@/helpers/date'
 
+import type { FirebaseTongueTwisterDTO } from '../dtos/firebase-tongue-twister.dto'
 import type { TongueTwisterEntity } from '@/entities/tongue-twister.entity'
-import type { TongueTwisterDTO } from '@/dtos/tongue-twister.dto'
 
 export class FirebaseTongueTwisterMapper {
 	static toEntity(
 		dto: QueryDocumentSnapshot<DocumentData, DocumentData>,
 	): TongueTwisterEntity {
-		const data = dto.data() as TongueTwisterDTO
+		const data = dto.data() as FirebaseTongueTwisterDTO
 		return {
 			id: dto.id,
 			body: data.body,

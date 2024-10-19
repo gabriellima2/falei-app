@@ -1,4 +1,4 @@
-export interface PoemDTO {
+export interface FirebaseTongueTwisterDTO {
 	title: string
 	body: string
 	author_name: string | null

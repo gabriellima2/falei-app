@@ -1,4 +1,4 @@
-export interface BreathingExerciseDTO {
+export interface FirebaseBreathingExerciseDTO {
 	title: string
 	rounds_total: number
 	steps: {

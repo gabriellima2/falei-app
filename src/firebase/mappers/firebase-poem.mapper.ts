@@ -2,14 +2,14 @@ import type { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore'
 
 import { parseTimestamp } from '@/helpers/date'
 
+import type { FirebasePoemDTO } from '../dtos/firebase-poem.dto'
 import type { PoemEntity } from '@/entities/poem.entity'
-import type { PoemDTO } from '@/dtos/poem.dto'
 
 export class FirebasePoemMapper {
 	static toEntity(
 		dto: QueryDocumentSnapshot<DocumentData, DocumentData>,
 	): PoemEntity {
-		const data = dto.data() as PoemDTO
+		const data = dto.data() as FirebasePoemDTO
 		return {
 			id: dto.id,
 			body: data.body,
