@@ -7,5 +7,7 @@ export type BreathingExercisesContextValues = {
 		breathingExerciseMenuBottomSheetRef: BottomSheetModalRef | null
 
 		handleOpenBreathingExerciseMenu: (id: string | null) => void
-		handleOpenCreateGoal: () => void
+		handleCloseBreathingExerciseMenu: () => void
+		handleOpenCreateGoalBottomSheet: () => void
+		handleCloseCreateGoalBottomSheet: () => void
 	}

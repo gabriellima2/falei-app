@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import { View } from 'react-native'
 
 import { BottomSheetScrollViewModal } from '@/ui/components/bottom-sheet/bottom-sheet-scroll-view-modal'
@@ -13,18 +12,16 @@ import { useCreateGoal } from './hooks/use-create-goal'
 export function CreateGoalBottomSheet() {
 	const { isCreating, handleCreate } = useCreateGoal()
 	const { frequencyPerWeek, handleSetFrequencyPerWeek } = useFrequencyPerWeek()
-	const { breathingExerciseId, createGoalBottomSheetRef } =
-		useBreathingExercisesContext()
+	const {
+		breathingExerciseId,
+		createGoalBottomSheetRef,
+		handleCloseCreateGoalBottomSheet,
+	} = useBreathingExercisesContext()
 
 	function handleSubmit() {
 		if (!breathingExerciseId) return
 		handleCreate({ breathingExerciseId, frequencyPerWeek })
 	}
-
-	const handleCancel = useCallback(() => {
-		createGoalBottomSheetRef?.current?.close()
-	}, [createGoalBottomSheetRef])
-
 
 	return (
 		<BottomSheetScrollViewModal
@@ -46,7 +43,7 @@ export function CreateGoalBottomSheet() {
 				<Button
 					variant="destructive-text"
 					label="Cancelar"
-					onPress={handleCancel}
+					onPress={handleCloseCreateGoalBottomSheet}
 					disabled={isCreating}
 					className="flex-1 mr-4"
 				/>

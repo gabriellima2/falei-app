@@ -6,7 +6,8 @@ import { MenuOptions } from '@/ui/components/menu-options'
 import { useBreathingExercisesContext } from '../contexts/breathing-exercises.context/hooks'
 
 export function BreathingExerciseMenu() {
-	const { breathingExerciseMenuBottomSheetRef, handleOpenCreateGoal } = useBreathingExercisesContext()
+	const { breathingExerciseMenuBottomSheetRef, handleOpenCreateGoalBottomSheet } =
+		useBreathingExercisesContext()
 	return (
 		<BottomSheetScrollViewModal ref={breathingExerciseMenuBottomSheetRef}>
 			<MenuOptions.Root>
@@ -14,7 +15,7 @@ export function BreathingExerciseMenu() {
 					<MenuOptions.Option
 						variant="primary"
 						label="Adicionar meta"
-						onPress={handleOpenCreateGoal}
+						onPress={handleOpenCreateGoalBottomSheet}
 						renderIcon={(_props) => <FlameIcon {..._props} />}
 					/>
 				</MenuOptions.Content>

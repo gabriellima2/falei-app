@@ -7,5 +7,7 @@ export type GoalsContextValues = {
 	deleteGoalBottomSheetRef: BottomSheetModalRef | null
 
 	handleOpenGoalMenu: (id: string | null) => void
+	handleCloseGoalMenu: () => void
 	handleOpenDeleteGoalBottomSheet: () => void
+	handleCloseDeleteGoalBottomSheet: () => void
 }

@@ -16,9 +16,17 @@ export function BreathingExercisesProvider(props: PropsWithChildren) {
 		setBreathingExerciseId(id)
 	}, [])
 
+	const handleCloseBreathingExerciseMenu = useCallback(() => {
+		breathingExerciseMenuBottomSheetRef.current?.close()
+		setBreathingExerciseId(null)
+	}, [])
 
-	const handleOpenCreateGoal = useCallback(() => {
+	const handleOpenCreateGoalBottomSheet = useCallback(() => {
 		createGoalBottomSheetRef.current?.present()
+	}, [])
+
+	const handleCloseCreateGoalBottomSheet = useCallback(() => {
+		createGoalBottomSheetRef.current?.close()
 	}, [])
 
 	return (
@@ -30,7 +38,10 @@ export function BreathingExercisesProvider(props: PropsWithChildren) {
 				createGoalBottomSheetRef,
 
 				handleOpenBreathingExerciseMenu,
-				handleOpenCreateGoal,
+				handleCloseBreathingExerciseMenu,
+
+				handleOpenCreateGoalBottomSheet,
+				handleCloseCreateGoalBottomSheet,
 			}}
 		>
 			<CreateGoalBottomSheet />

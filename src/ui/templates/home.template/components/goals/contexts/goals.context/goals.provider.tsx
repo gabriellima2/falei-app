@@ -16,8 +16,17 @@ export function GoalsProvider(props: PropsWithChildren) {
 		setGoalId(id)
 	}, [])
 
+	const handleCloseGoalMenu = useCallback(() => {
+		goalMenuBottomSheetRef.current?.close()
+		setGoalId(null)
+	}, [])
+
 	const handleOpenDeleteGoalBottomSheet = useCallback(() => {
 		deleteGoalBottomSheetRef.current?.present()
+	}, [])
+
+	const handleCloseDeleteGoalBottomSheet = useCallback(() => {
+		deleteGoalBottomSheetRef.current?.close()
 	}, [])
 
 	return (
@@ -29,7 +38,9 @@ export function GoalsProvider(props: PropsWithChildren) {
 				deleteGoalBottomSheetRef,
 
 				handleOpenGoalMenu,
+				handleCloseGoalMenu,
 				handleOpenDeleteGoalBottomSheet,
+				handleCloseDeleteGoalBottomSheet,
 			}}
 		>
 			<GoalMenu />

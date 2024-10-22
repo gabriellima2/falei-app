@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import { View } from 'react-native'
 
 import { BottomSheetScrollViewModal } from '@/ui/components/bottom-sheet/bottom-sheet-scroll-view-modal'
@@ -9,17 +8,13 @@ import { useGoalsContext } from '../../contexts/goals.context/hooks'
 import { useDeleteGoal } from './hooks/use-delete-goal'
 
 export function DeleteGoalBottomSheet() {
-	const { goalId, deleteGoalBottomSheetRef } = useGoalsContext()
+	const { goalId, deleteGoalBottomSheetRef, handleCloseDeleteGoalBottomSheet } = useGoalsContext()
 	const { isDeleting, handleDelete } = useDeleteGoal()
 
 	function handleConfirm() {
 		if (!goalId) return
 		handleDelete(goalId)
 	}
-
-	const handleCancel = useCallback(() => {
-		deleteGoalBottomSheetRef?.current?.close()
-	}, [deleteGoalBottomSheetRef])
 
 	return (
 		<BottomSheetScrollViewModal
@@ -31,7 +26,7 @@ export function DeleteGoalBottomSheet() {
 				<Button
 					variant="destructive-text"
 					label="Cancelar"
-					onPress={handleCancel}
+					onPress={handleCloseDeleteGoalBottomSheet}
 					disabled={isDeleting}
 					className="flex-1 mr-4"
 				/>

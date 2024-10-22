@@ -12,7 +12,7 @@ type UseCreateGoalReturn = {
 }
 
 export function useCreateGoal():UseCreateGoalReturn {
-	const { createGoalBottomSheetRef } = useBreathingExercisesContext()
+	const { handleCloseCreateGoalBottomSheet } = useBreathingExercisesContext()
 	const queryClient = useQueryClient()
 	const { notify } = useToast()
 
@@ -22,7 +22,7 @@ export function useCreateGoal():UseCreateGoalReturn {
 				queryKey: [QUERY_KEYS.GET_PENDING_GOALS],
 			})
 			notify({ type: 'success', message: 'Meta criada com sucesso!' })
-			createGoalBottomSheetRef?.current?.close()
+			handleCloseCreateGoalBottomSheet()
 		},
 		onError: () => {
 			notify({

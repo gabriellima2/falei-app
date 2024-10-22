@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast'
 import { QUERY_KEYS } from '@/constants/keys'
 
 export function useDeleteGoal() {
-	const { deleteGoalBottomSheetRef } = useGoalsContext()
+	const { handleCloseDeleteGoalBottomSheet } = useGoalsContext()
 	const queryClient = useQueryClient()
 	const { notify } = useToast()
 
@@ -17,7 +17,7 @@ export function useDeleteGoal() {
 				queryKey: [QUERY_KEYS.GET_PENDING_GOALS],
 			})
 			notify({ type: 'success', message: 'Meta deletada com sucesso!' })
-			deleteGoalBottomSheetRef?.current?.close()
+			handleCloseDeleteGoalBottomSheet()
 		},
 		onError: () => {
 			notify({
