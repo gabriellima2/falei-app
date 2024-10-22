@@ -10,9 +10,11 @@ import { useNavigation } from '@/hooks/use-navigation'
 
 import { ROUTES } from '@/constants/routes'
 import type { GoalEntity } from '@/entities/goal.entity'
+import { useGoalsContext } from '../contexts/goals.context/hooks'
 
-export function Goals() {
+export function GoalsContainer() {
 	const navigation = useNavigation()
+	const { handleOpenGoalMenu } = useGoalsContext()
 	const { goals, isLoading, isFetching } = useGetAllPendingGoals()
 
 	const handleDoGoal = useCallback(
@@ -34,9 +36,10 @@ export function Goals() {
 				currentWeekProgress={item.currentWeekProgress}
 				frequencyPerWeek={item.frequencyPerWeek}
 				onPress={handleDoGoal}
+				onMenuPress={handleOpenGoalMenu}
 			/>
 		),
-		[handleDoGoal],
+		[handleDoGoal, handleOpenGoalMenu],
 	)
 
 	return (

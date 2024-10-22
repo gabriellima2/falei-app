@@ -48,7 +48,7 @@ type OptionProps = VariantProps<typeof optionVariants> &
 		renderIcon?: (props: LucideProps) => JSX.Element
 	}
 
-const ICON_COLORS: Pick<DefaultVariants, 'variant'>['variant'] = {
+const COLOR_BY_VARIANT: Pick<DefaultVariants, 'variant'>['variant'] = {
 	default: colors.base.text,
 	danger: colors.base.danger,
 	info: colors.base.info,
@@ -59,7 +59,7 @@ const ICON_COLORS: Pick<DefaultVariants, 'variant'>['variant'] = {
 
 function Option(props: OptionProps) {
 	const { variant, label, renderIcon, ...rest } = props
-	const iconColor = ICON_COLORS[variant || 'default']
+	const color = COLOR_BY_VARIANT[variant || 'default']
 	return (
 		<TouchableOpacity
 			activeOpacity={0.8}
@@ -71,9 +71,9 @@ function Option(props: OptionProps) {
 					optionVariants({ variant, className: 'flex-row items-center' }),
 				)}
 			>
-				{renderIcon && renderIcon({ size: 24, color: iconColor })}
+				{renderIcon && renderIcon({ size: 24, color })}
 			</View>
-			<Typography.Label>{label}</Typography.Label>
+			<Typography.Label className={cn({ 'text-base-danger': variant === 'danger' })}>{label}</Typography.Label>
 		</TouchableOpacity>
 	)
 }

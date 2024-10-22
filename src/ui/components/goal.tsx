@@ -16,6 +16,7 @@ type GoalProps = {
 	frequencyPerWeek: number
 	currentWeekProgress: number
 	onPress?: (id: string) => void
+	onMenuPress?: (id: string) => void
 }
 
 export function Goal(props: GoalProps) {
@@ -27,6 +28,7 @@ export function Goal(props: GoalProps) {
 		frequencyPerWeek,
 		currentWeekProgress,
 		onPress,
+		onMenuPress,
 	} = props
 
 	const durationTime = useMemo(() => {
@@ -41,8 +43,18 @@ export function Goal(props: GoalProps) {
 		}
 	}
 
+	function handleMenuPress() {
+		if (onMenuPress) {
+			onMenuPress(id)
+		}
+	}
+
 	return (
-		<BaseExercise.Root variant="goal" onPress={handlePress}>
+		<BaseExercise.Root
+			variant="goal"
+			onPress={handlePress}
+			onMenuPress={handleMenuPress}
+		>
 			<BaseExercise.Header>
 				<BaseExercise.Icon renderIcon={(_props) => <Flame {..._props} />} />
 				<BaseExercise.Menu />
