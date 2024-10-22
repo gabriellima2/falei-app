@@ -8,6 +8,10 @@ import type { GoalEntity } from '@/entities/goal.entity'
 class GoalService {
 	constructor(private readonly goalRepository: GoalRepository) {}
 
+	async create(payload: CreateGoalDTO): Promise<void> {
+		if (!payload) throw new UnexpectedException()
+		await this.goalRepository.create(payload)
+	}
 	async getById(id: string): Promise<GoalEntity> {
 		if (!id) throw new UnexpectedException()
 		const data = await this.goalRepository.getById(id)
@@ -26,11 +30,12 @@ class GoalService {
 		}
 		await this.goalRepository.updateProgress(id, payload)
 	}
-	async create(payload: CreateGoalDTO): Promise<void> {
-		if (!payload) throw new UnexpectedException()
-		await this.goalRepository.create(payload)
+	async delete(id: string): Promise<void> {
+		if (!id) throw new UnexpectedException()
+		await this.goalRepository.delete(id)
 	}
 }
+
 
 export const makeGoalService = () => {
 	const goalRepository = makeFirebaseGoalRepository()

@@ -6,7 +6,7 @@ import { MenuOptions } from '@/ui/components/menu-options'
 import { useGoalsContext } from '../contexts/goals.context/hooks'
 
 export function GoalMenu() {
-	const { goalMenuBottomSheetRef } = useGoalsContext()
+	const { goalMenuBottomSheetRef, handleOpenDeleteGoalBottomSheet } = useGoalsContext()
 	return (
 		<BottomSheetScrollViewModal ref={goalMenuBottomSheetRef}>
 			<MenuOptions.Root>
@@ -14,7 +14,7 @@ export function GoalMenu() {
 					<MenuOptions.Option
 						variant="danger"
 						label="Excluir meta"
-						onPress={console.log}
+						onPress={handleOpenDeleteGoalBottomSheet}
 						renderIcon={(_props) => <Trash2 {..._props} />}
 					/>
 				</MenuOptions.Content>

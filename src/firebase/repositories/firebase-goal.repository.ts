@@ -1,4 +1,4 @@
-import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
+import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 
 import { db } from '@/config/firebase'
 import { env } from '@/env'
@@ -42,6 +42,10 @@ class FirebaseGoalRepository implements GoalRepository {
 				FirebaseActivityHistoryMapper.toFirebase(payload.activityHistory),
 			),
 		})
+	}
+	async delete(id: string): Promise<void> {
+		const ref = doc(db, this.collection, id)
+		await deleteDoc(ref)
 	}
 }
 

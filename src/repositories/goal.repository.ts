@@ -6,4 +6,5 @@ export interface GoalRepository {
 	getById(id: string): Promise<GoalEntity>
 	getAll(): Promise<GoalEntity[]>
 	updateProgress(goalId: string, payload: UpdateGoalProgressDTO): Promise<void>
+	delete(id: string): Promise<void>
 }
