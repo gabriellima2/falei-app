@@ -10,7 +10,7 @@ import { useBreathingExercisesContext } from '../../contexts/breathing-exercises
 import { useFrequencyPerWeek } from './hooks/use-frequency-per-week'
 import { useCreateGoal } from './hooks/use-create-goal'
 
-export function CreateGoal() {
+export function CreateGoalBottomSheet() {
 	const { isCreating, handleCreate } = useCreateGoal()
 	const { frequencyPerWeek, handleSetFrequencyPerWeek } = useFrequencyPerWeek()
 	const { breathingExerciseId, createGoalBottomSheetRef } =

@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState, type PropsWithChildren } from 'react'
 
+import { CreateGoalBottomSheet } from '../../components/create-goal-bottom-sheet'
 import { BreathingExerciseMenu } from '../../components/breathing-exercise-menu'
 import { BreathingExercisesContext } from './breathing-exercises.context'
-import { CreateGoal } from '../../components/create-goal'
 
 import type { BottomSheetModalElementRef } from '@/@types/general'
 
@@ -33,7 +33,7 @@ export function BreathingExercisesProvider(props: PropsWithChildren) {
 				handleOpenCreateGoal,
 			}}
 		>
-			<CreateGoal />
+			<CreateGoalBottomSheet />
 			<BreathingExerciseMenu />
 			{props.children}
 		</BreathingExercisesContext.Provider>
