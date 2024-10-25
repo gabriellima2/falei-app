@@ -1,16 +1,52 @@
 import { z } from 'zod'
 
+import { VALIDATION_RULES, VALIDATION_MESSAGES } from '@/validations/constants'
+import { isValidPassword } from '@/validations/utils'
+
 export const signInSchema = z.object({
-	email: z.string().email(),
-	password: z.string(),
+	email: z
+		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
+		.email()
+		.min(1, { message: VALIDATION_MESSAGES.REQUIRED }),
+	password: z
+		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
+		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
+		.max(VALIDATION_RULES.MAX_LENGTH_PASSWORD, {
+			message: VALIDATION_MESSAGES.MAX_LENGTH_PASSWORD,
+		})
+		.refine((password) => isValidPassword(password), {
+			message: VALIDATION_MESSAGES.MIN_LENGTH_PASSWORD,
+		}),
 })
 export const signUpSchema = z.object({
-	email: z.string().email(),
-	password: z.string(),
+	email: z
+		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
+		.email()
+		.min(1, { message: VALIDATION_MESSAGES.REQUIRED }),
+	password: z
+		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
+		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
+		.max(VALIDATION_RULES.MAX_LENGTH_PASSWORD, {
+			message: VALIDATION_MESSAGES.MAX_LENGTH_PASSWORD,
+		})
+		.refine((password) => isValidPassword(password), {
+			message: VALIDATION_MESSAGES.MIN_LENGTH_PASSWORD,
+		}),
 })
 export const resetPasswordSchema = z.object({
-	email: z.string().email(),
-	password: z.string(),
+	email: z
+		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
+		.email()
+		.min(1, { message: VALIDATION_MESSAGES.REQUIRED }),
+	password: z
+		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
+		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
+		.max(VALIDATION_RULES.MAX_LENGTH_PASSWORD, {
+			message: VALIDATION_MESSAGES.MAX_LENGTH_PASSWORD,
+		})
+		.refine((password) => isValidPassword(password), {
+			message: VALIDATION_MESSAGES.MIN_LENGTH_PASSWORD,
+		}),
 })
 
 export type SignInFields = z.infer<typeof signInSchema>
