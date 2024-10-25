@@ -11,7 +11,10 @@ export const Password = forwardRef<TextInput, TextInputProps>((props, ref) => {
 			<TextInput
 				ref={ref}
 				secureTextEntry={!isVisible}
-				className="flex-1 text-sm text-common-white font-body mr-4"
+				autoCapitalize="none"
+				keyboardAppearance="dark"
+				placeholderTextColor={colors.base['text-muted']}
+				className="flex-1 text-sm h-full text-common-white font-body mr-4"
 				{...props}
 			/>
 			<TouchableWithoutFeedback

@@ -1,7 +1,7 @@
-import { HomeTemplate } from '@/ui/templates/home.template'
+import { Redirect } from 'expo-router'
 
 function Page() {
-	return <HomeTemplate />
+	return <Redirect href={{ pathname: '/(auth)/sign-up' }} />
 }
 
-export default Page // ProtectScreen(Page)
+export default Page
