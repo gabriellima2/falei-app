@@ -6,7 +6,10 @@ import { Typography } from '@/ui/atoms/typography'
 import { Container } from '@/ui/atoms/container'
 import { Header } from '@/ui/components/header'
 
+import { useFocusNextField } from '@/hooks/use-focus-next-field'
+
 export function SignUpTemplate() {
+	const passwordField = useFocusNextField()
 	return (
 		<Container>
 			<Header.Root>
@@ -19,11 +22,13 @@ export function SignUpTemplate() {
 						placeholder="Digite o seu email"
 						keyboardType="email-address"
 						returnKeyType="next"
+						onSubmitEditing={passwordField.handleFocus}
 					/>
 				</Field.Root>
 				<Field.Root>
 					<Field.Labels.Default>Senha</Field.Labels.Default>
 					<Field.Inputs.Password
+						ref={passwordField.fieldRef}
 						placeholder="Digite uma senha"
 						returnKeyType="go"
 					/>
