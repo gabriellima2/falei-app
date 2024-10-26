@@ -1,7 +1,5 @@
 import { ExerciseCompletedTemplate } from '@/ui/templates/exercise-completed.template'
 
-function Page() {
+export default function Page() {
 	return <ExerciseCompletedTemplate />
 }
-
-export default Page
