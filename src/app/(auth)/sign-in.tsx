@@ -1,11 +1,11 @@
 import { Stack } from 'expo-router'
-import { SignUpTemplate } from '@/ui/templates/(auth)/sign-up.template'
+import { SignInTemplate } from '@/ui/templates/(auth)/sign-in.template'
 
 export default function Page() {
 	return (
 		<>
 			<Stack.Screen />
-			<SignUpTemplate />
+			<SignInTemplate />
 		</>
 	)
 }

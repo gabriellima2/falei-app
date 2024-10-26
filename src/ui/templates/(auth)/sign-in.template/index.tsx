@@ -8,17 +8,17 @@ import { Header } from '@/ui/components/header'
 import { Links } from '@/ui/atoms/links'
 
 import { useFocusNextField } from '@/hooks/use-focus-next-field'
-import { useSignUpForm } from './hooks/use-sign-up-form'
+import { useSignInForm } from './hooks/use-sign-in-form'
 
 import { ROUTES } from '@/constants/routes'
 
-export function SignUpTemplate() {
-	const { isSubmitting, errors, onSubmit, control } = useSignUpForm()
+export function SignInTemplate() {
+	const { isSubmitting, errors, onSubmit, control } = useSignInForm()
 	const passwordField = useFocusNextField()
 	return (
 		<Container>
 			<Header.Root>
-				<Header.Title>Bem-vindo! Crie uma conta para continuar</Header.Title>
+				<Header.Title>Olá novamente! Entre para continuar</Header.Title>
 			</Header.Root>
 			<View>
 				<Field.Root
@@ -51,7 +51,7 @@ export function SignUpTemplate() {
 							<Field.Inputs.Password
 								{...params}
 								ref={passwordField.fieldRef}
-								placeholder="Digite uma senha"
+								placeholder="Digite a sua senha"
 								returnKeyType="go"
 								onSubmitEditing={onSubmit}
 							/>
@@ -61,15 +61,15 @@ export function SignUpTemplate() {
 				/>
 				<View className="items-center mt-8">
 					<Button
-						label="Criar conta"
+						label="Entrar"
 						onPress={onSubmit}
 						isLoading={isSubmitting}
 						className="mb-8"
 					/>
 					<Typography.Paragraph>
-						Já possui uma conta?{' '}
-						<Links.Default href={ROUTES.AUTH.SIGN_IN} className="text-base-primary">
-							Entrar
+						Não possui uma conta?{' '}
+						<Links.Default href={ROUTES.AUTH.SIGN_UP} className="text-base-primary">
+							Criar agora
 						</Links.Default>
 					</Typography.Paragraph>
 				</View>

@@ -2,35 +2,36 @@ import { useForm, type DefaultValues } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
+import { useNavigation } from '@/hooks/use-navigation'
 import { useToast } from '@/hooks/use-toast'
 
 import {
-	signUpSchema,
-	type SignUpFields,
+	signInSchema,
+	type SignInFields,
 } from '@/schemas/authentication.schema'
+
+import { ROUTES } from '@/constants/routes'
 import { onError } from '@/helpers/error'
 
-export function useSignUpForm() {
+export function useSignInForm() {
 	const {
 		control,
 		handleSubmit,
 		reset,
 		formState: { isSubmitting, errors },
-	} = useForm<SignUpFields>({
+	} = useForm<SignInFields>({
 		defaultValues,
-		resolver: zodResolver(signUpSchema),
+		resolver: zodResolver(signInSchema),
 	})
-	const { signUp } = useAuthenticationStore()
+	const { signIn } = useAuthenticationStore()
+	const { replace } = useNavigation()
 	const toast = useToast()
 
-	async function handleSignUp(credentials: SignUpFields) {
+	async function handleSignIn(credentials: SignInFields) {
 		try {
-			await signUp(credentials)
+			await signIn(credentials)
 			reset(defaultValues)
-			toast.notify({
-				type: 'success',
-				message: 'Sua conta foi criada com sucesso!',
-			})
+			replace(ROUTES.EXERCISE_COMPLETED)
 		} catch (err) {
 			const message = onError(err)
 			toast.notify({
@@ -44,11 +45,11 @@ export function useSignUpForm() {
 		errors,
 		isSubmitting,
 		control,
-		onSubmit: handleSubmit(handleSignUp),
+		onSubmit: handleSubmit(handleSignIn),
 	}
 }
 
-const defaultValues: DefaultValues<SignUpFields> = {
+const defaultValues: DefaultValues<SignInFields> = {
 	email: '',
 	password: '',
 }
