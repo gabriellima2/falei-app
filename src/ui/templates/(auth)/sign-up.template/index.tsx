@@ -44,7 +44,7 @@ export function SignUpTemplate() {
 					control={control}
 					name="password"
 					render={(params) => (
-						<Field.Content className="mb-4">
+						<Field.Content>
 							<Field.Labels.Default nativeID={params.nativeID}>
 								Senha
 							</Field.Labels.Default>

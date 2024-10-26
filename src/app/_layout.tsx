@@ -46,7 +46,7 @@ export default function RootLayout() {
 					showCloseIcon={false}
 					textStyle={{
 						color: colors.base.text,
-						fontSize: 16,
+						fontSize: 14,
 					}}
 					height={60}
 					style={{ backgroundColor: colors.layout.foreground }}
