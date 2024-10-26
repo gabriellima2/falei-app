@@ -10,7 +10,7 @@ import { useFocusNextField } from '@/hooks/use-focus-next-field'
 import { useSignUpForm } from './hooks/use-sign-up-form'
 
 export function SignUpTemplate() {
-	const { isSubmitting, errors, onSubmit, setValue } = useSignUpForm()
+	const { isSubmitting, errors, onSubmit, control } = useSignUpForm()
 	const passwordField = useFocusNextField()
 	return (
 		<Container>
@@ -18,28 +18,44 @@ export function SignUpTemplate() {
 				<Header.Title>Bem, vindo! Crie uma conta para continuar</Header.Title>
 			</Header.Root>
 			<View>
-				<Field.Root className="mb-4">
-					<Field.Labels.Default>Email</Field.Labels.Default>
-					<Field.Inputs.Default
-						placeholder="Digite o seu email"
-						keyboardType="email-address"
-						returnKeyType="next"
-						onChangeText={(text) => setValue('email', text)}
-						onSubmitEditing={passwordField.handleFocus}
-					/>
-					<Field.Errors.Default message={errors.email?.message} />
-				</Field.Root>
-				<Field.Root>
-					<Field.Labels.Default>Senha</Field.Labels.Default>
-					<Field.Inputs.Password
-						ref={passwordField.fieldRef}
-						placeholder="Digite uma senha"
-						returnKeyType="go"
-						onChangeText={(text) => setValue('password', text)}
-						onSubmitEditing={onSubmit}
-					/>
-					<Field.Errors.Default message={errors.password?.message} />
-				</Field.Root>
+				<Field.Root
+					control={control}
+					name="email"
+					render={(params) => (
+						<Field.Content className="mb-4">
+							<Field.Labels.Default nativeID={params.nativeID}>
+								Email
+							</Field.Labels.Default>
+							<Field.Inputs.Default
+								{...params}
+								placeholder="Digite o seu email"
+								keyboardType="email-address"
+								returnKeyType="next"
+								onSubmitEditing={passwordField.handleFocus}
+							/>
+							<Field.Errors.Default message={errors.email?.message} />
+						</Field.Content>
+					)}
+				/>
+				<Field.Root
+					control={control}
+					name="password"
+					render={(params) => (
+						<Field.Content className="mb-4">
+							<Field.Labels.Default nativeID={params.nativeID}>
+								Senha
+							</Field.Labels.Default>
+							<Field.Inputs.Password
+								{...params}
+								ref={passwordField.fieldRef}
+								placeholder="Digite uma senha"
+								returnKeyType="go"
+								onSubmitEditing={onSubmit}
+							/>
+							<Field.Errors.Default message={errors.password?.message} />
+						</Field.Content>
+					)}
+				/>
 				<View className="items-center mt-8">
 					<Button
 						label="Criar conta"

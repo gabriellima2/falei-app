@@ -5,9 +5,14 @@ import { isValidPassword } from '@/validations/utils'
 
 export const signInSchema = z.object({
 	email: z
-		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
-		.email()
-		.min(1, { message: VALIDATION_MESSAGES.REQUIRED }),
+		.string({
+			required_error: VALIDATION_MESSAGES.REQUIRED,
+		})
+		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
+		.max(VALIDATION_RULES.MAX_LENGTH_EMAIL, {
+			message: VALIDATION_MESSAGES.MAX_LENGTH_EMAIL,
+		})
+		.email({ message: VALIDATION_MESSAGES.INVALID_EMAIL}),
 	password: z
 		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
 		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
@@ -20,9 +25,14 @@ export const signInSchema = z.object({
 })
 export const signUpSchema = z.object({
 	email: z
-		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
-		.email()
-		.min(1, { message: VALIDATION_MESSAGES.REQUIRED }),
+		.string({
+			required_error: VALIDATION_MESSAGES.REQUIRED,
+		})
+		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
+		.max(VALIDATION_RULES.MAX_LENGTH_EMAIL, {
+			message: VALIDATION_MESSAGES.MAX_LENGTH_EMAIL,
+		})
+		.email({ message: VALIDATION_MESSAGES.INVALID_EMAIL}),
 	password: z
 		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
 		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
@@ -35,9 +45,14 @@ export const signUpSchema = z.object({
 })
 export const resetPasswordSchema = z.object({
 	email: z
-		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
-		.email()
-		.min(1, { message: VALIDATION_MESSAGES.REQUIRED }),
+		.string({
+			required_error: VALIDATION_MESSAGES.REQUIRED,
+		})
+		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
+		.max(VALIDATION_RULES.MAX_LENGTH_EMAIL, {
+			message: VALIDATION_MESSAGES.MAX_LENGTH_EMAIL,
+		})
+		.email({ message: VALIDATION_MESSAGES.INVALID_EMAIL}),
 	password: z
 		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
 		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
