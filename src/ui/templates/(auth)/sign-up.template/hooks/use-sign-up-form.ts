@@ -20,16 +20,17 @@ export function useSignUpForm() {
 		defaultValues,
 		resolver: zodResolver(signUpSchema),
 	})
-	const { signUp } = useAuthenticationStore()
+	const { signUp, emailVerification } = useAuthenticationStore()
 	const toast = useToast()
 
 	async function handleSignUp(credentials: SignUpFields) {
 		try {
 			await signUp(credentials)
 			reset(defaultValues)
+			await emailVerification()
 			toast.notify({
 				type: 'success',
-				message: 'Sua conta foi criada com sucesso!',
+				message: 'Sua conta foi criada com sucesso! Verifique o seu email.',
 			})
 		} catch (err) {
 			const message = onError(err)
