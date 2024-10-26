@@ -9,7 +9,6 @@ import type { UserEntity } from '@/entities/user.entity'
 
 export type AuthenticationStoreState = {
 	user: Omit<UserEntity, 'password'> | null
-	isNewUser: boolean
 	authHasBeenChecked: boolean
 	signOut: () => Promise<void>
 	signIn: (credentials: SignInFields) => Promise<void>

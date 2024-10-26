@@ -46,7 +46,8 @@
     "react-native-web": "~0.19.10",
     "tailwind-merge": "^2.5.2",
     "zod": "^3.23.8",
-    "zustand": "^4.5.5"
+    "zustand": "^4.5.5",
+    "expo-blur": "~13.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

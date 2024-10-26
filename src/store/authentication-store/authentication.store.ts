@@ -16,18 +16,18 @@ const authenticationAdapter = makeFirebaseAuthenticationAdapter()
 export const useAuthenticationStore = create<AuthenticationStoreState>(
 	(set) => ({
 		user: null,
-		isNewUser: false,
 		authHasBeenChecked: false,
 		signOut: async () => {
 			await authenticationAdapter.signOut()
-			set((state) => ({ ...state, user: null, authHasBeenChecked: false }))
+			set((state) => ({ ...state, user: null, authHasBeenChecked: true }))
 		},
 		signIn: async (credentials: SignInFields) => {
-			await authenticationAdapter.signIn(credentials)
+			const user = await authenticationAdapter.signIn(credentials)
+			set((state) => ({ ...state, user, authHasBeenChecked: true }))
 		},
 		signUp: async (credentials: SignUpFields) => {
 			await authenticationAdapter.signUp(credentials)
-			set((state) => ({ ...state, isNewUser: true }))
+			set((state) => ({ ...state, authHasBeenChecked: true }))
 		},
 		resetPassword: async (params: ResetPasswordFields) => {
 			await authenticationAdapter.resetPassword(params)

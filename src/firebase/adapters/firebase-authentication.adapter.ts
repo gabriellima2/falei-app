@@ -10,6 +10,7 @@ import { DEFAULT_ERROR_MESSAGES } from '@/constants/default-error-messages'
 import { auth } from '@/config/firebase'
 
 import type { AuthenticationAdapter } from '@/adapters/authentication.adapter'
+import type { UserDTO } from '@/dtos/authentication.dto'
 import type {
 	SignInFields,
 	SignUpFields,
@@ -17,9 +18,14 @@ import type {
 } from '@/schemas/authentication.schema'
 
 class FirebaseAuthenticationAdapter implements AuthenticationAdapter {
-	async signIn(credentials: SignInFields): Promise<void> {
+	async signIn(credentials: SignInFields): Promise<UserDTO> {
 		const { email, password } = credentials
-		await signInWithEmailAndPassword(auth, email, password)
+		const { user } = await signInWithEmailAndPassword(auth, email, password)
+		return {
+			id: user.uid,
+			email: user.email || '',
+			emailVerified: user.emailVerified,
+		}
 	}
 	async signUp(credentials: SignUpFields): Promise<void> {
 		const { email, password } = credentials

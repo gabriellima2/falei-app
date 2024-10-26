@@ -1,3 +1,4 @@
+import type { UserDTO } from '@/dtos/authentication.dto'
 import type {
 	SignInFields,
 	SignUpFields,
@@ -5,7 +6,7 @@ import type {
 } from '@/schemas/authentication.schema'
 
 export interface AuthenticationAdapter {
-	signIn(params: SignInFields): Promise<void>
+	signIn(params: SignInFields): Promise<UserDTO>
 	signUp(params: SignUpFields): Promise<void>
 	signOut(): Promise<void>
 	resetPassword(params: ResetPasswordFields): Promise<void>
