@@ -4,7 +4,7 @@ import '@/config/firebase'
 
 import { ActivityIndicator, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import ToastManager from 'toastify-react-native'
+import Toast from 'react-native-toast-message'
 import { StatusBar } from 'expo-status-bar'
 import { Stack } from 'expo-router'
 import {
@@ -17,7 +17,6 @@ import { Providers } from '@/providers'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
 import { STATUS_BAR_HEIGHT } from '@/constants/general'
-import { colors } from '@/styles/theme'
 
 export { ErrorBoundary } from 'expo-router'
 
@@ -37,34 +36,26 @@ export default function RootLayout() {
 	}
 
 	return (
-		<GestureHandlerRootView className="flex-1">
-			<StatusBar style="light" />
-			<Providers>
-				<ToastManager
-					duration={5000}
-					position="top"
-					showCloseIcon={false}
-					textStyle={{
-						color: colors.base.text,
-						fontSize: 14,
-					}}
-					height={60}
-					style={{ backgroundColor: colors.layout.foreground }}
-				/>
-				<SafeAreaView
-					className="flex-1 bg-layout-background"
-					style={{ paddingTop: STATUS_BAR_HEIGHT }}
-				>
-					<Stack
-						screenOptions={{
-							headerShown: false,
-							contentStyle: { backgroundColor: '#111212' },
-						}}
+		<>
+			<GestureHandlerRootView className="flex-1">
+				<StatusBar style="light" />
+				<Providers>
+					<SafeAreaView
+						className="flex-1 bg-layout-background"
+						style={{ paddingTop: STATUS_BAR_HEIGHT }}
 					>
-						<Stack.Screen name="index" />
-					</Stack>
-				</SafeAreaView>
-			</Providers>
-		</GestureHandlerRootView>
+						<Stack
+							screenOptions={{
+								headerShown: false,
+								contentStyle: { backgroundColor: '#111212' },
+							}}
+						>
+							<Stack.Screen name="index" />
+						</Stack>
+					</SafeAreaView>
+				</Providers>
+			</GestureHandlerRootView>
+			<Toast />
+		</>
 	)
 }

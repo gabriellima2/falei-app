@@ -24,17 +24,14 @@ export function useSignUpForm() {
 	const toast = useToast()
 
 	async function handleSignUp(credentials: SignUpFields) {
-					toast.notify({
-						type: 'success',
-						message: 'Sua conta foi criada com sucesso! Verifique o seu email.',
-					})
-		/*try {
+		try {
 			await signUp(credentials)
 			reset(defaultValues)
 			await emailVerification()
 			toast.notify({
 				type: 'success',
-				message: 'Sua conta foi criada com sucesso! Verifique o seu email.',
+				message: 'Sua conta foi criada com sucesso!',
+				description: 'Verifique o seu email clicando no link enviado.',
 			})
 		} catch (err) {
 			const message = onError(err)
@@ -42,7 +39,7 @@ export function useSignUpForm() {
 				type: 'error',
 				message,
 			})
-		}*/
+		}
 	}
 
 	return {

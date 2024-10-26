@@ -1,5 +1,3 @@
-
-
 type Colors = {
 	common: {
 		white: string
@@ -35,4 +33,9 @@ type Colors = {
 		danger: string
 		'danger-foreground': string
 	}
+}
+
+type FontFamily = {
+	heading: string
+	body: string
 }
