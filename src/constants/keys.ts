@@ -9,3 +9,8 @@ export const QUERY_KEYS = {
 	GET_TONGUES_TWISTER: 'tongues-twister',
 	GET_TONGUE_TWISTER: 'tongue-twister',
 }
+
+export const SCREEN_ROLES = {
+	PRIVATE: 'private',
+	PUBLIC: 'public'
+} as const

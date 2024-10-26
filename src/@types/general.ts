@@ -9,3 +9,5 @@ export type QueryOptions<T> = Omit<UseQueryOptions<T>, 'queryFn' | 'queryKey'>
 export type BottomSheetElementRef = BottomSheet
 export type BottomSheetModalElementRef = BottomSheetModal
 export type BottomSheetModalRef = RefObject<BottomSheetModalMethods>
+
+export type ScreenRoles = 'private' | 'public'

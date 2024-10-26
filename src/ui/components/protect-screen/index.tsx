@@ -1,53 +1,43 @@
 import { useEffect, type ComponentType } from 'react'
 import { ActivityIndicator } from 'react-native'
-import {
-	usePathname,
-	useRootNavigationState,
-	useRouter,
-	useSegments,
-} from 'expo-router'
+import { Redirect, type Href } from 'expo-router'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
 
-import { PRIVATE_GROUP_NAME, PUBLIC_GROUP_NAME } from './constants/group-names'
+import { SCREEN_ROLES } from '@/constants/keys'
+import { ROUTES } from '@/constants/routes'
 
-export function ProtectScreen<P extends {}>(Component: ComponentType<P>) {
-	return function HOC(props: P) {
-		const router = useRouter()
-		const segments = useSegments()
-		const pathname = usePathname()
-		const { user, checkAuthState, authHasBeenChecked } = useAuthenticationStore(
-			(state) => state,
-		)
-		const navigationState = useRootNavigationState()
+import type { ScreenRoles } from '@/@types/general'
 
-		const handleRedirect = () => {
-			/*const inPublicGroup = segments[0] === PUBLIC_GROUP_NAME
-			const inPrivateGroup = segments[0] === PRIVATE_GROUP_NAME
-			const inRootPath = pathname === '/'
+type ProtectScreenProps = {
+	screenRole: ScreenRoles
+}
 
-			if (user && inRootPath && !inPrivateGroup) {
-				return router.replace(`/${PRIVATE_GROUP_NAME}/`)
+export function ProtectScreen<P extends {}>(
+		Component: ComponentType<P>,
+		props: ProtectScreenProps,
+	) {
+		return function HOC(p: P) {
+			const { screenRole } = props
+			const { user, checkAuthState, authHasBeenChecked } =
+				useAuthenticationStore((state) => state)
+
+			// biome-ignore lint/correctness/useExhaustiveDependencies:
+			useEffect(() => {
+				const unsubscribe = checkAuthState()
+				return unsubscribe
+			}, [])
+
+			if (!authHasBeenChecked) return <ActivityIndicator />
+
+			if (screenRole === SCREEN_ROLES.PUBLIC && !!user) {
+				return <Redirect href={ROUTES.HOME as Href} />
 			}
 
-			if (!user && inPrivateGroup && !inPublicGroup) {
-				return router.replace(`/${PUBLIC_GROUP_NAME}/login`)
-			}*/
+			if (screenRole === SCREEN_ROLES.PRIVATE && !user) {
+				return <Redirect href={ROUTES.AUTH.SIGN_IN as Href} />
+			}
+
+			return <Component {...p} />
 		}
-
-		// biome-ignore lint/correctness/useExhaustiveDependencies:
-		useEffect(() => {
-			const unsubscribe = checkAuthState()
-			return unsubscribe
-		}, [])
-
-		// biome-ignore lint/correctness/useExhaustiveDependencies:
-		useEffect(() => {
-			if (!navigationState) return
-			handleRedirect()
-		}, [authHasBeenChecked])
-
-		if (!authHasBeenChecked) return <ActivityIndicator />
-		return <Component {...props} />
 	}
-}
