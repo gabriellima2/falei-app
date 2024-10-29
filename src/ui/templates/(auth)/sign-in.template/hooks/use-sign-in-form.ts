@@ -31,7 +31,7 @@ export function useSignInForm() {
 		try {
 			await signIn(credentials)
 			reset(defaultValues)
-			replace(ROUTES.HOME)
+			replace(ROUTES.TABS.HOME)
 		} catch (err) {
 			const message = onError(err)
 			toast.notify({

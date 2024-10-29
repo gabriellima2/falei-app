@@ -15,7 +15,7 @@ export function ExerciseCompletedTemplate() {
 	const navigation = useNavigation()
 
 	const handleConfirm = useCallback(() => {
-		navigation.replace(ROUTES.HOME)
+		navigation.replace(ROUTES.TABS.HOME)
 	}, [navigation])
 
 	return (

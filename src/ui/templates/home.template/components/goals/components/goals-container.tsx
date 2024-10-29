@@ -19,7 +19,7 @@ export function GoalsContainer() {
 
 	const handleDoGoal = useCallback(
 		(id: string) => {
-			navigation.push(ROUTES.DO_GOAL(id))
+			navigation.push(ROUTES.APP.DO_GOAL(id))
 		},
 		[navigation],
 	)

@@ -25,7 +25,7 @@ export function DoGoalTemplate(props: DoGoalTemplateProps) {
 
 	if (hasGoal && goal.currentWeekProgress === goal.frequencyPerWeek) {
 		toast.notify({ type: 'error', message: 'Você já completou a frequência semanal dessa meta.' })
-		navigation.replace(ROUTES.HOME)
+		navigation.replace(ROUTES.TABS.HOME)
 		return null
 	}
 

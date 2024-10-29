@@ -20,7 +20,7 @@ export function BreathingExercisesContainer() {
 
 	const handleDoBreathingExercise = useCallback(
 		(id: string) => {
-			navigation.push(ROUTES.DO_BREATHING_EXERCISE(id))
+			navigation.push(ROUTES.APP.DO_BREATHING_EXERCISE(id))
 		},
 		[navigation],
 	)

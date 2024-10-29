@@ -19,7 +19,7 @@ export function useSaveGoalProgress(goalId: string) {
 		mutationFn: async () => await service.updateProgress(goalId),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_GOALS] })
-			navigation.replace(ROUTES.EXERCISE_COMPLETED)
+			navigation.replace(ROUTES.APP.EXERCISE_COMPLETED)
 		},
 		onError: () => {
 			toast.notify({
@@ -27,7 +27,7 @@ export function useSaveGoalProgress(goalId: string) {
 				message:
 					'Não foi possível salvar o progresso da meta. Por favor, tente novamente.',
 			})
-			navigation.replace(ROUTES.HOME)
+			navigation.replace(ROUTES.TABS.HOME)
 		},
 	})
 
