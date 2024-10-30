@@ -27,7 +27,7 @@ export const useAuthenticationStore = create<AuthenticationStoreState>(
 		},
 		signUp: async (credentials: SignUpFields) => {
 			await authenticationAdapter.signUp(credentials)
-			set((state) => ({ ...state, authHasBeenChecked: true }))
+			set((state) => ({ ...state, user: null, authHasBeenChecked: true }))
 		},
 		resetPassword: async (params: ResetPasswordFields) => {
 			await authenticationAdapter.resetPassword(params)

@@ -17,17 +17,23 @@ import { Providers } from '@/providers'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
 import { STATUS_BAR_HEIGHT } from '@/constants/general'
+import { useEffect } from 'react'
 
 export { ErrorBoundary } from 'expo-router'
 
 export default function RootLayout() {
-	const { authHasBeenChecked } = useAuthenticationStore()
+	const { authHasBeenChecked, checkAuthState } = useAuthenticationStore()
 	const [fontsLoaded] = useFonts({
 		Roboto_400Regular,
 		Roboto_500Medium,
 	})
 
-	if (!fontsLoaded && !authHasBeenChecked) {
+	// biome-ignore lint/correctness/useExhaustiveDependencies:
+	useEffect(() => {
+		checkAuthState()
+	}, [])
+
+	if (!fontsLoaded || !authHasBeenChecked) {
 		return (
 			<View className="flex-1 items-center justify-center">
 				<ActivityIndicator />

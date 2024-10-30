@@ -1,5 +1,4 @@
-import { useEffect, type ComponentType } from 'react'
-import { ActivityIndicator } from 'react-native'
+import type { ComponentType } from 'react'
 import { Redirect, type Href } from 'expo-router'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
@@ -19,16 +18,7 @@ export function ProtectScreen<P extends {}>(
 	) {
 		return function HOC(p: P) {
 			const { screenRole } = props
-			const { user, checkAuthState, authHasBeenChecked } =
-				useAuthenticationStore((state) => state)
-
-			// biome-ignore lint/correctness/useExhaustiveDependencies:
-			useEffect(() => {
-				const unsubscribe = checkAuthState()
-				return unsubscribe
-			}, [])
-
-			if (!authHasBeenChecked) return <ActivityIndicator />
+			const { user } = useAuthenticationStore((state) => state)
 
 			if (screenRole === SCREEN_ROLES.PUBLIC && !!user) {
 				return <Redirect href={ROUTES.TABS.HOME as Href} />
