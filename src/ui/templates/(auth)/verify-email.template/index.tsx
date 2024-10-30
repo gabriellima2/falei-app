@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from 'react-native'
+import { View } from 'react-native'
 import { Redirect, type Href } from 'expo-router'
 import { MailPlus } from 'lucide-react-native'
 
@@ -6,6 +6,7 @@ import { Button } from '@/ui/atoms/buttons/button'
 import { Typography } from '@/ui/atoms/typography'
 import { Container } from '@/ui/atoms/container'
 
+import { useSendEmailVerification } from './hooks/use-send-email-verification'
 import { useAuthenticationStore } from '@/store/authentication-store'
 import { useVerifyEmail } from './hooks/use-verify-email'
 
@@ -14,8 +15,11 @@ import { colors } from '@/styles/theme'
 
 export function VerifyEmailTemplate() {
 	const { user } = useAuthenticationStore()
-	const { isResending, isRefreshing, handleRefresh, handleResendEmailVerification } = useVerifyEmail()
+	const { isRefreshing, handleRefresh } = useVerifyEmail()
+	const { timeLeftToSendAgain, isNotTimeToSendAgainOver, isSending, handleSend } = useSendEmailVerification()
+
 	if (user?.emailVerified) return <Redirect href={ROUTES.TABS.HOME as Href} />
+
 	return (
 		<Container>
 			<View className="flex-1 items-center justify-center">
@@ -35,24 +39,22 @@ export function VerifyEmailTemplate() {
 				<Button
 					label="Verifiquei"
 					className="mb-4"
-					disabled={isResending}
+					disabled={isSending}
 					isLoading={isRefreshing}
 					onPress={handleRefresh}
 				/>
-				<View className="flex-row">
-					<Typography.Paragraph className="mr-1">
-						Não recebeu o email?
-					</Typography.Paragraph>
-					<TouchableOpacity
-						activeOpacity={0.8}
-						onPress={handleResendEmailVerification}
-						disabled={isResending}
-					>
-						<Typography.Paragraph className="text-base-primary">
-							Reenviar
-						</Typography.Paragraph>
-					</TouchableOpacity>
-				</View>
+				<Button
+					disabled={isNotTimeToSendAgainOver}
+					variant="secondary"
+					label={
+						isNotTimeToSendAgainOver
+							? `Você poderá enviar novamente em ${timeLeftToSendAgain} segundos`
+							: 'Não recebeu? Enviar novamente'
+					}
+					className="mb-4"
+					isLoading={isSending}
+					onPress={handleSend}
+				/>
 			</View>
 		</Container>
 	)
