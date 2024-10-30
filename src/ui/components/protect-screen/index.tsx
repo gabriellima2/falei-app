@@ -31,7 +31,7 @@ export function ProtectScreen<P extends {}>(
 			if (!authHasBeenChecked) return <ActivityIndicator />
 
 			if (screenRole === SCREEN_ROLES.PUBLIC && !!user) {
-				return <Redirect href={ROUTES.HOME as Href} />
+				return <Redirect href={ROUTES.TABS.HOME as Href} />
 			}
 
 			if (screenRole === SCREEN_ROLES.PRIVATE && !user) {

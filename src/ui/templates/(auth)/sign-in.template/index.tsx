@@ -64,7 +64,7 @@ export function SignInTemplate() {
 						label="Entrar"
 						onPress={onSubmit}
 						isLoading={isSubmitting}
-						className="mb-8"
+						className="mb-4"
 					/>
 					<Typography.Paragraph>
 						Não possui uma conta?{' '}

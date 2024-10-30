@@ -15,6 +15,11 @@ function Paragraph(props: TextProps) {
 	return <Text className="font-body text-base-text text-sm" {...rest} />
 }
 
+function Bold(props: TextProps) {
+	const { className, ...rest } = props
+	return <Text className="font-heading text-base-text text-sm" {...rest} />
+}
+
 function Label(props: TextProps) {
 	const { className, ...rest } = props
 	return <Text className="font-heading text-base-text text-sm" {...rest} />
@@ -31,4 +36,5 @@ export const Typography = {
 	Paragraph,
 	Label,
 	Small,
+	Bold,
 }

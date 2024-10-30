@@ -15,5 +15,6 @@ export type AuthenticationStoreState = {
 	signUp: (credentials: SignUpFields) => Promise<void>
 	resetPassword: (params: ResetPasswordFields) => Promise<void>
 	emailVerification: () => Promise<void>
+	refreshUser: () => Promise<void>
 	checkAuthState: () => Unsubscribe
 }

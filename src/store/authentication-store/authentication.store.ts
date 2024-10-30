@@ -35,6 +35,20 @@ export const useAuthenticationStore = create<AuthenticationStoreState>(
 		emailVerification: async () => {
 			await authenticationAdapter.emailVerification()
 		},
+		refreshUser: async () => {
+			const user = auth.currentUser
+			await user?.reload()
+			const refreshedUser = user && {
+				id: user.uid,
+				email: user.email || '',
+				emailVerified: user.emailVerified,
+			}
+			set((state) => ({
+				...state,
+				user: refreshedUser ?? null,
+				authHasBeenChecked: true,
+			}))
+		},
 		checkAuthState: () =>
 			onAuthStateChanged(auth, (credentials) => {
 				const user = credentials && {

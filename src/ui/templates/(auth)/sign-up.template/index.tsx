@@ -64,7 +64,7 @@ export function SignUpTemplate() {
 						label="Criar conta"
 						onPress={onSubmit}
 						isLoading={isSubmitting}
-						className="mb-8"
+						className="mb-4"
 					/>
 					<Typography.Paragraph>
 						Já possui uma conta?{' '}

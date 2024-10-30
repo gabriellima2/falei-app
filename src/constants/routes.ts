@@ -8,8 +8,8 @@ export const ROUTES = {
 		HOME: '/(tabs)/',
 	},
 	APP: {
-		DO_BREATHING_EXERCISE: (id: string) => `/(app)/do-breathing-exercise/${id}`,
-		DO_GOAL: (id: string) => `/(app)/do-goal/${id}`,
-		EXERCISE_COMPLETED: '/(app)/exercise-completed',
+		DO_BREATHING_EXERCISE: (id: string) => `/do-breathing-exercise/${id}`,
+		DO_GOAL: (id: string) => `/do-goal/${id}`,
+		EXERCISE_COMPLETED: '/exercise-completed',
 	},
 }
