@@ -48,6 +48,7 @@ export const useAuthenticationStore = create<AuthenticationStoreState>(
 				user: refreshedUser ?? null,
 				authHasBeenChecked: true,
 			}))
+			return refreshedUser
 		},
 		checkAuthState: () =>
 			onAuthStateChanged(auth, (credentials) => {

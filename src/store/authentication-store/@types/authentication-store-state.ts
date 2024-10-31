@@ -7,14 +7,16 @@ import type {
 } from '@/schemas/authentication.schema'
 import type { UserEntity } from '@/entities/user.entity'
 
+type User = Omit<UserEntity, 'password'> | null
+
 export type AuthenticationStoreState = {
-	user: Omit<UserEntity, 'password'> | null
+	user: User | null
 	authHasBeenChecked: boolean
 	signOut: () => Promise<void>
 	signIn: (credentials: SignInFields) => Promise<void>
 	signUp: (credentials: SignUpFields) => Promise<void>
 	resetPassword: (params: ResetPasswordFields) => Promise<void>
 	emailVerification: () => Promise<void>
-	refreshUser: () => Promise<void>
+	refreshUser: () => Promise<User | null>
 	checkAuthState: () => Unsubscribe
 }
