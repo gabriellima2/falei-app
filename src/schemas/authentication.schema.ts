@@ -53,15 +53,6 @@ export const resetPasswordSchema = z.object({
 			message: VALIDATION_MESSAGES.MAX_LENGTH_EMAIL,
 		})
 		.email({ message: VALIDATION_MESSAGES.INVALID_EMAIL}),
-	password: z
-		.string({ required_error: VALIDATION_MESSAGES.REQUIRED })
-		.min(1, { message: VALIDATION_MESSAGES.REQUIRED })
-		.max(VALIDATION_RULES.MAX_LENGTH_PASSWORD, {
-			message: VALIDATION_MESSAGES.MAX_LENGTH_PASSWORD,
-		})
-		.refine((password) => isValidPassword(password), {
-			message: VALIDATION_MESSAGES.MIN_LENGTH_PASSWORD,
-		}),
 })
 
 export type SignInFields = z.infer<typeof signInSchema>

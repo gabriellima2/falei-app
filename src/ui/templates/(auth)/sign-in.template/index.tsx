@@ -40,25 +40,30 @@ export function SignInTemplate() {
 						</Field.Content>
 					)}
 				/>
-				<Field.Root
-					control={control}
-					name="password"
-					render={(params) => (
-						<Field.Content>
-							<Field.Labels.Default nativeID={params.nativeID}>
-								Senha
-							</Field.Labels.Default>
-							<Field.Inputs.Password
-								{...params}
-								ref={passwordField.fieldRef}
-								placeholder="Digite a sua senha"
-								returnKeyType="go"
-								onSubmitEditing={onSubmit}
-							/>
-							<Field.Errors.Default message={errors.password?.message} />
-						</Field.Content>
-					)}
-				/>
+				<View>
+					<Field.Root
+						control={control}
+						name="password"
+						render={(params) => (
+							<Field.Content>
+								<Field.Labels.Default nativeID={params.nativeID}>
+									Senha
+								</Field.Labels.Default>
+								<Field.Inputs.Password
+									{...params}
+									ref={passwordField.fieldRef}
+									placeholder="Digite a sua senha"
+									returnKeyType="go"
+									onSubmitEditing={onSubmit}
+								/>
+								<Field.Errors.Default message={errors.password?.message} />
+							</Field.Content>
+						)}
+					/>
+					<Links.Default href={ROUTES.AUTH.FORGOT_PASSWORD} className='text-base-text font-heading text-sm text-right'>
+						Esqueceu a senha?
+					</Links.Default>
+				</View>
 				<View className="items-center mt-8">
 					<Button
 						label="Entrar"
@@ -68,7 +73,10 @@ export function SignInTemplate() {
 					/>
 					<Typography.Paragraph>
 						Não possui uma conta?{' '}
-						<Links.Default href={ROUTES.AUTH.SIGN_UP} className="text-base-primary">
+						<Links.Default
+							href={ROUTES.AUTH.SIGN_UP}
+							className="text-base-primary"
+						>
 							Criar agora
 						</Links.Default>
 					</Typography.Paragraph>

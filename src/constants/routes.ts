@@ -3,6 +3,7 @@ export const ROUTES = {
 		SIGN_UP: '/sign-up',
 		SIGN_IN: '/sign-in',
 		VERIFY_EMAIL: '/verify-email',
+		FORGOT_PASSWORD: '/forgot-password'
 	},
 	TABS: {
 		HOME: '/(tabs)/',

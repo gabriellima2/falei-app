@@ -30,7 +30,7 @@ export function VerifyEmailTemplate() {
 						Verifique o seu email para continuar!
 					</Typography.Title>
 				</View>
-				<Typography.Paragraph className="text-center max-w-[300px] mt-4">
+				<Typography.Paragraph className="text-center max-w-[300px] mt-2">
 					Enviamos um email para{' '}
 					<Typography.Bold>{user?.email}</Typography.Bold>. Por favor, clique no
 					link enviado para verificar a sua conta.

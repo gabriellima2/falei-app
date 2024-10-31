@@ -27,7 +27,7 @@ export function ExerciseCompletedTemplate() {
 						Concluído com sucesso!
 					</Typography.Title>
 				</View>
-				<Typography.Paragraph className="text-center max-w-[300px] mt-4">
+				<Typography.Paragraph className="text-center max-w-[300px] mt-2">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 					eiusmod tempor incididunt.
 				</Typography.Paragraph>
