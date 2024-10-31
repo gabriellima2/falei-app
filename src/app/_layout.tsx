@@ -30,7 +30,8 @@ export default function RootLayout() {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies:
 	useEffect(() => {
-		checkAuthState()
+		const unsubscribe = checkAuthState()
+		return () => unsubscribe()
 	}, [])
 
 	if (!fontsLoaded || !authHasBeenChecked) {

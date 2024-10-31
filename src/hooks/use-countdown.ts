@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { useInterval } from './use-interval'
 import { useBoolean } from './use-boolean'
@@ -6,10 +6,8 @@ import { useCounter } from './use-counter'
 
 type CountdownOptions = {
 	countStart: number
-
-	intervalMs?: number
+	interval?: number
 	isIncrement?: boolean
-
 	countStop?: number
 }
 
@@ -22,7 +20,7 @@ type CountdownControllers = {
 export function useCountdown({
 	countStart,
 	countStop = 0,
-	intervalMs = 1000,
+	interval = 1,
 	isIncrement = false,
 }: CountdownOptions): [number, CountdownControllers] {
 	const {
@@ -55,6 +53,8 @@ export function useCountdown({
 			decrement()
 		}
 	}, [count, countStop, decrement, increment, isIncrement, stopCountdown])
+
+	const intervalMs = useMemo(() => interval * 1000, [interval])
 
 	useInterval(countdownCallback, isCountdownRunning ? intervalMs : null)
 

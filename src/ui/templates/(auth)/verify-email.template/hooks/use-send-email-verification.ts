@@ -7,15 +7,14 @@ import { useToast } from '@/hooks/use-toast'
 import { onError } from '@/helpers/error'
 
 export function useSendEmailVerification() {
-	const [timeLeftToSendAgain, { startCountdown, resetCountdown }] = useCountdown({
-		countStart: 30,
-		intervalMs: 1000,
+	const [timeRemainingToSendAgain, { startCountdown, resetCountdown }] = useCountdown({
+		countStart: 120,
 	})
 	const { emailVerification } = useAuthenticationStore()
 	const [isSending, setIsSending] = useState(false)
 	const { notify } = useToast()
 
-	const isNotTimeToSendAgainOver = timeLeftToSendAgain > 0
+	const isNotTimeToSendAgainOver = timeRemainingToSendAgain > 0
 
 	async function sendEmailVerification() {
 		setIsSending(true)
@@ -42,7 +41,7 @@ export function useSendEmailVerification() {
 	}, [])
 
 	return {
-		timeLeftToSendAgain,
+		timeRemainingToSendAgain,
 		isNotTimeToSendAgainOver,
 
 		isSending,
