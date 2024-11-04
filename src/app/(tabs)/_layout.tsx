@@ -1,7 +1,5 @@
-import { BottomTabBar } from '@react-navigation/bottom-tabs'
 import { Redirect, Tabs, type Href } from 'expo-router'
 import { Home } from 'lucide-react-native'
-import { BlurView } from 'expo-blur'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
 
@@ -16,21 +14,12 @@ export default function Layout() {
 	}
 	return (
 		<Tabs
-			tabBar={(props) => (
-				<BlurView
-					intensity={80}
-					tint='dark'
-					className="w-full h-14 self-center bg-layout-foreground"
-				>
-					<BottomTabBar {...props} />
-				</BlurView>
-			)}
 			screenOptions={{
 				tabBarShowLabel: false,
 				tabBarHideOnKeyboard: true,
 				tabBarStyle: {
-					backgroundColor: 'transparent',
-					height: '100%',
+					backgroundColor: colors.layout.foreground,
+					height: 56,
 					borderTopWidth: 0,
 					elevation: 0,
 					shadowOffset: {
