@@ -1,5 +1,5 @@
 import { Redirect, Tabs, type Href } from 'expo-router'
-import { Home } from 'lucide-react-native'
+import { Home, Settings } from 'lucide-react-native'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
 
@@ -41,6 +41,19 @@ export default function Layout() {
 							size={24}
 							color={focused ? colors.base.primary : colors.base.text}
 							accessibilityLabel="Início"
+						/>
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name="settings"
+				options={{
+					headerShown: false,
+					tabBarIcon: ({ focused }) => (
+						<Settings
+							size={24}
+							color={focused ? colors.base.primary : colors.base.text}
+							accessibilityLabel="Configurações"
 						/>
 					),
 				}}
