@@ -5,9 +5,13 @@ import { Eye, EyeOff } from 'lucide-react-native'
 import { colors } from '@/styles/theme'
 
 export const Password = forwardRef<TextInput, TextInputProps>((props, ref) => {
+	const { style, ...rest } = props
 	const [isVisible, setIsVisible] = useState(false)
 	return (
-		<View className="w-full h-12 px-3 flex-row justify-between items-center bg-layout-foreground rounded-xl">
+		<View
+			className="w-full h-12 px-3 flex-row justify-between items-center bg-layout-foreground rounded-xl"
+			style={style}
+		>
 			<TextInput
 				ref={ref}
 				secureTextEntry={!isVisible}
@@ -15,7 +19,7 @@ export const Password = forwardRef<TextInput, TextInputProps>((props, ref) => {
 				keyboardAppearance="dark"
 				placeholderTextColor={colors.base['text-muted']}
 				className="flex-1 text-sm h-full text-common-white font-body mr-4"
-				{...props}
+				{...rest}
 			/>
 			<TouchableWithoutFeedback
 				accessibilityLabel={isVisible ? 'Esconder senha' : 'Mostrar senha'}
