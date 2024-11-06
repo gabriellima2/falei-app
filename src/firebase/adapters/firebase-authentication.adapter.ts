@@ -4,6 +4,7 @@ import {
 	sendPasswordResetEmail,
 	sendEmailVerification,
 	signOut,
+	updatePassword as updatePasswordFirebase
 } from 'firebase/auth'
 
 import { DEFAULT_ERROR_MESSAGES } from '@/constants/default-error-messages'
@@ -15,6 +16,7 @@ import type {
 	SignInFields,
 	SignUpFields,
 	ResetPasswordFields,
+	UpdatePasswordFields,
 } from '@/schemas/authentication.schema'
 
 class FirebaseAuthenticationAdapter implements AuthenticationAdapter {
@@ -42,6 +44,12 @@ class FirebaseAuthenticationAdapter implements AuthenticationAdapter {
 		const user = auth.currentUser
 		if (!user) throw new Error(DEFAULT_ERROR_MESSAGES.NO_USER_AUTHENTICATED)
 		await sendEmailVerification(user)
+	}
+	async updatePassword(params: UpdatePasswordFields): Promise<void> {
+		const { password } = params
+		const user = auth.currentUser
+		if (!user) throw new Error(DEFAULT_ERROR_MESSAGES.NO_USER_AUTHENTICATED)
+		await updatePasswordFirebase(user, password)
 	}
 }
 
