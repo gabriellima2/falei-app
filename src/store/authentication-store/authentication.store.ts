@@ -8,6 +8,7 @@ import type {
 	SignInFields,
 	SignUpFields,
 	ResetPasswordFields,
+	UpdatePasswordFields,
 } from '@/schemas/authentication.schema'
 import type { AuthenticationStoreState } from './@types/authentication-store-state'
 
@@ -63,5 +64,8 @@ export const useAuthenticationStore = create<AuthenticationStoreState>(
 					authHasBeenChecked: true,
 				}))
 			}),
+			updatePassword: async (params: UpdatePasswordFields) => {
+				await authenticationAdapter.updatePassword(params)
+			}
 	}),
 )

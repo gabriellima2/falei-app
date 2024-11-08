@@ -30,7 +30,7 @@ export function ForgotPasswordTemplate() {
 			</Header.Root>
 			<View>
 				<Typography.Title className="text-left text-xl">
-					Enviar email de redefinicão
+					Enviar email de redefinição
 				</Typography.Title>
 				<Typography.Paragraph className="text-left mt-2">
 					Digite o email associado à sua conta para que você possa redefinir a

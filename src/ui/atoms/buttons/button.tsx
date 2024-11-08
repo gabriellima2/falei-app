@@ -8,6 +8,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import { Typography } from '../typography'
 import { cn } from '@/helpers/cn'
+import { colors } from '@/styles/theme'
 
 const variants = cva('w-full items-center justify-center rounded-xl', {
 	variants: {
@@ -77,7 +78,9 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
 				onPress={notAllowed ? undefined : onPress}
 				{...rest}
 			>
-				{isLoading && <ActivityIndicator color="#111212" />}
+				{isLoading && (
+					<ActivityIndicator color={shouldRenderWhiteText ? colors.base.text : colors.layout.background} />
+				)}
 				{shouldRenderLabel && (
 					<Typography.Label
 						className={cn('text-base-text-foreground', {

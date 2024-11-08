@@ -8,7 +8,7 @@ export const FIREBASE_ERROR_MESSAGES: { [key: string]: string } = {
 	'credential-already-in-use':
 		'A credencial fornecida já está em uso.',
 	'requires-recent-login':
-		'Esta operação é sensível e requer que você tenha feito login recentemente. Por favor, faça login novamente e tente a solicitação mais uma vez.',
+		'Esta operação é sensível. Por favor, faça login novamente e tente a solicitação mais uma vez.',
 	'email-already-in-use':
 		'O endereço de e-mail fornecido já está em uso.',
 	'expired-action-code':

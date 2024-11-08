@@ -4,6 +4,7 @@ import type {
 	SignInFields,
 	SignUpFields,
 	ResetPasswordFields,
+	UpdatePasswordFields,
 } from '@/schemas/authentication.schema'
 import type { UserEntity } from '@/entities/user.entity'
 
@@ -19,4 +20,5 @@ export type AuthenticationStoreState = {
 	emailVerification: () => Promise<void>
 	refreshUser: () => Promise<User | null>
 	checkAuthState: () => Unsubscribe
+	updatePassword(params: UpdatePasswordFields): Promise<void>
 }

@@ -10,4 +10,5 @@ export const VALIDATION_MESSAGES = {
 	MAX_LENGTH_PASSWORD: `A senha deve conter no máximo ${VALIDATION_RULES.MAX_LENGTH_PASSWORD} caracteres.`,
 	INVALID_EMAIL: 'Email inválido.',
 	MAX_LENGTH_EMAIL: `O email deve conter no máximo ${VALIDATION_RULES.MAX_LENGTH_EMAIL} caracteres.`,
+	REQUIRED_PASSWORD_TO_EDIT: 'Para alterar a sua senha, é necessário inserir uma nova.',
 }

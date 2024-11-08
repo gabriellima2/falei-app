@@ -3,17 +3,28 @@ import { TextInput, TouchableWithoutFeedback, View, type TextInputProps } from '
 import { Eye, EyeOff } from 'lucide-react-native'
 
 import { colors } from '@/styles/theme'
+import { cn } from '@/helpers/cn'
 
-export const Password = forwardRef<TextInput, TextInputProps>((props, ref) => {
-	const { style, ...rest } = props
+type PasswordProps = TextInputProps & {
+	disabled?: boolean
+}
+
+export const Password = forwardRef<TextInput, PasswordProps>((props, ref) => {
+	const { disabled = false, style, ...rest } = props
 	const [isVisible, setIsVisible] = useState(false)
 	return (
 		<View
-			className="w-full h-12 px-3 flex-row justify-between items-center bg-layout-foreground rounded-xl"
+			className={cn(
+				'w-full h-12 px-3 flex-row justify-between items-center bg-layout-foreground rounded-xl',
+				{ 'opacity-50': disabled },
+			)}
 			style={style}
 		>
 			<TextInput
 				ref={ref}
+				aria-disabled={disabled}
+				contextMenuHidden={disabled}
+				editable={!disabled}
 				secureTextEntry={!isVisible}
 				autoCapitalize="none"
 				keyboardAppearance="dark"

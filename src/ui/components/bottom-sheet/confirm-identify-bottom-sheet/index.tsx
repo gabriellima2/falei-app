@@ -16,6 +16,7 @@ type ConfirmIdentifyBottomSheetProps = Omit<
 > &
 	PropsWithChildren & {
 		title?: string
+		isLoading?: boolean
 		onConfirm?: () => unknown
 		onCancel?: () => unknown
 	}
