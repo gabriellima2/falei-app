@@ -7,9 +7,10 @@ import { Field } from '@/ui/components/form/field'
 import { Container } from '@/ui/atoms/container'
 import { Header } from '@/ui/components/header'
 
+import { useUpdatePasswordViaEmail } from './hooks/use-update-password-via-email'
 import { useUpdatePasswordForm } from './hooks/use-update-password-form'
 import { useAuthenticationStore } from '@/store/authentication-store'
-import { useUpdatePasswordViaEmail } from './hooks/use-update-password-via-email'
+
 import { formatRemainingTime } from '@/helpers/date'
 
 export function MyAccountTemplate() {
@@ -19,14 +20,14 @@ export function MyAccountTemplate() {
 		isNotTimeToSendAgainOver,
 		timeRemainingToSendAgain,
 		isSending,
-		handleUpdatePasswordViaEmail,
+		updatePasswordViaEmail,
 	} = useUpdatePasswordViaEmail()
 	const {
 		confirmIdentifyBottomSheet,
 		errors,
 		control,
 		onSubmit,
-		handleUpdatePassword,
+		updatePassword,
 	} = useUpdatePasswordForm()
 	return (
 		<Container>
@@ -74,7 +75,7 @@ export function MyAccountTemplate() {
 									: 'Não recebeu? Enviar novamente!'
 						}
 						variant="secondary"
-						onPress={handleUpdatePasswordViaEmail}
+						onPress={updatePasswordViaEmail}
 						isLoading={isSending}
 						disabled={isNotTimeToSendAgainOver || isSending}
 						className="mb-4"
@@ -88,7 +89,8 @@ export function MyAccountTemplate() {
 			/>
 			<ConfirmIdentifyBottomSheet
 				ref={confirmIdentifyBottomSheet.ref}
-				onConfirm={handleUpdatePassword}
+				onConfirm={updatePassword}
+				onCancel={confirmIdentifyBottomSheet.handleClose}
 			/>
 		</Container>
 	)

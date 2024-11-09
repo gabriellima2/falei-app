@@ -5,13 +5,13 @@ export function useUpdatePasswordViaEmail() {
 	const { sendResetPasswordEmail, ...rest } = useResetPasswordViaEmail()
 	const { user } = useAuthenticationStore()
 
-	async function handleUpdatePasswordViaEmail() {
+	async function updatePasswordViaEmail() {
 		if (!user) return
 		sendResetPasswordEmail({ email: user.email })
 	}
 
 	return {
 		...rest,
-		handleUpdatePasswordViaEmail,
+		updatePasswordViaEmail,
 	}
 }

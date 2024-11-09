@@ -5,7 +5,6 @@ import { useBottomSheetControl } from '@/hooks/use-bottom-sheet-control'
 import { useAuthenticationStore } from '@/store/authentication-store'
 import { useToast } from '@/hooks/use-toast'
 
-import { onError } from '@/helpers/error'
 import {
 	updatePasswordSchema,
 	type UpdatePasswordFields,
@@ -16,12 +15,13 @@ export function useUpdatePasswordForm() {
 		control,
 		handleSubmit,
 		getValues,
+		reset,
 		formState: { errors },
 	} = useForm<UpdatePasswordFields>({
 		defaultValues,
 		resolver: zodResolver(updatePasswordSchema),
 	})
-	const { updatePassword } = useAuthenticationStore()
+	const { updatePassword: updatePasswordAuth } = useAuthenticationStore()
 	const confirmIdentifyBottomSheet = useBottomSheetControl()
 	const { notify } = useToast()
 
@@ -29,24 +29,20 @@ export function useUpdatePasswordForm() {
 		confirmIdentifyBottomSheet.handleOpen()
 	}
 
-	async function handleUpdatePassword() {
-		try {
-			const password = getValues('password')
-			const parsedPassword = updatePasswordSchema.safeParse({ password })
-			if (!parsedPassword.success) {
-				throw new Error(parsedPassword.error.message)
-			}
-			await updatePassword({ password })
-			notify({ type: 'success', message: 'Senha alterada com sucesso!' })
-			confirmIdentifyBottomSheet.handleClose()
-		} catch (err) {
-			const message = onError(err)
-			notify({ type: 'error', message })
+	async function updatePassword() {
+		const password = getValues('password')
+		const parsedPassword = updatePasswordSchema.safeParse({ password })
+		if (!parsedPassword.success) {
+			throw new Error(parsedPassword.error.message)
 		}
+		await updatePasswordAuth({ password })
+		notify({ type: 'success', message: 'Senha alterada com sucesso!' })
+		confirmIdentifyBottomSheet.handleClose()
+		reset(defaultValues)
 	}
 
 	return {
-		handleUpdatePassword,
+		updatePassword,
 		confirmIdentifyBottomSheet,
 
 		errors,

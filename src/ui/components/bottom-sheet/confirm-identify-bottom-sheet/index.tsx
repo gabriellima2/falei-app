@@ -12,7 +12,7 @@ import type { BottomSheetModalElementRef } from '@/@types/general'
 
 type ConfirmIdentifyBottomSheetProps = Omit<
 	Parameters<typeof BottomSheetScrollViewModal>[0],
-	'children'
+	'children' | 'onDismiss'
 > &
 	PropsWithChildren & {
 		title?: string
@@ -33,11 +33,18 @@ export const ConfirmIdentifyBottomSheet = forwardRef<
 		disableClose,
 		...rest
 	} = props
-	const { errors, control, isSubmitting, onSubmit } = useConfirmIdentifyForm({ onConfirm })
+	const { errors, control, isSubmitting, clearAll, onSubmit } = useConfirmIdentifyForm({ onConfirm })
+
+	async function handleCancel() {
+		onCancel && (await onCancel())
+		clearAll()
+	}
+
 	return (
 		<BottomSheetScrollViewModal
 			ref={ref}
 			disableClose={disableClose || isSubmitting}
+			onDismiss={clearAll}
 			{...rest}
 		>
 			{title ? <Typography.Title>{title}</Typography.Title> : children}
@@ -64,13 +71,13 @@ export const ConfirmIdentifyBottomSheet = forwardRef<
 				<Button
 					variant="destructive-text"
 					label="Cancelar"
-					onPress={onCancel}
+					onPress={handleCancel}
 					disabled={isSubmitting}
 					className="flex-1 mr-4"
 				/>
 				<Button
 					label="Confirmar"
-					onPress={onConfirm}
+					onPress={onSubmit}
 					isLoading={isSubmitting}
 					className="flex-1"
 				/>

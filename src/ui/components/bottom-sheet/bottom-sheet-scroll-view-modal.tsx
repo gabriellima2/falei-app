@@ -8,6 +8,7 @@ type BottomSheetScrollViewModalProps = {
 	children: ReactNode
 	snapPoints?: (number | string)[]
 	disableClose?: boolean
+	onDismiss?: () => void
 }
 
 export const BottomSheetScrollViewModal = forwardRef<
