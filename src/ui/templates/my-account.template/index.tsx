@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from 'react-native'
+import { View } from 'react-native'
 
 import { ConfirmIdentifyBottomSheet } from '@/ui/components/bottom-sheet/confirm-identify-bottom-sheet'
 import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
@@ -9,7 +9,7 @@ import { Header } from '@/ui/components/header'
 
 import { useUpdatePasswordForm } from './hooks/use-update-password-form'
 import { useAuthenticationStore } from '@/store/authentication-store'
-import { useResetPassword } from './hooks/use-reset-password'
+import { useUpdatePasswordViaEmail } from './hooks/use-update-password-via-email'
 import { formatRemainingTime } from '@/helpers/date'
 
 export function MyAccountTemplate() {
@@ -19,8 +19,8 @@ export function MyAccountTemplate() {
 		isNotTimeToSendAgainOver,
 		timeRemainingToSendAgain,
 		isSending,
-		sendResetPasswordEmail,
-	} = useResetPassword()
+		handleUpdatePasswordViaEmail,
+	} = useUpdatePasswordViaEmail()
 	const {
 		confirmIdentifyBottomSheet,
 		errors,
@@ -74,7 +74,7 @@ export function MyAccountTemplate() {
 									: 'Não recebeu? Enviar novamente!'
 						}
 						variant="secondary"
-						onPress={sendResetPasswordEmail}
+						onPress={handleUpdatePasswordViaEmail}
 						isLoading={isSending}
 						disabled={isNotTimeToSendAgainOver || isSending}
 						className="mb-4"

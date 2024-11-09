@@ -40,7 +40,6 @@ export function useUpdatePasswordForm() {
 			notify({ type: 'success', message: 'Senha alterada com sucesso!' })
 			confirmIdentifyBottomSheet.handleClose()
 		} catch (err) {
-			console.log(err)
 			const message = onError(err)
 			notify({ type: 'error', message })
 		}

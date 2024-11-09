@@ -2,34 +2,30 @@ import { useState } from 'react'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
 import { useCountdown } from '@/hooks/use-countdown'
-import { useToast } from '@/hooks/use-toast'
+import { useToast } from './use-toast'
 
-import { DEFAULT_ERROR_MESSAGES } from '@/constants/default-error-messages'
 import { onError } from '@/helpers/error'
+import type { ResetPasswordFields } from '@/schemas/authentication.schema'
 
-export function useResetPassword() {
-	const [timeRemainingToSendAgain, { startCountdown, resetCountdown }] =
-		useCountdown({
-			countStart: 120,
-		})
+export function useResetPasswordViaEmail() {
+	const [timeRemainingToSendAgain, { startCountdown, resetCountdown }] = useCountdown({
+		countStart: 120,
+	})
 	const [alreadySentFirstTime, setAlreadySentFirstTime] = useState(false)
 	const [isSending, setIsSending] = useState(false)
-	const { user, resetPassword } = useAuthenticationStore()
+	const { resetPassword } = useAuthenticationStore()
 	const { notify } = useToast()
 
 	const isNotTimeToSendAgainOver =
 		timeRemainingToSendAgain > 0 && alreadySentFirstTime
 
-	async function sendResetPasswordEmail() {
+	async function sendResetPasswordEmail(credentials: ResetPasswordFields) {
 		if (isNotTimeToSendAgainOver) return
 		resetCountdown()
 		setIsSending(true)
 		try {
-			if (!user) {
-				notify({ type: 'error', message: DEFAULT_ERROR_MESSAGES.NO_USER_AUTHENTICATED })
-				return
-			}
-			await resetPassword({ email: user.email })
+			await resetPassword(credentials)
+			notify({ type: 'success', message: "Email enviado com sucesso!" })
 		} catch (err) {
 			const message = onError(err)
 			notify({ type: 'error', message })
@@ -41,12 +37,11 @@ export function useResetPassword() {
 	}
 
 	return {
-		isSending,
+		sendResetPasswordEmail,
 
+		isSending,
 		alreadySentFirstTime,
 		timeRemainingToSendAgain,
 		isNotTimeToSendAgainOver,
-
-		sendResetPasswordEmail,
 	}
 }
