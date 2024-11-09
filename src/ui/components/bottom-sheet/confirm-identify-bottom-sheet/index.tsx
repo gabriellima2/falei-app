@@ -61,6 +61,7 @@ export const ConfirmIdentifyBottomSheet = forwardRef<
 							placeholder="Digite a sua senha atual"
 							returnKeyType="go"
 							onSubmitEditing={onSubmit}
+							autoFocus
 							className="border border-white/10"
 						/>
 						<Field.Errors.Default message={errors.password?.message} />

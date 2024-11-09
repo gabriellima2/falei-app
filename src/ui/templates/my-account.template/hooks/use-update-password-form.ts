@@ -1,7 +1,6 @@
 import { useForm, type DefaultValues } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useBottomSheetControl } from '@/hooks/use-bottom-sheet-control'
 import { useAuthenticationStore } from '@/store/authentication-store'
 import { useToast } from '@/hooks/use-toast'
 
@@ -10,7 +9,13 @@ import {
 	type UpdatePasswordFields,
 } from '@/schemas/authentication.schema'
 
-export function useUpdatePasswordForm() {
+type UseUpdatePasswordFormParams = {
+	onSubmit: () => unknown
+	onSuccess?: () => unknown
+}
+
+export function useUpdatePasswordForm(params: UseUpdatePasswordFormParams) {
+	const { onSubmit, onSuccess } = params
 	const {
 		control,
 		handleSubmit,
@@ -22,12 +27,7 @@ export function useUpdatePasswordForm() {
 		resolver: zodResolver(updatePasswordSchema),
 	})
 	const { updatePassword: updatePasswordAuth } = useAuthenticationStore()
-	const confirmIdentifyBottomSheet = useBottomSheetControl()
 	const { notify } = useToast()
-
-	function handleUpdate() {
-		confirmIdentifyBottomSheet.handleOpen()
-	}
 
 	async function updatePassword() {
 		const password = getValues('password')
@@ -37,17 +37,15 @@ export function useUpdatePasswordForm() {
 		}
 		await updatePasswordAuth({ password })
 		notify({ type: 'success', message: 'Senha alterada com sucesso!' })
-		confirmIdentifyBottomSheet.handleClose()
+		onSuccess && (await onSuccess())
 		reset(defaultValues)
 	}
 
 	return {
 		updatePassword,
-		confirmIdentifyBottomSheet,
-
 		errors,
 		control,
-		onSubmit: handleSubmit(handleUpdate),
+		onSubmit: handleSubmit(onSubmit),
 	}
 }
 

@@ -1,4 +1,5 @@
-import { View } from 'react-native'
+import { useRef } from 'react'
+import { type TextInput, View } from 'react-native'
 
 import { ConfirmIdentifyBottomSheet } from '@/ui/components/bottom-sheet/confirm-identify-bottom-sheet'
 import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
@@ -8,6 +9,7 @@ import { Container } from '@/ui/atoms/container'
 import { Header } from '@/ui/components/header'
 
 import { useUpdatePasswordViaEmail } from './hooks/use-update-password-via-email'
+import { useBottomSheetControl } from '@/hooks/use-bottom-sheet-control'
 import { useUpdatePasswordForm } from './hooks/use-update-password-form'
 import { useAuthenticationStore } from '@/store/authentication-store'
 
@@ -15,6 +17,8 @@ import { formatRemainingTime } from '@/helpers/date'
 
 export function MyAccountTemplate() {
 	const { user } = useAuthenticationStore()
+	const passwordRef = useRef<TextInput>(null)
+	const confirmIdentifyBottomSheet = useBottomSheetControl()
 	const {
 		alreadySentFirstTime,
 		isNotTimeToSendAgainOver,
@@ -22,13 +26,13 @@ export function MyAccountTemplate() {
 		isSending,
 		updatePasswordViaEmail,
 	} = useUpdatePasswordViaEmail()
-	const {
-		confirmIdentifyBottomSheet,
-		errors,
-		control,
-		onSubmit,
-		updatePassword,
-	} = useUpdatePasswordForm()
+	const { errors, control, onSubmit, updatePassword } = useUpdatePasswordForm({
+		onSubmit: () => {
+			passwordRef.current?.blur()
+			confirmIdentifyBottomSheet.handleOpen()
+		},
+		onSuccess: confirmIdentifyBottomSheet.handleClose,
+	})
 	return (
 		<Container>
 			<Header.Root className="justify-start">
@@ -50,6 +54,7 @@ export function MyAccountTemplate() {
 							</Field.Labels.Default>
 							<Field.Inputs.Password
 								{...params}
+								ref={passwordRef}
 								placeholder="Digite a nova senha"
 								returnKeyType="go"
 								onSubmitEditing={onSubmit}
