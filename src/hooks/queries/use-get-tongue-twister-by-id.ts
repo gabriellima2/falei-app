@@ -18,6 +18,7 @@ export function useGetTongueTwisterById(
 		queryFn: id ? () => tongueTwisterService.getById(id) : skipToken,
 		queryKey: [QUERY_KEYS.GET_TONGUE_TWISTER, id],
 		refetchOnWindowFocus: false,
+		throwOnError: true,
 		enabled: !!id,
 		...options,
 	})

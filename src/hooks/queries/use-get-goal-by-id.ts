@@ -15,6 +15,7 @@ export function useGetGoalById(id: string, options?: QueryOptions<Goal>) {
 		queryFn: () => goalService.getById(id),
 		queryKey: [QUERY_KEYS.GET_GOAL, id],
 		refetchOnWindowFocus: false,
+		throwOnError: true,
 		...options,
 	})
 	return { goal: data, ...rest }
