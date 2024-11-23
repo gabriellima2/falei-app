@@ -50,7 +50,7 @@ export class FirebaseGoalMapper {
 				hold: dto.steps.hold,
 				exhale: dto.steps.exhale,
 			},
-			user_id: null,
+			user_id: dto.userId || null,
 			created_at: new Date(),
 			updated_at: new Date(),
 		}

@@ -1,9 +1,12 @@
 import { useMutation } from '@tanstack/react-query'
 
+import { useAuthenticationStore } from '@/store/authentication-store'
+
 import { makeBreathingExerciseService } from '@/services/breathing-exercise.service'
 import { makeGoalService } from '@/services/goal.service'
 
 import { BreathingExerciseNotFoundException } from '@/exceptions/breathing-exercise-not-found.exception'
+import { NoUserAuthenticatedEception } from '@/exceptions/no-user-authenticated.exception'
 
 const services = {
 	goal: makeGoalService(),
@@ -18,8 +21,11 @@ export type CreateGoalParams = {
 export function useCreateGoalMutation(
 	params: MutationParams
 ): MutationReturn<CreateGoalParams> {
+	const user = useAuthenticationStore((store) => store.user)
+
 	const { mutate, isPending } = useMutation({
 		mutationFn: async (params: CreateGoalParams) => {
+			if (!user) throw new NoUserAuthenticatedEception()
 			const { breathingExerciseId, frequencyPerWeek } = params
 
 			const breathingExercise =
@@ -31,6 +37,7 @@ export function useCreateGoalMutation(
 				roundsTotal: breathingExercise.roundsTotal,
 				steps: breathingExercise.steps,
 				frequencyPerWeek,
+				userId: user?.id
 			})
 		},
 		onError: params.onError,
