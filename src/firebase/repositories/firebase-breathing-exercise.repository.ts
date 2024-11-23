@@ -1,5 +1,6 @@
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 
+import { getFilterByUserQuery } from '../helpers/queries'
 import { db } from '@/config/firebase'
 import { env } from '@/env'
 
@@ -24,7 +25,8 @@ class FirebaseBreathingExerciseRepository
 	}
 	async getAll(): Promise<BreathingExerciseEntity[]> {
 		const ref = collection(db, this.collection)
-		const docSnap = await getDocs(ref)
+		const q = getFilterByUserQuery(ref)
+		const docSnap = await getDocs(q)
 		return FirebaseBreathingExerciseMapper.toEntityList(docSnap.docs)
 	}
 }

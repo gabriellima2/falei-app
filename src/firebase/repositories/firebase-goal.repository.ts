@@ -1,5 +1,6 @@
 import { addDoc, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 
+import { getFilterByUserQuery } from '../helpers/queries'
 import { db } from '@/config/firebase'
 import { env } from '@/env'
 
@@ -29,7 +30,8 @@ class FirebaseGoalRepository implements GoalRepository {
 	}
 	async getAll(): Promise<GoalEntity[]> {
 		const ref = collection(db, this.collection)
-		const docSnap = await getDocs(ref)
+		const q = getFilterByUserQuery(ref)
+		const docSnap = await getDocs(q)
 		return FirebaseGoalMapper.toEntityList(docSnap.docs)
 	}
 	async updateProgress(

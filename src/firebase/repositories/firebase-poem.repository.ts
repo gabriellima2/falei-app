@@ -1,5 +1,6 @@
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 
+import { getFilterByUserQuery } from '../helpers/queries'
 import { db } from '@/config/firebase'
 import { env } from '@/env'
 
@@ -22,7 +23,8 @@ class FirebasePoemRepository implements PoemRepository {
 	}
 	async getAll(): Promise<PoemEntity[]> {
 		const ref = collection(db, this.collection)
-		const docSnap = await getDocs(ref)
+		const q = getFilterByUserQuery(ref)
+		const docSnap = await getDocs(q)
 		return FirebasePoemMapper.toEntityList(docSnap.docs)
 	}
 }
