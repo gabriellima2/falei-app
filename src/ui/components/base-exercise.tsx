@@ -25,7 +25,7 @@ type DefaultVariants = {
 }
 
 const rootVariants = cva<DefaultVariants>(
-	'w-full w-[164px] rounded-xl overflow-hidden',
+	'w-[164px] rounded-xl overflow-hidden',
 	{
 		variants: {
 			variant: {

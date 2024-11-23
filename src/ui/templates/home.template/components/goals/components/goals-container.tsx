@@ -1,16 +1,17 @@
 import { useCallback } from 'react'
-import { ActivityIndicator, type ListRenderItemInfo } from 'react-native'
+import type { ListRenderItemInfo } from 'react-native'
 
 import { HorizontalList } from '@/ui/components/horizontal-list'
 import { EmptyMessage } from '@/ui/atoms/empty-message'
+import { Skeleton } from '@/ui/atoms/skeleton'
 import { Goal } from '@/ui/components/goal'
 
 import { useGetAllPendingGoals } from '@/hooks/queries/use-get-all-pending-goals'
+import { useGoalsContext } from '../contexts/goals.context/hooks'
 import { useNavigation } from '@/hooks/use-navigation'
 
 import { ROUTES } from '@/constants/routes'
 import type { GoalEntity } from '@/entities/goal.entity'
-import { useGoalsContext } from '../contexts/goals.context/hooks'
 
 export function GoalsContainer() {
 	const navigation = useNavigation()
@@ -50,7 +51,7 @@ export function GoalsContainer() {
 			ListEmptyComponent={() => (
 				<>
 					{isLoading || isFetching ? (
-						<ActivityIndicator />
+						<Skeleton.ExerciseList />
 					) : (
 						<EmptyMessage text="Você não tem metas pendentes para essa semana 🥳" />
 					)}

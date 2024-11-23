@@ -1,9 +1,10 @@
 import { useCallback } from 'react'
-import { ActivityIndicator, type ListRenderItemInfo } from 'react-native'
+import type { ListRenderItemInfo } from 'react-native'
 
 import { BreathingExercise } from '@/ui/components/breathing-exercise'
 import { HorizontalList } from '@/ui/components/horizontal-list'
 import { EmptyMessage } from '@/ui/atoms/empty-message'
+import { Skeleton } from '@/ui/atoms/skeleton'
 
 import { useGetAllBreathingExercises } from '@/hooks/queries/use-get-all-breathing-exercises'
 import { useBreathingExercisesContext } from '../contexts/breathing-exercises.context/hooks'
@@ -51,7 +52,11 @@ export function BreathingExercisesContainer() {
 			keyExtractor={keyExtractor}
 			ListEmptyComponent={() => (
 				<>
-					{isLoading || isFetching ? <ActivityIndicator /> : <EmptyMessage />}
+					{isLoading || isFetching ? (
+						<Skeleton.ExerciseList />
+					) : (
+						<EmptyMessage />
+					)}
 				</>
 			)}
 		/>

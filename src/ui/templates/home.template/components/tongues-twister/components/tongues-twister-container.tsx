@@ -1,9 +1,10 @@
 import { useCallback } from 'react'
-import { ActivityIndicator, type ListRenderItemInfo } from 'react-native'
+import type { ListRenderItemInfo } from 'react-native'
 
 import { HorizontalList } from '@/ui/components/horizontal-list'
 import { TongueTwister } from '@/ui/components/tongue-twister'
 import { EmptyMessage } from '@/ui/atoms/empty-message'
+import { Skeleton } from '@/ui/atoms/skeleton'
 
 import { useGetAllTonguesTwister } from '@/hooks/queries/use-get-all-tongues-twister'
 import { useTonguesTwisterContext } from '../contexts/tongues-twister.context/hooks'
@@ -35,7 +36,7 @@ export function TonguesTwisterContainer() {
 			ListEmptyComponent={() => (
 				<>
 					{isLoading || isFetching ? (
-						<ActivityIndicator />
+						<Skeleton.ExerciseList />
 					) : (
 						<EmptyMessage />
 					)}
