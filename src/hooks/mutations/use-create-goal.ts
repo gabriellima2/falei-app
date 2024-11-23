@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { makeBreathingExerciseService } from '@/services/breathing-exercise.service'
 import { makeGoalService } from '@/services/goal.service'
 
-import { BreathingExerciseFoundException } from '@/exceptions/breathing-exercise-not-found.exception'
+import { BreathingExerciseNotFoundException } from '@/exceptions/breathing-exercise-not-found.exception'
 
 const services = {
 	goal: makeGoalService(),
@@ -24,7 +24,7 @@ export function useCreateGoalMutation(
 
 			const breathingExercise =
 				await services.breathingExercise.getById(breathingExerciseId)
-			if (!breathingExercise) throw new BreathingExerciseFoundException()
+			if (!breathingExercise) throw new BreathingExerciseNotFoundException()
 
 			await services.goal.create({
 				title: breathingExercise.title,

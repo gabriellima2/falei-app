@@ -3,7 +3,7 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 import { db } from '@/config/firebase'
 import { env } from '@/env'
 
-import { BreathingExerciseFoundException } from '@/exceptions/breathing-exercise-not-found.exception'
+import { BreathingExerciseNotFoundException } from '@/exceptions/breathing-exercise-not-found.exception'
 import { FirebaseBreathingExerciseMapper } from '../mappers/firebase-breathing-exercise.mapper'
 
 import type { BreathingExerciseRepository } from '@/repositories/breathing-exercise.repository'
@@ -19,7 +19,7 @@ class FirebaseBreathingExerciseRepository
 	async getById(id: string): Promise<BreathingExerciseEntity> {
 		const docRef = doc(db, this.collection, id)
 		const docSnap = await getDoc(docRef)
-		if (!docSnap.exists()) throw new BreathingExerciseFoundException()
+		if (!docSnap.exists()) throw new BreathingExerciseNotFoundException()
 		return FirebaseBreathingExerciseMapper.toEntity(docSnap)
 	}
 	async getAll(): Promise<BreathingExerciseEntity[]> {
