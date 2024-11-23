@@ -17,7 +17,6 @@ export function useGetBreathingExerciseById(
 	const { data, ...rest } = useQuery<BreathingExercise>({
 		queryFn: () => breathingExerciseService.getById(id),
 		queryKey: [QUERY_KEYS.GET_BREATHING_EXERCISE, id],
-		throwOnError: true,
 		refetchOnWindowFocus: false,
 		...options,
 	})

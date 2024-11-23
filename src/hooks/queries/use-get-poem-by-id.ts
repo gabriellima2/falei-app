@@ -14,7 +14,6 @@ export function useGetPoemById(id: string | null, options?: QueryOptions<Poem>) 
 	const { data, ...rest } = useQuery<Poem>({
 		queryFn: id ? () => poemService.getById(id) : skipToken,
 		queryKey: [QUERY_KEYS.GET_POEM, id],
-		throwOnError: true,
 		refetchOnWindowFocus: false,
 		enabled: !!id,
 		...options,

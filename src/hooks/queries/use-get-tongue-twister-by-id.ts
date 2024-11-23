@@ -17,7 +17,6 @@ export function useGetTongueTwisterById(
 	const { data, ...rest } = useQuery<TongueTwister>({
 		queryFn: id ? () => tongueTwisterService.getById(id) : skipToken,
 		queryKey: [QUERY_KEYS.GET_TONGUE_TWISTER, id],
-		throwOnError: true,
 		refetchOnWindowFocus: false,
 		enabled: !!id,
 		...options,

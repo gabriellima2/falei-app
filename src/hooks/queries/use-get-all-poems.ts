@@ -14,7 +14,6 @@ export function useGetAllPoems(options?: QueryOptions<Poems>) {
 		const { data, ...rest } = useQuery<Poems>({
 			queryFn: () => poemService.getAll(),
 			queryKey: [QUERY_KEYS.GET_POEMS],
-			throwOnError: true,
 			refetchOnWindowFocus: false,
 			...options,
 		})

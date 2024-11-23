@@ -14,7 +14,6 @@ export function useGetAllGoals(options?: QueryOptions<Goals>) {
 	const { data, ...rest } = useQuery<Goals>({
 		queryFn: () => goalService.getAll(),
 		queryKey: [QUERY_KEYS.GET_GOALS],
-		throwOnError: true,
 		refetchOnWindowFocus: false,
 		...options,
 	})

@@ -20,7 +20,6 @@ export function useGetAllPendingGoals(options?: QueryOptions<Goals>) {
 			)
 		},
 		queryKey: [QUERY_KEYS.GET_PENDING_GOALS],
-		throwOnError: true,
 		refetchOnWindowFocus: false,
 		...options,
 	})
