@@ -1,4 +1,4 @@
-import { StatusBar } from 'react-native'
+import { Dimensions, StatusBar } from 'react-native'
 
 export const STATUS_BAR_HEIGHT =
 	Number(StatusBar.currentHeight?.toFixed() || 56) + 16
@@ -11,3 +11,5 @@ export const BREATHING_STEPS_TEXT = {
 	HOLD: 'Segurar',
 	EXHALE: 'Expirar'
 }
+
+export const SCREEN_WIDTH = Dimensions.get('screen').width
