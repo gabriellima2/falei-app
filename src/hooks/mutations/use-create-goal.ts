@@ -6,7 +6,7 @@ import { makeBreathingExerciseService } from '@/services/breathing-exercise.serv
 import { makeGoalService } from '@/services/goal.service'
 
 import { BreathingExerciseNotFoundException } from '@/exceptions/breathing-exercise-not-found.exception'
-import { NoUserAuthenticatedException } from '@/exceptions/no-user-authenticated.exception'
+import { UnauthenticatedUserException } from '@/exceptions/unauthenticated-user.exception'
 
 const services = {
 	goal: makeGoalService(),
@@ -25,7 +25,7 @@ export function useCreateGoalMutation(
 
 	const { mutate, isPending } = useMutation({
 		mutationFn: async (params: CreateGoalParams) => {
-			if (!user) throw new NoUserAuthenticatedException()
+			if (!user) throw new UnauthenticatedUserException()
 			const { breathingExerciseId, frequencyPerWeek } = params
 
 			const breathingExercise =

@@ -7,7 +7,7 @@ import {
 	updatePassword as updatePasswordFirebase
 } from 'firebase/auth'
 
-import { DEFAULT_ERROR_MESSAGES } from '@/constants/default-error-messages'
+import { UnauthenticatedUserException } from '@/exceptions/unauthenticated-user.exception'
 import { auth } from '@/config/firebase'
 
 import type { AuthenticationAdapter } from '@/adapters/authentication.adapter'
@@ -42,13 +42,13 @@ class FirebaseAuthenticationAdapter implements AuthenticationAdapter {
 	}
 	async emailVerification(): Promise<void> {
 		const user = auth.currentUser
-		if (!user) throw new Error(DEFAULT_ERROR_MESSAGES.NO_USER_AUTHENTICATED)
+		if (!user) throw new UnauthenticatedUserException()
 		await sendEmailVerification(user)
 	}
 	async updatePassword(params: UpdatePasswordFields): Promise<void> {
 		const { password } = params
 		const user = auth.currentUser
-		if (!user) throw new Error(DEFAULT_ERROR_MESSAGES.NO_USER_AUTHENTICATED)
+		if (!user) throw new UnauthenticatedUserException()
 		await updatePasswordFirebase(user, password)
 	}
 }

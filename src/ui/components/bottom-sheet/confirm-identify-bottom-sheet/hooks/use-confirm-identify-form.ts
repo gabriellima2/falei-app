@@ -37,7 +37,7 @@ export function useConfirmIdentifyForm(params: UseConfirmIdentifyFormParams) {
 	async function handleConfirm(params: ConfirmIdentifyFields) {
 		try {
 			if (!user) {
-				notify({ type: 'error', message: DEFAULT_ERROR_MESSAGES.NO_USER_AUTHENTICATED })
+				notify({ type: 'error', message: DEFAULT_ERROR_MESSAGES.UNAUTHENTICATED_USER })
 				return
 			}
 			await signIn({ email: user.email, password: params.password })
