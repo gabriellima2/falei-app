@@ -27,11 +27,11 @@ export function SignInTemplate() {
 					render={(params) => (
 						<Field.Content className="mb-4">
 							<Field.Labels.Default nativeID={params.nativeID}>
-								Email
+								E-mail
 							</Field.Labels.Default>
 							<Field.Inputs.Default
 								{...params}
-								placeholder="Digite o seu email"
+								placeholder="Digite o seu e-mail"
 								keyboardType="email-address"
 								returnKeyType="next"
 								onSubmitEditing={passwordField.handleFocus}

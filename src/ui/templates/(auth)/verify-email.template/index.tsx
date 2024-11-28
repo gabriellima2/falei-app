@@ -27,11 +27,11 @@ export function VerifyEmailTemplate() {
 				<View className="items-center justify-center">
 					<Mail size={40} color={colors.base.primary} strokeWidth={1.3} />
 					<Typography.Title className="text-center mt-4 text-xl">
-						Verifique o seu email para continuar!
+						Verifique o seu e-mail para continuar!
 					</Typography.Title>
 				</View>
 				<Typography.Paragraph className="text-center max-w-[300px] mt-2">
-					Enviamos um email para{' '}
+					Enviamos um e-mail para{' '}
 					<Typography.Bold>{user?.email}</Typography.Bold>. Por favor, clique no
 					link enviado para verificar a sua conta.
 				</Typography.Paragraph>

@@ -30,10 +30,10 @@ export function ForgotPasswordTemplate() {
 			</Header.Root>
 			<View>
 				<Typography.Title className="text-left text-xl">
-					Enviar email de redefinição
+					Enviar e-mail de redefinição
 				</Typography.Title>
 				<Typography.Paragraph className="text-left mt-2">
-					Digite o email associado à sua conta para que você possa redefinir a
+					Digite o e-mail associado à sua conta para que você possa redefinir a
 					sua senha.
 				</Typography.Paragraph>
 			</View>
@@ -43,11 +43,11 @@ export function ForgotPasswordTemplate() {
 				render={(params) => (
 					<Field.Content className="mt-8">
 						<Field.Labels.Default nativeID={params.nativeID}>
-							Email
+							E-mail
 						</Field.Labels.Default>
 						<Field.Inputs.Default
 							{...params}
-							placeholder="Digite o seu email"
+							placeholder="Digite o seu e-mail"
 							keyboardType="email-address"
 							returnKeyType="next"
 							onSubmitEditing={onSubmit}
