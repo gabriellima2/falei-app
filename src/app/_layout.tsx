@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Toast from 'react-native-toast-message'
 import { StatusBar } from 'expo-status-bar'
 import { Stack } from 'expo-router'
+import { useEffect } from 'react'
 import {
 	useFonts,
 	Roboto_400Regular,
@@ -17,7 +18,6 @@ import { Providers } from '@/providers'
 
 import { useAuthenticationStore } from '@/store/authentication-store'
 import { STATUS_BAR_HEIGHT } from '@/constants/general'
-import { useEffect } from 'react'
 
 export { ErrorBoundary } from 'expo-router'
 
