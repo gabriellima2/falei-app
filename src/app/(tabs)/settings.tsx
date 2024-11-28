@@ -1,4 +1,4 @@
-import { SettingsTemplate } from '@/ui/templates/settings.template'
+import { SettingsTemplate } from '@/ui/templates/(tabs)/settings.template'
 import { ProtectScreen } from '@/ui/components/protect-screen'
 
 import { SCREEN_ROLES } from '@/constants/keys'

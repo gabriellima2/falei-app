@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from 'expo-router'
 
-import { DoGoalTemplate } from '@/ui/templates/do-goal.template'
+import { DoGoalTemplate } from '@/ui/templates/(app)/do-goal.template'
 import { ProtectScreen } from '@/ui/components/protect-screen'
 
 import { SCREEN_ROLES } from '@/constants/keys'

@@ -1,4 +1,4 @@
-import { MyAccountTemplate } from '@/ui/templates/my-account.template'
+import { MyAccountTemplate } from '@/ui/templates/(app)/my-account.template'
 import { ProtectScreen } from '@/ui/components/protect-screen'
 
 import { SCREEN_ROLES } from '@/constants/keys'
