@@ -102,12 +102,15 @@ export function MyAccountTemplate() {
 				ref={confirmUpdatePasswordBottomSheet.ref}
 				onConfirm={updatePassword}
 				onCancel={confirmUpdatePasswordBottomSheet.handleClose}
+				title="Realmente deseja alterar a sua senha?"
+				description="Esta ação não poderá ser desfeita. Confirme a sua identidade para continuar."
 			/>
 			<ConfirmIdentifyBottomSheet
 				ref={confirmDeleteAccountBottomSheet.ref}
 				onConfirm={deleteAccount}
 				onCancel={confirmDeleteAccountBottomSheet.handleClose}
-				description="Esta ação não poderá ser desfeita. Isso excluirá permanentemente o seu usuário e removerá os seus dados de nossos servidores."
+				title="Realmente deseja deletar a sua conta?"
+				description="Esta ação não poderá ser desfeita. Isso excluirá permanentemente o seu usuário e removerá os seus dados de nossos servidores. Confirme a sua identidade para continuar."
 			/>
 		</Container>
 	)
