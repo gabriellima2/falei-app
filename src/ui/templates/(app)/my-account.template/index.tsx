@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { type TextInput, View } from 'react-native'
+import { View, type TextInput } from 'react-native'
 
 import { ConfirmIdentifyBottomSheet } from '@/ui/components/bottom-sheet/confirm-identify-bottom-sheet'
 import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
@@ -12,13 +12,15 @@ import { useUpdatePasswordViaEmail } from './hooks/use-update-password-via-email
 import { useBottomSheetControl } from '@/hooks/use-bottom-sheet-control'
 import { useUpdatePasswordForm } from './hooks/use-update-password-form'
 import { useAuthenticationStore } from '@/store/authentication-store'
+import { useDeleteAccount } from './hooks/use-delete-account'
 
 import { formatRemainingTime } from '@/helpers/date'
 
 export function MyAccountTemplate() {
 	const { user } = useAuthenticationStore()
 	const passwordRef = useRef<TextInput>(null)
-	const confirmIdentifyBottomSheet = useBottomSheetControl()
+	const confirmDeleteAccountBottomSheet = useBottomSheetControl()
+	const confirmUpdatePasswordBottomSheet = useBottomSheetControl()
 	const {
 		alreadySentFirstTime,
 		isNotTimeToSendAgainOver,
@@ -29,9 +31,12 @@ export function MyAccountTemplate() {
 	const { errors, control, onSubmit, updatePassword } = useUpdatePasswordForm({
 		onSubmit: () => {
 			passwordRef.current?.blur()
-			confirmIdentifyBottomSheet.handleOpen()
+			confirmUpdatePasswordBottomSheet.handleOpen()
 		},
-		onSuccess: confirmIdentifyBottomSheet.handleClose,
+		onSuccess: confirmUpdatePasswordBottomSheet.handleClose,
+	})
+	const { deleteAccount } = useDeleteAccount({
+		onSuccess: confirmDeleteAccountBottomSheet.handleClose,
 	})
 	return (
 		<Container>
@@ -91,11 +96,18 @@ export function MyAccountTemplate() {
 				variant="destructive-text"
 				label="Excluir conta"
 				disabled={isSending}
+				onPress={() => confirmDeleteAccountBottomSheet.handleOpen()}
 			/>
 			<ConfirmIdentifyBottomSheet
-				ref={confirmIdentifyBottomSheet.ref}
+				ref={confirmUpdatePasswordBottomSheet.ref}
 				onConfirm={updatePassword}
-				onCancel={confirmIdentifyBottomSheet.handleClose}
+				onCancel={confirmUpdatePasswordBottomSheet.handleClose}
+			/>
+			<ConfirmIdentifyBottomSheet
+				ref={confirmDeleteAccountBottomSheet.ref}
+				onConfirm={deleteAccount}
+				onCancel={confirmDeleteAccountBottomSheet.handleClose}
+				description="Esta ação não poderá ser desfeita. Isso excluirá permanentemente o seu usuário e removerá os seus dados de nossos servidores."
 			/>
 		</Container>
 	)

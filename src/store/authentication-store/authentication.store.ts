@@ -64,8 +64,12 @@ export const useAuthenticationStore = create<AuthenticationStoreState>(
 					authHasBeenChecked: true,
 				}))
 			}),
-			updatePassword: async (params: UpdatePasswordFields) => {
-				await authenticationAdapter.updatePassword(params)
-			}
+		updatePassword: async (params: UpdatePasswordFields) => {
+			await authenticationAdapter.updatePassword(params)
+		},
+		deleteAccount: async () => {
+			await authenticationAdapter.deleteAccount()
+			set((state) => ({ ...state, user: null, authHasBeenChecked: true }))
+		},
 	}),
 )

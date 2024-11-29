@@ -13,4 +13,5 @@ export interface AuthenticationAdapter {
 	resetPassword(params: ResetPasswordFields): Promise<void>
 	emailVerification(): Promise<void>
 	updatePassword(params: UpdatePasswordFields): Promise<void>
+	deleteAccount(): Promise<void>
 }

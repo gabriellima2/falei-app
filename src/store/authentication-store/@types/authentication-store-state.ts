@@ -1,5 +1,3 @@
-import type { Unsubscribe } from 'firebase/firestore'
-
 import type {
 	SignInFields,
 	SignUpFields,
@@ -13,12 +11,13 @@ type User = Omit<UserEntity, 'password'> | null
 export type AuthenticationStoreState = {
 	user: User | null
 	authHasBeenChecked: boolean
-	signOut: () => Promise<void>
-	signIn: (credentials: SignInFields) => Promise<void>
-	signUp: (credentials: SignUpFields) => Promise<void>
-	resetPassword: (params: ResetPasswordFields) => Promise<void>
-	emailVerification: () => Promise<void>
-	refreshUser: () => Promise<User | null>
-	checkAuthState: () => Unsubscribe
+	signOut(): Promise<void>
+	signIn(credentials: SignInFields): Promise<void>
+	signUp(credentials: SignUpFields): Promise<void>
+	resetPassword(params: ResetPasswordFields): Promise<void>
+	emailVerification(): Promise<void>
+	refreshUser(): Promise<User | null>
+	checkAuthState(): () => void
 	updatePassword(params: UpdatePasswordFields): Promise<void>
+	deleteAccount(): Promise<void>
 }

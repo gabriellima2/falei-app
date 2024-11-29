@@ -16,6 +16,7 @@ type ConfirmIdentifyBottomSheetProps = Omit<
 > &
 	PropsWithChildren & {
 		title?: string
+		description?: string
 		isLoading?: boolean
 		onConfirm?: () => unknown
 		onCancel?: () => unknown
@@ -27,6 +28,7 @@ export const ConfirmIdentifyBottomSheet = forwardRef<
 >((props, ref) => {
 	const {
 		title = 'Confirme a sua identidade para continuar',
+		description,
 		children,
 		onConfirm,
 		onCancel,
@@ -47,7 +49,9 @@ export const ConfirmIdentifyBottomSheet = forwardRef<
 			onDismiss={clearAll}
 			{...rest}
 		>
-			{title ? <Typography.Title>{title}</Typography.Title> : children}
+			{title ? <Typography.Title>{title}</Typography.Title> : null}
+			{description ? <Typography.Paragraph className='mt-1'>{description}</Typography.Paragraph> : null}
+			{children || null}
 			<Field.Root
 				control={control}
 				name="password"

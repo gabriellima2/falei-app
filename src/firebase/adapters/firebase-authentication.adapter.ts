@@ -4,7 +4,8 @@ import {
 	sendPasswordResetEmail,
 	sendEmailVerification,
 	signOut,
-	updatePassword as updatePasswordFirebase
+	updatePassword as updatePasswordFirebase,
+	deleteUser,
 } from 'firebase/auth'
 
 import { UnauthenticatedUserException } from '@/exceptions/unauthenticated-user.exception'
@@ -50,6 +51,11 @@ class FirebaseAuthenticationAdapter implements AuthenticationAdapter {
 		const user = auth.currentUser
 		if (!user) throw new UnauthenticatedUserException()
 		await updatePasswordFirebase(user, password)
+	}
+	async deleteAccount(): Promise<void> {
+		const user = auth.currentUser
+		if (!user) throw new UnauthenticatedUserException()
+		await deleteUser(user)
 	}
 }
 
