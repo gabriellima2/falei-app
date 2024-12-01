@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
-import { ActivityIndicator, View } from 'react-native'
 
 import { BreathingIndicator } from '@/ui/components/breathing-indicator'
 import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
 import { Header } from '@/ui/components/header'
+import { Loading } from '@/ui/atoms/loading'
 
 import { useGetBreathingExerciseById } from '@/hooks/queries/use-get-breathing-exercise-by-id'
 import { useNavigation } from '@/hooks/use-navigation'
@@ -36,11 +36,7 @@ export function DoBreathingExerciseTemplate(props: DoBreathingExerciseTemplatePr
 					onFinish={handleExerciseFinish}
 				/>
 			)}
-			{!hasBreathingExercise && isLoading && (
-				<View className="flex-1 items-center justify-center">
-					<ActivityIndicator />
-				</View>
-			)}
+			{!hasBreathingExercise && isLoading && <Loading.FullScreen />}
 		</>
 	)
 }

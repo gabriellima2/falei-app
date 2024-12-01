@@ -1,8 +1,7 @@
-import { ActivityIndicator, View } from 'react-native'
-
 import { BreathingIndicator } from '@/ui/components/breathing-indicator'
 import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
 import { Header } from '@/ui/components/header'
+import { Loading } from '@/ui/atoms/loading'
 
 import { useSaveGoalProgress } from './hooks/use-save-goal-progress'
 import { useGetGoalById } from '@/hooks/queries/use-get-goal-by-id'
@@ -31,9 +30,11 @@ export function DoGoalTemplate(props: DoGoalTemplateProps) {
 
 	return (
 		<>
-			<Header.Root spacing>
-				<GoBackButton />
-			</Header.Root>
+			{!isPendingSaveGoalProgress && (
+				<Header.Root spacing>
+					<GoBackButton />
+				</Header.Root>
+			)}
 			{hasGoal && !isPendingSaveGoalProgress && (
 				<BreathingIndicator
 					{...goal.steps}
@@ -42,9 +43,7 @@ export function DoGoalTemplate(props: DoGoalTemplateProps) {
 				/>
 			)}
 			{((!hasGoal && isLoading) || isPendingSaveGoalProgress) && (
-				<View className="flex-1 items-center justify-center">
-					<ActivityIndicator />
-				</View>
+				<Loading.FullScreen />
 			)}
 		</>
 	)

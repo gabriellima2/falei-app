@@ -1,14 +1,15 @@
 import { forwardRef } from 'react'
 import {
 	TouchableOpacity,
-	ActivityIndicator,
 	type TouchableOpacityProps,
 } from 'react-native'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { Typography } from '../typography'
-import { cn } from '@/helpers/cn'
+import { Loading } from '../loading'
+
 import { colors } from '@/styles/theme'
+import { cn } from '@/helpers/cn'
 
 const variants = cva('w-full items-center justify-center rounded-xl', {
 	variants: {
@@ -79,7 +80,7 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(
 				{...rest}
 			>
 				{isLoading && (
-					<ActivityIndicator color={shouldRenderWhiteText ? colors.base.text : colors.layout.background} />
+					<Loading.Indicator color={shouldRenderWhiteText ? colors.base.text : colors.layout.background} />
 				)}
 				{shouldRenderLabel && (
 					<Typography.Label
