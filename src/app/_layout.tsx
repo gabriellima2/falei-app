@@ -2,12 +2,13 @@ import 'react-native-gesture-handler'
 import 'react-native-reanimated'
 import '@/config/firebase'
 
-import { ActivityIndicator, SafeAreaView, View } from 'react-native'
+import { SafeAreaView } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Toast from 'react-native-toast-message'
 import { StatusBar } from 'expo-status-bar'
 import { Stack } from 'expo-router'
-import { useEffect } from 'react'
+import * as SplashScreen from 'expo-splash-screen'
+import { useCallback, useEffect } from 'react'
 import {
 	useFonts,
 	Roboto_400Regular,
@@ -21,6 +22,8 @@ import { STATUS_BAR_HEIGHT } from '@/constants/general'
 
 export { ErrorBoundary } from 'expo-router'
 
+SplashScreen.preventAutoHideAsync()
+
 export default function RootLayout() {
 	const { authHasBeenChecked, checkAuthState } = useAuthenticationStore()
 	const [fontsLoaded] = useFonts({
@@ -28,19 +31,19 @@ export default function RootLayout() {
 		Roboto_500Medium,
 	})
 
+	const onLayoutRootView = useCallback(async () => {
+		if (fontsLoaded && authHasBeenChecked) {
+			await SplashScreen.hideAsync()
+		}
+	}, [fontsLoaded, authHasBeenChecked])
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies:
 	useEffect(() => {
 		const unsubscribe = checkAuthState()
 		return () => unsubscribe()
 	}, [])
 
-	if (!fontsLoaded || !authHasBeenChecked) {
-		return (
-			<View className="flex-1 items-center justify-center">
-				<ActivityIndicator />
-			</View>
-		)
-	}
+	if (!fontsLoaded || !authHasBeenChecked) return null
 
 	return (
 		<>
@@ -50,6 +53,7 @@ export default function RootLayout() {
 					<SafeAreaView
 						className="flex-1 bg-layout-background"
 						style={{ paddingTop: STATUS_BAR_HEIGHT }}
+						onLayout={onLayoutRootView}
 					>
 						<Stack
 							screenOptions={{
