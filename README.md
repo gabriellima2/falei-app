@@ -1,13 +1,19 @@
 <h1 align="center">
-    <img alt="Falei logo" src="./public/github/logo.png" />
-		<br />
-		Aplicativo desenvolvido para ajudar pessoas com dificuldades na fala
+	<img alt="Falei logo" src="./public/github/logo.png" />
+	<br />
+	Aplicativo desenvolvido para ajudar pessoas com dificuldades na fala
+</div>
+
 </h1>
 
 <br />
 
 <div align="center">
-  <img src="./public/github/presentation.png" alt="Introdução do projeto" >
+  <img src="./public/github/presentation.png" alt="Introdução do projeto" />
+	<br />
+	<a href="https://www.figma.com/design/Ob9c3QeqjEg3NPOR8I39ie/Falei?node-id=0-1&node-type=canvas&t=Hkeksjl2YeOA52Gu-0" rel="noreferrer" target="_blank">
+		<img src="https://img.shields.io/badge/figma-black?style=for-the-badge&logo=figma&logoColor=white" />
+	</a>
 </div>
 
 <h2 id="about">Sobre</h2>
@@ -18,9 +24,9 @@ Importante destacar que consultar um profissional qualificado é sempre recomend
 
 <h3 id="about">Funcionalidades</h3>
 
-- Exercícios de Respiração Guiada: Aperfeiçoe o controle da sua respiração através de uma variedade de exercícios guiados.
-- Exercícios de leitura: Pratique a leitura de poemas e trava-línguas para melhorar sua dicção e fluência.
-- Metas semanais: Defina metas semanais de maneira simples para acompanhar e avaliar seu progresso.
+- **Exercícios de Respiração Guiada:** Aperfeiçoe o controle da sua respiração através de uma variedade de exercícios guiados.
+- **Exercícios de leitura:** Pratique a leitura de poemas e trava-línguas para melhorar sua dicção e fluência.
+- **Metas semanais:** Defina metas semanais de maneira simples para acompanhar e avaliar seu progresso.
 
 <h2 id="techs">Tecnologias:</h2>
 
@@ -45,21 +51,14 @@ Importante destacar que consultar um profissional qualificado é sempre recomend
   <img src="./public/github/design.png" alt="Design" >
 </div>
 
-<br />
-
-<div align="center">
-  <a href="https://www.figma.com/" rel="noreferrer" target="_blank">
-  <img src="https://img.shields.io/badge/figma-black?style=for-the-badge&logo=figma&logoColor=white" /></a>
-</div>
-
 <h2>ToDo:</h2>
 
 ```bash
-- [ ] Exercícios de respiração customizávies.
-- [ ] Exercícios de leitura customizávies.
-- [ ] Metas semanais customizávies.
-- [ ] Dashboard para acompanhamento das metas.
-- [ ] Funcionar offline.
+- [ ] Definir exercícios de respiração personalizáveis.
+- [ ] Definir exercícios de leitura personalizáveis.
+- [ ] Definir metas semanais personalizáveis.
+- [ ] Implementar dashboard para acompanhamento das metas.
+- [ ] Funcionamento offline.
 ```
 
 <h2 id="run">Rodando o projeto:</h2>
