@@ -19,7 +19,7 @@ export function WelcomeTemplate() {
 				/>
 			</View>
 			<View>
-				<Typography.Title className="text-4xl mb-8">
+				<Typography.Title className="text-3xl mb-8">
 					Seu companheiro para uma comunicação mais fácil e sem preocupações
 				</Typography.Title>
 				<Links.Default href={ROUTES.AUTH.SIGN_UP} asChild>
