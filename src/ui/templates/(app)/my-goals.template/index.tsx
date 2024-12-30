@@ -1,24 +1,59 @@
-import { FlatList, View } from 'react-native'
+import { useState } from 'react'
+import { FlatList, ScrollView, View } from 'react-native'
 import { Flame, GoalIcon } from 'lucide-react-native'
 
 import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
 import { Typography } from '@/ui/atoms/typography'
 import { Header } from '@/ui/components/header'
+import { Radio } from '@/ui/atoms/radio'
 
-import { useGetAllGoals } from '@/hooks/queries/use-get-all-goals'
+import { useGetAllGoalsByStatus } from '@/hooks/queries/use-get-all-goals-by-status'
+
+import { GOAL_STATUS } from '@/constants/general'
+import type { GoalStatus } from '@/@types/general'
 
 export function MyGoals() {
-	const { goals } = useGetAllGoals()
+	const [status, setStatus] = useState<GoalStatus>(
+		GOAL_STATUS.ALL,
+	)
+	const { goals, isFetching } = useGetAllGoalsByStatus(status)
 	return (
 		<FlatList
 			data={goals}
 			contentContainerStyle={{ paddingHorizontal: 16 }}
 			ItemSeparatorComponent={() => <View className="h-4" />}
 			ListHeaderComponent={() => (
-				<Header.Root className="justify-start">
-					<GoBackButton />
-					<Header.Title className="ml-4">Minhas metas</Header.Title>
-				</Header.Root>
+				<View>
+					<Header.Root className="justify-start">
+						<GoBackButton />
+						<Header.Title className="ml-4">Minhas metas</Header.Title>
+					</Header.Root>
+					<ScrollView
+						horizontal
+						showsHorizontalScrollIndicator={false}
+						className="mb-8"
+					>
+						<Radio.Group
+							value={status}
+							onValueChange={(type) =>
+								setStatus(type as GoalStatus)
+							}
+						>
+							<Radio.Item
+								value={GOAL_STATUS.ALL}
+								label="Todos"
+							/>
+							<Radio.Item
+								value={GOAL_STATUS.PENDING}
+								label="Pendentes"
+							/>
+							<Radio.Item
+								value={GOAL_STATUS.COMPLETED}
+								label="Completados"
+							/>
+						</Radio.Group>
+					</ScrollView>
+				</View>
 			)}
 			keyExtractor={(item) => item.id}
 			renderItem={({ item }) => {

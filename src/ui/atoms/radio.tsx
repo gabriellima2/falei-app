@@ -33,7 +33,7 @@ function Group(props: GroupProps) {
 				onValueChange,
 			}}
 		>
-			<View className="flex-row flex-wrap items-center mt-3 gap-x-4" {...rest} />
+			<View className="flex-row flex-wrap items-center gap-x-4" {...rest} />
 		</RadioContext.Provider>
 	)
 }
@@ -63,7 +63,7 @@ function Item(props: ItemProps) {
 			aria-checked={isSelected}
 			accessibilityState={{ checked: isSelected }}
 			className={cn(
-				'bg-base-primary-foreground min-w-[60px] max-w-[60px] h-10 items-center justify-center rounded-xl mt-4 flex-1',
+				'bg-base-primary-foreground px-3 h-9 items-center justify-center rounded-lg flex-1',
 				{ 'bg-base-primary': isSelected },
 			)}
 			{...rest}

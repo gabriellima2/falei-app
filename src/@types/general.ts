@@ -11,3 +11,5 @@ export type BottomSheetModalElementRef = BottomSheetModal
 export type BottomSheetModalRef = RefObject<BottomSheetModalMethods>
 
 export type ScreenRoles = 'private' | 'public'
+
+export type GoalStatus = 'all' | 'pending' | 'completed'
