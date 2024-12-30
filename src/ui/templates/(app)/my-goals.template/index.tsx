@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FlatList, ScrollView, View } from 'react-native'
-import { Flame, GoalIcon } from 'lucide-react-native'
+import { CircleDashed, Flame, GoalIcon } from 'lucide-react-native'
 
 import { GoBackButton } from '@/ui/atoms/buttons/go-back-button'
 import { Typography } from '@/ui/atoms/typography'
@@ -10,7 +10,10 @@ import { Radio } from '@/ui/atoms/radio'
 import { useGetAllGoalsByStatus } from '@/hooks/queries/use-get-all-goals-by-status'
 
 import { GOAL_STATUS } from '@/constants/general'
+import { cn } from '@/helpers/cn'
+
 import type { GoalStatus } from '@/@types/general'
+import { isCompletedGoal } from '@/helpers/goals'
 
 export function MyGoals() {
 	const [status, setStatus] = useState<GoalStatus>(
@@ -58,23 +61,39 @@ export function MyGoals() {
 			keyExtractor={(item) => item.id}
 			renderItem={({ item }) => {
 				const percentage = Math.min(
-					(item.currentWeekProgress / item.roundsTotal) * 100,
+					(item.currentWeekProgress / item.frequencyPerWeek) * 100,
 					100,
 				)
+				const isCompleted = isCompletedGoal({
+					currentWeekProgress: item.currentWeekProgress,
+					frequencyPerWeek: item.frequencyPerWeek,
+				})
 				return (
 					<View
 						key={item.id}
-						className="bg-base-primary-foreground p-4 rounded-xl flex-row items-center"
+						className={cn(
+							'bg-layout-foreground p-4 rounded-xl flex-row items-center',
+							{ 'bg-base-primary-foreground': isCompleted },
+						)}
 					>
-						<View className="w-16 h-16 mr-4 rounded-full bg-base-primary-foreground items-center justify-center">
-							<Flame className="text-base-primary" />
+						<View
+							className={cn(
+								'w-16 h-16 mr-4 rounded-full bg-common-white/5 items-center justify-center',
+								{ 'bg-base-primary-foreground': isCompleted },
+							)}
+						>
+							{isCompleted ? (
+								<Flame className="text-base-primary" />
+							) : (
+								<CircleDashed className="text-common-white" />
+							)}
 						</View>
 						<View className="flex-1">
 							<Typography.Title className="mb-2">{item.title}</Typography.Title>
 							<View className="flex-row items-center gap-1 mb-4">
 								<GoalIcon size={16} className="text-common-white" />
 								<Typography.Paragraph>
-									{item.currentWeekProgress} de {item.roundsTotal} Rounds
+									{item.currentWeekProgress} de {item.frequencyPerWeek} na semana
 								</Typography.Paragraph>
 							</View>
 							<View>
@@ -85,7 +104,9 @@ export function MyGoals() {
 								<View className="w-full bg-layout-divider h-1 rounded">
 									<View
 										style={{ width: `${percentage}%` }}
-										className="h-1 rounded bg-base-primary"
+										className={cn('h-1 rounded bg-common-white', {
+											'bg-base-primary': isCompleted,
+										})}
 									/>
 								</View>
 							</View>
