@@ -1,23 +1,22 @@
 import { useCallback } from 'react'
 import { FlatList, View, type FlatListProps } from 'react-native'
 
-type HorizontalListProps<T> = Omit<
+type VerticalListProps<T> = Omit<
 	FlatListProps<T>,
 	'horizontal' | 'showsHorizontalScrollIndicator'
 >
 
-export function HorizontalList<T extends object>(props: HorizontalListProps<T>) {
-	const { ItemSeparatorComponent, ...rest } = props
+export function VerticalList<T extends object>(props: VerticalListProps<T>) {
+	const { ItemSeparatorComponent, contentContainerStyle, ...rest } = props
 
 	const renderItemSeparatorComponent = useCallback(
-		() => <View className="w-4" />,
+		() => <View className="h-4" />,
 		[],
 	)
 
 	return (
 		<FlatList<T>
-			horizontal
-			showsHorizontalScrollIndicator={false}
+			contentContainerStyle={[{ paddingHorizontal: 16 }, contentContainerStyle]}
 			ItemSeparatorComponent={
 				ItemSeparatorComponent
 					? ItemSeparatorComponent
