@@ -4,25 +4,26 @@ import { CircleDashed, Flame, GoalIcon } from 'lucide-react-native'
 
 import { Typography } from '@/ui/atoms/typography'
 
-import { isCompletedGoal } from '@/helpers/goals'
+import { getPercentage } from '@/helpers/general'
 import { cn } from '@/helpers/cn'
+
+import { GOAL_STATUS } from '@/constants/general'
+import type { GoalStatus } from '@/entities/goal.entity'
 
 type GoalProps = {
 	id: string
 	title: string
 	frequencyPerWeek: number
 	currentWeekProgress: number
+	status: GoalStatus
 }
 
 export function Goal(props: GoalProps) {
-	const { title, frequencyPerWeek, currentWeekProgress } = props
+	const { title, frequencyPerWeek, currentWeekProgress, status } = props
+	const isCompleted = status === GOAL_STATUS.COMPLETED
 
 	const progressPercentage = useMemo(
-		() => Math.min((currentWeekProgress / frequencyPerWeek) * 100, 100),
-		[currentWeekProgress, frequencyPerWeek],
-	)
-	const isCompleted = useMemo(
-		() => isCompletedGoal({ currentWeekProgress, frequencyPerWeek }),
+		() => getPercentage(currentWeekProgress, frequencyPerWeek),
 		[currentWeekProgress, frequencyPerWeek],
 	)
 

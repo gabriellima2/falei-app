@@ -2,12 +2,12 @@ import { ScrollView } from 'react-native'
 
 import { Radio } from '@/ui/atoms/radio'
 
-import { GOAL_STATUS } from '@/constants/general'
-import type { GoalStatus } from '@/@types/general'
+import { FILTER_BY_GOAL_STATUS } from '@/constants/general'
+import type { FilterByGoalStatus } from '@/@types/general'
 
 type FilterByStatusProps = {
-	status: GoalStatus
-	onStatusChange: (status: GoalStatus) => void
+	status: FilterByGoalStatus
+	onStatusChange: (status: FilterByGoalStatus) => void
 }
 
 export function FilterByStatus(props: FilterByStatusProps) {
@@ -20,11 +20,11 @@ export function FilterByStatus(props: FilterByStatusProps) {
 		>
 			<Radio.Group
 				value={status}
-				onValueChange={(type) => onStatusChange(type as GoalStatus)}
+				onValueChange={(type) => onStatusChange(type as FilterByGoalStatus)}
 			>
-				<Radio.Item value={GOAL_STATUS.ALL} label="Todos" />
-				<Radio.Item value={GOAL_STATUS.PENDING} label="Pendentes" />
-				<Radio.Item value={GOAL_STATUS.COMPLETED} label="Completados" />
+				<Radio.Item value={FILTER_BY_GOAL_STATUS.ALL} label="Todos" />
+				<Radio.Item value={FILTER_BY_GOAL_STATUS.PENDING} label="Pendentes" />
+				<Radio.Item value={FILTER_BY_GOAL_STATUS.COMPLETED} label="Completados" />
 			</Radio.Group>
 		</ScrollView>
 	)

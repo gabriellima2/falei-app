@@ -4,6 +4,8 @@ import { isThisWeek } from 'date-fns'
 import { FirebaseActivityHistoryMapper } from './firebase-activity-history.mapper'
 import { parseTimestamp } from '@/helpers/date'
 
+import { GOAL_STATUS } from '@/constants/general'
+
 import type { FirebaseCreateGoalDTO, FirebaseGoalDTO } from '../dtos/firebase-goal.dto'
 import type { GoalEntity } from '@/entities/goal.entity'
 import type { CreateGoalDTO } from '@/dtos/goal.dto'
@@ -20,6 +22,7 @@ export class FirebaseGoalMapper {
 		const completedThisWeekAmount = activityHistoryEntity.filter((activityHistory) =>
 			isThisWeek(activityHistory.createdAt),
 		)
+		const currentWeekProgress = completedThisWeekAmount.length
 
 		return {
 			id: dto.id,
@@ -28,10 +31,14 @@ export class FirebaseGoalMapper {
 			title: data.title,
 			userId: data.user_id || null,
 			frequencyPerWeek: data.frequency_per_week,
-			currentWeekProgress: completedThisWeekAmount.length,
+			currentWeekProgress: currentWeekProgress,
 			activityHistory: activityHistoryEntity,
 			createdAt: parseTimestamp(data.created_at),
 			updatedAt: parseTimestamp(data.updated_at),
+			status:
+				currentWeekProgress >= data.frequency_per_week
+					? GOAL_STATUS.COMPLETED
+					: GOAL_STATUS.PENDING,
 		}
 	}
 	static toEntityList(

@@ -12,14 +12,14 @@ import { Goal } from './components/goal'
 
 import { useGetAllGoalsByStatus } from '@/hooks/queries/use-get-all-goals-by-status'
 
-import { GOAL_STATUS } from '@/constants/general'
+import { FILTER_BY_GOAL_STATUS } from '@/constants/general'
 
 import type { GoalEntity } from '@/entities/goal.entity'
-import type { GoalStatus } from '@/@types/general'
+import type { FilterByGoalStatus } from '@/@types/general'
 
 export function MyGoals() {
-	const [status, setStatus] = useState<GoalStatus>(
-		GOAL_STATUS.ALL,
+	const [status, setStatus] = useState<FilterByGoalStatus>(
+		FILTER_BY_GOAL_STATUS.ALL,
 	)
 	const { goals, isLoading, isFetching } = useGetAllGoalsByStatus(status)
 
@@ -43,8 +43,9 @@ export function MyGoals() {
 			<Goal
 				id={item.id}
 				title={item.title}
-				currentWeekProgress={item.currentWeekProgress}
+				status={item.status}
 				frequencyPerWeek={item.frequencyPerWeek}
+				currentWeekProgress={item.currentWeekProgress}
 			/>
 		),
 		[],

@@ -1,38 +1,17 @@
-import type { GoalStatus } from '@/@types/general'
+import { GOAL_STATUS } from '@/constants/general'
+
+import type { FilterByGoalStatus } from '@/@types/general'
 import type { GoalEntity } from '@/entities/goal.entity'
 
-export function isCompletedGoal({
-	currentWeekProgress, frequencyPerWeek,
-}: { currentWeekProgress: number; frequencyPerWeek: number; }): boolean {
-	return currentWeekProgress >= frequencyPerWeek
-}
-
-export function isPendingGoal({
-	currentWeekProgress,
-	frequencyPerWeek,
-}: { currentWeekProgress: number; frequencyPerWeek: number }): boolean {
-	return currentWeekProgress !== frequencyPerWeek
-}
-
 export const filterGoalsByStatus: Record<
-	GoalStatus,
+	FilterByGoalStatus,
 	(goals: GoalEntity[]) => GoalEntity[]
 > = {
 	all: (goals) => goals,
 	completed: (goals: GoalEntity[]): GoalEntity[] => {
-		return goals.filter((goal) =>
-			isCompletedGoal({
-				currentWeekProgress: goal.currentWeekProgress,
-				frequencyPerWeek: goal.frequencyPerWeek,
-			}),
-		)
+		return goals.filter((goal) => goal.status === GOAL_STATUS.COMPLETED)
 	},
 	pending: (goals: GoalEntity[]): GoalEntity[] => {
-		return goals.filter((goal) =>
-			isPendingGoal({
-				currentWeekProgress: goal.currentWeekProgress,
-				frequencyPerWeek: goal.frequencyPerWeek,
-			}),
-		)
+		return goals.filter((goal) => goal.status === GOAL_STATUS.PENDING)
 	},
 }

@@ -25,3 +25,7 @@ export function getWindowDimensions() {
 	const { width, height } = Dimensions.get('window')
 	return { width, height }
 }
+
+export function getPercentage(valueLeft: number, valueRight: number): number {
+	return Math.min((valueLeft / valueRight) * 100, 100)
+}

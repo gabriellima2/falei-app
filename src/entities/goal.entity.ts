@@ -1,5 +1,7 @@
 import type { ActivityHistoryEntity } from './activity-history.entity'
 
+export type GoalStatus = 'pending' | 'completed'
+
 export interface GoalEntity {
 	id: string
 	title: string
@@ -15,4 +17,5 @@ export interface GoalEntity {
 	userId?: string | null
 	createdAt: Date
 	updatedAt: Date
+	status: GoalStatus
 }
