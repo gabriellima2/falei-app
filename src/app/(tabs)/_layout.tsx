@@ -60,7 +60,7 @@ export default function Layout() {
 					options={{
 						headerShown: false,
 						tabBarIcon: ({ focused }) => (
-							<View className='bg-base-primary w-9 h-9 rounded-full aspect-square items-center justify-center'>
+							<View className="bg-base-primary w-9 h-9 rounded-full aspect-square items-center justify-center">
 								<Plus
 									size={24}
 									color={colors.base['text-foreground']}
