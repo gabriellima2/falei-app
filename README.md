@@ -1,88 +1,71 @@
 <h1 align="center">
-    <img alt="Falei! logo" src="./public/docs/logo.svg" />
-    <br>
-    Falei! Aplicativo projetado para ajudar pessoas com dificuldades na fala(Em desenvolvimento)
+	<img alt="Falei logo" src="./public/github/logo.png" />
+	<br />
+	Aplicativo desenvolvido para ajudar pessoas com dificuldades na fala
+</div>
+
 </h1>
 
-<div align="center">
-  <a href="https://github.com/gabriellima2/falei-app/blob/main/LICENSE" rel="noreferrer" target="_blank">
-  <img src="https://img.shields.io/badge/GPL-3.0-white?style=for-the-badge&logo=github&logoColor=white" /></a>
-</div>
-
 <br />
 
 <div align="center">
-  <a href="#about">Sobre</a>
-  &nbsp;
-  <a href="#techs">Tecnologias</a>
-  &nbsp;
-  <a href="#overview">Visão Geral</a>
-  &nbsp;
-  <a href="#run">Rodando o projeto</a>
+  <img src="./public/github/presentation.png" alt="Introdução do projeto" />
+	<br />
+	<a href="https://www.figma.com/design/Ob9c3QeqjEg3NPOR8I39ie/Falei?node-id=0-1&node-type=canvas&t=Hkeksjl2YeOA52Gu-0" rel="noreferrer" target="_blank">
+		<img src="https://img.shields.io/badge/figma-black?style=for-the-badge&logo=figma&logoColor=white" />
+	</a>
 </div>
-
-<br />
-
-<div align="center">
-  <img src="./public/docs/introduction.png" alt="Introdução do projeto" >
-</div>
-
-<h3 align="center">O aplicativo Falei! oferece uma ampla variedade de recursos, incluindo exercícios de respiração personalizáveis, sessões de leitura, lembretes diários e muito mais.</h3>
-
-<p align="center"><a href="#">Em desenvolvimento</a></p>
 
 <h2 id="about">Sobre</h2>
 
-Como uma pessoa que gagueja, eu entendo bem as dificuldades enfrentadas ao falar. Praticar a respiração e falar diariamente são ações que podem ajudar a melhorar a fluência. Com isso em mente, reuni informações e exercícios úteis para ajudar você melhorar a fala.
+Como uma pessoa que gagueja, eu compreendo os desafios enfrentados ao falar. A prática diária da respiração e da fala são ações benéficas que podem ajudar a melhorar a fluência. Com isso em mente, reuni informações e exercícios práticos para ajudar você no caminho rumo a fluência.
 
-Nosso aplicativo oferece:
+Importante destacar que consultar um profissional qualificado é sempre recomendável para ajudá-lo a lidar com a gagueira. Nosso aplicativo é projetado para ser um recurso adicional que pode ajudá-lo a superar as dificuldades na fala.
 
-- Exercícios de respiração
-- Sessões de leitura
-- Lembretes diários
-- Gráficos para acompanhar suas atividades diárias
-- Informações iniciais para ajudá-lo a entender sua condição
+<h3 id="about">Funcionalidades</h3>
 
-É importante destacar que consultar um profissional qualificado é sempre recomendável para ajudá-lo a lidar com a gagueira. Nosso aplicativo serve como um recurso inicial para aqueles que não têm condições financeiras para consultas com profissionais ou conhecimento prévio sobre o assunto.
+- **Exercícios de Respiração Guiada:** Aperfeiçoe o controle da sua respiração através de uma variedade de exercícios guiados.
+- **Exercícios de leitura:** Pratique a leitura de poemas e trava-línguas para melhorar sua dicção e fluência.
+- **Metas semanais:** Defina metas semanais de maneira simples para acompanhar e avaliar seu progresso.
 
 <h2 id="techs">Tecnologias:</h2>
 
 - [React Native](https://reactnative.dev/)
 - [Expo](https://expo.dev/)
 - [Typescript](https://www.typescriptlang.org/)
-- [React Navigation](https://reactnavigation.org/)
+- [Firebase](https://firebase.google.com/)
 
-<h2 id="overview">Visão Geral:</h2>
-Veja um pouco do que foi feito no desenvolvimento do aplicativo!
-
-<h3>Fluxograma</h3>
-
-<div align="center">
-  <img src="./public/docs/flowchart.png" alt="Fluxograma" >
-</div>
+<h2 id="overview">Design:</h2>
 
 <h3>Style Guide</h3>
 
 <div align="center">
-  <img src="./public/docs/guide.png" alt="Guia de estilos" >
+  <img src="./public/github/style-guide.png" alt="Guia de estilos" >
 </div>
 
-<h3>Design</h3>
+<br />
 
-<div align="center">
-  <img src="./public/docs/design.png" alt="Demonstração do design" >
-</div>
+<h3>Templates</h3>
 
 <div align="center">
-  <a href="https://www.figma.com/" rel="noreferrer" target="_blank">
-  <img src="https://img.shields.io/badge/figma-black?style=for-the-badge&logo=figma&logoColor=white" /></a>
+  <img src="./public/github/design.png" alt="Design" >
 </div>
+
+<h2>ToDo:</h2>
+
+```bash
+- [ ] Definir exercícios de respiração personalizáveis.
+- [ ] Definir exercícios de leitura personalizáveis.
+- [ ] Definir metas semanais personalizáveis.
+- [ ] Implementar dashboard para acompanhamento das metas.
+- [ ] Funcionamento offline.
+```
 
 <h2 id="run">Rodando o projeto:</h2>
 
 Você precisa ter o [Node](https://nodejs.org/en/), o [Git](https://git-scm.com/) e algum gerenciador de pacotes([NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) || [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)) instalados em sua máquina.
 
-Use o [ExpoGo](https://expo.dev/client) para rodar o app no seu dispositivo fisico ou no emulador.
+Use o [ExpoGo](https://expo.dev/client) para rodar o app no seu dispositivo físico ou no emulador.
 
 ```bash
 1. Clone o repositório:
@@ -96,4 +79,5 @@ $ yarn start || npm run start
 
 4. Escaneie o QRCode ou digite a URL informada
 ```
+
 <p align="center">Projeto feito com 💙 por <a href="https://www.linkedin.com/in/gabriel-lima-860612236">Gabriel Lima</a></p>

@@ -1,52 +1,75 @@
-import { onAuthStateChanged } from "firebase/auth";
-import { create } from "zustand";
+import { onAuthStateChanged } from 'firebase/auth'
+import { create } from 'zustand'
 
-import { makeAuthenticationAdapter } from "@/factories/adapters/make-authentication-adapter";
-import { firebaseAuth } from "@/lib/firebase-auth";
+import { makeFirebaseAuthenticationAdapter } from '@/firebase/adapters/firebase-authentication.adapter'
+import { auth } from '@/config/firebase'
 
-import type { AuthInputDTO, ResetPasswordInputDTO } from "@/dtos/auth.dto";
-import type { AuthenticationStoreState } from "./@types/authentication-store-state";
+import type {
+	SignInFields,
+	SignUpFields,
+	ResetPasswordFields,
+	UpdatePasswordFields,
+} from '@/schemas/authentication.schema'
+import type { AuthenticationStoreState } from './@types/authentication-store-state'
 
-const authenticationAdapter = makeAuthenticationAdapter();
+const authenticationAdapter = makeFirebaseAuthenticationAdapter()
 
 export const useAuthenticationStore = create<AuthenticationStoreState>(
 	(set) => ({
 		user: null,
-		isNewUser: false,
 		authHasBeenChecked: false,
 		signOut: async () => {
-			await authenticationAdapter.signOut();
-			set((state) => ({ ...state, user: null, authHasBeenChecked: false }));
+			await authenticationAdapter.signOut()
+			set((state) => ({ ...state, user: null, authHasBeenChecked: true }))
 		},
-		signIn: async (credentials: AuthInputDTO) => {
-			await authenticationAdapter.signIn(credentials);
+		signIn: async (credentials: SignInFields) => {
+			const user = await authenticationAdapter.signIn(credentials)
+			set((state) => ({ ...state, user, authHasBeenChecked: true }))
 		},
-		signUp: async (credentials: AuthInputDTO) => {
-			await authenticationAdapter.signUp(credentials);
-			set((state) => ({ ...state, isNewUser: true }));
+		signUp: async (credentials: SignUpFields) => {
+			await authenticationAdapter.signUp(credentials)
+			set((state) => ({ ...state, user: null, authHasBeenChecked: true }))
 		},
-		anonymous: async () => {
-			await authenticationAdapter.anonymous();
-		},
-		resetPassword: async (params: ResetPasswordInputDTO) => {
-			await authenticationAdapter.resetPassword(params);
+		resetPassword: async (params: ResetPasswordFields) => {
+			await authenticationAdapter.resetPassword(params)
 		},
 		emailVerification: async () => {
-			await authenticationAdapter.emailVerification();
+			await authenticationAdapter.emailVerification()
+		},
+		refreshUser: async () => {
+			const user = auth.currentUser
+			await user?.reload()
+			const refreshedUser = user && {
+				id: user.uid,
+				email: user.email || '',
+				emailVerified: user.emailVerified,
+			}
+			set((state) => ({
+				...state,
+				user: refreshedUser ?? null,
+				authHasBeenChecked: true,
+			}))
+			return refreshedUser
 		},
 		checkAuthState: () =>
-			onAuthStateChanged(firebaseAuth, (credentials) => {
+			onAuthStateChanged(auth, (credentials) => {
 				const user = credentials && {
 					id: credentials.uid,
-					email: credentials.email,
+					email: credentials.email || '',
 					emailVerified: credentials.emailVerified,
-					isAnonymous: credentials.isAnonymous,
-				};
+				}
 				set((state) => ({
 					...state,
 					user: user ?? null,
 					authHasBeenChecked: true,
-				}));
+				}))
 			}),
-	})
-);
+		updatePassword: async (params: UpdatePasswordFields) => {
+			await authenticationAdapter.updatePassword(params)
+		},
+		deleteAccount: async () => {
+			await authenticationAdapter.deleteAccount()
+			set((state) => ({ ...state, user: null, authHasBeenChecked: true }))
+		},
+	}),
+)
