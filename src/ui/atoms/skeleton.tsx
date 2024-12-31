@@ -11,14 +11,28 @@ function Exercise(props: ViewProps) {
 
 function ExerciseList() {
 	return (
-		<ScrollView horizontal showsHorizontalScrollIndicator={false}>
+		<>
 			<Exercise className="mr-4" />
 			<Exercise className="mr-4" />
 			<Exercise className="mr-4" />
 			<Exercise className="mr-4" />
 			<Exercise className="mr-4" />
 			<Exercise />
-		</ScrollView>
+		</>
+	)
+}
+
+function ExerciseVerticalList() {
+	return (
+		<>
+			<Exercise className="mb-4 w-full h-[140px]" />
+			<Exercise className="mb-4 w-full h-[140px]" />
+			<Exercise className="mb-4 w-full h-[140px]" />
+			<Exercise className="mb-4 w-full h-[140px]" />
+			<Exercise className="mb-4 w-full h-[140px]" />
+			<Exercise className="mb-4 w-full h-[140px]" />
+			<Exercise className="w-full h-[140px]" />
+		</>
 	)
 }
 
@@ -84,6 +98,7 @@ function ReadTongueTwister() {
 export const Skeleton = {
 	Exercise,
 	ExerciseList,
+	ExerciseVerticalList,
 	Title,
 	Subtitle,
 	Paragraph,

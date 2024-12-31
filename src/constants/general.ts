@@ -1,5 +1,8 @@
 import { Dimensions, StatusBar } from 'react-native'
 
+import type { FilterByGoalStatus } from '@/@types/general'
+import type { GoalStatus } from '@/entities/goal.entity'
+
 export const STATUS_BAR_HEIGHT =
 	Number(StatusBar.currentHeight?.toFixed() || 56) + 16
 
@@ -13,3 +16,13 @@ export const BREATHING_STEPS_TEXT = {
 }
 
 export const SCREEN_WIDTH = Dimensions.get('screen').width
+
+export const GOAL_STATUS: Record<'PENDING' | 'COMPLETED', GoalStatus> = {
+	PENDING: 'pending',
+	COMPLETED: 'completed',
+}
+
+export const FILTER_BY_GOAL_STATUS: Record<
+	'ALL' | 'PENDING' | 'COMPLETED',
+	FilterByGoalStatus
+> = { ...GOAL_STATUS, ALL: 'all' }

@@ -14,5 +14,6 @@ export const ROUTES = {
 		DO_GOAL: (id: string) => `/do-goal/${id}`,
 		EXERCISE_COMPLETED: '/exercise-completed',
 		MY_ACCOUNT: '/my-account',
+		MY_GOALS: '/my-goals',
 	},
 }

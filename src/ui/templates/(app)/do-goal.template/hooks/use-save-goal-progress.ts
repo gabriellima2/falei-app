@@ -18,7 +18,7 @@ export function useSaveGoalProgress(goalId: string) {
 	const { mutate, isPending } = useMutation({
 		mutationFn: async () => await service.updateProgress(goalId),
 		onSuccess: async () => {
-			await queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_GOALS] })
+			await queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_GOALS], exact: false })
 			navigation.replace(ROUTES.APP.EXERCISE_COMPLETED)
 		},
 		onError: () => {

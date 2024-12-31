@@ -33,9 +33,15 @@ export function CreateGoalBottomSheet() {
 				<Radio.Group
 					value={frequencyPerWeek}
 					onValueChange={handleSetFrequencyPerWeek}
+					className="mt-3"
 				>
 					{frequencyPerWeekOptions.map((option) => (
-						<Radio.Item key={option} value={option} label={`${option}x`} />
+						<Radio.Item
+							key={option}
+							value={option}
+							label={`${option}x`}
+							className="max-w-[60px] min-w-[60px] h-10 rounded-xl mt-4"
+						/>
 					))}
 				</Radio.Group>
 			</View>
