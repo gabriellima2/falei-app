@@ -1,13 +1,17 @@
-import { useMemo } from 'react'
-import { View } from 'react-native'
+import { useCallback, useMemo } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import { CircleDashed, Flame, GoalIcon } from 'lucide-react-native'
 
 import { Typography } from '@/ui/atoms/typography'
+
+import { useNavigation } from '@/hooks/use-navigation'
 
 import { getPercentage } from '@/helpers/general'
 import { cn } from '@/helpers/cn'
 
 import { GOAL_STATUS } from '@/constants/general'
+import { ROUTES } from '@/constants/routes'
+
 import type { GoalStatus } from '@/entities/goal.entity'
 
 type GoalProps = {
@@ -19,7 +23,9 @@ type GoalProps = {
 }
 
 export function Goal(props: GoalProps) {
-	const { title, frequencyPerWeek, currentWeekProgress, status } = props
+	const { id, title, frequencyPerWeek, currentWeekProgress, status } = props
+		const navigation = useNavigation()
+
 	const isCompleted = status === GOAL_STATUS.COMPLETED
 
 	const progressPercentage = useMemo(
@@ -27,8 +33,16 @@ export function Goal(props: GoalProps) {
 		[currentWeekProgress, frequencyPerWeek],
 	)
 
+	const handleDoGoal = useCallback(() => {
+		if (isCompleted) return
+		navigation.push(ROUTES.APP.DO_GOAL(id))
+	}, [id, navigation, isCompleted])
+
 	return (
-		<View
+		<TouchableOpacity
+			onPress={handleDoGoal}
+			activeOpacity={0.9}
+			disabled={isCompleted}
 			className={cn(
 				'bg-layout-foreground p-4 rounded-xl flex-row items-center',
 				{ 'bg-base-primary-foreground': isCompleted },
@@ -69,6 +83,6 @@ export function Goal(props: GoalProps) {
 					</View>
 				</View>
 			</View>
-		</View>
+		</TouchableOpacity>
 	)
 }
