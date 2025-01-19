@@ -55,7 +55,7 @@ export default function Layout() {
 						),
 					}}
 				/>
-				<Tabs.Screen
+				{/*<Tabs.Screen
 					name="modal"
 					options={{
 						headerShown: false,
@@ -75,7 +75,7 @@ export default function Layout() {
 							createExerciseBottomSheetRef.current?.present()
 						}
 					})}
-				/>
+				/>*/}
 				<Tabs.Screen
 					name="settings"
 					options={{
