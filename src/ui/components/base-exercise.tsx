@@ -67,6 +67,7 @@ function Root(props: RootProps) {
 	return (
 		<BaseExerciseContext.Provider value={{ variant, onMenuPress }}>
 			<TouchableOpacity
+				testID="exercise-root"
 				onPress={onPress}
 				activeOpacity={0.9}
 				className={cn(
@@ -157,7 +158,7 @@ function Paragraph(props: TextProps) {
 function Menu() {
 	const { onMenuPress } = useBaseExerciseContext()
 	return (
-		<TouchableOpacity onPress={onMenuPress} activeOpacity={0.8} hitSlop={10}>
+		<TouchableOpacity testID='exercise-menu' onPress={onMenuPress} activeOpacity={0.8} hitSlop={10}>
 			<EllipsisVertical color={colors.white} />
 		</TouchableOpacity>
 	)
