@@ -5,8 +5,9 @@ export function parseTimestamp(timestamp: Timestamp): Date {
 	return new Date(timestamp.seconds * 1000)
 }
 
-export function formatDurationTime(durationTotal: number) {
-	const seconds = millisecondsToSeconds(durationTotal)
+
+export function formatDurationTime(durationTotalMs: number) {
+	const seconds = millisecondsToSeconds(durationTotalMs)
 	if (seconds < secondsInMinute) {
 		return `${seconds} seg.`
 	}
