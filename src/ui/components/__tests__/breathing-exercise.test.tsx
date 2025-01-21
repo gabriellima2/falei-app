@@ -6,15 +6,16 @@ describe('<BreathingExercise />', () => {
 		it('should display the correct duration in seconds', () => {
 			renderComponent()
 
-			screen.getByText('42 seg.')
+			expect(screen.getByText('42 seg.')).toBeTruthy()
 		})
 		it('should display the correct duration in minutes when total time is 60 seconds or more', () => {
 			renderComponent({
 				...defaultProps,
 				steps: { exhale: 10000, hold: 10000, inhale: 10000 },
-			})
+			}).toJSON()
 
-			screen.getByText('1 min.')
+
+			expect(screen.getByText('1 min.')).toBeTruthy()
 		})
 	})
 	describe('Actions', () => {
@@ -52,6 +53,6 @@ const defaultProps: Parameters<typeof BreathingExercise>[0] = {
 	onPress: jest.fn(),
 }
 
-function renderComponent(props = defaultProps) {
+function renderComponent(props = defaultProps): ReturnType<typeof render> {
 	return render(<BreathingExercise {...props} />)
 }
