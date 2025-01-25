@@ -30,5 +30,6 @@ export function getWindowDimensions() {
 }
 
 export function getPercentage(valueLeft: number, valueRight: number): number {
+	if (valueRight === 0) return 0
 	return Math.min((valueLeft / valueRight) * 100, 100)
 }
