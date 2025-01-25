@@ -1,7 +1,7 @@
 import { parseTimestamp } from "../date"
 
 describe('parseTimestamp', () => {
-	it('shoud parse timestamp to date object', () => {
+	it('should parse timestamp to date object', () => {
 		const date = parseTimestamp({
 			seconds: 1705762790,
 			nanoseconds: 123456789,
