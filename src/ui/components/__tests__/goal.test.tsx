@@ -1,7 +1,18 @@
 import { fireEvent, render, screen } from '@testing-library/react-native'
-import { BreathingExercise } from '../breathing-exercise'
+import { Goal } from '../goal'
 
-describe('<BreathingExercise />', () => {
+describe('<Goal />', () => {
+	describe('Progress', () => {
+		it('should display the correct progress', () => {
+			renderComponent()
+
+			expect(
+				screen.getByText(
+					`${defaultProps.currentWeekProgress} de ${defaultProps.frequencyPerWeek}`,
+				),
+			).toBeTruthy()
+		})
+	})
 	describe('Duration time', () => {
 		it('should display the correct duration in seconds', () => {
 			renderComponent()
@@ -40,7 +51,7 @@ describe('<BreathingExercise />', () => {
 	})
 })
 
-const defaultProps: Parameters<typeof BreathingExercise>[0] = {
+const defaultProps: Parameters<typeof Goal>[0] = {
 	id: '1',
 	roundsTotal: 3,
 	steps: {
@@ -51,8 +62,10 @@ const defaultProps: Parameters<typeof BreathingExercise>[0] = {
 	title: 'any_title',
 	onMenuPress: jest.fn(),
 	onPress: jest.fn(),
+	currentWeekProgress: 1,
+	frequencyPerWeek: 4,
 }
 
 function renderComponent(props = defaultProps): ReturnType<typeof render> {
-	return render(<BreathingExercise {...props} />)
+	return render(<Goal {...props} />)
 }
