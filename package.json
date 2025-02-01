@@ -10,14 +10,14 @@
     "test": "jest --watchAll"
   },
   "jest": {
-		"preset": "jest-expo",
-		"transformIgnorePatterns": [
-			"node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg)"
-		]
-	},
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg)"
+    ]
+  },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.3",
-    "@expo/vector-icons": "^14.0.2",
+    "@expo/vector-icons": "14.0.2",
     "@gorhom/bottom-sheet": "^4.6.4",
     "@hookform/resolvers": "^3.9.0",
     "@react-native-async-storage/async-storage": "1.23.1",
@@ -29,6 +29,7 @@
     "date-fns": "^4.1.0",
     "expo": "~51.0.28",
     "expo-blur": "~13.0.2",
+    "expo-dev-client": "~4.0.29",
     "expo-font": "~12.0.10",
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.23",

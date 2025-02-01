@@ -29,10 +29,20 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+			["expo-dev-client", { "launchMode": "most-recent" }]
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "98140829-ce55-4218-8e99-58b502539ec5"
+      }
+    },
+    "owner": "gabrielrsl"
   }
 }
