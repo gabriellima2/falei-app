@@ -1,4 +1,0 @@
-appId: com.falei.app
----
-- launchApp
-- assertVisible: 'Começar'
