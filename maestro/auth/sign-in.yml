@@ -1,5 +1,0 @@
-appId: com.falei.app
----
-- launchApp
-- tapOn: 'Começar'
-- assertVisible: 'Olá novamente! Entre para continuar'

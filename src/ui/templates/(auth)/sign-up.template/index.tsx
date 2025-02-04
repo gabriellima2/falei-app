@@ -35,6 +35,7 @@ export function SignUpTemplate() {
 								keyboardType="email-address"
 								returnKeyType="next"
 								onSubmitEditing={passwordField.handleFocus}
+								testID="email-input"
 							/>
 							<Field.Errors.Default message={errors.email?.message} />
 						</Field.Content>
@@ -54,6 +55,7 @@ export function SignUpTemplate() {
 								placeholder="Digite uma senha"
 								returnKeyType="go"
 								onSubmitEditing={onSubmit}
+								testID="password-input"
 							/>
 							<Field.Errors.Default message={errors.password?.message} />
 						</Field.Content>
@@ -68,7 +70,10 @@ export function SignUpTemplate() {
 					/>
 					<Typography.Paragraph>
 						Já possui uma conta?{' '}
-						<Links.Default href={ROUTES.AUTH.SIGN_IN} className="text-base-primary">
+						<Links.Default
+							href={ROUTES.AUTH.SIGN_IN}
+							className="text-base-primary"
+						>
 							Entrar
 						</Links.Default>
 					</Typography.Paragraph>

@@ -33,6 +33,7 @@ export const Password = forwardRef<TextInput, PasswordProps>((props, ref) => {
 				{...rest}
 			/>
 			<TouchableWithoutFeedback
+				testID='toggle-password-visiblity'
 				accessibilityLabel={isVisible ? 'Esconder senha' : 'Mostrar senha'}
 				onPress={() => setIsVisible((prevState) => !prevState)}
 			>
