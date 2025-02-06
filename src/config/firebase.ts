@@ -1,7 +1,7 @@
-import { initializeAuth, getReactNativePersistence } from 'firebase/auth'
+import { initializeAuth, getReactNativePersistence, connectAuthEmulator } from 'firebase/auth'
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { getFirestore } from 'firebase/firestore'
-import { initializeApp } from 'firebase/app'
+import { getApp, getApps, initializeApp } from 'firebase/app'
 
 import { env } from '@/env'
 
@@ -14,8 +14,17 @@ export const firebaseConfig = {
 	appId: process.env.APP_ID,
 }
 
-export const app = initializeApp(firebaseConfig)
-export const db = getFirestore(app)
-export const auth = initializeAuth(app, {
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
+const db = getFirestore(app)
+const auth = initializeAuth(app, {
 	persistence: getReactNativePersistence(AsyncStorage),
 })
+
+if (__DEV__) {
+	// 10.0.2.2 is the special IP address to connect to the 'localhost' of
+	// the host computer from an Android emulator.
+	connectAuthEmulator(auth, 'http://10.0.2.2:9099')
+	connectFirestoreEmulator(db, '10.0.2.2', 8080)
+}
+
+export { app, db, auth }

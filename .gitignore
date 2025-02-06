@@ -41,3 +41,8 @@ yarn-error.*
 
 expo-env.d.ts
 # @end expo-cli
+
+# firebase
+.firebaserc
+firebase-debug.log
+firestore-debug.log

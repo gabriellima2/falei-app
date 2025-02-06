@@ -3,37 +3,39 @@ appId: com.falei.app
 - launchApp
 - tapOn: 'Começar'
 
+# Required fields
 - tapOn: 'Criar conta'
 - assertVisible: 'O campo é obrigatório.'
 - assertVisible: 'O campo é obrigatório.'
 
+# Email
 - tapOn:
     id: 'email-input'
 - inputText: 'invalid_email.com'
 - assertVisible: 'E-mail inválido.'
+- eraseText
+- inputText: 'test@domain.com'
+
+# Password
 - tapOn:
     id: 'password-input'
 - inputRandomText:
     length: 4
 - tapOn: 'Criar conta'
 - assertVisible: 'A senha deve conter no minímo 8 caracteres.'
-
-- tapOn:
-    id: 'password-input'
 - eraseText
 - inputRandomText:
     length: 48
 - assertVisible: 'A senha deve conter no máximo 45 caracteres.'
-
-- tapOn:
-    id: 'email-input'
-- eraseText
-- inputRandomEmail
-- tapOn:
-    id: 'password-input'
 - eraseText
 - inputText: '12345678'
 - assertNotVisible: '12345678'
 - tapOn:
     id: 'toggle-password-visiblity'
 - assertVisible: '12345678'
+
+# Submit
+- tapOn: 'Criar conta'
+- assertVisible: 'Sua conta foi criada com sucesso!'
+- assertNotVisible: 'test@domain.com'
+- assertNotVisible: '12345678'
