@@ -7,7 +7,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+		"firebase": "firebase emulators:start",
+		"seed": "node dbseed.js"
   },
   "jest": {
     "preset": "jest-expo",
@@ -38,6 +40,7 @@
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
     "firebase": "^10.13.1",
+    "firebase-admin": "^13.1.0",
     "jest": "^29.4.0",
     "jest-expo": "~51.0.4",
     "lucide-react-native": "^0.445.0",
