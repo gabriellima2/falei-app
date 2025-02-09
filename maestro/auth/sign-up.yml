@@ -1,10 +1,14 @@
 appId: com.falei.app
+env:
+  VALID_EMAIL: test@domain.com
+  VALID_PASSWORD: 12345678
+  SIGN_UP_BUTTON: Criar conta
 ---
 - launchApp
 - tapOn: 'Começar'
 
 # Required fields
-- tapOn: 'Criar conta'
+- tapOn: ${SIGN_UP_BUTTON}
 - assertVisible: 'O campo é obrigatório.'
 - assertVisible: 'O campo é obrigatório.'
 
@@ -14,28 +18,27 @@ appId: com.falei.app
 - inputText: 'invalid_email.com'
 - assertVisible: 'E-mail inválido.'
 - eraseText
-- inputText: 'test@domain.com'
+- inputText: ${VALID_EMAIL}
 
 # Password
 - tapOn:
     id: 'password-input'
 - inputRandomText:
     length: 4
-- tapOn: 'Criar conta'
 - assertVisible: 'A senha deve conter no minímo 8 caracteres.'
 - eraseText
 - inputRandomText:
     length: 48
 - assertVisible: 'A senha deve conter no máximo 45 caracteres.'
 - eraseText
-- inputText: '12345678'
-- assertNotVisible: '12345678'
+- inputText: ${VALID_PASSWORD}
+- assertNotVisible: ${VALID_PASSWORD}
 - tapOn:
     id: 'toggle-password-visiblity'
-- assertVisible: '12345678'
+- assertVisible: ${VALID_PASSWORD}
 
 # Submit
-- tapOn: 'Criar conta'
+- tapOn: ${SIGN_UP_BUTTON}
 - assertVisible: 'Sua conta foi criada com sucesso!'
-- assertNotVisible: 'test@domain.com'
-- assertNotVisible: '12345678'
+- assertNotVisible: ${VALID_EMAIL}
+- assertNotVisible: ${VALID_PASSWORD}
