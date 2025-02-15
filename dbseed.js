@@ -30,8 +30,8 @@ async function getSeedData() {
 		})
 
 		const user = await auth.createUser({
-			email: process.env.MAESTRO_USER_EMAIL,
-			password: process.env.MAESTRO_USER_PASSWORD,
+			email: 'cris.monteiro@geradornv.com.br',
+			password: 'Gc8ztFy(=#Ua',
 			emailVerified: true,
 			disabled: false,
 		})

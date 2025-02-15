@@ -1,0 +1,16 @@
+appId: com.falei.app
+env:
+  EMAIL: daniel.mendonca@geradornv.com.br
+  PASSWORD: 1_hr8&xZQQ4G
+---
+- tapOn: Entrar
+
+- tapOn:
+    id: email-input
+- inputText: ${EMAIL}
+- tapOn:
+    id: password-input
+- inputText: ${PASSWORD}
+
+- tapOn: Entrar
+- assertVisible: Verifique o seu e-mail para continuar!

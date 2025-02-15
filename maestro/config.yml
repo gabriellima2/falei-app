@@ -1,0 +1,7 @@
+flows:
+    - "**"
+executionOrder:
+    continueOnFailure: false
+    flowsOrder:
+        - sign-up
+        - sign-in

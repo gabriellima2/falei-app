@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { Redirect, type Href } from 'expo-router'
 import { Mail } from 'lucide-react-native'
 
@@ -15,7 +15,7 @@ import { ROUTES } from '@/constants/routes'
 import { colors } from '@/styles/theme'
 
 export function VerifyEmailTemplate() {
-	const { user } = useAuthenticationStore()
+	const { user, signOut } = useAuthenticationStore()
 	const { isRefreshing, handleRefresh } = useRefreshUser()
 	const { timeRemainingToSendAgain, isNotTimeToSendAgainOver, isSending, handleSend } = useSendEmailVerification()
 
@@ -23,6 +23,13 @@ export function VerifyEmailTemplate() {
 
 	return (
 		<Container>
+			<TouchableOpacity
+				className="self-end"
+				activeOpacity={0.8}
+				onPress={signOut}
+			>
+				<Typography.Label>Sair</Typography.Label>
+			</TouchableOpacity>
 			<View className="flex-1 items-center justify-center">
 				<View className="items-center justify-center">
 					<Mail size={40} color={colors.base.primary} strokeWidth={1.3} />

@@ -34,6 +34,7 @@ export function SignInTemplate() {
 								placeholder="Digite o seu e-mail"
 								keyboardType="email-address"
 								returnKeyType="next"
+								testID="email-input"
 								onSubmitEditing={passwordField.handleFocus}
 							/>
 							<Field.Errors.Default message={errors.email?.message} />
@@ -54,13 +55,17 @@ export function SignInTemplate() {
 									ref={passwordField.fieldRef}
 									placeholder="Digite a sua senha"
 									returnKeyType="go"
+									testID="password-input"
 									onSubmitEditing={onSubmit}
 								/>
 								<Field.Errors.Default message={errors.password?.message} />
 							</Field.Content>
 						)}
 					/>
-					<Links.Default href={ROUTES.AUTH.FORGOT_PASSWORD} className='text-base-text font-heading text-sm text-right'>
+					<Links.Default
+						href={ROUTES.AUTH.FORGOT_PASSWORD}
+						className="text-base-text font-heading text-sm text-right"
+					>
 						Esqueceu a senha?
 					</Links.Default>
 				</View>
