@@ -55,7 +55,7 @@ export function VerifyEmailTemplate() {
 					variant="secondary"
 					label={
 						isNotTimeToSendAgainOver
-							? `Não recebeu? Você poderá enviar novamente em ${formatRemainingTime(timeRemainingToSendAgain)}`
+							? `Não recebeu? Enviar novamente em ${formatRemainingTime(timeRemainingToSendAgain)}`
 							: 'Não recebeu? Enviar novamente!'
 					}
 					disabled={isNotTimeToSendAgainOver || isRefreshing}

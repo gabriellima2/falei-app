@@ -22,7 +22,7 @@ const variants = cva('w-full items-center justify-center rounded-xl', {
 			'destructive-text': 'bg-none',
 		},
 		size: {
-			default: 'h-12 p-3',
+			default: 'px-4 py-[14px]',
 			icon: 'h-11 w-11',
 		},
 		'not-allowed': {
